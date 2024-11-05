@@ -11,7 +11,7 @@ type Inputs = {
   search: string;
 };
 
-export default function Navbar() {
+export default function Navbar({ selectedItems }) {
   const { data } = useTemplate();
   const { filteredData, setFilteredData } = useNewData();
 
@@ -67,7 +67,7 @@ export default function Navbar() {
             </Button>
           </li>
           <li>
-            <SheetDisplay />
+            <SheetDisplay selectedItems={selectedItems} />
           </li>
         </ul>
       </nav>

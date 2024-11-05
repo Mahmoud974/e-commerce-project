@@ -7,19 +7,32 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import Image from "next/image";
 
-export default function SheetDisplay() {
+export default function SheetDisplay({ selectedItems }) {
   return (
     <Sheet>
       <SheetTrigger>
         <ShoppingCart />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="bg-black text-white">
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+          <SheetTitle className="  text-white text-3xl">My favorits</SheetTitle>
+          <SheetDescription className="  text-white">
+            <ul>
+              {selectedItems.map((item, index) => (
+                <li key={index}>
+                  <Image
+                    src="/img/ok.webp"
+                    alt="product image"
+                    className="object-contain px-3"
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                  />
+                </li>
+              ))}
+            </ul>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>

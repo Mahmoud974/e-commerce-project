@@ -14,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useSortData } from "@/store/store";
 
 const frameworks = [
   { value: "Popular", label: "Popular" },
@@ -21,20 +22,32 @@ const frameworks = [
   { value: "High", label: "High" },
 ];
 
-export function ComboboxDemo() {
+export function ComboboxDemo({ data }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const { setSortData, toggleSortOrder } = useSortData();
+
+  const handleSortData = (type) => {
+    if (data) {
+      setSortData(data);
+
+      if (type === "High") {
+        toggleSortOrder();
+      } else if (type === "Low") {
+        toggleSortOrder();
+      }
+    }
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      {/* Use a div instead of wrapping button */}
       <PopoverTrigger asChild>
         <div>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between bg-black text-white border-white "
+            className="w-[200px] justify-between bg-black text-white border-white"
           >
             {value
               ? frameworks.find((framework) => framework.value === value)?.label
@@ -53,7 +66,10 @@ export function ComboboxDemo() {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    const selectedValue =
+                      currentValue === value ? "" : currentValue;
+                    setValue(selectedValue);
+                    handleSortData(selectedValue);
                     setOpen(false);
                   }}
                 >

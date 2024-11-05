@@ -3,32 +3,28 @@ import ProductCard from "@/components/Card";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { useTemplate } from "@/hook/useTemplate";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
 import { ComboboxDemo } from "@/components/Dropbox";
 import { Button } from "@/components/ui/button";
-import { useNewData, useSortData, useLikeData } from "@/store/store";
+import { useNewData, useSortData } from "@/store/store";
 
 export default function Page() {
   const { data } = useTemplate();
-  const { filteredData } = useNewData();
-  const { setSortData } = useSortData();
-  const { selectedItems, addItems } = useLikeData();
-  console.log(selectedItems);
+  const [filteredData, setFilteredData] = useState([]);
+  const { sortData } = useSortData();
 
   useEffect(() => {
-    if (data) {
-      setSortData(data.filter((item) => item.prix <= 10));
-      setSortData(data);
-    }
-  }, [data, setSortData]);
+    setFilteredData(sortData.length > 0 ? sortData : data || []);
+  }, [sortData, data]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="container mx-auto mt-6 flex-grow">
         <section className="flex flex-col justify-between mb-12">
+          <div className=""></div>
           <div className="flex flex-col mx-auto">
-            <Navbar selectedItems={selectedItems} />
+            <Navbar />
             <div className="flex flex-row mb-6 justify-between ">
               <ul className="space-x-4 flex">
                 <li>
@@ -56,10 +52,10 @@ export default function Page() {
             <section className="grid grid-cols-4 gap-3 max-w-6xl mx-auto">
               {filteredData.length > 0 ? (
                 filteredData.map((item: Canape) => (
-                  <ProductCard key={item.id} item={item} addItems={addItems} />
+                  <ProductCard key={item.id} item={item} />
                 ))
               ) : (
-                <p>Aucun produit trouvé.</p>
+                <p className="">Aucun produit trouvé.</p>
               )}
             </section>
             <Footer />
