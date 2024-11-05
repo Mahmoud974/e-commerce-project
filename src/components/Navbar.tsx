@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { Heart, CircleUser } from "lucide-react";
+import { ShoppingCart, CircleUser } from "lucide-react";
 import { Button } from "./ui/button";
 import SheetDisplay from "./SheetDisplay";
 import { useTemplate } from "@/hook/useTemplate";
@@ -58,7 +58,7 @@ export default function Navbar({ selectedItems }) {
         <ul className="flex space-x-4">
           <li>
             <Button>
-              <Heart />
+              <ShoppingCart />
             </Button>
           </li>
           <li>

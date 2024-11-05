@@ -28,3 +28,10 @@ export type SortDataState = {
   setSortData: (db: Item[]) => void;
   toggleSortOrder: () => void;
 };
+
+export interface LikeDataState {
+  selectedItems: Item[]; // Tableau d'objets Item
+  addItems: (item: Item) => void;
+  removeItems: (itemId: string) => void; // ou number
+  clearItems: () => void;
+}

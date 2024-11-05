@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { SortDataState, NewDataState } from "../app/types/canape";
+import {
+  SortDataState,
+  NewDataState,
+  LikeDataState,
+} from "../app/types/canape";
 
 /**
  * Afficher les résultats de recherche
@@ -36,9 +40,9 @@ export const useSortData = create<SortDataState>((set) => ({
     set((state) => ({ valueBoolean: !state.valueBoolean })),
 }));
 
-export const useLikeData = create((set) => ({
+export const useLikeData = create<LikeDataState>((set) => ({
   selectedItems: [],
-  addItems: (item) => {
+  addItems: (item: Item) => {
     set((state) => {
       if (
         state.selectedItems.some((existingItem) => existingItem.id === item.id)
@@ -51,7 +55,7 @@ export const useLikeData = create((set) => ({
       return { selectedItems: newItems };
     });
   },
-  removeItems: (itemId) => {
+  removeItems: (itemId: any) => {
     set((state) => ({
       selectedItems: state.selectedItems.filter((item) => item.id !== itemId),
     }));
