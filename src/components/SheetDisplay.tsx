@@ -6,7 +6,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useLikeData } from "@/store/store";
+import { useCartStore, useLikeData } from "@/store/store";
 import { CircleUser, Heart, ShoppingCart, Trash } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -15,6 +15,34 @@ import { useState } from "react";
 export default function SheetDisplay() {
   const { selectedItems, removeItems, clearItems } = useLikeData();
   const [activeTab, setActiveTab] = useState("favorites");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const { items, removeItem, clearCart, updateQuantity } = useCartStore();
+
+  const handleGoogleLogin = () => {
+    setIsProcessing(true);
+    setTimeout(() => setIsProcessing(false), 2000);
+  };
+
+  const handleFacebookLogin = () => {
+    setIsProcessing(true);
+    setTimeout(() => setIsProcessing(false), 2000);
+  };
+
+  // Fonction pour calculer le total du panier en prenant en compte la quantité
+  const calculateTotal = () => {
+    return items
+      .reduce((total, item) => {
+        const prix = item.prix || 0; // Convertit en nombre ou 0 si NaN
+        const quantity = item.quantity || 1; // Quantité par défaut à 1
+        return total + prix * quantity;
+      }, 0)
+      .toFixed(2);
+  };
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    if (newQuantity <= 0) return;
+    updateQuantity(itemId, newQuantity);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -24,7 +52,7 @@ export default function SheetDisplay() {
             {selectedItems.map((item, index) => (
               <li
                 key={index}
-                className="flex items-center justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 hover:scale-105 transition-transform duration-200 rounded-lg p-2"
+                className="cursor-pointer flex items-center justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 hover:scale-105 transition-transform duration-200 rounded-lg p-2"
               >
                 <div className="flex items-center">
                   <div className="border rounded-xl overflow-hidden">
@@ -54,22 +82,89 @@ export default function SheetDisplay() {
           </ul>
         ) : (
           <div className="flex justify-center">
-            <p className="text-white">Aucun Like 💔</p>
+            <div className="text-white">Aucun Like 💔</div>
           </div>
         );
 
       case "cart":
-        return (
-          <p className="text-white">
-            Panier (fonctionnalité en cours de développement)
-          </p>
+        return items.length > 0 ? (
+          <ul className="space-y-4 mt-3">
+            {items.map((item, index) => (
+              <li
+                key={index}
+                className="cursor-pointer flex items-center justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 hover:scale-105 transition-transform duration-200 rounded-lg p-2"
+              >
+                <div className="flex items-center">
+                  <div className="border rounded-xl overflow-hidden">
+                    <Image
+                      src="/img/ok.webp"
+                      alt="product image"
+                      className="object-contain p-1 w-16 h-16"
+                      width={64}
+                      height={64}
+                      priority
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-lg font-bold">{item.nom}</p>
+                    <p className="text-gray-400">{item.prix}€</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="number"
+                    value={1}
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, parseInt(e.target.value))
+                    }
+                    className="w-16 p-1 text-center border rounded text-white bg-black"
+                    min="1"
+                  />
+                  <button
+                    onClick={() => removeItem(item.id)}
+                    className="text-red-500 hover:text-red-700"
+                    aria-label="Supprimer"
+                  >
+                    <Trash className="w-5 h-5" />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex justify-center">
+            <div className="text-white">Votre panier est vide 🛒</div>
+          </div>
         );
 
       case "profile":
         return (
-          <p className="text-white">
-            Profil utilisateur (fonctionnalité en cours de développement)
-          </p>
+          <div className="flex flex-col items-center space-y-4">
+            <div>
+              <p className="text-white">
+                Profil utilisateur (fonctionnalité en cours de développement)
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <button
+                onClick={handleGoogleLogin}
+                className="bg-red-500 text-white py-2 px-4 rounded-full w-64"
+                disabled={isProcessing}
+              >
+                {isProcessing ? "Chargement..." : "Se connecter avec Google"}
+              </button>
+
+              <button
+                onClick={handleFacebookLogin}
+                className="bg-blue-600 text-white py-2 px-4 rounded-full w-64"
+                disabled={isProcessing}
+              >
+                {isProcessing ? "Chargement..." : "Se connecter avec Facebook"}
+              </button>
+            </div>
+          </div>
         );
 
       default:
@@ -103,6 +198,7 @@ export default function SheetDisplay() {
                   onClick={() => setActiveTab("cart")}
                 >
                   <ShoppingCart className="mr-2" />
+                  <span>Panier</span>
                 </li>
                 <li
                   className={`flex items-center cursor-pointer ml-4 ${
@@ -117,9 +213,18 @@ export default function SheetDisplay() {
           </SheetTitle>
           <SheetDescription className="text-white mt-2">
             {renderContent()}
-            {activeTab === "favorites" && selectedItems.length > 0 && (
-              <div className="mt-10 flex justify-end">
-                <Button onClick={() => clearItems()}>Reset</Button>
+            {activeTab === "cart" && items.length > 0 && (
+              <div className="mt-5">
+                <p className="font-semibold">Total:</p>
+                <p className="text-white text-lg">{calculateTotal()}€</p>
+                <div className="mt-5 flex justify-between">
+                  <Button onClick={() => clearCart()}>Vider le panier</Button>
+                  <Button
+                    onClick={() => console.log("Passer à l'étape suivante")}
+                  >
+                    Suivant
+                  </Button>
+                </div>
               </div>
             )}
           </SheetDescription>

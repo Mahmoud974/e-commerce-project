@@ -7,14 +7,19 @@ import React, { useEffect } from "react";
 import { Canape } from "./types/canape";
 import { ComboboxDemo } from "@/components/Dropbox";
 import { Button } from "@/components/ui/button";
-import { useNewData, useSortData, useLikeData } from "@/store/store";
+import {
+  useNewData,
+  useSortData,
+  useLikeData,
+  useCartStore,
+} from "@/store/store";
 
 export default function Page() {
   const { data } = useTemplate();
   const { filteredData } = useNewData();
   const { setSortData } = useSortData();
   const { selectedItems, addItems } = useLikeData();
-  console.log(selectedItems);
+  const { items, addItemCart } = useCartStore();
 
   useEffect(() => {
     if (data) {
@@ -25,11 +30,12 @@ export default function Page() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="container mx-auto mt-6 flex-grow">
-        <section className="flex flex-col justify-between mb-12">
-          <div className="flex flex-col mx-auto">
+      <main className="flex flex-col flex-grow items-center mt-6 w-full max-w-screen-xl mx-auto">
+        {/* Le conteneur principal est centré horizontalement */}
+        <section className="flex flex-col justify-between w-full mb-12">
+          <div className="flex flex-col justify-center w-full">
             <Navbar selectedItems={selectedItems} />
-            <div className="flex flex-row mb-6 justify-between ">
+            <div className="flex flex-row mb-6 justify-between">
               <ul className="space-x-4 flex">
                 <li>
                   <Button>Tous les filtres</Button>
@@ -53,19 +59,25 @@ export default function Page() {
               </div>
             </div>
 
-            <section className="grid grid-cols-4 gap-3 max-w-6xl mx-auto">
+            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto w-full">
               {filteredData.length > 0 ? (
                 filteredData.map((item: Canape) => (
-                  <ProductCard key={item.id} item={item} addItems={addItems} />
+                  <div className="w-full flex justify-center" key={item.id}>
+                    <ProductCard
+                      key={item.id}
+                      item={item}
+                      addItems={addItems}
+                    />
+                  </div>
                 ))
               ) : (
                 <p>Aucun produit trouvé.</p>
               )}
             </section>
-            <Footer />
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

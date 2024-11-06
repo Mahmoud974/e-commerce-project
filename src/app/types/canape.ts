@@ -30,8 +30,8 @@ export type SortDataState = {
 };
 
 export interface LikeDataState {
-  selectedItems: Item[]; // Tableau d'objets Item
+  selectedItems: Item[];
   addItems: (item: Item) => void;
-  removeItems: (itemId: string) => void; // ou number
+  removeItems: (itemId: number | string) => void;
   clearItems: () => void;
 }

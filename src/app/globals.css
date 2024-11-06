@@ -8,6 +8,13 @@ body {
   background-color: black;
 }
 
+@font-face {
+  font-family: "MonumentExtended-Ultrabold.otf";
+  src: url("/fonts/MonumentExtended-Ultrabold.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

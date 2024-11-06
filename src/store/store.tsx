@@ -3,7 +3,16 @@ import {
   SortDataState,
   NewDataState,
   LikeDataState,
+  Item,
 } from "../app/types/canape";
+
+type CartState = {
+  items: Item[]; // Liste des articles dans le panier
+  addItemCart: (item: Item) => void; // Ajouter un article au panier
+  removeItem: (itemId: number) => void; // Retirer un article du panier
+  clearCart: () => void; // Vider le panier
+  updateQuantity: (itemId: number, quantity: number) => void; // Mettre à jour la quantité d'un article
+};
 
 /**
  * Afficher les résultats de recherche
@@ -62,5 +71,37 @@ export const useLikeData = create<LikeDataState>((set) => ({
   },
   clearItems: () => {
     set({ selectedItems: [] });
+  },
+}));
+
+export const useCartStore = create<CartState>((set) => ({
+  items: [],
+  addItemCart: (item: Item) => {
+    set((state) => {
+      const itemExists = state.items.find(
+        (existingItem) => existingItem.id === item.id
+      );
+      if (itemExists) {
+        console.log(`L'article avec l'id ${item.id} est déjà dans le panier.`);
+        return state;
+      }
+
+      return { items: [...state.items, item] };
+    });
+  },
+  removeItem: (itemId: number) => {
+    set((state) => ({
+      items: state.items.filter((item) => item.id !== itemId),
+    }));
+  },
+  clearCart: () => {
+    set({ items: [] });
+  },
+  updateQuantity: (itemId: number, quantity: number) => {
+    set((state) => ({
+      items: state.items.map((item) =>
+        item.id === itemId ? { ...item, quantity } : item
+      ),
+    }));
   },
 }));
