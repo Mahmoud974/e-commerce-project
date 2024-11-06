@@ -6,6 +6,7 @@ import SheetDisplay from "./SheetDisplay";
 import { useTemplate } from "@/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNewData } from "@/store/store";
+import Image from "next/image";
 
 type Inputs = {
   search: string;
@@ -38,7 +39,17 @@ export default function Navbar({ selectedItems }) {
         <div>
           <ul>
             <li>
-              <h1 className="font-bold text-xl">Podd</h1>
+              <p className="font-[800] text-2xl">
+                SofaChic<span className="text-red-700 font-bold"> ./</span>{" "}
+              </p>
+              {/* <Image
+                src="/img/logo.png"
+                alt="product image"
+                className="object-contain p-1 w-36  "
+                width={600}
+                height={600}
+                priority
+              /> */}
             </li>
           </ul>
         </div>
@@ -67,7 +78,7 @@ export default function Navbar({ selectedItems }) {
             </Button>
           </li>
           <li>
-            <SheetDisplay selectedItems={selectedItems} />
+            <SheetDisplay />
           </li>
         </ul>
       </nav>

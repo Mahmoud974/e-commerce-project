@@ -28,12 +28,11 @@ export default function SheetDisplay() {
     setTimeout(() => setIsProcessing(false), 2000);
   };
 
-  // Fonction pour calculer le total du panier en prenant en compte la quantité
   const calculateTotal = () => {
     return items
       .reduce((total, item) => {
-        const prix = item.prix || 0; // Convertit en nombre ou 0 si NaN
-        const quantity = item.quantity || 1; // Quantité par défaut à 1
+        const prix = item.prix || 0;
+        const quantity = 1;
         return total + prix * quantity;
       }, 0)
       .toFixed(2);

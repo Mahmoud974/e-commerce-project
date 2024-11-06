@@ -5,70 +5,37 @@ import Navbar from "@/components/Navbar";
 import { useTemplate } from "@/hook/useTemplate";
 import React, { useEffect } from "react";
 import { Canape } from "./types/canape";
-import { ComboboxDemo } from "@/components/Dropbox";
-import { Button } from "@/components/ui/button";
-import {
-  useNewData,
-  useSortData,
-  useLikeData,
-  useCartStore,
-} from "@/store/store";
+import { useNewData, useSortData, useLikeData } from "@/store/store";
+import Filter from "@/components/Filter";
 
 export default function Page() {
   const { data } = useTemplate();
   const { filteredData } = useNewData();
-  const { setSortData } = useSortData();
+  const { setSortData, sortData } = useSortData();
   const { selectedItems, addItems } = useLikeData();
-  const { items, addItemCart } = useCartStore();
 
+  console.log(sortData);
   useEffect(() => {
     if (data) {
       setSortData(data.filter((item) => item.prix <= 10));
       setSortData(data);
     }
   }, [data, setSortData]);
-
+  const flexCol = "flex flex-col";
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex flex-col flex-grow items-center mt-6 w-full max-w-screen-xl mx-auto">
-        {/* Le conteneur principal est centré horizontalement */}
-        <section className="flex flex-col justify-between w-full mb-12">
-          <div className="flex flex-col justify-center w-full">
+    <div className={`${flexCol}  min-h-screen`}>
+      <main
+        className={`${flexCol} flex-grow items-center mt-6 w-full max-w-screen-xl mx-auto`}
+      >
+        <section className={`${flexCol} justify-between w-full mb-12`}>
+          <div className="flex flex-col  ">
             <Navbar selectedItems={selectedItems} />
-            <div className="flex flex-row mb-6 justify-between">
-              <ul className="space-x-4 flex">
-                <li>
-                  <Button>Tous les filtres</Button>
-                </li>
-                <li>
-                  <Button>Coloris</Button>
-                </li>
-                <li>
-                  <Button>Matériau</Button>
-                </li>
-                <li>
-                  <Button>Collection</Button>
-                </li>
-                <li>
-                  <Button>Prix</Button>
-                </li>
-              </ul>
-              <div className="flex items-center">
-                <p className="mr-3">{filteredData.length} articles</p>
-                <ComboboxDemo data={data} />
-              </div>
-            </div>
+            <Filter data={data} />
 
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto w-full">
               {filteredData.length > 0 ? (
                 filteredData.map((item: Canape) => (
-                  <div className="w-full flex justify-center" key={item.id}>
-                    <ProductCard
-                      key={item.id}
-                      item={item}
-                      addItems={addItems}
-                    />
-                  </div>
+                  <ProductCard key={item.id} item={item} addItems={addItems} />
                 ))
               ) : (
                 <p>Aucun produit trouvé.</p>
