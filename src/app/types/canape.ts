@@ -23,7 +23,7 @@ export type NewDataState = {
 };
 
 export type SortDataState = {
-  sortData: Item[];
+  sortData: any;
   valueBoolean: boolean;
   setSortData: (db: Item[]) => void;
   toggleSortOrder: () => void;

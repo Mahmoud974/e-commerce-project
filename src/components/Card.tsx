@@ -12,8 +12,8 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
   return (
     <div className="relative pt-12 flex w-full   flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80   ">
-      <span className="absolute top-2 left-2 z-10 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
-        39% OFF
+      <span className="absolute top-2 left-2   z-10 m-2 rounded-full bg-amber-500 px-2 text-center text-sm font-medium text-white">
+        NOUVEAU
       </span>
       <Link href="#" className="relative flex h-60 overflow-hidden rounded-xl">
         <Image
@@ -33,7 +33,9 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
         </Link>
         <div className="mb-5 flex items-center justify-between">
           <p>
-            <span className="text-lg font-bold text-red-600">{item.prix}€</span>
+            <span className="text-2xl font-normal  text-red-600">
+              {item.prix}€
+            </span>
           </p>
         </div>
         <div className="flex justify-end space-x-3">

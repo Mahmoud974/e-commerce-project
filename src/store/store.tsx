@@ -7,11 +7,11 @@ import {
 } from "../app/types/canape";
 
 type CartState = {
-  items: Item[];
-  addItemCart: (item: Item) => void;
-  removeItem: (itemId: number) => void;
-  clearCart: () => void;
-  updateQuantity: (itemId: number, quantity: number) => void;
+  items: Item[]; // Liste des articles dans le panier
+  addItem: (item: Item) => void; // Ajouter un article au panier
+  removeItem: (itemId: number) => void; // Retirer un article du panier
+  clearCart: () => void; // Vider le panier
+  updateQuantity: (itemId: number, quantity: number) => void; // Mettre à jour la quantité d'un article
 };
 
 /**
@@ -76,7 +76,7 @@ export const useLikeData = create<LikeDataState>((set) => ({
 
 export const useCartStore = create<CartState>((set) => ({
   items: [],
-  addItemCart: (item: Item) => {
+  addItem: (item: Item) => {
     set((state) => {
       const itemExists = state.items.find(
         (existingItem) => existingItem.id === item.id

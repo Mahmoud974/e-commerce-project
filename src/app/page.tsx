@@ -10,11 +10,11 @@ import Filter from "@/components/Filter";
 
 export default function Page() {
   const { data } = useTemplate();
-  const { filteredData } = useNewData();
+  const { filteredData, resetFilteredData } = useNewData();
   const { setSortData, sortData } = useSortData();
-  const { selectedItems, addItems } = useLikeData();
+  const { addItems } = useLikeData();
+  console.log(filteredData);
 
-  console.log(sortData);
   useEffect(() => {
     if (data) {
       setSortData(data.filter((item) => item.prix <= 10));
@@ -23,15 +23,14 @@ export default function Page() {
   }, [data, setSortData]);
   const flexCol = "flex flex-col";
   return (
-    <div className={`${flexCol}  min-h-screen`}>
-      <main
+    <section className={`${flexCol}  min-h-screen`}>
+      <div
         className={`${flexCol} flex-grow items-center mt-6 w-full max-w-screen-xl mx-auto`}
       >
         <section className={`${flexCol} justify-between w-full mb-12`}>
           <div className="flex flex-col  ">
-            <Navbar selectedItems={selectedItems} />
+            <Navbar />
             <Filter data={data} />
-
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto w-full">
               {filteredData.length > 0 ? (
                 filteredData.map((item: Canape) => (
@@ -43,8 +42,8 @@ export default function Page() {
             </section>
           </div>
         </section>
-      </main>
+      </div>
       <Footer />
-    </div>
+    </section>
   );
 }
