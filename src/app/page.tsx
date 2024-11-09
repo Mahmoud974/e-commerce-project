@@ -47,7 +47,9 @@ export default function Page() {
           </div>
         </section>
       </div>
-      <Footer />
+      <div className="  max-w-screen-xl flex justify-center py-8    ">
+        <Footer />
+      </div>
     </section>
   );
 }

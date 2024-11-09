@@ -188,7 +188,6 @@ export default function SheetDisplay() {
                   onClick={() => setActiveTab("favorites")}
                 >
                   <Heart className="mr-2" />
-                  <span>Favoris</span>
                 </li>
                 <li
                   className={`flex items-center cursor-pointer ml-4 ${
@@ -197,7 +196,6 @@ export default function SheetDisplay() {
                   onClick={() => setActiveTab("cart")}
                 >
                   <ShoppingCart className="mr-2" />
-                  <span>Panier</span>
                 </li>
                 <li
                   className={`flex items-center cursor-pointer ml-4 ${
