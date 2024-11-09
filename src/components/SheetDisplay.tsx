@@ -7,7 +7,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useCartStore, useLikeData } from "@/store/store";
-import { CircleUser, Heart, ShoppingCart, Trash } from "lucide-react";
+import { CircleUser, Heart, Menu, ShoppingCart, Trash } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useState } from "react";
@@ -32,7 +32,7 @@ export default function SheetDisplay() {
     return items
       .reduce((total, item) => {
         const prix = item.prix || 0;
-        const quantity = 1;
+        const quantity = 1; // Remarque : Il est possible d'ajouter une logique pour les quantités réelles
         return total + prix * quantity;
       }, 0)
       .toFixed(2);
@@ -65,8 +65,8 @@ export default function SheetDisplay() {
                     />
                   </div>
                   <div className="ml-3">
-                    <p className="text-lg font-bold">{item.nom}</p>
-                    <p className="text-gray-400">{item.prix}€</p>
+                    <div className="text-lg font-bold">{item.nom}</div>
+                    <div className="text-gray-400">{item.prix}€</div>
                   </div>
                 </div>
                 <button
@@ -105,15 +105,15 @@ export default function SheetDisplay() {
                     />
                   </div>
                   <div className="ml-3">
-                    <p className="text-lg font-bold">{item.nom}</p>
-                    <p className="text-gray-400">{item.prix}€</p>
+                    <div className="text-lg font-bold">{item.nom}</div>
+                    <div className="text-gray-400">{item.prix}€</div>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-2">
                   <input
                     type="number"
-                    value={1}
+                    value={1} // Remarque : La gestion de la quantité peut être ajustée ici
                     onChange={(e) =>
                       handleQuantityChange(item.id, parseInt(e.target.value))
                     }
@@ -141,9 +141,9 @@ export default function SheetDisplay() {
         return (
           <div className="flex flex-col items-center space-y-4">
             <div>
-              <p className="text-white">
+              <div className="text-white">
                 Profil utilisateur (fonctionnalité en cours de développement)
-              </p>
+              </div>
             </div>
 
             <div className="flex flex-col space-y-2">
@@ -174,7 +174,7 @@ export default function SheetDisplay() {
   return (
     <Sheet>
       <SheetTrigger>
-        <Heart className="text-white" />
+        <Menu className="text-white" />
       </SheetTrigger>
       <SheetContent className="bg-black text-white p-4">
         <SheetHeader>
@@ -214,8 +214,8 @@ export default function SheetDisplay() {
             {renderContent()}
             {activeTab === "cart" && items.length > 0 && (
               <div className="mt-5">
-                <p className="font-semibold">Total:</p>
-                <p className="text-white text-lg">{calculateTotal()}€</p>
+                <div className="font-semibold">Total:</div>
+                <div className="text-white text-lg">{calculateTotal()}€</div>
                 <div className="mt-5 flex justify-between">
                   <Button onClick={() => clearCart()}>Vider le panier</Button>
                   <Button

@@ -7,12 +7,12 @@ import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
 import { ComboboxDemo } from "@/components/Dropbox";
 import { Button } from "@/components/ui/button";
-import { useNewData, useSortData } from "@/store/store";
+import { useSearchArticles, useSortArticlebyPrice } from "@/store/store";
 
 export default function Page() {
   const { data } = useTemplate();
   const [filteredData, setFilteredData] = useState([]);
-  const { sortData } = useSortData();
+  const { sortData } = useSortArticlebyPrice();
 
   useEffect(() => {
     setFilteredData(sortData.length > 0 ? sortData : data || []);

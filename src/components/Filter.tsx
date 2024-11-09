@@ -1,10 +1,10 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { ComboboxDemo } from "./Dropbox";
-import { useNewData } from "@/store/store";
+import { useSearchArticles } from "@/store/store";
 
 export default function Filter({ data }) {
-  const { filteredData } = useNewData();
+  const { filteredData } = useSearchArticles();
   return (
     <div className="flex flex-row mb-6 justify-between">
       <ul className="space-x-4 flex">

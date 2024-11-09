@@ -3,16 +3,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Heart } from "lucide-react";
 import { useCartStore } from "@/store/store";
+import { useState } from "react";
 
 const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   item,
   addItems,
 }) => {
   const { addItemCart } = useCartStore();
+  const [isLiked, setIsLiked] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    addItems(item);
+  };
+
+  const handleCart = () => {
+    setIsInCart(!isInCart);
+    addItemCart(item);
+  };
 
   return (
-    <div className="relative pt-12 flex w-full   flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80   ">
-      <span className="absolute top-2 left-2   z-10 m-2 rounded-full bg-amber-500 px-2 text-center text-sm font-medium text-white">
+    <div className="relative pt-12 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80">
+      <span className="absolute top-2 left-2 z-10 m-2 rounded-full bg-amber-500 px-2 text-center text-sm font-medium text-white">
         NOUVEAU
       </span>
       <Link href="#" className="relative flex h-60 overflow-hidden rounded-xl">
@@ -33,7 +46,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
         </Link>
         <div className="mb-5 flex items-center justify-between">
           <p>
-            <span className="text-2xl font-normal  text-red-600">
+            <span className="text-2xl font-normal text-red-600">
               {item.prix}€
             </span>
           </p>
@@ -42,17 +55,22 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
           <Link
             href="#"
             className="flex items-center justify-center rounded-md bg-slate-900 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            onClick={handleCart}
           >
             <ShoppingCart
-              className="h-6 w-6"
-              onClick={() => addItemCart(item)}
+              className={`h-6 w-6 ${
+                isInCart ? "text-green-500" : "text-white"
+              }`}
             />
           </Link>
           <Link
             href="#"
             className="flex items-center justify-center rounded-md bg-slate-900 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            onClick={handleLike}
           >
-            <Heart className="h-6 w-6" onClick={() => addItems(item)} />
+            <Heart
+              className={`h-6 w-6 ${isLiked ? "text-red-500" : "text-white"}`}
+            />
           </Link>
         </div>
       </div>

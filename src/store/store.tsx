@@ -7,21 +7,23 @@ import {
 } from "../app/types/canape";
 
 type CartState = {
-  items: Item[]; // Liste des articles dans le panier
-  addItem: (item: Item) => void; // Ajouter un article au panier
-  removeItem: (itemId: number) => void; // Retirer un article du panier
-  clearCart: () => void; // Vider le panier
-  updateQuantity: (itemId: number, quantity: number) => void; // Mettre à jour la quantité d'un article
+  items: Item[];
+  addItem: (item: Item) => void;
+  removeItem: (itemId: number) => void;
+  clearCart: () => void;
+  updateQuantity: (itemId: number, quantity: number) => void;
 };
 
 /**
- * Afficher les résultats de recherche
+ * Afficher les résultats de recherche via la barre de recherche
  */
-export const useNewData = create<NewDataState>((set) => ({
+export const useSearchArticles = create<NewDataState>((set) => ({
   filteredData: [],
   setFilteredData: (db, searchTerm) => {
-    const filtered = db?.filter((item) =>
-      item.nom.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = db?.filter(
+      (item) =>
+        item.nom.toLowerCase() &&
+        item.nom.toLowerCase().includes(searchTerm?.toLowerCase())
     );
     set(() => ({
       filteredData: filtered,
@@ -32,11 +34,13 @@ export const useNewData = create<NewDataState>((set) => ({
 /**
  * Trier les éléments croissant & décroissant
  */
-export const useSortData = create<SortDataState>((set) => ({
+export const useSortArticlebyPrice = create<SortDataState>((set) => ({
   sortData: [],
   valueBoolean: false,
 
-  setSortData: (db) => {
+  setSortData: async (db) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simule un délai de 1 seconde
+
     set((state) => {
       const sorted = [...db].sort((a, b) =>
         state.valueBoolean ? b.prix - a.prix : a.prix - b.prix

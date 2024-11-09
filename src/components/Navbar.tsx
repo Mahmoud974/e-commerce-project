@@ -5,7 +5,8 @@ import { Button } from "./ui/button";
 import SheetDisplay from "./SheetDisplay";
 import { useTemplate } from "@/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNewData } from "@/store/store";
+import { useSearchArticles } from "@/store/store";
+import Link from "next/link";
 
 type Inputs = {
   search: string;
@@ -13,7 +14,7 @@ type Inputs = {
 
 export default function Navbar() {
   const { data } = useTemplate();
-  const { setFilteredData } = useNewData();
+  const { setFilteredData } = useSearchArticles();
 
   const {
     register,
@@ -38,9 +39,11 @@ export default function Navbar() {
         <div>
           <ul>
             <li>
-              <p className="font-[800] text-2xl">
-                SofaChic<span className="text-red-700 font-bold"> ./</span>{" "}
-              </p>
+              <Link href="/">
+                <p className="font-[800] text-2xl">
+                  SofaChic<span className="text-red-700 font-bold"> ./</span>{" "}
+                </p>
+              </Link>
             </li>
           </ul>
         </div>
@@ -57,21 +60,7 @@ export default function Navbar() {
           />
         </form>
 
-        <ul className="flex space-x-4">
-          <li>
-            <Button>
-              <ShoppingCart />
-            </Button>
-          </li>
-          <li>
-            <Button>
-              <CircleUser />
-            </Button>
-          </li>
-          <li>
-            <SheetDisplay />
-          </li>
-        </ul>
+        <SheetDisplay />
       </div>
     </nav>
   );
