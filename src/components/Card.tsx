@@ -24,58 +24,61 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   };
 
   return (
-    <div className="  border-gray-100 bg-white shadow-md h-80 md:mx-0 mx-12 md:round">
+    <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
+      {/* <Link
+        href={/item/${item.id}}
+        className="relative pt-12 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80"
+      > */}
       <Link
         href={`/item/${item.id}`}
-        className="relative pt-12 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80"
+        className="relative pt-5 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80"
       >
-        <span className="absolute top-2 left-2 z-10 m-2 rounded-full bg-amber-500 px-2 text-center text-sm font-medium text-white">
-          NOUVEAU
-        </span>
-        <div className="relative flex h-60 overflow-hidden rounded-xl">
+        <div className="relative h-44 w-full">
           <Image
             src="/img/ok.webp"
-            alt="product image"
-            className="object-contain px-3"
+            alt={item.nom}
+            className="rounded-t-lg object-contain"
             fill
             priority
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         </div>
-        <div className=" px-5   pb-5 flex flex-col justify-between h-full">
-          <h5 className="text-lg tracking-tight text-slate-900 font-bold">
+
+        {/* Content Section */}
+        <div className="p-4 space-y-3">
+          <span className=" bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
+            NOUVEAU
+          </span>
+          <h5 className="text-lg font-semibold text-gray-800 truncate">
             {item.nom}
           </h5>
-
-          <div className="mb-5 flex items-center justify-between">
-            <p>
-              <span className="text-2xl font-normal text-red-600">
-                {item.prix}€
-              </span>
-            </p>
-          </div>
-        </div>
-        <div className="flex mb-6 mr-6 justify-end space-x-3">
-          <div
-            className="flex items-center justify-center rounded-md bg-slate-900 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-            onClick={handleCart}
-          >
-            <ShoppingCart
-              className={`h-6 w-6 ${
-                isInCart ? "text-green-500" : "text-white"
-              }`}
-            />
-          </div>
-          <div
-            className="flex items-center justify-center rounded-md bg-slate-900 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-            onClick={handleLike}
-          >
-            <Heart
-              className={`h-6 w-6 ${isLiked ? "text-red-500" : "text-white"}`}
-            />
-          </div>
+          <p className="text-red-600 font-bold text-xl mt-2">{item.prix}€</p>
         </div>
       </Link>
+
+      {/* Action Buttons */}
+      <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-gray-200">
+        <button
+          className={`flex items-center justify-center w-10 h-10 rounded-full ${
+            isInCart ? "bg-green-500" : "bg-gray-200"
+          }`}
+          onClick={handleCart}
+        >
+          <ShoppingCart
+            className={`w-6 h-6 ${isInCart ? "text-white" : "text-gray-800"}`}
+          />
+        </button>
+        <button
+          className={`flex items-center justify-center w-10 h-10 rounded-full ${
+            isLiked ? "bg-red-500" : "bg-gray-200"
+          }`}
+          onClick={handleLike}
+        >
+          <Heart
+            className={`w-6 h-6 ${isLiked ? "text-white" : "text-gray-800"}`}
+          />
+        </button>
+      </div>
     </div>
   );
 };

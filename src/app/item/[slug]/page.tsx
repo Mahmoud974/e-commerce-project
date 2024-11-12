@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBasket, Heart } from "lucide-react";
 import Recommendations from "@/components/Recommendations";
 import Footer from "@/components/Footer";
+import { CarouselPlugin } from "@/components/Caroussel";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
@@ -29,14 +30,7 @@ export default function Page({ params }) {
         <Navbar />
         <section className="flex mt-48 justify-center items-center">
           <div>
-            <Image
-              src="/img/ok.webp"
-              alt="product image"
-              className="object-contain w-6/6"
-              width={1000}
-              height={1000}
-              priority
-            />
+            <CarouselPlugin />
           </div>
           <div className="ml-12 space-y-3">
             <h1 className="text-4xl font-bold">{idArticle?.nom}</h1>

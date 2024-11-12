@@ -29,13 +29,13 @@ export default function Page() {
   return (
     <section className={`${flexCol}  min-h-screen`}>
       <div
-        className={`${flexCol} flex-grow items-center mt-6 w-full max-w-screen-xl mx-auto`}
+        className={`${flexCol} items-center mt-6 w-full  container   mx-auto`}
       >
         <section className={`${flexCol} justify-between w-full mb-12`}>
           <div className="flex flex-col">
             <Navbar />
             <Filter data={data} />
-            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto w-full">
+            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
               {filteredData.length > 0 ? (
                 filteredData.map((item: Canape) => (
                   <ProductCard key={item.id} item={item} addItems={addItems} />
@@ -47,7 +47,7 @@ export default function Page() {
           </div>
         </section>
       </div>
-      <div className="  max-w-screen-xl flex justify-center py-8    ">
+      <div className=" container mx-auto    ">
         <Footer />
       </div>
     </section>
