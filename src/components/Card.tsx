@@ -25,10 +25,6 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
   return (
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
-      {/* <Link
-        href={/item/${item.id}}
-        className="relative pt-12 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80"
-      > */}
       <Link
         href={`/item/${item.id}`}
         className="relative pt-5 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80"

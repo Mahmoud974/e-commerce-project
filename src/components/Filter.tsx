@@ -9,19 +9,13 @@ export default function Filter({ data }) {
     <div className="flex flex-row mb-6 justify-between">
       <ul className="space-x-4 flex">
         <li>
-          <Button>Tous les filtres</Button>
-        </li>
-        <li>
-          <Button>Coloris</Button>
+          <Button>Couleur</Button>
         </li>
         <li>
           <Button>Matériau</Button>
         </li>
         <li>
-          <Button>Collection</Button>
-        </li>
-        <li>
-          <Button>Prix</Button>
+          <Button>Assises</Button>
         </li>
       </ul>
       <div className="flex items-center">

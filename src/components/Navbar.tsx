@@ -1,18 +1,21 @@
 "use client";
 import React, { useEffect } from "react";
-import { ShoppingCart, CircleUser } from "lucide-react";
-import { Button } from "./ui/button";
+
 import SheetDisplay from "./SheetDisplay";
 import { useTemplate } from "@/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSearchArticles } from "@/store/store";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 type Inputs = {
   search: string;
 };
 
 export default function Navbar() {
+  let mySession = useSession().data?.user;
+  console.log(useSession());
   const { data } = useTemplate();
   const { setFilteredData } = useSearchArticles();
 
@@ -59,6 +62,22 @@ export default function Navbar() {
             {...register("search")}
           />
         </form>
+        {mySession && (
+          <>
+            <Image
+              src={mySession?.image}
+              alt={`Photo de profil `}
+              className="  w-8 mr-2 rounded-full cursor-pointer"
+              width={100}
+              height={100}
+              priority
+            />
+            {/*  */}
+            <p className="mr-2 cursor-pointer hover:underline">
+              {mySession?.name}
+            </p>
+          </>
+        )}
 
         <SheetDisplay />
       </div>

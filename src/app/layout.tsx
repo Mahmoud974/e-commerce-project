@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "@/hook/__provider";
+import SessionWrapper from "./SessionWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,10 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={` antialiased`}>
-        <QueryProvider>{children}</QueryProvider>
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body className={` antialiased`}>
+          <QueryProvider>{children}</QueryProvider>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }
