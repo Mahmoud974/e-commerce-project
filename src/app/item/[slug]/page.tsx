@@ -30,7 +30,7 @@ export default function Page({ params }) {
         <Navbar />
         <section className="flex mt-48 justify-center items-center">
           <div>
-            <CarouselPlugin />
+            <CarouselPlugin data={idArticle} />
           </div>
           <div className="ml-12 space-y-3">
             <h1 className="text-4xl font-bold">{idArticle?.nom}</h1>

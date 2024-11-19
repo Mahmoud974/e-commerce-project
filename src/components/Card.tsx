@@ -33,7 +33,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
           <Image
             src={item?.image[0]}
             alt={item.nom}
-            className="rounded-t-lg object-contain px-3"
+            className="rounded-t-lg object-contain"
             fill
             priority
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
