@@ -14,8 +14,9 @@ datasource db {
 }
 
 model Canape {
-  id            Int      @id @default(autoincrement())
-  nom           String
+  id  Int    @id @default(autoincrement())
+  nom String
+
   description   String
   prix          Float
   couleur       String[]
@@ -23,7 +24,7 @@ model Canape {
   profondeur    String
   hauteur       String
   disponibilite Boolean
-  image         String
+  image         String[]
 
   @@map("canapes") // Optionnel : cela permet de nommer la table dans la base de données
 }

@@ -31,9 +31,9 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
       >
         <div className="relative h-44 w-full">
           <Image
-            src="/img/ok.webp"
+            src={item?.image[0]}
             alt={item.nom}
-            className="rounded-t-lg object-contain"
+            className="rounded-t-lg object-contain px-3"
             fill
             priority
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
