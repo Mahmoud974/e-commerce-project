@@ -2,16 +2,20 @@
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useCartStore, useLikeData } from "@/store/store";
-import { CircleUser, Heart, Menu, ShoppingCart, Trash } from "lucide-react";
+import { CircleUser, Heart, Menu, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { FavoritesList } from "./ComponentSheet/FavoritesList";
 import { CartList } from "./ComponentSheet/CartList";
 import { ProfileSection } from "./ComponentSheet/ProfileSection";
+import { DialogTitle } from "@radix-ui/react-dialog";
+
 export default function SheetDisplay() {
   const [activeTab, setActiveTab] = useState("favorites");
   const { data: session } = useSession();
@@ -21,7 +25,7 @@ export default function SheetDisplay() {
 
   const handleFacebookLogin = () => {
     setIsProcessing(true);
-    setTimeout(() => setIsProcessing(false), 2000);
+    setTimeout(() => setIsProcessing(false), 2000); // Simulating login process
   };
 
   const renderContent = () => {
@@ -61,8 +65,14 @@ export default function SheetDisplay() {
       <SheetTrigger>
         <Menu className="text-white" />
       </SheetTrigger>
-      <SheetContent className="bg-black text-white p-4">
+      <SheetContent
+        className="bg-black text-white p-4"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
+      >
         <SheetHeader>
+          <SheetTitle></SheetTitle>
+          <SheetDescription></SheetDescription>
           <ul className="flex items-center">
             <li
               className={`cursor-pointer ${
@@ -89,6 +99,7 @@ export default function SheetDisplay() {
               <CircleUser />
             </li>
           </ul>
+
           {renderContent()}
         </SheetHeader>
       </SheetContent>
