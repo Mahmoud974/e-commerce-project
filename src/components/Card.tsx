@@ -9,7 +9,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   item,
   addItems,
 }) => {
-  const { addItemCart } = useCartStore();
+  const { addItem } = useCartStore();
   const [isLiked, setIsLiked] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
@@ -20,7 +20,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
   const handleCart = () => {
     setIsInCart(!isInCart);
-    addItemCart(item);
+    addItem(item);
   };
 
   return (
