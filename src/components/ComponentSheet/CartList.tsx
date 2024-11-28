@@ -44,7 +44,7 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
             <div className="flex items-center space-x-2">
               <input
                 type="number"
-                value={item.quantity || 1} // Utilisation de la quantité de l'article
+                value={item.quantity || 1}
                 onChange={(e) =>
                   handleQuantityChange(item.id, parseInt(e.target.value))
                 }

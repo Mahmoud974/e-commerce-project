@@ -4,14 +4,15 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTemplate } from "@/hook/useTemplate";
 import { Button } from "@/components/ui/button";
-import { ShoppingBasket, Heart } from "lucide-react";
+import { ShoppingBasket, Heart, ShoppingCart } from "lucide-react";
 import Recommendations from "@/components/Recommendations";
 import Footer from "@/components/Footer";
 import { CarouselPlugin } from "@/components/Caroussel";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
-
+  const [isInCart, setIsInCart] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
     async function fetchParams() {
       const resolvedParams = await params;
@@ -24,50 +25,68 @@ export default function Page({ params }) {
   const idArticle =
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
 
+  function handleCart(event: any): void {
+    throw new Error("Function not implemented.");
+  }
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    addItems(item);
+  };
+
   return (
     <div>
-      <main className="container mx-auto mt-6 flex-grow">
+      <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
-        <section className="flex mt-48 justify-center items-center">
-          <div>
+        <section className="md:mx-0   flex md:mt-32 md:justify-start flex-col md:flex-row items-center">
+          <div className="">
             <CarouselPlugin data={idArticle} />
           </div>
-          <div className="ml-12 space-y-3">
-            <h1 className="text-4xl font-bold">{idArticle?.nom}</h1>
+          <div className="md:ml-12 md:space-y-3">
+            <p className="text-4xl md:mt-0 mt-8 font-bold">{idArticle?.nom}</p>
             <p className="text-md my-2 font-sans">Canapé 3 places</p>
-            <ul className="flex space-x-4">
-              <li className="mr-1">Colors:</li>
-              <li className="bg-red-500 rounded-full w-5 h-5"></li>
-              <li className="bg-blue-500 rounded-full w-5 h-5"></li>
-              <li className="bg-yellow-500 rounded-full w-5 h-5"></li>
-            </ul>
-
             <p className="text-lg">{idArticle?.description}</p>
-            <p>
+            <p className="max-w-xl">
               Soft, curved woods and bold geometric lines create an original
               combination. Triangular legs create a powerful silhouette for him,
               a solid base.
             </p>
             <span className="mr-2 text-3xl">{idArticle?.prix}€</span>
+            <p className=" text-md">Délai de livraison estimé 4 à 6 semaines</p>
             <div className="flex flex-col mt-4">
-              <div className="flex">
-                <Button className="rounded-none w-full">
-                  <ShoppingBasket />
-                  Commander
-                </Button>
-                <Button className="ml-2 flex items-center justify-center rounded-none bg-slate-900 p-2 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                  <Heart />
-                </Button>
+              {/* Action Buttons */}
+              <div className="flex items-center justify-start gap-2   py-3 border-t border-gray-200">
+                <button
+                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                    isInCart ? "bg-green-500" : "bg-gray-200"
+                  }`}
+                  onClick={handleCart}
+                >
+                  <ShoppingCart
+                    className={`w-6 h-6 ${
+                      isInCart ? "text-white" : "text-gray-800"
+                    }`}
+                  />
+                </button>
+                <button
+                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                    isLiked ? "bg-red-500" : "bg-gray-200"
+                  }`}
+                  onClick={handleLike}
+                >
+                  <Heart
+                    className={`w-6 h-6 ${
+                      isLiked ? "text-white" : "text-gray-800"
+                    }`}
+                  />
+                </button>
               </div>
-              <p className="mt-5 text-md">
-                Délai de livraison estimé 4 à 6 semaines
-              </p>
             </div>
           </div>
         </section>
         <section className="mt-10">
           <div className="flex flex-col overflow-x-auto scrollbar-hide">
-            <h2 className="text-2xl font-bold mb-6">Notre recommandation</h2>
+            <p className="text-2xl font-bold mb-6">Notre recommandation</p>
             <Recommendations />
           </div>
         </section>
@@ -75,4 +94,7 @@ export default function Page({ params }) {
       </main>
     </div>
   );
+}
+function addItems(item: any) {
+  throw new Error("Function not implemented.");
 }

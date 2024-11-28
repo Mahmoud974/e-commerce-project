@@ -12,8 +12,6 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function CarouselPlugin({ data }) {
-  console.log(data && data?.image.flat());
-
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
@@ -22,7 +20,7 @@ export function CarouselPlugin({ data }) {
   const images = data && data?.image;
 
   return (
-    <div className="relative w-full max-w-lg mx-auto">
+    <div className="relative md:w-full md:max-w-lg md:mx-auto">
       <Carousel
         plugins={[plugin.current]}
         className="w-full"
@@ -33,7 +31,7 @@ export function CarouselPlugin({ data }) {
           {images &&
             images.map((image, index) => (
               <CarouselItem key={index}>
-                <div className="p-2">
+                <div className=" ">
                   <Card className="shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-4">
                       <Image
@@ -52,12 +50,12 @@ export function CarouselPlugin({ data }) {
         </CarouselContent>
 
         {/* Flèche Précédente */}
-        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200">
+        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-black p-2 rounded-full shadow-lg hover:bg-gray-200">
           <ChevronLeft className="w-6 h-6 text-gray-700" />
         </CarouselPrevious>
 
         {/* Flèche Suivante */}
-        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200">
+        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-black p-2 rounded-full shadow-lg hover:bg-gray-200">
           <ChevronRight className="w-6 h-6 text-gray-700" />
         </CarouselNext>
       </Carousel>

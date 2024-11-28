@@ -22,8 +22,6 @@ export default function Page() {
     setSortData(filteredData);
   }, [filteredData, setSortData]);
 
-  console.log(sortData);
-
   const flexCol = "flex flex-col";
 
   return (

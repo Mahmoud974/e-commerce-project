@@ -45,9 +45,9 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
           <span className=" bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
             NOUVEAU
           </span>
-          <h5 className="text-lg font-semibold text-gray-800 truncate">
+          <p className="text-2xl font-normal text-gray-800 truncate">
             {item.nom}
-          </h5>
+          </p>
           <p className="text-red-600 font-bold text-xl mt-2">{item.prix}€</p>
         </div>
       </Link>

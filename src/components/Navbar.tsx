@@ -15,7 +15,7 @@ type Inputs = {
 
 export default function Navbar() {
   let mySession = useSession().data?.user;
-  console.log(useSession());
+
   const { data } = useTemplate();
   const { setFilteredData } = useSearchArticles();
 
@@ -37,13 +37,13 @@ export default function Navbar() {
   const onSubmit: SubmitHandler<Inputs> = (formData) => {};
 
   return (
-    <nav className="">
+    <nav className="md:mx-0  ">
       <div className="flex justify-between items-center mb-12">
         <div>
           <ul>
             <li>
               <Link href="/">
-                <p className="font-[800] text-2xl">
+                <p className="font-[800] md:text-2xl">
                   SofaChic<span className="text-red-700 font-bold"> ./</span>{" "}
                 </p>
               </Link>
@@ -52,7 +52,7 @@ export default function Navbar() {
         </div>
 
         <form
-          className="flex-grow mx-4 px-52"
+          className="flex-grow mx-4 lg:px-52"
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
