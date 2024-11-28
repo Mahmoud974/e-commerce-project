@@ -45,6 +45,7 @@ export const useSortArticlebyPrice = create<SortDataState>((set) => ({
       const sorted = [...db].sort((a, b) =>
         state.valueBoolean ? b.prix - a.prix : a.prix - b.prix
       );
+
       return { sortData: sorted };
     });
   },
