@@ -67,6 +67,17 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      safelist: [
+        "bg-blue-700",
+        "bg-amber-700",
+        "bg-gray-400",
+        "bg-black",
+        "bg-pink-200",
+        "bg-gray-800",
+        "bg-yellow-200",
+        "bg-green-500",
+        // Ajoute ici toutes les classes nécessaires
+      ],
     },
   },
   plugins: [require("tailwindcss-animate"), require("flowbite/plugin")],

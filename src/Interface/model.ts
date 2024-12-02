@@ -20,18 +20,6 @@ export enum Seats {
   Seat8 = 8,
 }
 
-export const colors = [
-  { name: Colors.Beige, colorClass: "bg-yellow-100" },
-  { name: Colors.Blue, colorClass: "bg-blue-700" },
-  { name: Colors.Brown, colorClass: "bg-amber-700" },
-  { name: Colors.Gray, colorClass: "bg-gray-400" },
-  { name: Colors.Black, colorClass: "bg-black" },
-  { name: Colors.Pink, colorClass: "bg-pink-200" },
-  { name: Colors.GrayDark, colorClass: "bg-gray-800" },
-  { name: Colors.Yellow, colorClass: "bg-yellow-200" },
-  { name: Colors.Green, colorClass: "bg-green-500" },
-];
-
 export const assisesData = [
   { name: Seats.Seat1, count: 214 },
   { name: Seats.Seat2, count: 214 },
@@ -41,4 +29,15 @@ export const assisesData = [
   { name: Seats.Seat6, count: 507 },
   { name: Seats.Seat7, count: 5938 },
   { name: Seats.Seat8, count: 1200 },
+];
+export const colors = [
+  { name: "Beige", colorClass: "bg-amber-100" },
+  { name: "Blue", colorClass: "bg-blue-700" },
+  { name: "Brown", colorClass: "bg-amber-700" },
+  { name: "Gray", colorClass: "bg-gray-400" },
+  { name: "Black", colorClass: "bg-black" },
+  { name: "Pink", colorClass: "bg-pink-200" },
+  { name: "Dark Gray", colorClass: "bg-gray-800" },
+  { name: "Yellow", colorClass: "bg-yellow-200" },
+  { name: "Green", colorClass: "bg-green-500" },
 ];

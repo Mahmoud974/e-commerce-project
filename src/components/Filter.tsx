@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ComboboxDemo } from "./Dropbox";
 import { useSearchArticles, useSortdata } from "@/store/store";
 import {
@@ -7,52 +7,59 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { assisesData, colors } from "@/Interface/model";
+import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
   const { filteredData } = useSearchArticles();
-  const { filteredDataColor, setFilteredDataColor, resetFilteredDataColor } =
-    useSortdata();
+  const { filteredDataColor, setFilteredDataColor } = useSortdata();
+  const [assisesData, setAssisesData] = useState([]);
 
   useEffect(() => {
-    console.log(filteredDataColor);
-  });
+    // Dynamically fetch or map the seat data
+    if (data) {
+      const seatCounts = data.reduce((acc, item) => {
+        const seat = item.seat; // Assuming "seat" is the number of seats for each item
+        acc[seat] = (acc[seat] || 0) + 1;
+        return acc;
+      }, {});
+
+      // Convert seatCounts to assisesData structure
+      const newAssisesData = Object.entries(seatCounts).map(
+        ([seat, count]) => ({
+          name: `Seat ${seat}`,
+          count,
+        })
+      );
+
+      setAssisesData(newAssisesData);
+    }
+  }, [data]);
 
   const filters = [
     {
       label: "Color",
       content: (
         <div className="grid grid-cols-3 gap-4">
-          {colors.map((color) => {
-            const isSelected = filteredDataColor.some(
-              (item) => item.color.toLowerCase() === color.name.toLowerCase()
-            );
-            return (
-              <div
-                key={color.name}
-                className="flex flex-col items-center space-y-2"
-              >
-                <button
-                  className={`w-10 h-10 rounded-full ${color.colorClass} ${
-                    isSelected ? "ring-4 ring-white" : ""
-                  }`}
-                  aria-label={color.name}
-                  onClick={() => setFilteredDataColor(data, color.name)}
-                />
-                <p className="text-sm text-gray-800 rounded-md px-2 py-1">
-                  {color.name}
-                </p>
-              </div>
-            );
-          })}
+          {colors.map((color) => (
+            <div
+              key={color.name}
+              className="flex flex-col items-center space-y-2"
+            >
+              <button
+                className={`w-10 h-10 rounded-full ${color.colorClass}`}
+                aria-label={color.name}
+                onClick={() => setFilteredDataColor(data, color.name)}
+              />
+              <p className="text-sm text-gray-800 rounded-md px-2 py-1">
+                {color.name}
+              </p>
+            </div>
+          ))}
           {/* Bouton Reset */}
           <div className="col-span-3 flex justify-center mt-4">
-            <button
-              className="flex text-base"
-              onClick={() => resetFilteredDataColor()}
-            >
-              <RotateCcw className="text-xs w-4 mr-2" />
+            <button className="flex text-base ">
+              <RotateCcw className="text-xs w-4" />
               Réinitialiser
             </button>
           </div>
@@ -63,16 +70,22 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       label: "Assises",
       content: (
         <div className="flex flex-col space-y-2">
-          {assisesData.map((item) => (
-            <button
-              key={item.name}
-              className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-100 text-gray-800 hover:bg-gray-200"
-              onClick={() => console.log(`Assise sélectionnée : ${item.name}`)}
-            >
-              <span>{item.name}</span>
-              <span>{item.count}</span>
-            </button>
-          ))}
+          {assisesData.length > 0 ? (
+            assisesData.map((item) => (
+              <button
+                key={item.name}
+                className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-100 text-gray-800 hover:bg-gray-200"
+                onClick={() =>
+                  console.log(`Assise sélectionnée : ${item.name}`)
+                }
+              >
+                <span>{item.name.replace("Seat", "").trim()}</span>
+                <span>{item.count}</span>
+              </button>
+            ))
+          ) : (
+            <p>{`Aucune donnée d'assises disponible.`}</p>
+          )}
         </div>
       ),
     },

@@ -77,9 +77,22 @@ export const useSortdata = create<any>((set) => ({
   filteredDataColor: [],
   sortData: [],
   valueBoolean: false,
+  assisesData: [], // Ajouter une donnée pour les assises
+
   dbBase: (db) => {
     set({ dbSofa: db });
   },
+
+  // Nouvelle fonction pour trier les assises
+  sortAssisesData: () => {
+    set((state) => {
+      const sortedAssisesData = [...state.assisesData].sort(
+        (a, b) => b.count - a.count
+      ); // Trie par 'count' en ordre décroissant
+      return { assisesData: sortedAssisesData };
+    });
+  },
+
   setFilteredDataColor: (db, colorName) => {
     set((state) => {
       const isColorSelected = state.filteredDataColor.some(
@@ -106,7 +119,6 @@ export const useSortdata = create<any>((set) => ({
     });
   },
 
-  //Changer le prix en croissant ou decroissant
   setSortData: async (db) => {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simule un délai de 1 seconde
 

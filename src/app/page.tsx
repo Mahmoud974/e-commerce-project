@@ -17,6 +17,7 @@ export default function Page() {
   const { addItems } = useLikeData();
 
   const [visibleCount, setVisibleCount] = useState(15);
+  console.log(data);
 
   useEffect(() => {
     setSortData(filteredData);
@@ -30,6 +31,7 @@ export default function Page() {
 
   let seat = data && data.map((item) => item.seat);
   let seatProduct = [...new Set(seat)];
+  console.log(seatProduct);
 
   const flexCol = "flex flex-col";
 
