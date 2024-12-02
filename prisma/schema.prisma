@@ -25,6 +25,8 @@ model Canape {
   hauteur       String
   disponibilite Boolean
   image         String[]
+  color         String   @default("default_color")
+  seat          Int      @default(1)
 
   @@map("canapes") // Optionnel : cela permet de nommer la table dans la base de données
 }

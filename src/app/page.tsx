@@ -23,10 +23,17 @@ export default function Page() {
   useEffect(() => {
     setSortData(filteredData);
   }, [filteredData, setSortData]);
+  console.log(data);
 
   const handleLoadMore = () => {
     setVisibleCount(visibleCount + 15);
   };
+  let color = data && data.map((item) => item.color);
+  let colorProduct = [...new Set(color)];
+
+  let seat = data && data.map((item) => item.seat);
+  let seatProduct = [...new Set(seat)];
+  console.log(seatProduct);
 
   const flexCol = "flex flex-col";
 
@@ -36,10 +43,14 @@ export default function Page() {
         <section className={`${flexCol} justify-between w-full mb-12`}>
           <div className="flex flex-col">
             <Navbar />
-            <Filter data={data} />
+            <Filter
+              data={data}
+              colorProduct={colorProduct}
+              seatProduct={seatProduct}
+            />
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
-              {sortData.length > 0 ? (
-                sortData
+              {data && data.length > 0 ? (
+                data
                   .slice(0, visibleCount)
                   .map((item: Canape) => (
                     <ProductCard

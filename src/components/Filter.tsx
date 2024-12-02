@@ -6,43 +6,29 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Colors, Seats } from "@/modules/model";
 
-// Données pour les filtres
 const colors = [
-  { name: "Beige", colorClass: "bg-beige" },
-  { name: "Bleu", colorClass: "bg-blue-500" },
-  { name: "Gris clair", colorClass: "bg-gray-300" },
-  { name: "Vert", colorClass: "bg-green-500" },
-  { name: "Marron", colorClass: "bg-brown-500" },
-  { name: "Blanc", colorClass: "bg-white border" },
-  { name: "Rouge", colorClass: "bg-red-500" },
-  { name: "Noir", colorClass: "bg-black" },
-  { name: "Jaune", colorClass: "bg-yellow-400" },
-  { name: "Gris foncé", colorClass: "bg-gray-700" },
-  { name: "Gris", colorClass: "bg-gray-500" },
+  { name: Colors.Beige, colorClass: "bg-yellow-100" },
+  { name: Colors.Blue, colorClass: "bg-blue-500" },
+  { name: Colors.Brown, colorClass: "bg-amber-800" },
+  { name: Colors.Gray, colorClass: "bg-gray-400" },
+  { name: Colors.Black, colorClass: "bg-black" },
+  { name: Colors.Pink, colorClass: "bg-pink-200" },
+  { name: Colors.GrayDark, colorClass: "bg-gray-800" },
+  { name: Colors.Yellow, colorClass: "bg-yellow-200" },
+  { name: Colors.Green, colorClass: "bg-green-500" },
 ];
 
 const assisesData = [
-  { name: "2", count: 6055 },
-  { name: "3", count: 5938 },
-  { name: "2½", count: 1779 },
-  { name: "4", count: 3172 },
-  { name: "6", count: 507 },
-  { name: "5", count: 1791 },
-  { name: "1", count: 214 },
-  { name: "1½", count: 140 },
-];
-
-const materialsData = [
-  { name: "Tissu", count: 23010 },
-  { name: "Laqué", count: 4889 },
-  { name: "Métal", count: 12224 },
-  { name: "Cuir", count: 3324 },
-  { name: "Chêne", count: 4592 },
-  { name: "Aluminium", count: 1199 },
-  { name: "Bois", count: 356 },
-  { name: "Plastique", count: 180 },
-  { name: "Acier", count: 288 },
+  { name: Seats.Seat1, count: 214 },
+  { name: Seats.Seat2, count: 214 },
+  { name: Seats.Seat3, count: 5938 },
+  { name: Seats.Seat4, count: 3172 },
+  { name: Seats.Seat5, count: 1791 },
+  { name: Seats.Seat6, count: 507 },
+  { name: Seats.Seat7, count: 5938 },
+  { name: Seats.Seat8, count: 1200 },
 ];
 
 const filters = [
@@ -81,25 +67,9 @@ const filters = [
       </div>
     ),
   },
-  {
-    label: "Material",
-    content: (
-      <div className="flex flex-col space-y-2">
-        {materialsData.map((item) => (
-          <button
-            key={item.name}
-            className="flex justify-between items-center px-4 py-2 border rounded-md bg-black text-white"
-          >
-            <span>{item.name}</span>
-            <span>{item.count}</span>
-          </button>
-        ))}
-      </div>
-    ),
-  },
 ];
 
-export default function Filter({ data }) {
+export default function Filter({ data, colorProduct, seatProduct }) {
   const { filteredData } = useSearchArticles();
 
   return (
