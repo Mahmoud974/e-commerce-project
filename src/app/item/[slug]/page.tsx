@@ -8,6 +8,7 @@ import { ShoppingBasket, Heart, ShoppingCart } from "lucide-react";
 import Recommendations from "@/components/Recommendations";
 import Footer from "@/components/Footer";
 import { CarouselPlugin } from "@/components/Caroussel";
+import { Colors, colors } from "@/modules/model";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
@@ -33,6 +34,7 @@ export default function Page({ params }) {
     setIsLiked(!isLiked);
     addItems(item);
   };
+  console.log(idArticle?.color);
 
   return (
     <div>
@@ -44,8 +46,27 @@ export default function Page({ params }) {
           </div>
           <div className="md:ml-12 md:space-y-3">
             <p className="text-4xl md:mt-0 mt-8 font-bold">{idArticle?.nom}</p>
-            <p className="text-md my-2 font-sans">Canapé 3 places</p>
+            <p className="text-md my-2 font-sans">
+              Canapé{" "}
+              <span className="font-bold text-red-500">{idArticle?.seat}</span>{" "}
+              place{idArticle?.seat !== 1 && "s"}
+            </p>
             <p className="text-lg">{idArticle?.description}</p>
+            <div className="flex items-center">
+              <p>Color: {idArticle?.color}</p>
+              <div
+                className={`w-5 h-5 rounded-full ml-3 ${
+                  colors.find((color) => color.name === idArticle?.color)
+                    ?.colorClass
+                }`}
+              ></div>
+              <div
+                className={`w-5 h-5 rounded-full ml-3 ${
+                  colors.find((color) => color.name === idArticle?.color)
+                    ?.colorClass
+                }`}
+              ></div>
+            </div>
             <p className="max-w-xl">
               Soft, curved woods and bold geometric lines create an original
               combination. Triangular legs create a powerful silhouette for him,

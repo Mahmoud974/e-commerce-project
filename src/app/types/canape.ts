@@ -3,7 +3,7 @@ export interface Canape {
   nom: string;
   description: string;
   prix: number;
-  couleur: string[]; // tableau de chaînes pour les couleurs
+  couleur: string[];
   largeur: string;
   profondeur: string;
   hauteur: string;
@@ -15,6 +15,8 @@ export type Item = {
   id: number;
   nom: string;
   prix: number;
+  color: string;
+  seat: number;
 };
 
 export type NewDataState = {
