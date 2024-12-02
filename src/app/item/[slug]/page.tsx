@@ -1,14 +1,14 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+
 import { useTemplate } from "@/hook/useTemplate";
-import { Button } from "@/components/ui/button";
-import { ShoppingBasket, Heart, ShoppingCart } from "lucide-react";
+
+import { Heart, ShoppingCart } from "lucide-react";
 import Recommendations from "@/components/Recommendations";
 import Footer from "@/components/Footer";
 import { CarouselPlugin } from "@/components/Caroussel";
-import { Colors, colors } from "@/modules/model";
+import { colors } from "@/Interface/model";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
@@ -34,7 +34,6 @@ export default function Page({ params }) {
     setIsLiked(!isLiked);
     addItems(item);
   };
-  console.log(idArticle?.color);
 
   return (
     <div>

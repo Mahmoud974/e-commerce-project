@@ -14,7 +14,6 @@ import { useState } from "react";
 import { FavoritesList } from "./ComponentSheet/FavoritesList";
 import { CartList } from "./ComponentSheet/CartList";
 import { ProfileSection } from "./ComponentSheet/ProfileSection";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function SheetDisplay() {
   const [activeTab, setActiveTab] = useState("favorites");

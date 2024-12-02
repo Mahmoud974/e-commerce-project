@@ -22,8 +22,8 @@ export enum Seats {
 
 export const colors = [
   { name: Colors.Beige, colorClass: "bg-yellow-100" },
-  { name: Colors.Blue, colorClass: "bg-blue-500" },
-  { name: Colors.Brown, colorClass: "bg-amber-800" },
+  { name: Colors.Blue, colorClass: "bg-blue-700" },
+  { name: Colors.Brown, colorClass: "bg-amber-700" },
   { name: Colors.Gray, colorClass: "bg-gray-400" },
   { name: Colors.Black, colorClass: "bg-black" },
   { name: Colors.Pink, colorClass: "bg-pink-200" },

@@ -5,17 +5,15 @@ import Navbar from "@/components/Navbar";
 import { useTemplate } from "@/hook/useTemplate";
 import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
-import {
-  useSearchArticles,
-  useSortArticlebyPrice,
-  useLikeData,
-} from "@/store/store";
+import { useSearchArticles, useSortdata, useLikeData } from "@/store/store";
 import Filter from "@/components/Filter";
 
 export default function Page() {
   const { data } = useTemplate();
+  const { filteredDataColor, setFilteredDataColor, setSofa, dbBase } =
+    useSortdata();
   const { filteredData } = useSearchArticles();
-  const { sortData, setSortData } = useSortArticlebyPrice(); // Utilise sortData au lieu de filteredData
+  const { sortData, setSortData } = useSortdata(); // Utilise sortData au lieu de filteredData
   const { addItems } = useLikeData();
 
   const [visibleCount, setVisibleCount] = useState(15);
@@ -23,7 +21,6 @@ export default function Page() {
   useEffect(() => {
     setSortData(filteredData);
   }, [filteredData, setSortData]);
-  console.log(data);
 
   const handleLoadMore = () => {
     setVisibleCount(visibleCount + 15);
@@ -33,7 +30,6 @@ export default function Page() {
 
   let seat = data && data.map((item) => item.seat);
   let seatProduct = [...new Set(seat)];
-  console.log(seatProduct);
 
   const flexCol = "flex flex-col";
 
@@ -49,7 +45,17 @@ export default function Page() {
               seatProduct={seatProduct}
             />
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
-              {data && data.length > 0 ? (
+              {filteredDataColor && filteredDataColor.length > 0 ? (
+                filteredDataColor
+                  .slice(0, visibleCount)
+                  .map((item: Canape) => (
+                    <ProductCard
+                      key={item.id}
+                      item={item}
+                      addItems={addItems}
+                    />
+                  ))
+              ) : data && data.length > 0 ? (
                 data
                   .slice(0, visibleCount)
                   .map((item: Canape) => (
@@ -60,7 +66,7 @@ export default function Page() {
                     />
                   ))
               ) : (
-                <p>Aucun produit trouvé.</p>
+                <p>Aucun produit disponible.</p>
               )}
             </section>
 
