@@ -16,10 +16,10 @@ export default function Page() {
             alt="banner about"
             fill
             objectFit="cover"
-            className="object-cover saturate-0"
+            className="object-cover brightness-50 backdrop-invert-0  "
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
-            <p className="text-white text-3xl font-semibold s">
+            <p className="text-white text-3xl font-black uppercase">
               À propos de nous
             </p>
             <p className="drop-shadow-lg">Nous sommes SofaChic</p>
@@ -55,7 +55,7 @@ export default function Page() {
             fonctionnalité optimale et l’utilisation de matériaux de haute
             qualité, qui sont au cœur de notre héritage
           </p>
-          <ul className="flex flex-col md:flex-row text-center gap-12 items-center justify-between">
+          <ul className="flex mt-8 flex-col flex-wrap md:flex-row text-center gap-12 items-center justify-between">
             <li className="flex flex-col items-center">
               <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
