@@ -13,7 +13,6 @@ export async function GET(
       nom: articleName,
     },
   });
-  console.log(article);
 
   return NextResponse.json({ article });
 }

@@ -11,19 +11,15 @@ const Footer = () => {
                   Accueil
                 </a>
               </li>
+
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Produits
+                <a href="/about" className="text-gray-400 hover:text-white">
+                  À propos SofaChic./
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white">
-                  À propos
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Contact
+                  Service client
                 </a>
               </li>
             </ul>
@@ -32,18 +28,19 @@ const Footer = () => {
             <h5 className="text-lg font-bold mb-4">Informations</h5>
             <ul>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a
+                  href="/PolicyCredential"
+                  className="text-gray-400 hover:text-white"
+                >
                   Politique de confidentialité
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white">
+                <a
+                  href="/Conditions"
+                  className="text-gray-400 hover:text-white"
+                >
                   {`Conditions d'utilisation`}
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Retours
                 </a>
               </li>
             </ul>

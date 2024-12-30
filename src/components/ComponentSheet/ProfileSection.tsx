@@ -15,13 +15,22 @@ export function ProfileSection({
 
       <div className="flex flex-col space-y-2">
         {!session || !session.user ? (
-          <button
-            onClick={() => signIn("google")}
-            className="bg-red-500 text-white py-2 px-4 rounded-full w-64"
-            disabled={isProcessing}
-          >
-            {isProcessing ? "Chargement..." : "Se connecter avec Google"}
-          </button>
+          <>
+            <button
+              onClick={() => signIn("google")}
+              className="bg-red-500 text-white py-2 px-4 rounded-full w-64"
+              disabled={isProcessing}
+            >
+              {isProcessing ? "Chargement..." : "Se connecter avec Google"}
+            </button>
+            {/* <button
+              onClick={handleFacebookLogin}
+              className="bg-blue-600 text-white py-2 px-4 rounded-full w-64"
+              disabled={isProcessing}
+            >
+              {isProcessing ? "Chargement..." : "Se connecter avec Facebook"}
+            </button> */}
+          </>
         ) : (
           <button
             onClick={() => signOut()}
@@ -30,14 +39,6 @@ export function ProfileSection({
             Déconnecter
           </button>
         )}
-
-        <button
-          onClick={handleFacebookLogin}
-          className="bg-blue-600 text-white py-2 px-4 rounded-full w-64"
-          disabled={isProcessing}
-        >
-          {isProcessing ? "Chargement..." : "Se connecter avec Facebook"}
-        </button>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export default function SheetDisplay() {
 
   const handleFacebookLogin = () => {
     setIsProcessing(true);
-    setTimeout(() => setIsProcessing(false), 2000); // Simulating login process
+    setTimeout(() => setIsProcessing(false), 2000);
   };
 
   const renderContent = () => {
@@ -32,6 +32,9 @@ export default function SheetDisplay() {
       case "favorites":
         return (
           <FavoritesList
+            session={session}
+            signIn={signIn}
+            signOut={signOut}
             selectedItems={selectedItems}
             removeItems={removeItems}
           />

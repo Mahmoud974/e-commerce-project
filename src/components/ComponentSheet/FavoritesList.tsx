@@ -1,7 +1,13 @@
 import Image from "next/image";
 import { Trash } from "lucide-react";
 
-export function FavoritesList({ selectedItems, removeItems }) {
+export function FavoritesList({
+  selectedItems,
+  removeItems,
+  session,
+  signIn,
+  signOut,
+}) {
   if (selectedItems.length === 0) {
     return <div className="flex justify-center">Aucun Like 💔</div>;
   }
