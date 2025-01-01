@@ -41,14 +41,17 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
         </div>
 
         {/* Content Section */}
-        <div className="p-4 space-y-3">
+        <div className="p-4 space-y-1">
           <span className=" bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
             NOUVEAU
           </span>
-          <p className="text-2xl font-normal text-gray-800 truncate">
-            {item.nom}
-          </p>
-          <p className="text-red-600 font-bold text-xl mt-2">{item.prix}€</p>
+          <div className="flex items-center justify-between">
+            <p className="text-2xl font-normal text-gray-800 truncate">
+              {item.nom}
+            </p>
+            <p className=" text-black   text-3xl  ">{item.prix}€</p>
+          </div>
+          <small className="text-black  ">Tissu • Chêne </small>
         </div>
       </Link>
 

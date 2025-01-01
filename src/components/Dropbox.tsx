@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ArrowUpDown, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,10 +49,14 @@ export function ComboboxDemo({ data }) {
             aria-expanded={open}
             className="w-[200px] justify-between bg-black text-white border-white"
           >
-            {value
-              ? frameworks.find((framework) => framework.value === value)?.label
-              : "Sort by"}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50 text-white" />
+            <div className="flex items-center gap-2">
+              <ArrowUpDown />
+              {value
+                ? frameworks.find((framework) => framework.value === value)
+                    ?.label
+                : "Trier"}
+            </div>
+            <ChevronsUpDown className="  h-4 w-4 shrink-0 opacity-50 text-white" />
           </Button>
         </div>
       </PopoverTrigger>

@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import HelpSection from "@/components/HelpSection";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import React from "react";
@@ -28,7 +29,7 @@ export default function Page() {
 
         {/* Paragraphe sous l'image */}
         <div className="mt-12 text-center px-4 mb-12">
-          <p className="text-white text-xl font-semibold mt-4 max-w-3xl mx-auto">
+          <p className="drop-shadow-lg w-1/2 text-center mx-auto">
             Nous créons des meubles uniques qui améliorent les nouvelles façons
             de vivre, de travailler et de jouer.
           </p>
@@ -108,6 +109,7 @@ export default function Page() {
             </li>
           </ul>
         </div>
+        <HelpSection />
         <Footer />
       </div>
     </section>

@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import HelpSection from "@/components/HelpSection";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import React from "react";
@@ -142,6 +143,7 @@ export default function Page() {
             />
           </div>
         </div>
+        <HelpSection />
 
         <Footer />
       </div>
