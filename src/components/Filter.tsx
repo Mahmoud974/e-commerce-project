@@ -11,12 +11,11 @@ import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
-  const { filteredData } = useSearchArticles();
+  const { filteredData, colorsArticles } = useSearchArticles();
 
   const [assisesData, setAssisesData] = useState([]);
 
   useEffect(() => {
-    // Dynamically fetch or map the seat data
     if (data) {
       const seatCounts = data.reduce((acc, item) => {
         const seat = item.seat;
@@ -44,12 +43,13 @@ export default function Filter({ data, colorProduct, seatProduct }) {
           {colors.map((color) => (
             <div
               key={color.name}
-              className="flex flex-col items-center space-y-2"
+              className="flex flex-col items-center space-y-2 cursor-pointer"
+              onClick={() => colorsArticles(data, color.name)}
             >
               <button
                 className={`w-10 h-10 rounded-full ${color.colorClass} border  `}
               ></button>
-              <p className="text-sm text-white rounded-md px-2 py-1">
+              <p className="text-sm text-white rounded-md px-2 py-1 ">
                 {color.name}
               </p>
             </div>

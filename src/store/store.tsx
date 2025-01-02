@@ -76,6 +76,7 @@ export const useCartStore = create<CartState>((set) => ({
  */
 export const useSearchArticles = create<any>((set) => ({
   filteredData: [],
+  //Triez les éléments
   setFilteredData: (db, searchTerm) => {
     const filtered = db?.filter(
       (item) =>
@@ -88,18 +89,27 @@ export const useSearchArticles = create<any>((set) => ({
     }));
   },
   croissantArticles: (db) => {
-    const newTab = [...db]?.sort((a, b) => a.prix - b.prix); // Tri croissant
+    const newTab = [...db]?.sort((a, b) => a.prix - b.prix);
     set(() => ({ filteredData: newTab }));
     console.log("Tri croissant appliqué :", newTab);
   },
   decroissantArticles: (db) => {
-    const newTab = [...db]?.sort((a, b) => b.prix - a.prix); // Tri décroissant
+    const newTab = [...db]?.sort((a, b) => b.prix - a.prix);
     set(() => ({ filteredData: newTab }));
     console.log("Tri décroissant appliqué :", newTab);
   },
   pertinenceArticles: (db) => {
-    // Logique de pertinence (ici comme exemple, renvoyer dans l'ordre initial)
     set(() => ({ filteredData: [...db] }));
     console.log("Tri par pertinence appliqué :", db);
+  },
+
+  //Triez en fonction des coleurs
+  colorsArticles: (db, color) => {
+    const newTab = [...db]?.filter(
+      (item) => item.color === color.toLowerCase()
+    );
+    console.log(newTab);
+
+    set(() => ({ filteredData: newTab }));
   },
 }));
