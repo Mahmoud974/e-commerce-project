@@ -2,6 +2,7 @@ import * as React from "react";
 import { ArrowUpDown, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useSearchArticles } from "@/store/store";
 import {
   Command,
   CommandEmpty,
@@ -15,15 +16,37 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks = [
-  { value: "Popular", label: "Popular" },
-  { value: "Low", label: "Low" },
-  { value: "High", label: "High" },
+const sortingOptions = [
+  { value: "Pertinence", label: "Pertinence" },
+  { value: "Croissant", label: "Prix Croissant" },
+  { value: "Decroissant", label: "Prix Décroissant" },
 ];
 
 export function ComboboxDemo({ data }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const {
+    setFilteredData,
+    croissantArticles,
+    decroissantArticles,
+    pertinenceArticles,
+  } = useSearchArticles();
+
+  const handleSort = (optionValue) => {
+    switch (optionValue) {
+      case "Croissant":
+        croissantArticles(data);
+        break;
+      case "Decroissant":
+        decroissantArticles(data);
+        break;
+      case "Pertinence":
+        pertinenceArticles(data);
+        break;
+      default:
+        console.error("Option de tri non reconnue :", optionValue);
+    }
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -35,41 +58,41 @@ export function ComboboxDemo({ data }) {
             aria-expanded={open}
             className="w-[200px] justify-between bg-black text-white border-white"
           >
-            <div className="flex items-center gap-2">
+            <p className="flex items-center gap-2">
               <ArrowUpDown />
               {value
-                ? frameworks.find((framework) => framework.value === value)
-                    ?.label
-                : "Trier"}
-            </div>
-            <ChevronsUpDown className="  h-4 w-4 shrink-0 opacity-50 text-white" />
+                ? sortingOptions.find((option) => option.value === value)?.label
+                : "Trier par prix"}
+            </p>
+            <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50 text-white" />
           </Button>
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>Aucune option trouvée.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {sortingOptions.map((option) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={option.value}
+                  className="cursor-pointer"
+                  value={option.value}
                   onSelect={(currentValue) => {
                     const selectedValue =
                       currentValue === value ? "" : currentValue;
                     setValue(selectedValue);
-
+                    handleSort(selectedValue); // Appeler la fonction de tri
                     setOpen(false);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {framework.label}
+                  {option.label}
                 </CommandItem>
               ))}
             </CommandGroup>

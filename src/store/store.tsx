@@ -70,75 +70,11 @@ export const useCartStore = create<CartState>((set) => ({
     }));
   },
 }));
-//Changer coleur, mettre en croissant et décroissant
-
-export const useSortdata = create<any>((set) => ({
-  dbSofa: [],
-  filteredDataColor: [],
-  sortData: [],
-  valueBoolean: false,
-  assisesData: [], // Ajouter une donnée pour les assises
-
-  dbBase: (db) => {
-    set({ dbSofa: db });
-  },
-
-  // Nouvelle fonction pour trier les assises
-  sortAssisesData: () => {
-    set((state) => {
-      const sortedAssisesData = [...state.assisesData].sort(
-        (a, b) => b.count - a.count
-      ); // Trie par 'count' en ordre décroissant
-      return { assisesData: sortedAssisesData };
-    });
-  },
-
-  setFilteredDataColor: (db, colorName) => {
-    set((state) => {
-      const isColorSelected = state.filteredDataColor.some(
-        (item) => item.color.toLowerCase() === colorName.toLowerCase()
-      );
-
-      if (isColorSelected) {
-        // Si la couleur est déjà sélectionnée, on l'enlève
-        const filteredData = state.filteredDataColor.filter(
-          (item) => item.color.toLowerCase() !== colorName.toLowerCase()
-        );
-        return { filteredDataColor: filteredData };
-      } else {
-        // Sinon, on l'ajoute aux résultats filtrés
-        const newFilteredData =
-          db &&
-          db.filter(
-            (item) => item.color.toLowerCase() === colorName.toLowerCase()
-          );
-        return {
-          filteredDataColor: [...state.filteredDataColor, ...newFilteredData],
-        };
-      }
-    });
-  },
-
-  setSortData: async (db) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simule un délai de 1 seconde
-
-    set((state) => {
-      const sorted = [...db].sort((a, b) =>
-        state.valueBoolean ? b.prix - a.prix : a.prix - b.prix
-      );
-
-      return { sortData: sorted };
-    });
-  },
-
-  toggleSortOrder: () =>
-    set((state) => ({ valueBoolean: !state.valueBoolean })),
-}));
 
 /**
  * Afficher les résultats de recherche via la barre de recherche
  */
-export const useSearchArticles = create<NewDataState>((set) => ({
+export const useSearchArticles = create<any>((set) => ({
   filteredData: [],
   setFilteredData: (db, searchTerm) => {
     const filtered = db?.filter(
@@ -146,9 +82,24 @@ export const useSearchArticles = create<NewDataState>((set) => ({
         item.nom.toLowerCase() &&
         item.nom.toLowerCase().includes(searchTerm?.toLowerCase())
     );
+
     set(() => ({
       filteredData: filtered,
     }));
-    console.log(filtered);
+  },
+  croissantArticles: (db) => {
+    const newTab = [...db]?.sort((a, b) => a.prix - b.prix); // Tri croissant
+    set(() => ({ filteredData: newTab }));
+    console.log("Tri croissant appliqué :", newTab);
+  },
+  decroissantArticles: (db) => {
+    const newTab = [...db]?.sort((a, b) => b.prix - a.prix); // Tri décroissant
+    set(() => ({ filteredData: newTab }));
+    console.log("Tri décroissant appliqué :", newTab);
+  },
+  pertinenceArticles: (db) => {
+    // Logique de pertinence (ici comme exemple, renvoyer dans l'ordre initial)
+    set(() => ({ filteredData: [...db] }));
+    console.log("Tri par pertinence appliqué :", db);
   },
 }));
