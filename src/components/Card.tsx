@@ -2,14 +2,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Heart } from "lucide-react";
-import { useCartStore } from "@/store/store";
+
 import { useState } from "react";
 
 const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   item,
   addItems,
 }) => {
-  const { addItem } = useCartStore();
   const [isLiked, setIsLiked] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
@@ -20,7 +19,6 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
   const handleCart = () => {
     setIsInCart(!isInCart);
-    addItem(item);
   };
 
   return (

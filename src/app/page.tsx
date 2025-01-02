@@ -5,22 +5,17 @@ import Navbar from "@/components/Navbar";
 import { useTemplate } from "@/hook/useTemplate";
 import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
-import { useSearchArticles, useSortdata, useLikeData } from "@/store/store";
+import { useSearchArticles, useLikeData } from "@/store/store";
 import Filter from "@/components/Filter";
 
 export default function Page() {
   const { data } = useTemplate();
-  const { filteredDataColor, setFilteredDataColor, setSofa, dbBase } =
-    useSortdata();
+
   const { filteredData } = useSearchArticles();
-  const { sortData, setSortData } = useSortdata();
+
   const { addItems } = useLikeData();
 
   const [visibleCount, setVisibleCount] = useState(15);
-
-  useEffect(() => {
-    setSortData(filteredData);
-  }, [filteredData, setSortData]);
 
   const handleLoadMore = () => {
     setVisibleCount(visibleCount + 15);
@@ -45,10 +40,10 @@ export default function Page() {
               seatProduct={seatProduct}
             />
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
-              {filteredDataColor && filteredDataColor.length > 0 ? (
-                filteredDataColor
+              {filteredData && filteredData.length > 0 ? (
+                filteredData
                   .slice(0, visibleCount)
-                  .map((item: Canape) => (
+                  .map((item: any) => (
                     <ProductCard
                       key={item.id}
                       item={item}
@@ -71,7 +66,7 @@ export default function Page() {
             </section>
 
             {/* Bouton "Voir plus" si plus de produits sont disponibles */}
-            {sortData.length > visibleCount && (
+            {filteredData.length > visibleCount && (
               <button
                 onClick={handleLoadMore}
                 className="mt-4 p-2 border border-white text-white font-semibold rounded"

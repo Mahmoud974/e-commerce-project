@@ -149,6 +149,5 @@ export const useSearchArticles = create<NewDataState>((set) => ({
     set(() => ({
       filteredData: filtered,
     }));
-    console.log(filtered);
   },
 }));

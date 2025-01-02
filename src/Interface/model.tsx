@@ -31,11 +31,11 @@ export const assisesData = [
   { name: Seats.Seat8, count: 1200 },
 ];
 export const colors = [
-  { name: "Yellow", colorClass: "bg-amber-300" },
-  { name: "Blue", colorClass: "bg-blue-700" },
+  { name: "Yellow", colorClass: "bg-amber-200" },
+  { name: "Blue", colorClass: "bg-blue-500" },
   { name: "Gray", colorClass: "bg-gray-400" },
   { name: "Black", colorClass: "bg-black" },
-  { name: "Brown", colorClass: "bg-amber-500" },
-  { name: "Green", colorClass: "bg-green-500" },
+  { name: "Brown", colorClass: "bg-amber-900" },
+  { name: "Green", colorClass: "bg-green-400" },
   { name: "Pink", colorClass: "bg-pink-200" },
 ];

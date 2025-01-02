@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ComboboxDemo } from "./Dropbox";
-import { useSearchArticles, useSortdata } from "@/store/store";
+import { useSearchArticles } from "@/store/store";
 import {
   Popover,
   PopoverContent,
@@ -12,14 +12,14 @@ import { RotateCcw } from "lucide-react";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
   const { filteredData } = useSearchArticles();
-  const { filteredDataColor, setFilteredDataColor } = useSortdata();
+
   const [assisesData, setAssisesData] = useState([]);
 
   useEffect(() => {
     // Dynamically fetch or map the seat data
     if (data) {
       const seatCounts = data.reduce((acc, item) => {
-        const seat = item.seat; // Assuming "seat" is the number of seats for each item
+        const seat = item.seat;
         acc[seat] = (acc[seat] || 0) + 1;
         return acc;
       }, {});
@@ -47,21 +47,17 @@ export default function Filter({ data, colorProduct, seatProduct }) {
               className="flex flex-col items-center space-y-2"
             >
               <button
-                className={`w-10 h-10 rounded-full ${color.colorClass}`}
-                onClick={() => setFilteredDataColor(data, color.name)}
+                className={`w-10 h-10 rounded-full ${color.colorClass} border  `}
               ></button>
-              <p className="text-sm text-gray-800 rounded-md px-2 py-1">
+              <p className="text-sm text-white rounded-md px-2 py-1">
                 {color.name}
               </p>
             </div>
           ))}
           {/* Bouton Reset */}
           <div className="col-span-3 flex justify-center mt-4">
-            <button
-              className="flex text-base text-gray-800 hover:text-black"
-              onClick={() => setFilteredDataColor(data, null)}
-            >
-              <RotateCcw className="text-xs w-4" />
+            <button className="flex text-base  text-white hover:text-black">
+              <RotateCcw className="text-xs w-4 text-white" />
               Réinitialiser
             </button>
           </div>
@@ -100,10 +96,10 @@ export default function Filter({ data, colorProduct, seatProduct }) {
         {filters.map((filter) => (
           <li key={filter.label}>
             <Popover>
-              <PopoverTrigger className="bg-black border px-6 py-2 rounded-lg text-white hover:bg-gray-100 hover:text-black">
+              <PopoverTrigger className="bg-black   border px-6 py-2 rounded-lg text-white hover:bg-gray-100 hover:text-black">
                 {filter.label}
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-4 border rounded-lg shadow-md bg-black text-white">
+              <PopoverContent className="w-64 p-4   border rounded-lg shadow-md bg-black text-white">
                 {filter.content}
               </PopoverContent>
             </Popover>
@@ -113,11 +109,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
 
       {/* Section des résultats et recherche */}
       <div className="flex items-center space-x-6 md:space-x-3">
-        <p className="text-white">
-          {filteredDataColor.length > 0
-            ? `${filteredDataColor.length} articles sélectionnés`
-            : `${filteredData.length} articles`}
-        </p>
+        <p className="text-white"></p>
         <ComboboxDemo data={data} />
       </div>
     </div>

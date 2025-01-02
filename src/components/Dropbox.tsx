@@ -14,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useSortdata } from "@/store/store";
 
 const frameworks = [
   { value: "Popular", label: "Popular" },
@@ -25,19 +24,6 @@ const frameworks = [
 export function ComboboxDemo({ data }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const { setSortData, toggleSortOrder } = useSortdata();
-
-  const handleSortData = (type) => {
-    if (data) {
-      setSortData(data);
-
-      if (type === "High") {
-        toggleSortOrder();
-      } else if (type === "Low") {
-        toggleSortOrder();
-      }
-    }
-  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -73,7 +59,7 @@ export function ComboboxDemo({ data }) {
                     const selectedValue =
                       currentValue === value ? "" : currentValue;
                     setValue(selectedValue);
-                    handleSortData(selectedValue);
+
                     setOpen(false);
                   }}
                 >

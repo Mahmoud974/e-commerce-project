@@ -4,7 +4,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="text-white">
-      <div className="mx-auto py-8 px-4">
+      <div className="mx-auto py-8  ">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h5 className="text-lg font-bold mb-4">Informations</h5>
@@ -22,7 +22,7 @@ const Footer = () => {
                   href="/Conditions"
                   className="text-gray-400 hover:text-white"
                 >
-                  Conditions d'utilisation
+                  {`Conditions d'utilisation`}
                 </a>
               </li>
             </ul>

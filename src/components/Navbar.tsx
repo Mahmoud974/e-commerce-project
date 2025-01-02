@@ -31,6 +31,7 @@ export default function Navbar() {
   useEffect(() => {
     if (data) {
       setFilteredData(data, searchTerm);
+      console.log(setFilteredData(data, searchTerm));
     }
   }, [data, searchTerm, setFilteredData]);
 
@@ -51,10 +52,7 @@ export default function Navbar() {
           </ul>
         </div>
 
-        <form
-          className="flex-grow mx-4 lg:px-52"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="flex-grow mx-28  " onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
             placeholder="Search..."
