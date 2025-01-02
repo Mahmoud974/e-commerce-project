@@ -40,7 +40,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
     {
       label: "Color",
       content: (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid   grid-cols-3 gap-4">
           {colors.map((color) => (
             <div
               key={color.name}
@@ -48,9 +48,8 @@ export default function Filter({ data, colorProduct, seatProduct }) {
             >
               <button
                 className={`w-10 h-10 rounded-full ${color.colorClass}`}
-                aria-label={color.name}
                 onClick={() => setFilteredDataColor(data, color.name)}
-              />
+              ></button>
               <p className="text-sm text-gray-800 rounded-md px-2 py-1">
                 {color.name}
               </p>
@@ -58,7 +57,10 @@ export default function Filter({ data, colorProduct, seatProduct }) {
           ))}
           {/* Bouton Reset */}
           <div className="col-span-3 flex justify-center mt-4">
-            <button className="flex text-base ">
+            <button
+              className="flex text-base text-gray-800 hover:text-black"
+              onClick={() => setFilteredDataColor(data, null)}
+            >
               <RotateCcw className="text-xs w-4" />
               Réinitialiser
             </button>
@@ -92,7 +94,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between mb-6 space-y-4 md:space-y-0">
+    <div className="flex border-none flex-col md:flex-row items-center justify-between mb-6 space-y-4 md:space-y-0">
       {/* Section des filtres */}
       <ul className="flex space-x-6 md:space-x-4">
         {filters.map((filter) => (

@@ -11,12 +11,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Newsletter from "@/components/Newsletter";
 import Informations from "@/components/Informations";
+import Image from "next/image";
+import { SeveralPayment } from "@/components/SeveralPayment";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
   const [isInCart, setIsInCart] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [activeSection, setActiveSection] = useState("Description"); // Active section state
+  const [activeButton, setActiveButton] = useState<string | null>(null); // New state to track active button
 
   useEffect(() => {
     async function fetchParams() {
@@ -39,6 +42,12 @@ export default function Page({ params }) {
     addItems(item);
   };
 
+  // Handle active button click
+  const handleButtonClick = (section: string) => {
+    setActiveSection(section);
+    setActiveButton(section); // Set active button
+  };
+
   return (
     <div>
       <main className="container mx-auto mt-6 flex-grow px-6">
@@ -47,16 +56,44 @@ export default function Page({ params }) {
           <div className="">
             <CarouselPlugin data={idArticle} />
           </div>
+
           <div className="md:ml-12 md:space-y-3">
-            <p className="text-4xl md:mt-0 mt-8 font-bold">{idArticle?.nom}</p>
-            <p className="text-md my-2 font-sans">
-              Canapé{" "}
-              <span className="font-bold text-red-500">{idArticle?.seat}</span>{" "}
-              place{idArticle?.seat !== 1 && "s"}
-            </p>
+            <div className="flex gap-5 justify-between">
+              <div>
+                <p className="text-4xl md:mt-0 mt-8 font-bold pl-0">
+                  {idArticle?.nom}
+                </p>
+                <small>Ref 12578BO</small>
+                <p className="text-md my-2 font-sans">
+                  Canapé{" "}
+                  <span className="font-bold text-red-500">
+                    {idArticle?.seat}
+                  </span>{" "}
+                  place{idArticle?.seat !== 1 && "s"}
+                </p>
+              </div>
+              <div className="border rounded-md flex justify-between items-center w-80  h-16 p-3">
+                <Image
+                  src="/img/alma-couleur.png"
+                  width={100}
+                  height={100}
+                  alt="logo Alma"
+                  className="w-24"
+                />
+                <div>
+                  <ul className="flex gap-3">
+                    <li className="text-md font-bold">3x</li>
+                    <li className="text-md font-bold">4x</li>
+                    <li className="text-md font-bold">10x</li>
+                    <li className="text-md font-bold">12x</li>
+                  </ul>
+                  <SeveralPayment />
+                </div>
+              </div>
+            </div>
             <p className="text-lg">{idArticle?.description}</p>
-            <div className="flex items-center">
-              <p>Color: {idArticle?.color}</p>
+            <div className="flex   items-center">
+              <p className=" ">Color: {idArticle?.color}</p>
               <div
                 className={`w-5 h-5 rounded-full ml-3 ${
                   colors.find((color) => color.name === idArticle?.color)
@@ -64,9 +101,34 @@ export default function Page({ params }) {
                 }`}
               ></div>
             </div>
-            <span className="mr-2 text-3xl">{idArticle?.prix}€</span>
+            <ul className="flex   gap-5">
+              <li className="flex flex-col text-md font-bold">
+                <p>Hauteur </p> <p className="font-normal">54 cm</p>
+              </li>
+              <li className="flex flex-col  text-md font-bold">
+                <p> Largeur </p> <p className="font-normal">160 cm</p>
+              </li>
+              <li className=" flex flex-col text-md font-bold">
+                <p>Profondeur </p> <p className="font-normal">141 cm</p>
+              </li>
+            </ul>
+            <div className="border border-green-900 bg-green-950 p-3 rounded-md  ">
+              <p className="text-xs">
+                Bénéficiez de 5% de réduction supplémentaire en utilisant le
+                code CODE : CCFA5.
+              </p>
+            </div>
+            <div className="flex items-center">
+              <span className="mr-2 text-3xl">{idArticle?.prix}€</span>
+
+              <p className="line-through ml-2">{idArticle?.prix + 100}€</p>
+              <div className="border-red-700 border px-1 ml-2 rounded-sm">
+                <p className="text-red-700 font-bold">-11%</p>
+              </div>
+            </div>
+            <p className="text-xs mt-3">{`Avec 4.80€ d'économie`}</p>
             <p className=" text-md">Délai de livraison estimé 4 à 6 semaines</p>
-            <div className="flex flex-col mt-4">
+            <div className="flex flex-col ">
               <div className="flex items-center justify-start gap-2 py-3 border-t border-gray-200">
                 <button
                   className={`flex items-center justify-center w-10 h-10 rounded-full ${
@@ -99,33 +161,63 @@ export default function Page({ params }) {
         <div className="text-white">
           <ul className="flex gap-3 mt-8">
             <li>
-              <Button onClick={() => setActiveSection("Description")}>
+              <Button
+                onClick={() => handleButtonClick("Description")}
+                className={`transition-all ${
+                  activeButton === "Description"
+                    ? "transform active:scale-95 bg-gray-700"
+                    : "bg-gray-500"
+                }`}
+              >
                 Description
               </Button>
             </li>
             <li>
-              <Button onClick={() => setActiveSection("Dimensions")}>
+              <Button
+                onClick={() => handleButtonClick("Dimensions")}
+                className={`transition-all ${
+                  activeButton === "Dimensions"
+                    ? "transform active:scale-95 bg-gray-700"
+                    : "bg-gray-500"
+                }`}
+              >
                 Dimensions
               </Button>
             </li>
             <li>
-              <Button onClick={() => setActiveSection("Livraison")}>
+              <Button
+                onClick={() => handleButtonClick("Livraison")}
+                className={`transition-all ${
+                  activeButton === "Livraison"
+                    ? "transform active:scale-95 bg-gray-700"
+                    : "bg-gray-500"
+                }`}
+              >
                 Livraison
               </Button>
             </li>
           </ul>
+          <SeveralPayment />
           <div className="mt-8">
             {activeSection === "Description" && (
               <div>
                 <h2 className="text-2xl font-bold">
                   Un duo de chaises Miranda pour sublimer votre salle à manger
                 </h2>
+                Voici une version plus étoffée de votre contenu :
                 <p className="mt-4">
-                  Ajoutez une touche d’élégance contemporaine et
-                  post-industrielle à votre intérieur avec le lot de deux
-                  chaises Miranda kaki. Grâce à leur assise en velours côtelé et
-                  leurs pieds en métal noir, ces chaises se démarquent par leur
-                  esthétique raffinée et leur allure intemporelle.
+                  {`Transformez votre espace de vie en un havre de style et de
+                  confort avec le lot de deux chaises Miranda kaki. Leur assise
+                  en velours côtelé, douce et accueillante, offre non seulement
+                  un confort optimal, mais aussi une esthétique sophistiquée.
+                  Complétées par des pieds en métal noir, robustes et élégants,
+                  ces chaises incarnent parfaitement l'équilibre entre modernité
+                  et intemporalité. Que ce soit pour habiller une salle à
+                  manger, un coin bureau ou même un espace détente, les chaises
+                  Miranda apportent une touche d’élégance contemporaine et
+                  post-industrielle. Leur design polyvalent s'intègre
+                  harmonieusement à divers styles d'intérieur, tout en reflétant
+                  un sens du détail et du raffinement inégalé.`}
                 </p>
               </div>
             )}

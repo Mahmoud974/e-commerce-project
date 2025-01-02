@@ -4,8 +4,8 @@ import { Input } from "./ui/input";
 
 export default function Newsletter() {
   return (
-    <div className="bg-red-700 text-black w-full h-auto py-12">
-      <div className="flex text-center mx-auto w-2/3">
+    <div className="bg-red-700  w-full h-auto py-12">
+      <div className="flex justify-center text-center mx-auto ">
         <p>
           {" "}
           Devenez un{" "}
@@ -20,9 +20,9 @@ export default function Newsletter() {
         <Input
           type="email"
           placeholder="Email"
-          className="border-black rounded-none border-2 text-black placeholder-black" // Utilisation de la classe Tailwind pour placeholder en noir
+          className=" rounded-none border-2  placeholder-white" // Utilisation de la classe Tailwind pour placeholder en noir
         />
-        <Button className="bg-black rounded-none font-bold">{`Je m'inscris`}</Button>
+        <Button className="bg-white text-red-700 border-none rounded-none font-bold">{`Je m'inscris`}</Button>
       </div>
     </div>
   );

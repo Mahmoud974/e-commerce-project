@@ -24,12 +24,12 @@ export default function Page() {
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
             <p className="text-white text-3xl font-black uppercase">
-              CONDITIONS de la garantie
+              Moyen de paiement
             </p>
             <p className="drop-shadow-lg w-1/2 text-center">
-              Profitez de notre garantie exceptionnelle pour une tranquillité
-              d’esprit totale : des meubles conçus pour durer, avec un support
-              qui vous accompagne à chaque étape.
+              Simplifiez vos achats en toute sérénité : choisissez parmi nos
+              options de paiement flexibles, sécurisées et adaptées à vos
+              besoins.
             </p>
           </div>
         </div>
