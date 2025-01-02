@@ -21,14 +21,14 @@ export enum Seats {
 }
 
 export const assisesData = [
-  { name: Seats.Seat1, count: 214 },
-  { name: Seats.Seat2, count: 214 },
-  { name: Seats.Seat3, count: 5938 },
-  { name: Seats.Seat4, count: 3172 },
-  { name: Seats.Seat5, count: 1791 },
-  { name: Seats.Seat6, count: 507 },
-  { name: Seats.Seat7, count: 5938 },
-  { name: Seats.Seat8, count: 1200 },
+  { name: Seats.Seat1, nbre: 1 },
+  { name: Seats.Seat2, nbre: 2 },
+  { name: Seats.Seat3, nbre: 3 },
+  { name: Seats.Seat4, nbre: 4 },
+  { name: Seats.Seat5, nbre: 5 },
+  { name: Seats.Seat6, nbre: 6 },
+  { name: Seats.Seat7, nbre: 7 },
+  { name: Seats.Seat8, nbre: 8 },
 ];
 export const colors = [
   { name: "Yellow", colorClass: "bg-amber-200" },

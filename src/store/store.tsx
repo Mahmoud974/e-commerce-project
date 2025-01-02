@@ -104,11 +104,17 @@ export const useSearchArticles = create<any>((set) => ({
   },
 
   //Triez en fonction des coleurs
-  colorsArticles: (db, color) => {
+  colorsArticles: (db, selectedColors) => {
     const newTab = [...db]?.filter(
-      (item) => item.color === color.toLowerCase()
+      (item) => item.color === selectedColors.toLowerCase()
     );
-    console.log(newTab);
+    console.log("Articles filtrés par couleur :", newTab);
+
+    set(() => ({ filteredData: newTab }));
+  },
+  numberSeatArticles: (db, selectedSeat) => {
+    const newTab = db?.filter((item) => item.seat === selectedSeat);
+    console.log("Nmbre de siege", newTab);
 
     set(() => ({ filteredData: newTab }));
   },

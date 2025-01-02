@@ -11,7 +11,8 @@ import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
-  const { filteredData, colorsArticles } = useSearchArticles();
+  const { filteredData, colorsArticles, numberSeatArticles } =
+    useSearchArticles();
 
   const [assisesData, setAssisesData] = useState([]);
 
@@ -73,9 +74,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
               <button
                 key={item.name}
                 className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-100 text-gray-800 hover:bg-gray-200"
-                onClick={() =>
-                  console.log(`Assise sélectionnée : ${item.name}`)
-                }
+                onClick={() => numberSeatArticles(data, item.count)}
               >
                 <span>{item.name.replace("Seat", "").trim()}</span>
                 <span>{item.count}</span>

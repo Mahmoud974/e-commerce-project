@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 
 export default function Newsletter() {
   return (
-    <div className="bg-red-700  w-full h-auto py-12">
+    <div className="bg-slate-950  w-full h-auto py-12">
       <div className="flex justify-center text-center mx-auto ">
         <p>
           {" "}
@@ -22,7 +22,7 @@ export default function Newsletter() {
           placeholder="Email"
           className=" rounded-none border-2  placeholder-white" // Utilisation de la classe Tailwind pour placeholder en noir
         />
-        <Button className="bg-white text-red-700 border-none rounded-none font-bold">{`Je m'inscris`}</Button>
+        <Button className="bg-white text-slate-950 border-none rounded-none font-bold">{`Je m'inscris`}</Button>
       </div>
     </div>
   );
