@@ -16,7 +16,11 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
   }, [items]);
 
   if (items.length === 0) {
-    return <div className="flex justify-center">Votre panier est vide 🛒</div>;
+    return (
+      <>
+        <div className="flex justify-center">Votre panier est vide 🛒</div>
+      </>
+    );
   }
 
   return (

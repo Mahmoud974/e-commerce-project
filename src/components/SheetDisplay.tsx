@@ -10,7 +10,7 @@ import {
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useCartStore, useLikeData } from "@/store/store";
 import { CircleUser, Heart, Menu, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FavoritesList } from "./ComponentSheet/FavoritesList";
 import { CartList } from "./ComponentSheet/CartList";
 import { ProfileSection } from "./ComponentSheet/ProfileSection";

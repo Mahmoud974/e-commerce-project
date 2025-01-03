@@ -2,7 +2,7 @@
 import Navbar from "@/components/Navbar";
 import React, { useEffect, useState } from "react";
 import { useTemplate } from "@/hook/useTemplate";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Facebook, Heart, Instagram, ShoppingCart, Truck } from "lucide-react";
 import Recommendations from "@/components/Recommendations";
 import Footer from "@/components/Footer";
 import { CarouselPlugin } from "@/components/Caroussel";
@@ -13,6 +13,9 @@ import Newsletter from "@/components/Newsletter";
 import Informations from "@/components/Informations";
 import Image from "next/image";
 import { SeveralPayment } from "@/components/SeveralPayment";
+import HelpSection from "@/components/HelpSection";
+import PaymentSeveral from "@/components/PaymentSeveral";
+import { FaInstagram, FaPinterest } from "react-icons/fa";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
@@ -72,24 +75,7 @@ export default function Page({ params }) {
                   place{idArticle?.seat !== 1 && "s"}
                 </p>
               </div>
-              <div className="border rounded-md flex justify-between items-center w-80  h-16 p-3">
-                <Image
-                  src="/img/alma-couleur.png"
-                  width={100}
-                  height={100}
-                  alt="logo Alma"
-                  className="w-24"
-                />
-                <div>
-                  <ul className="flex gap-3">
-                    <li className="text-md font-bold">3x</li>
-                    <li className="text-md font-bold">4x</li>
-                    <li className="text-md font-bold">10x</li>
-                    <li className="text-md font-bold">12x</li>
-                  </ul>
-                  <SeveralPayment />
-                </div>
-              </div>
+              <PaymentSeveral />
             </div>
             <p className="text-lg">{idArticle?.description}</p>
             <div className="flex   items-center">
@@ -118,6 +104,16 @@ export default function Page({ params }) {
                 code CODE : CCFA5.
               </p>
             </div>
+            <ul className="flex gap-3">
+              <li>Share this product </li>
+              <li>
+                <Facebook />
+              </li>
+              <li>
+                <Instagram />
+              </li>
+              <li></li>
+            </ul>
             <div className="flex items-center">
               <span className="mr-2 text-3xl">{idArticle?.prix}€</span>
 
@@ -127,7 +123,12 @@ export default function Page({ params }) {
               </div>
             </div>
             <p className="text-xs mt-3">{`Avec 4.80€ d'économie`}</p>
-            <p className=" text-md">Délai de livraison estimé 4 à 6 semaines</p>
+            <div className="flex">
+              <Truck />
+              <p className="ml-1 text-md">
+                Délai de livraison estimé 4 à 6 semaines
+              </p>
+            </div>
             <div className="flex flex-col ">
               <div className="flex items-center justify-start gap-2 py-3 border-t border-gray-200">
                 <button
@@ -325,6 +326,7 @@ export default function Page({ params }) {
 
       <Informations />
       <Newsletter />
+      <HelpSection />
       <div className="mx-auto container">
         <Footer />
       </div>

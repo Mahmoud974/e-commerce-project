@@ -1,7 +1,9 @@
 import { AccordionGuarantee } from "@/components/AccordionGuarantee";
 import Footer from "@/components/Footer";
 import HelpSection from "@/components/HelpSection";
+import Informations from "@/components/Informations";
 import Navbar from "@/components/Navbar";
+import Newsletter from "@/components/Newsletter";
 import Image from "next/image";
 import React from "react";
 
@@ -77,6 +79,11 @@ export default function Page() {
           </div>
           <HelpSection />
         </div>
+      </div>
+      <Informations />
+      <Newsletter />
+      <HelpSection />
+      <div className="container mx-auto">
         <Footer />
       </div>
     </section>

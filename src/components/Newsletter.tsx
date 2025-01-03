@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 
 export default function Newsletter() {
   return (
-    <div className="bg-slate-950  w-full h-auto py-12">
+    <div className="bg-slate-900  w-full h-auto py-12">
       <div className="flex justify-center text-center mx-auto ">
         <p>
           {" "}

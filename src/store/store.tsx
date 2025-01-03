@@ -41,6 +41,7 @@ export const useLikeData = create<LikeDataState>((set) => ({
 
 export const useCartStore = create<CartState>((set) => ({
   items: [],
+
   addItem: (item: Item) => {
     set((state) => {
       const itemExists = state.items.find(

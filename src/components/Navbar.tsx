@@ -28,6 +28,8 @@ export default function Navbar() {
 
   const searchTerm = watch("search");
 
+  console.log(window.location.pathname === "/");
+
   useEffect(() => {
     if (data) {
       setFilteredData(data, searchTerm);
@@ -51,33 +53,37 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-
-        <form className="flex-grow mx-28  " onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full px-4 py-2 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("search")}
-          />
-        </form>
-        {mySession && (
-          <>
-            <Image
-              src={mySession?.image}
-              alt={`Photo de profil `}
-              className="  w-8 mr-2 rounded-full cursor-pointer"
-              width={100}
-              height={100}
-              priority
+        {window.location.pathname === "/" && (
+          <form className="flex-grow mx-28  " onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full px-4 py-2 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register("search")}
             />
-            {/*  */}
-            <p className="mr-2 cursor-pointer hover:underline">
-              {mySession?.name}
-            </p>
-          </>
+          </form>
         )}
 
-        <SheetDisplay />
+        <div className="flex items-center">
+          {mySession && (
+            <>
+              <Image
+                src={mySession?.image}
+                alt={`Photo de profil `}
+                className="  w-8 mr-2 rounded-full cursor-pointer"
+                width={100}
+                height={100}
+                priority
+              />
+              {/*  */}
+              <p className="mr-2 cursor-pointer hover:underline">
+                {mySession?.name}
+              </p>
+            </>
+          )}
+
+          <SheetDisplay />
+        </div>
       </div>
     </nav>
   );

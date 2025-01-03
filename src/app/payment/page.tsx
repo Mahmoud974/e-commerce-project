@@ -115,7 +115,8 @@ export default function Page() {
       </div>
       <Informations />
       <Newsletter />
-      <div className="mx-auto container">
+      <HelpSection />
+      <div className="container mx-auto">
         <Footer />
       </div>
     </section>

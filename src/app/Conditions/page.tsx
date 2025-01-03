@@ -1,5 +1,8 @@
 import Footer from "@/components/Footer";
+import HelpSection from "@/components/HelpSection";
+import Informations from "@/components/Informations";
 import Navbar from "@/components/Navbar";
+import Newsletter from "@/components/Newsletter";
 import Head from "next/head";
 import React from "react";
 
@@ -120,6 +123,9 @@ export default function page() {
           </p>
         </section>
       </div>
+      <Informations />
+      <Newsletter />
+      <HelpSection />
       <div className="container mx-auto">
         <Footer />
       </div>
