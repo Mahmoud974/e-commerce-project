@@ -2,7 +2,15 @@
 import Navbar from "@/components/Navbar";
 import React, { useEffect, useState } from "react";
 import { useTemplate } from "@/hook/useTemplate";
-import { Facebook, Heart, Instagram, ShoppingCart, Truck } from "lucide-react";
+import {
+  Facebook,
+  Heart,
+  Instagram,
+  ShoppingCart,
+  SquareChevronLeft,
+  SquareChevronRight,
+  Truck,
+} from "lucide-react";
 import Recommendations from "@/components/Recommendations";
 import Footer from "@/components/Footer";
 import { CarouselPlugin } from "@/components/Caroussel";
@@ -130,31 +138,37 @@ export default function Page({ params }) {
               </p>
             </div>
             <div className="flex flex-col ">
-              <div className="flex items-center justify-start gap-2 py-3 border-t border-gray-200">
-                <button
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    isInCart ? "bg-green-500" : "bg-gray-200"
-                  }`}
-                  onClick={handleCart}
-                >
-                  <ShoppingCart
-                    className={`w-6 h-6 ${
-                      isInCart ? "text-white" : "text-gray-800"
+              <div className="flex items-center justify-between gap-2 py-3 border-t border-gray-200">
+                <div className="flex gap-3">
+                  <button
+                    className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                      isInCart ? "bg-green-500" : "bg-gray-200"
                     }`}
-                  />
-                </button>
-                <button
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    isLiked ? "bg-red-500" : "bg-gray-200"
-                  }`}
-                  onClick={handleLike}
-                >
-                  <Heart
-                    className={`w-6 h-6 ${
-                      isLiked ? "text-white" : "text-gray-800"
+                    onClick={handleCart}
+                  >
+                    <ShoppingCart
+                      className={`w-6 h-6 ${
+                        isInCart ? "text-white" : "text-gray-800"
+                      }`}
+                    />
+                  </button>
+                  <button
+                    className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                      isLiked ? "bg-red-500" : "bg-gray-200"
                     }`}
-                  />
-                </button>
+                    onClick={handleLike}
+                  >
+                    <Heart
+                      className={`w-6 h-6 ${
+                        isLiked ? "text-white" : "text-gray-800"
+                      }`}
+                    />
+                  </button>
+                </div>
+                <div className="flex gap-2">
+                  <SquareChevronLeft className="cursor-pointer" />
+                  <SquareChevronRight className="cursor-pointer" />
+                </div>
               </div>
             </div>
           </div>
