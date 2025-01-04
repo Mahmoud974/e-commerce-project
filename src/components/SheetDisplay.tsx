@@ -9,11 +9,22 @@ import {
 } from "@/components/ui/sheet";
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useCartStore, useLikeData } from "@/store/store";
-import { CircleUser, Heart, Menu, ShoppingCart } from "lucide-react";
+import {
+  CalendarArrowUp,
+  CircleUser,
+  Heart,
+  LayoutDashboard,
+  MapPinHouse,
+  Menu,
+  ShoppingCart,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { FavoritesList } from "./ComponentSheet/FavoritesList";
 import { CartList } from "./ComponentSheet/CartList";
 import { ProfileSection } from "./ComponentSheet/ProfileSection";
+import { Dashboard } from "./ComponentSheet/Dashboard";
+import { Command } from "./ComponentSheet/Command";
+import Address from "./ComponentSheet/Adress";
 
 export default function SheetDisplay() {
   const [activeTab, setActiveTab] = useState("favorites");
@@ -57,6 +68,35 @@ export default function SheetDisplay() {
             isProcessing={isProcessing}
           />
         );
+      case "dashboard":
+        return (
+          <Dashboard
+            session={session}
+            signIn={signIn}
+            signOut={signOut}
+            selectedItems={selectedItems}
+            removeItems={removeItems}
+          />
+        );
+      case "command":
+        return (
+          <Command
+            session={session}
+            signIn={signIn}
+            signOut={signOut}
+            selectedItems={selectedItems}
+            removeItems={removeItems}
+          />
+        );
+      case "adress":
+        return (
+          <Address
+            signIn={signIn}
+            signOut={signOut}
+            selectedItems={selectedItems}
+            removeItems={removeItems}
+          />
+        );
       default:
         return null;
     }
@@ -75,7 +115,7 @@ export default function SheetDisplay() {
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
-          <ul className="flex items-center">
+          <ul className="flex items-center  ">
             <li
               className={`cursor-pointer ${
                 activeTab === "favorites" ? "text-white" : "text-gray-500"
@@ -99,6 +139,30 @@ export default function SheetDisplay() {
               onClick={() => setActiveTab("profile")}
             >
               <CircleUser />
+            </li>
+            <li
+              className={`ml-4 cursor-pointer ${
+                activeTab === "profile" ? "text-white" : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("adress")}
+            >
+              <MapPinHouse />
+            </li>
+            <li
+              className={`ml-4 cursor-pointer ${
+                activeTab === "profile" ? "text-white" : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("command")}
+            >
+              <CalendarArrowUp />
+            </li>
+            <li
+              className={`ml-4 cursor-pointer ${
+                activeTab === "profile" ? "text-white" : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("dashboard")}
+            >
+              <LayoutDashboard />
             </li>
           </ul>
 
