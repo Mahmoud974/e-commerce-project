@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import { useTemplate } from "@/hook/useTemplate";
 import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
-import { useSearchArticles, useLikeData } from "@/store/store";
+import { useSearchArticles, useLikeData, useCartStore } from "@/store/store";
 import Filter from "@/components/Filter";
 import Newsletter from "@/components/Newsletter";
 import HelpSection from "@/components/HelpSection";
@@ -15,6 +15,8 @@ export default function Page() {
   const { data } = useTemplate();
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
+  const { items, addItem } = useCartStore();
+
   const [visibleCount, setVisibleCount] = useState(15);
 
   const handleLoadMore = () => {
@@ -34,6 +36,7 @@ export default function Page() {
         <section className={`${flexCol} justify-between w-full mb-12`}>
           <div className="flex flex-col">
             <Navbar />
+
             <Filter
               data={data}
               colorProduct={colorProduct}

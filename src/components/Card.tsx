@@ -1,24 +1,27 @@
-"use client"; // Assure-toi que tu es dans un composant client
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Heart } from "lucide-react";
 
 import { useState } from "react";
+import { useCartStore } from "@/store/store"; // Import correct du panier
 
-const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
-  item,
-  addItems,
-}) => {
+const ProductCard: React.FC<{
+  item: any;
+  addItems: (item: any) => void;
+}> = ({ item, addItems }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
+  const { addItem } = useCartStore(); // Utilisation de la fonction du panier
 
   const handleLike = () => {
     setIsLiked(!isLiked);
-    addItems(item);
+    addItems(item); // Favoris
   };
 
   const handleCart = () => {
     setIsInCart(!isInCart);
+    addItem(item); // ✅ Correction ici : ajout au panier
   };
 
   return (
@@ -34,11 +37,8 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
             className="rounded-t-lg object-contain"
             fill
             priority
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         </div>
-
-        {/* Content Section */}
         <div className="p-4 space-y-1">
           <span className=" bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
             NOUVEAU
@@ -47,13 +47,11 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
             <p className="text-2xl font-normal text-gray-800 truncate">
               {item.nom}
             </p>
-            <p className=" text-black   text-3xl  ">{item.prix}€</p>
+            <p className=" text-black text-3xl">{item.prix}€</p>
           </div>
-          <small className="text-black  ">Tissu • Chêne </small>
         </div>
       </Link>
 
-      {/* Action Buttons */}
       <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-gray-200">
         <button
           className={`flex items-center justify-center w-10 h-10 rounded-full ${
