@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-
 import SheetDisplay from "./SheetDisplay";
 import { useTemplate } from "@/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -40,8 +39,8 @@ export default function Navbar() {
   const onSubmit: SubmitHandler<Inputs> = (formData) => {};
 
   return (
-    <nav className="md:mx-0  ">
-      <div className="flex justify-between items-center mb-12">
+    <nav className="md:mx-0 f  ">
+      <div className=" flex justify-between items-center mb-12">
         <div>
           <ul>
             <li>
@@ -54,17 +53,20 @@ export default function Navbar() {
           </ul>
         </div>
         {window.location.pathname === "/" && (
-          <form className="flex-grow mx-28  " onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="flex-grow lg:mx-28  "
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <input
               type="text"
               placeholder="Search..."
-              className="w-full px-4 py-2 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="lg:w-full  w-3/3 mx-auto   px-4 py-2 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               {...register("search")}
             />
           </form>
         )}
 
-        <div className="flex items-center">
+        <div className="flex  items-center">
           {mySession && (
             <>
               <Image
@@ -76,7 +78,7 @@ export default function Navbar() {
                 priority
               />
               {/*  */}
-              <p className="mr-2 cursor-pointer hover:underline">
+              <p className="mr-2 lg:flex hidden   cursor-pointer hover:underline">
                 {mySession?.name}
               </p>
             </>

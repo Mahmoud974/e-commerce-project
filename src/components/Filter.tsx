@@ -89,7 +89,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
   ];
 
   return (
-    <div className="flex border-none flex-col md:flex-row items-center justify-between mb-6 space-y-4 md:space-y-0">
+    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center  mb-6 space-y-4 md:space-y-0">
       {/* Section des filtres */}
       <ul className="flex space-x-6 md:space-x-4">
         {filters.map((filter) => (
@@ -107,7 +107,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       </ul>
 
       {/* Section des résultats et recherche */}
-      <div className="flex items-center space-x-6 md:space-x-3">
+      <div className="flex items-center   md:space-x-3">
         <p className="text-white"></p>
         <ComboboxDemo data={data} />
       </div>

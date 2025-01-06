@@ -3,9 +3,9 @@ import React from "react";
 
 export default function Informations() {
   return (
-    <div className="text-white  mx-auto  w-full h-auto py-12">
-      <div className="container mx-auto">
-        <ul className="space-y-6 flex items-baseline justify-between mx-12 ">
+    <div className="text-white mx-auto w-full h-auto pb-12">
+      <div className="container mx-auto px-4">
+        <ul className="space-y-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <li className="flex flex-col items-center text-center">
             <Image
               src="/img/service.svg"
@@ -26,14 +26,14 @@ export default function Informations() {
           <li className="flex flex-col items-center text-center">
             <Image
               src="/img/payment.svg"
-              alt="image service"
+              alt="image paiement"
               className="rounded-t-lg w-16 mx-auto mb-3 object-contain"
               width={100}
               height={100}
               priority
             />
             <p>
-              <strong>Paiement sécurisé</strong>
+              <strong>Paiement sécurisé :</strong>
               <br />
               Règlement échelonné en plusieurs
               <br />
@@ -43,7 +43,7 @@ export default function Informations() {
           <li className="flex flex-col items-center text-center">
             <Image
               src="/img/delivery.svg"
-              alt="image service"
+              alt="image livraison"
               className="rounded-t-lg w-16 mx-auto mb-3 object-contain"
               width={100}
               height={100}
@@ -52,13 +52,15 @@ export default function Informations() {
             <p>
               <strong>Livraison à domicile :</strong>
               <br />
-              Sur rendez-vous, à l'étage, <br /> {`dans la pièce, au choix`}
+              Sur rendez-vous, à l'étage,
+              <br />
+              dans la pièce, au choix
             </p>
           </li>
           <li className="flex flex-col items-center text-center">
             <Image
               src="/img/badge.svg"
-              alt="image service"
+              alt="image satisfaction"
               className="rounded-t-lg w-16 mx-auto mb-3 object-contain"
               width={100}
               height={100}
@@ -68,7 +70,8 @@ export default function Informations() {
               <strong>Satisfait ou remboursé :</strong>
               <br />
               14 jours pour changer
-              <br /> {`d'avis sur vos achats`}
+              <br />
+              d'avis sur vos achats
             </p>
           </li>
         </ul>

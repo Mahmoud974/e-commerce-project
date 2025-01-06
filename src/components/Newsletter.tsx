@@ -1,13 +1,11 @@
 import React from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import Image from "next/image";
 
 export default function Newsletter() {
   return (
-    <div className="bg-slate-900  w-full h-auto py-12">
-      <div className="flex justify-center text-center mx-auto ">
-        <p>
-          {" "}
+    <div className="bg-slate-900 w-full h-auto py-12 px-4">
+      <div className="flex flex-col items-center text-center mx-auto max-w-3xl">
+        <p className="text-white mb-6">
           Devenez un{" "}
           <span className="font-bold">
             membre privilégié de notre communauté
@@ -15,14 +13,16 @@ export default function Newsletter() {
           en vous inscrivant à notre newsletter : offres spéciales, tendances
           actuelles et nouveautés à découvrir !
         </p>
-      </div>
-      <div className="flex w-1/3 mx-auto py-8">
-        <Input
-          type="email"
-          placeholder="Email"
-          className=" rounded-none border-2  placeholder-white" // Utilisation de la classe Tailwind pour placeholder en noir
-        />
-        <Button className="bg-white text-slate-950 border-none rounded-none font-bold">{`Je m'inscris`}</Button>
+        <div className="flex flex-col sm:flex-row w-full gap-4">
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full rounded-lg border-2 p-3 placeholder-white bg-transparent text-white"
+          />
+          <button className="w-full sm:w-auto bg-white text-slate-900 font-bold py-3 px-6 rounded-lg">
+            Je m'inscris
+          </button>
+        </div>
       </div>
     </div>
   );

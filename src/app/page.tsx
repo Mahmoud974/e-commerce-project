@@ -72,7 +72,7 @@ export default function Page() {
             {filteredData.length > visibleCount && (
               <button
                 onClick={handleLoadMore}
-                className="mt-4 p-2 border border-white text-white font-semibold rounded"
+                className="mt-4 p-2 lg:mx-0 mx-8 border border-white text-white font-semibold rounded"
               >
                 Voir +
               </button>
