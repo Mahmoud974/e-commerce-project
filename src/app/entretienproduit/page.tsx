@@ -25,7 +25,7 @@ export default function Page() {
             <p className="text-white text-3xl font-black uppercase">
               Entretien du produit
             </p>
-            <p className="drop-shadow-lg w-1/3 text-center">
+            <p className="drop-shadow-lg w-3/4 sm:w-2/3 md:w-1/2 text-center">
               {`Prenez soin de vos meubles pour préserver leur éclat et leur
               durabilité : des conseils simples pour une qualité qui dure.`}
             </p>
@@ -51,12 +51,12 @@ export default function Page() {
         {/* Section entretien */}
         <div>
           <div className="bg-red-700 w-1/3 h-3 mb-8 mx-auto"></div>
-          <h2 className="font-bold text-3xl text-center mb-8">
-            {`  Conseils d'entretien par type de matériau`}
+          <h2 className="font-bold text-3xl text-center mb-8 lg:px-0  px-12">
+            {`Conseils d'entretien par type de matériau`}
           </h2>
-          <ul className="flex mt-8 flex-col flex-wrap md:flex-row text-center gap-12 items-center justify-between">
-            <li className="flex flex-col items-center">
-              <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
+          <ul className="flex lg:px-0  px-12 flex-col sm:flex-row mt-8 gap-12 items-center justify-center sm:space-x-8">
+            <li className="flex flex-col items-center w-full sm:w-1/3">
+              <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
                   src="/banners/cleanwood.jpg"
                   width={500}
@@ -65,17 +65,17 @@ export default function Page() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <strong className="text-red-600 mt-4 text-xl">
+              <strong className="text-red-600 text-center mt-4 text-xl">
                 Bois : Nettoyage et entretien
               </strong>
-              <p className="mt-2 max-w-xs">
+              <p className="mt-2 text-center sm:max-w-xs">
                 Nettoyez régulièrement avec un chiffon doux et sec. Évitez les
                 produits chimiques agressifs et appliquez un soin spécifique
                 pour nourrir et protéger les surfaces.
               </p>
             </li>
-            <li className="flex flex-col items-center">
-              <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
+            <li className="flex flex-col items-center w-full sm:w-1/3">
+              <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
                   src="/banners/cleantissu.jpg"
                   width={500}
@@ -84,17 +84,17 @@ export default function Page() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <strong className="text-red-600 mt-4 text-xl">
+              <strong className="text-red-600 text-center mt-4 text-xl">
                 Tissus : Protéger et nettoyer
               </strong>
-              <p className="mt-2 max-w-xs">
+              <p className="mt-2 text-center sm:max-w-xs">
                 Aspirez régulièrement pour enlever la poussière et appliquez un
                 traitement anti-taches si nécessaire. Évitez l’exposition
                 prolongée à la lumière directe du soleil.
               </p>
             </li>
-            <li className="flex flex-col items-center">
-              <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
+            <li className="flex flex-col items-center w-full sm:w-1/3">
+              <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
                   src="/banners/cleancuir.jpg"
                   width={500}
@@ -103,10 +103,10 @@ export default function Page() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <strong className="text-red-600 mt-4 text-xl">
+              <strong className="text-red-600 text-center mt-4 text-xl">
                 Cuir : Nettoyer et nourrir
               </strong>
-              <p className="mt-2 max-w-xs">
+              <p className="mt-2 text-center sm:max-w-xs">
                 Essuyez avec un chiffon humide et appliquez un baume nourrissant
                 pour éviter le dessèchement. Évitez les objets pointus qui
                 pourraient rayer la surface.
@@ -116,9 +116,9 @@ export default function Page() {
         </div>
 
         {/* Emballage et protection */}
-        <div className="flex justify-center items-center mt-12">
-          <div className="flex flex-col items-center w-2/3">
-            <h3 className="font-bold mt-5 text-3xl text-center">
+        <div className="flex flex-col sm:flex-row justify-center items-center mt-12">
+          <div className="flex flex-col items-center w-full sm:w-2/3">
+            <h3 className="font-bold text-3xl text-center">
               Entretenez et protégez vos meubles au quotidien
             </h3>
             <p className="m-12 text-center">
@@ -126,7 +126,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="w-2/6">
+          <div className="w-full sm:w-1/3 lg:mb-0 mb-12 ">
             <Image
               src="/banners/cleanTextile.webp"
               width={500}
@@ -137,6 +137,7 @@ export default function Page() {
           </div>
         </div>
       </div>
+
       <Informations />
       <Newsletter />
       <HelpSection />

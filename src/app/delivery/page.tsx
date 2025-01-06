@@ -9,7 +9,7 @@ import React from "react";
 export default function Page() {
   return (
     <section className="relative">
-      <div className="container mt-6 mx-auto">
+      <div className="container my-6 mx-auto">
         <Navbar />
 
         {/* Image */}
@@ -19,13 +19,13 @@ export default function Page() {
             alt="banner about"
             fill
             objectFit="cover"
-            className="object-cover brightness-50 backdrop-invert-0  "
+            className="object-cover brightness-50 backdrop-invert-0"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
             <p className="text-white text-3xl font-black uppercase">
               Livraison
             </p>
-            <p className="drop-shadow-lg w-1/3 text-center">
+            <p className="drop-shadow-lg text-center px-4 sm:w-2/3 md:w-1/2">
               {`Votre meuble sur-mesure, livré avec soin et dans les meilleurs
               délais, pour une expérience unique jusque dans les moindres
               détails.`}
@@ -54,14 +54,16 @@ export default function Page() {
             <span className="font-semibold italic">Live Ekstraordinær</span>
           </p>
         </div>
+
+        {/* Estimations des dates de livraison */}
         <div>
-          <div className="bg-red-700 w-1/3 h-3 mb-8"></div>
-          <h2 className="font-bold text-3xl">
+          <div className="bg-red-700 w-1/3 h-3 mb-8 mx-auto"></div>
+          <h2 className="font-bold text-3xl text-center">
             Estimations des dates de livraison
           </h2>
-          <ul className="flex mt-8 flex-col flex-wrap md:flex-row text-center gap-12 items-center justify-between">
-            <li className="flex flex-col items-center">
-              <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
+          <ul className="flex mx-12 flex-col sm:flex-row mt-8 gap-12 items-center justify-center sm:space-x-8">
+            <li className="flex flex-col items-center w-full sm:w-1/3">
+              <div className="w-full  h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
                   src="/banners/art.jpg"
                   width={500}
@@ -70,18 +72,18 @@ export default function Page() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <strong className="text-red-600 mt-4 text-xl">
+              <strong className="text-red-600 text-center mt-4 text-xl">
                 Meubles en bois : 2 à 4 semaines
               </strong>
-              <p className="mt-2 max-w-xs">
+              <p className="mt-2 text-center sm:max-w-xs">
                 Fabriqués dans notre atelier au Danemark, nos meubles en bois
                 sont expédiés directement vers vous une fois terminés. Chaque
                 pièce est soigneusement conçue pour garantir une qualité
                 exceptionnelle.
               </p>
             </li>
-            <li className="flex flex-col items-center">
-              <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
+            <li className="flex flex-col items-center w-full sm:w-1/3">
+              <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
                   src="/banners/art2.jpg"
                   width={500}
@@ -90,17 +92,17 @@ export default function Page() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <strong className="text-red-600 mt-4 text-xl">
+              <strong className="text-red-600 text-center mt-4 text-xl">
                 Meubles capitonnés : 6 à 8 semaines
               </strong>
-              <p className="mt-2 max-w-xs">
+              <p className="mt-2 text-center sm:max-w-xs">
                 La fabrication de meubles capitonnés exige un savoir-faire
                 spécialisé, avec des artisans qualifiés pour des pièces comme le
                 fauteuil Imola, dont la formation dure près d’un an.
               </p>
             </li>
-            <li className="flex flex-col items-center">
-              <div className="w-96 h-96 bg-gray-200 overflow-hidden rounded-lg">
+            <li className="flex flex-col items-center w-full sm:w-1/3">
+              <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg ">
                 <Image
                   src="/banners/sofa.jpg"
                   width={500}
@@ -109,22 +111,26 @@ export default function Page() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <strong className="text-red-600 mt-4 text-xl">
+              <strong className="text-red-600 text-center mt-4 text-xl">
                 Chaises : 6 à 8 semaines
               </strong>
-              <p className="mt-2 max-w-xs">
-                {`  Nous proposons une large gamme de chaises, bancs et fauteuils inclinables, tous fabriqués avec soin et livrés dans les délais mentionnés.`}
+              <p className="mt-2 text-center sm:max-w-xs">
+                Nous proposons une large gamme de chaises, bancs et fauteuils
+                inclinables, tous fabriqués avec soin et livrés dans les délais
+                mentionnés.
               </p>
             </li>
           </ul>
         </div>
-        <div className="flex justify-center items-center">
-          <div className="flex flex-col items-center w-2/3">
-            <h3 className="font-bold mt-5 text-3xl text-center">
+
+        {/* Emballage et protection */}
+        {/* <div className="flex flex-col sm:flex-row justify-center items-center mt-12">
+          <div className="flex flex-col items-center w-full sm:w-2/3">
+            <h3 className="font-bold text-3xl text-center w-2/3">
               Emballage et protection
             </h3>
-            <p className="m-12 text-center">
-              {` Tous nos meubles en bois sont soigneusement emballés selon des
+            <p className="m-7 text-center">
+              Tous nos meubles en bois sont soigneusement emballés selon des
               normes strictes de sécurité pour le transport. Chaque pièce est
               protégée avec de la mousse et du polystyrène expansé (EPS) sur les
               surfaces et les bords, et soumise à des tests de chute pour éviter
@@ -132,20 +138,21 @@ export default function Page() {
               extrémités pour permettre un placement vertical sécurisé, et des
               symboles sur les articles fragiles indiquent la manière correcte
               de les manipuler. Nos emballages sont conçus pour résister à une
-              pluie légère, bien qu'ils ne soient pas totalement étanches.`}
+              pluie légère, bien qu'ils ne soient pas totalement étanches.
             </p>
           </div>
-          <div className="w-2/6">
+          <div className="w-full sm:w-1/3">
             <Image
               src="/banners/sofa.jpg"
               width={500}
               height={500}
               alt="Fonctionnalité"
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full lg:flex hidden"
             />
           </div>
-        </div>
+        </div> */}
       </div>
+
       <Informations />
       <Newsletter />
       <HelpSection />

@@ -20,13 +20,13 @@ export default function Page() {
             alt="banner about"
             fill
             objectFit="cover"
-            className="object-cover brightness-50 backdrop-invert-0  "
+            className="object-cover brightness-50 backdrop-invert-0"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
-            <p className="text-white text-3xl font-black uppercase">
+            <p className="text-white text-3xl font-black uppercase text-center sm:text-4xl">
               CONDITIONS de la garantie
             </p>
-            <p className="drop-shadow-lg w-1/2 text-center">
+            <p className="drop-shadow-lg w-3/4 sm:w-2/3 md:w-1/2 text-center mt-4 px-4">
               Profitez de notre garantie exceptionnelle pour une tranquillité
               d’esprit totale : des meubles conçus pour durer, avec un support
               qui vous accompagne à chaque étape.
@@ -37,7 +37,7 @@ export default function Page() {
         {/* Paragraphe sous l'image */}
         <div className="mt-12 text-center px-4 mb-12">
           <p className="text-white text-xl font-semibold mt-4 max-w-3xl mx-auto">
-            Chez Sofachic./, nous sommes fiers de concevoir des meubles
+            Chez Sofachic., nous sommes fiers de concevoir des meubles
             intemporels en utilisant les meilleurs matériaux pour garantir leur
             qualité et leur durabilité. Pour refléter notre engagement, nous
             offrons une garantie de 5 ans sur tous les produits achetés après le
@@ -64,22 +64,26 @@ export default function Page() {
 
         {/* Section des caractéristiques */}
         <div>
-          <div className="bg-red-700 w-1/3 h-3 mb-8 "></div>
-          <p>
+          <div className="bg-red-700 w-1/3 h-3 mb-8 mx-auto"></div>
+          <p className="text-white text-lg max-w-3xl mx-auto mb-8 lg:px-0 px-6">
             Chez SofaChic, nous concevons nos produits avec des matériaux
             robustes, durables et innovants. Pour les cadres de canapé, nous
             faisons un pas de plus en proposant une garantie de 10 ans couvrant
             les défauts de fabrication et de structure.
           </p>
-          <div className="flex my-12 max-w-2xl mx-auto">
-            <h2 className="font-bold text-3xl text-left">
+
+          <div className="flex flex-col  lg:px-0 px-6  sm:flex-row my-12 max-w-2xl mx-auto items-start sm:items-center">
+            <h2 className="font-bold text-3xl text-left sm:text-center   mb-4 sm:mb-0">
               Questions fréquentes
             </h2>
-            <AccordionGuarantee />
+            <div className="w-full sm:w-1/2 ">
+              <AccordionGuarantee />
+            </div>
           </div>
           <HelpSection />
         </div>
       </div>
+
       <Informations />
       <Newsletter />
       <HelpSection />
