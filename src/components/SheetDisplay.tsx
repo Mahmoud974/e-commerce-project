@@ -12,6 +12,8 @@ import { useCartStore, useLikeData } from "@/store/store";
 import {
   CalendarArrowUp,
   CircleUser,
+  DoorClosed,
+  DoorOpen,
   Heart,
   LayoutDashboard,
   MapPinHouse,
@@ -39,6 +41,11 @@ export default function SheetDisplay() {
     setTimeout(() => setIsProcessing(false), 2000);
   };
 
+  const handleSignOut = () => {
+    alert("Vous avez été déconnecté.");
+    signOut();
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "profile":
@@ -46,7 +53,7 @@ export default function SheetDisplay() {
           <ProfileSection
             session={session}
             signIn={signIn}
-            signOut={signOut}
+            signOut={handleSignOut}
             handleFacebookLogin={handleFacebookLogin}
             isProcessing={isProcessing}
           />
@@ -56,7 +63,7 @@ export default function SheetDisplay() {
           <FavoritesList
             session={session}
             signIn={signIn}
-            signOut={signOut}
+            signOut={handleSignOut}
             selectedItems={selectedItems}
             removeItems={removeItems}
           />
@@ -69,13 +76,12 @@ export default function SheetDisplay() {
             handleQuantityChange={updateQuantity}
           />
         );
-
       case "dashboard":
         return (
           <Dashboard
             session={session}
             signIn={signIn}
-            signOut={signOut}
+            signOut={handleSignOut}
             selectedItems={selectedItems}
             removeItems={removeItems}
           />
@@ -85,7 +91,7 @@ export default function SheetDisplay() {
           <Command
             session={session}
             signIn={signIn}
-            signOut={signOut}
+            signOut={handleSignOut}
             selectedItems={selectedItems}
             removeItems={removeItems}
           />
@@ -94,7 +100,7 @@ export default function SheetDisplay() {
         return (
           <Address
             signIn={signIn}
-            signOut={signOut}
+            signOut={handleSignOut}
             selectedItems={selectedItems}
             removeItems={removeItems}
           />
@@ -126,6 +132,15 @@ export default function SheetDisplay() {
             >
               <CircleUser />
             </li>
+            {mySession && (
+              <li
+                className={`ml-4 cursor-pointer ${
+                  activeTab === "profile" ? "text-white" : "text-gray-500"
+                }`}
+              >
+                <DoorOpen className="text-red-600" onClick={handleSignOut} />
+              </li>
+            )}
             <li
               className={`cursor-pointer mx-3 ${
                 activeTab === "favorites" ? "text-white" : "text-gray-500"
