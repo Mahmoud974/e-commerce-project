@@ -36,6 +36,7 @@ const ProductCard: React.FC<{
             alt={item.nom}
             className="rounded-t-lg object-contain"
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
         </div>

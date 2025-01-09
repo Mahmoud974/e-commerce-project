@@ -19,8 +19,10 @@ export default function Page() {
             alt="banner about"
             fill
             objectFit="cover"
-            className="object-cover brightness-50 backdrop-invert-0  "
+            className="object-cover brightness-50 backdrop-invert-0"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
+
           <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
             <p className="text-white text-3xl font-black uppercase">
               À propos de nous

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 
 export default function HelpSection() {
@@ -35,6 +34,8 @@ export default function HelpSection() {
       <h2 className="text-center text-2xl font-bold mb-8 lg:px-0 px-5">
         Comment pouvons-nous vous aider ?
       </h2>
+
+      {/* Grid for all screen sizes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto px-4">
         {helpItems.map((item, index) => (
           <a
@@ -42,9 +43,7 @@ export default function HelpSection() {
             href={item.link}
             className="flex cursor-pointer flex-col lg:px-0 px-5 items-center text-center"
           >
-            <Image
-              width={500}
-              height={500}
+            <img
               src={item.image}
               alt={item.title}
               className="w-full h-48 object-cover rounded-lg shadow-md mb-4"

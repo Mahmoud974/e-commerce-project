@@ -32,6 +32,8 @@ export default function SheetDisplay() {
   const { selectedItems, removeItems } = useLikeData();
   const { items, removeItem, updateQuantity } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
+  let mySession = useSession().data?.user;
+  console.log(mySession);
 
   const handleFacebookLogin = () => {
     setIsProcessing(true);
@@ -140,30 +142,37 @@ export default function SheetDisplay() {
             >
               <CircleUser />
             </li>
-            <li
-              className={`ml-4 cursor-pointer ${
-                activeTab === "profile" ? "text-white" : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab("adress")}
-            >
-              <MapPinHouse />
-            </li>
-            <li
-              className={`ml-4 cursor-pointer ${
-                activeTab === "profile" ? "text-white" : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab("command")}
-            >
-              <CalendarArrowUp />
-            </li>
-            <li
-              className={`ml-4 cursor-pointer ${
-                activeTab === "profile" ? "text-white" : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab("dashboard")}
-            >
-              <LayoutDashboard />
-            </li>
+            {mySession && (
+              <li
+                className={`ml-4 cursor-pointer ${
+                  activeTab === "profile" ? "text-white" : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab("adress")}
+              >
+                <MapPinHouse />
+              </li>
+            )}
+            {mySession && (
+              <li
+                className={`ml-4 cursor-pointer ${
+                  activeTab === "profile" ? "text-white" : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab("command")}
+              >
+                <CalendarArrowUp />
+              </li>
+            )}
+
+            {mySession && (
+              <li
+                className={`ml-4 cursor-pointer ${
+                  activeTab === "profile" ? "text-white" : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab("dashboard")}
+              >
+                <LayoutDashboard />
+              </li>
+            )}
           </ul>
 
           {renderContent()}
