@@ -1,10 +1,10 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { ShoppingCart, Heart } from "lucide-react";
-
 import { useState } from "react";
 import { useCartStore } from "@/store/store"; // Import correct du panier
+import { useSession } from "next-auth/react";
+import { ShoppingCart, Heart } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import AlertNoLike from "./AlertNoLike";
 
 const ProductCard: React.FC<{
   item: any;
@@ -12,16 +12,27 @@ const ProductCard: React.FC<{
 }> = ({ item, addItems }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-  const { addItem } = useCartStore(); // Utilisation de la fonction du panier
+  const { addItem } = useCartStore();
+  const { data: session } = useSession(); // Récupère la session de l'utilisateur
+  const [showAlert, setShowAlert] = useState(false); // État pour contrôler l'affichage de l'alerte
 
   const handleLike = () => {
-    setIsLiked(!isLiked);
-    addItems(item); // Favoris
+    // Réinitialiser l'alerte si elle est déjà visible et l'utilisateur reclique sur le cœur
+    if (showAlert) {
+      setShowAlert(false); // Masquer l'alerte immédiatement si elle est visible
+    }
+
+    if (session?.user) {
+      setIsLiked(!isLiked);
+      addItems(item);
+    } else {
+      setShowAlert(true); // Afficher l'alerte si l'utilisateur n'est pas connecté
+    }
   };
 
   const handleCart = () => {
     setIsInCart(!isInCart);
-    addItem(item); // ✅ Correction ici : ajout au panier
+    addItem(item); // Ajoute l'article au panier
   };
 
   return (
@@ -75,6 +86,9 @@ const ProductCard: React.FC<{
           />
         </button>
       </div>
+
+      {/* Affichage de l'alerte si showAlert est vrai */}
+      {showAlert && <AlertNoLike />}
     </div>
   );
 };

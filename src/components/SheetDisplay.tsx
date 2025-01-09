@@ -33,7 +33,6 @@ export default function SheetDisplay() {
   const { items, removeItem, updateQuantity } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
   let mySession = useSession().data?.user;
-  console.log(mySession);
 
   const handleFacebookLogin = () => {
     setIsProcessing(true);
@@ -42,6 +41,16 @@ export default function SheetDisplay() {
 
   const renderContent = () => {
     switch (activeTab) {
+      case "profile":
+        return (
+          <ProfileSection
+            session={session}
+            signIn={signIn}
+            signOut={signOut}
+            handleFacebookLogin={handleFacebookLogin}
+            isProcessing={isProcessing}
+          />
+        );
       case "favorites":
         return (
           <FavoritesList
@@ -60,16 +69,7 @@ export default function SheetDisplay() {
             handleQuantityChange={updateQuantity}
           />
         );
-      case "profile":
-        return (
-          <ProfileSection
-            session={session}
-            signIn={signIn}
-            signOut={signOut}
-            handleFacebookLogin={handleFacebookLogin}
-            isProcessing={isProcessing}
-          />
-        );
+
       case "dashboard":
         return (
           <Dashboard
@@ -119,7 +119,15 @@ export default function SheetDisplay() {
           <SheetDescription></SheetDescription>
           <ul className="flex items-center  ">
             <li
-              className={`cursor-pointer ${
+              className={` cursor-pointer ${
+                activeTab === "profile" ? "text-white" : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("profile")}
+            >
+              <CircleUser />
+            </li>
+            <li
+              className={`cursor-pointer mx-3 ${
                 activeTab === "favorites" ? "text-white" : "text-gray-500"
               }`}
               onClick={() => setActiveTab("favorites")}
@@ -127,21 +135,14 @@ export default function SheetDisplay() {
               <Heart />
             </li>
             <li
-              className={`ml-4 cursor-pointer ${
+              className={`  cursor-pointer ${
                 activeTab === "cart" ? "text-white" : "text-gray-500"
               }`}
               onClick={() => setActiveTab("cart")}
             >
               <ShoppingCart />
             </li>
-            <li
-              className={`ml-4 cursor-pointer ${
-                activeTab === "profile" ? "text-white" : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab("profile")}
-            >
-              <CircleUser />
-            </li>
+
             {mySession && (
               <li
                 className={`ml-4 cursor-pointer ${
