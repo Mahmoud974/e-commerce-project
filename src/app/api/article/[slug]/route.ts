@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
-import { useTemplate } from "@/hook/useTemplate";
+import { useTemplate } from "@/app/hook/useTemplate";
 
 export async function GET(
   req: Request,

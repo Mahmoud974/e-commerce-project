@@ -1,6 +1,6 @@
 import React from "react";
 import ProductCard from "./Card";
-import { useTemplate } from "@/hook/useTemplate";
+import { useTemplate } from "@/app/hook/useTemplate";
 
 export default function Recommendations() {
   const { data } = useTemplate();

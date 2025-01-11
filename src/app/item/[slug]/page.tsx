@@ -1,7 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import React, { useEffect, useState } from "react";
-import { useTemplate } from "@/hook/useTemplate";
+import { useTemplate } from "@/app/hook/useTemplate";
 import {
   Facebook,
   Heart,

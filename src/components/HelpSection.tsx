@@ -15,17 +15,17 @@ export default function HelpSection() {
     {
       title: "Entretien des meubles",
       image: "/banners/cleanSofa2.jpg",
-      link: "/entretienproduit",
+      link: "/product-interviews",
     },
     {
       title: "Instructions d’assemblage",
       image: "/banners/instruction.jpg",
-      link: "/instruction",
+      link: "/assembly-instructions",
     },
     {
       title: "Garantie",
       image: "/banners/guarantie.jpg",
-      link: "/guarantee",
+      link: "/conditions-guarantee",
     },
   ];
 

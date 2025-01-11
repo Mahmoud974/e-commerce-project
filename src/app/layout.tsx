@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import QueryProvider from "@/hook/__provider";
+import QueryProvider from "@/app/hook/__provider";
 import SessionWrapper from "./SessionWrapper";
 
 export const metadata: Metadata = {

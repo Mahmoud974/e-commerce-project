@@ -2,7 +2,7 @@
 import ProductCard from "@/components/Card";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { useTemplate } from "@/hook/useTemplate";
+import { useTemplate } from "@/app/hook/useTemplate";
 import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
 import { useSearchArticles, useLikeData, useCartStore } from "@/store/store";

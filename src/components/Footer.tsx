@@ -12,7 +12,7 @@ const Footer = () => {
             <ul>
               <li>
                 <Link
-                  href="/PolicyCredential"
+                  href="/policy-credential"
                   className="text-gray-400 hover:text-white"
                 >
                   Politique de confidentialité
@@ -20,7 +20,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/Conditions"
+                  href="/conditions-utilisation"
                   className="text-gray-400 hover:text-white"
                 >
                   Conditions d'utilisation
@@ -40,7 +40,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/guarantee"
+                  href="/conditions-guarantee"
                   className="text-gray-400 hover:text-white"
                 >
                   Conditions de la garantie
@@ -48,7 +48,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/entretienproduit"
+                  href="/product-interviews"
                   className="text-gray-400 hover:text-white"
                 >
                   Entretien du produit
@@ -81,7 +81,7 @@ const Footer = () => {
           {/* Section Service client et réseaux sociaux */}
           <div>
             <h5 className="text-lg font-bold mb-4">Service client</h5>
-            <p className="mb-2">
+            <p className="mb-2 w-3/4">
               Nos équipes sont à votre écoute du lundi au vendredi de 9h à 12h
               et de 13h30 à 17h30.
             </p>

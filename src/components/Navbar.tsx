@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import SheetDisplay from "./SheetDisplay";
-import { useTemplate } from "@/hook/useTemplate";
+import { useTemplate } from "@/app/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSearchArticles } from "@/store/store";
 import Link from "next/link";

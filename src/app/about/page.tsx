@@ -14,6 +14,7 @@ export default function Page() {
 
         {/* Image */}
         <div className="relative w-full h-[400px] mt-12">
+          <p>okko</p>
           <Image
             src="/banners/about-img.png"
             alt="banner about"
