@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { ShoppingCart, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import AlertNoLike from "./AlertNoLike";
+import AlertNoLike from "../AlertNoLike";
 
 const ProductCard: React.FC<{
   item: any;

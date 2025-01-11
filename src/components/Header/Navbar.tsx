@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import SheetDisplay from "./SheetDisplay";
+import SheetDisplay from "../SideBar/MenuGeneral";
 import { useTemplate } from "@/app/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSearchArticles } from "@/store/store";
@@ -27,12 +27,9 @@ export default function Navbar() {
 
   const searchTerm = watch("search");
 
-  console.log(window.location.pathname === "/");
-
   useEffect(() => {
     if (data) {
       setFilteredData(data, searchTerm);
-      console.log(setFilteredData(data, searchTerm));
     }
   }, [data, searchTerm, setFilteredData]);
 

@@ -1,8 +1,9 @@
-import Footer from "@/components/Footer";
-import HelpSection from "@/components/HelpSection";
-import Informations from "@/components/Informations";
-import Navbar from "@/components/Navbar";
-import Newsletter from "@/components/Newsletter";
+import Banner from "@/components/BannerImage";
+import Footer from "@/components/SectionDown/Footer";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import Informations from "@/components/SectionDown/Informations";
+import Navbar from "@/components/Header/Navbar";
+import Newsletter from "@/components/SectionDown/Newsletter";
 import Image from "next/image";
 import React from "react";
 
@@ -11,25 +12,11 @@ export default function Page() {
     <section className="relative">
       <div className="container mt-6 mx-auto">
         <Navbar />
-
-        {/* Image */}
-        <div className="relative w-full h-[400px] mt-12">
-          <Image
-            src="/banners/service-img.png"
-            alt="banner about"
-            fill
-            objectFit="cover"
-            className="object-cover brightness-50 backdrop-invert-0"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
-            <p className="text-white text-3xl font-black uppercase">
-              Contactez-nous
-            </p>
-            <p className="drop-shadow-lg text-center">
-              Nous nous réjouissons de vous rencontrer bientôt.
-            </p>
-          </div>
-        </div>
+        <Banner
+          title="Contactez-nous"
+          description=" Nous nous réjouissons de vous rencontrer bientôt."
+          imageSrc="/banners/service-img.png"
+        />
 
         <div>
           <div className="bg-red-700 w-1/3 h-3 my-8 mx-auto"></div>

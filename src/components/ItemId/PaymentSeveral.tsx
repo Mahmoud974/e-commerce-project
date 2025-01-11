@@ -1,6 +1,7 @@
 import React from "react";
-import { SeveralPayment } from "./SeveralPayment";
+
 import Image from "next/image";
+import { SeveralPayment } from "./SeveralPayment";
 
 export default function PaymentSeveral() {
   return (

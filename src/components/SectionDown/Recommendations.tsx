@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "./Card";
+import ProductCard from "./ItemId/Card";
 import { useTemplate } from "@/app/hook/useTemplate";
 
 export default function Recommendations() {

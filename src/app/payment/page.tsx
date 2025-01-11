@@ -1,9 +1,9 @@
-import { AccordionGuarantee } from "@/components/AccordionGuarantee";
-import Footer from "@/components/Footer";
-import HelpSection from "@/components/HelpSection";
-import Informations from "@/components/Informations";
-import Navbar from "@/components/Navbar";
-import Newsletter from "@/components/Newsletter";
+import Banner from "@/components/BannerImage";
+import Footer from "@/components/SectionDown/Footer";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import Informations from "@/components/SectionDown/Informations";
+import Navbar from "@/components/Header/Navbar";
+import Newsletter from "@/components/SectionDown/Newsletter";
 import Image from "next/image";
 import React from "react";
 
@@ -14,25 +14,13 @@ export default function Page() {
         <Navbar />
 
         {/* Image */}
-        <div className="relative w-full h-[400px] mt-12">
-          <Image
-            src="/banners/payment-img.jpg"
-            alt="banner about"
-            fill
-            objectFit="cover"
-            className="object-cover brightness-50 backdrop-invert-0"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
-            <p className="text-white text-3xl font-black uppercase">
-              Moyen de paiement
-            </p>
-            <p className="drop-shadow-lg w-1/2 text-center">
-              Simplifiez vos achats en toute sérénité : choisissez parmi nos
+        <Banner
+          title="Moyen de paiement"
+          description="Simplifiez vos achats en toute sérénité : choisissez parmi nos
               options de paiement flexibles, sécurisées et adaptées à vos
-              besoins.
-            </p>
-          </div>
-        </div>
+              besoins."
+          imageSrc="/banners/payment-img.jpg"
+        />
 
         {/* Paragraphe sous l'image */}
 

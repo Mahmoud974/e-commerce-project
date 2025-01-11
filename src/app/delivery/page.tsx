@@ -1,8 +1,9 @@
-import Footer from "@/components/Footer";
-import HelpSection from "@/components/HelpSection";
-import Informations from "@/components/Informations";
-import Navbar from "@/components/Navbar";
-import Newsletter from "@/components/Newsletter";
+import Banner from "@/components/BannerImage";
+import Footer from "@/components/SectionDown/Footer";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import Informations from "@/components/SectionDown/Informations";
+import Navbar from "@/components/Header/Navbar";
+import Newsletter from "@/components/SectionDown/Newsletter";
 import Image from "next/image";
 import React from "react";
 
@@ -13,25 +14,13 @@ export default function Page() {
         <Navbar />
 
         {/* Image */}
-        <div className="relative w-full h-[400px] mt-12">
-          <Image
-            src="/banners/delivery-img.png"
-            alt="banner about"
-            fill
-            objectFit="cover"
-            className="object-cover brightness-50 backdrop-invert-0"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center drop-shadow-lg z-20">
-            <p className="text-white text-3xl font-black uppercase">
-              Livraison
-            </p>
-            <p className="drop-shadow-lg text-center px-4 sm:w-2/3 md:w-1/2">
-              {`Votre meuble sur-mesure, livré avec soin et dans les meilleurs
+        <Banner
+          title="Livraison"
+          description="Votre meuble sur-mesure, livré avec soin et dans les meilleurs
               délais, pour une expérience unique jusque dans les moindres
-              détails.`}
-            </p>
-          </div>
-        </div>
+              détails."
+          imageSrc="/banners/delivery-img.png"
+        />
 
         {/* Paragraphe sous l'image */}
         <div className="mt-12 text-center px-4 mb-12">

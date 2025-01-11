@@ -1,21 +1,20 @@
 "use client";
-import ProductCard from "@/components/Card";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import ProductCard from "@/components/ItemId/Card";
+import Footer from "@/components/SectionDown/Footer";
+import Navbar from "@/components/Header/Navbar";
 import { useTemplate } from "@/app/hook/useTemplate";
 import React, { useEffect, useState } from "react";
 import { Canape } from "./types/canape";
 import { useSearchArticles, useLikeData, useCartStore } from "@/store/store";
-import Filter from "@/components/Filter";
-import Newsletter from "@/components/Newsletter";
-import HelpSection from "@/components/HelpSection";
-import Informations from "@/components/Informations";
+import Filter from "@/components/Header/Filter";
+import Newsletter from "@/components/SectionDown/Newsletter";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import Informations from "@/components/SectionDown/Informations";
 
 export default function Page() {
   const { data } = useTemplate();
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
-  const { items, addItem } = useCartStore();
 
   const [visibleCount, setVisibleCount] = useState(15);
 

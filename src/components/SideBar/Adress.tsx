@@ -14,7 +14,6 @@ export default function Address() {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  // Gérer les changements de l'adresse
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAddress((prev) => ({

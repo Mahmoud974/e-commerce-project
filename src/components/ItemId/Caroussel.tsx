@@ -16,14 +16,13 @@ export function CarouselPlugin({ data }) {
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
 
-  // Tableau contenant les URL des images
   const images = data && data?.image;
 
   return (
-    <div className="relative md:w-full md:max-w-lg md:mx-auto">
+    <div className="relative  ">
       <Carousel
         plugins={[plugin.current]}
-        className="w-full"
+        className=" "
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >

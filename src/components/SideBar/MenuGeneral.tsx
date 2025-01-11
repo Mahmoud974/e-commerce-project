@@ -1,4 +1,3 @@
-"use client";
 import {
   Sheet,
   SheetContent,
@@ -20,13 +19,13 @@ import {
   Menu,
   ShoppingCart,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { FavoritesList } from "./ComponentSheet/FavoritesList";
-import { CartList } from "./ComponentSheet/CartList";
-import { ProfileSection } from "./ComponentSheet/ProfileSection";
-import { Dashboard } from "./ComponentSheet/Dashboard";
-import { Command } from "./ComponentSheet/Command";
-import Address from "./ComponentSheet/Adress";
+import { useState } from "react";
+import { FavoritesList } from "./FavoritesList";
+import { CartList } from "./CartList";
+import { ProfileSection } from "./ProfileSection";
+import { Dashboard } from "./Dashboard";
+import { Command } from "./Command";
+import Address from "./Adress";
 
 export default function SheetDisplay() {
   const [activeTab, setActiveTab] = useState("favorites");
@@ -97,14 +96,7 @@ export default function SheetDisplay() {
           />
         );
       case "adress":
-        return (
-          <Address
-            signIn={signIn}
-            signOut={handleSignOut}
-            selectedItems={selectedItems}
-            removeItems={removeItems}
-          />
-        );
+        return <Address />;
       default:
         return null;
     }
@@ -123,70 +115,95 @@ export default function SheetDisplay() {
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
-          <ul className="flex items-center  ">
+          <ul className="flex items-center">
             <li
-              className={` cursor-pointer ${
+              className={`group relative cursor-pointer ${
                 activeTab === "profile" ? "text-white" : "text-gray-500"
               }`}
               onClick={() => setActiveTab("profile")}
             >
               <CircleUser />
+              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                Profil
+              </span>
             </li>
+
             {mySession && (
               <li
-                className={`ml-4 cursor-pointer ${
+                className={`group relative ml-4 cursor-pointer ${
                   activeTab === "profile" ? "text-white" : "text-gray-500"
                 }`}
               >
                 <DoorOpen className="text-red-600" onClick={handleSignOut} />
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                  Se déconnecter
+                </span>
               </li>
             )}
+
             <li
-              className={`cursor-pointer mx-3 ${
+              className={`group relative cursor-pointer mx-3 ${
                 activeTab === "favorites" ? "text-white" : "text-gray-500"
               }`}
               onClick={() => setActiveTab("favorites")}
             >
               <Heart />
+              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                Favoris
+              </span>
             </li>
+
             <li
-              className={`  cursor-pointer ${
+              className={`group relative cursor-pointer ${
                 activeTab === "cart" ? "text-white" : "text-gray-500"
               }`}
               onClick={() => setActiveTab("cart")}
             >
               <ShoppingCart />
+              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                Panier
+              </span>
             </li>
 
             {mySession && (
               <li
-                className={`ml-4 cursor-pointer ${
+                className={`group relative ml-4 cursor-pointer ${
                   activeTab === "profile" ? "text-white" : "text-gray-500"
                 }`}
                 onClick={() => setActiveTab("adress")}
               >
                 <MapPinHouse />
-              </li>
-            )}
-            {mySession && (
-              <li
-                className={`ml-4 cursor-pointer ${
-                  activeTab === "profile" ? "text-white" : "text-gray-500"
-                }`}
-                onClick={() => setActiveTab("command")}
-              >
-                <CalendarArrowUp />
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                  Adresses
+                </span>
               </li>
             )}
 
             {mySession && (
               <li
-                className={`ml-4 cursor-pointer ${
+                className={`group relative ml-4 cursor-pointer ${
+                  activeTab === "profile" ? "text-white" : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab("command")}
+              >
+                <CalendarArrowUp />
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                  Commandes
+                </span>
+              </li>
+            )}
+
+            {mySession && (
+              <li
+                className={`group relative ml-4 cursor-pointer ${
                   activeTab === "profile" ? "text-white" : "text-gray-500"
                 }`}
                 onClick={() => setActiveTab("dashboard")}
               >
                 <LayoutDashboard />
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                  Dashboard
+                </span>
               </li>
             )}
           </ul>

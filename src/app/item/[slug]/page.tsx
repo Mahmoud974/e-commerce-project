@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Header/Navbar";
 import React, { useEffect, useState } from "react";
 import { useTemplate } from "@/app/hook/useTemplate";
 import {
@@ -11,19 +11,15 @@ import {
   SquareChevronRight,
   Truck,
 } from "lucide-react";
-import Recommendations from "@/components/Recommendations";
-import Footer from "@/components/Footer";
-import { CarouselPlugin } from "@/components/Caroussel";
+import Footer from "@/components/SectionDown/Footer";
+
 import { colors } from "@/Interface/model";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Newsletter from "@/components/Newsletter";
-import Informations from "@/components/Informations";
-import Image from "next/image";
-import { SeveralPayment } from "@/components/SeveralPayment";
-import HelpSection from "@/components/HelpSection";
-import PaymentSeveral from "@/components/PaymentSeveral";
-import { FaInstagram, FaPinterest } from "react-icons/fa";
+import Newsletter from "@/components/SectionDown/Newsletter";
+import { SeveralPayment } from "@/components/ItemId/SeveralPayment";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import PaymentSeveral from "@/components/ItemId/PaymentSeveral";
+import { CarouselPlugin } from "@/components/ItemId/Caroussel";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
@@ -41,8 +37,10 @@ export default function Page({ params }) {
   }, [params]);
 
   const { data } = useTemplate();
+
   const idArticle =
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
+  console.log(idArticle?.nom);
 
   function handleCart(event: any): void {
     throw new Error("Function not implemented.");
@@ -64,7 +62,7 @@ export default function Page({ params }) {
       <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
         <section className="md:mx-0 flex flex-col md:flex-row md:mt-32 mt-8 items-center">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-2/2">
             <CarouselPlugin data={idArticle} />
           </div>
 
@@ -244,8 +242,9 @@ export default function Page({ params }) {
           </div>
         </div>
       </main>
-      <HelpSection />
+
       <Newsletter />
+      <HelpSection />
       <Footer />
     </div>
   );

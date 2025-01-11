@@ -1,8 +1,8 @@
-import Footer from "@/components/Footer";
-import HelpSection from "@/components/HelpSection";
-import Informations from "@/components/Informations";
-import Navbar from "@/components/Navbar";
-import Newsletter from "@/components/Newsletter";
+import Footer from "@/components/SectionDown/Footer";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import Informations from "@/components/SectionDown/Informations";
+import Navbar from "@/components/Header/Navbar";
+import Newsletter from "@/components/SectionDown/Newsletter";
 import Head from "next/head";
 
 const PrivacyPolicy = () => {
