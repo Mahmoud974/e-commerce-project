@@ -1,9 +1,8 @@
 import React from "react";
-import Image from "next/image";
 
 export default function Newsletter() {
   return (
-    <div className="bg-slate-900 w-full h-auto py-12 px-4">
+    <div className="bg-red-700 w-full h-auto py-12 px-4">
       <div className="flex flex-col items-center text-center mx-auto max-w-3xl">
         <p className="text-white mb-6">
           Devenez un{" "}
@@ -17,9 +16,9 @@ export default function Newsletter() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full rounded-lg border-2 p-3 placeholder-white bg-transparent text-white"
+            className="w-full rounded-lg border-2 p-3 border-white placeholder-white bg-transparent text-white"
           />
-          <button className="w-full sm:w-auto bg-white text-slate-900 font-bold py-3 px-6 rounded-lg">
+          <button className="w-auto sm:w-auto bg-white text-red-700 font-bold py-3 px-12 rounded-lg whitespace-nowrap">
             Je m'inscris
           </button>
         </div>

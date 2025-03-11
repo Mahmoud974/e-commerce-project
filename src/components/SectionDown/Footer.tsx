@@ -1,87 +1,65 @@
 import { FaTiktok, FaInstagram, FaFacebookSquare } from "react-icons/fa";
 import Link from "next/link";
 
+const links = {
+  informations: [
+    { href: "/policy-credential", label: "Politique de confidentialité" },
+    { href: "/conditions-utilisation", label: "Conditions d'utilisation" },
+  ],
+  utiles: [
+    { href: "/", label: "Accueil" },
+    { href: "/conditions-guarantee", label: "Conditions de la garantie" },
+    { href: "/product-interviews", label: "Entretien du produit" },
+    { href: "/about", label: "À propos SofaChic" },
+    { href: "/contact", label: "Contact" },
+    { href: "/delivery", label: "Livraison" },
+  ],
+};
+
+const socialLinks = [
+  {
+    href: "https://www.instagram.com",
+    icon: <FaInstagram />,
+    label: "Instagram",
+  },
+  {
+    href: "https://www.facebook.com",
+    icon: <FaFacebookSquare />,
+    label: "Facebook",
+  },
+  { href: "https://www.tiktok.com", icon: <FaTiktok />, label: "TikTok" },
+];
+
 const Footer = () => {
   return (
     <footer className="text-white w-full py-8 px-4">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center md:text-left">
-          {/* Section Informations */}
-          <div>
-            <h5 className="text-lg font-bold mb-4">Informations</h5>
-            <ul>
-              <li>
-                <Link
-                  href="/policy-credential"
-                  className="text-gray-400 hover:text-white"
-                >
-                  Politique de confidentialité
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/conditions-utilisation"
-                  className="text-gray-400 hover:text-white"
-                >
-                  Conditions d'utilisation
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Sections dynamiques */}
+          {Object.entries(links).map(([title, items]) => (
+            <div key={title}>
+              <h5 className="text-lg font-bold mb-4 capitalize">
+                {title.replace("-", " ")}
+              </h5>
+              <ul className="space-y-2">
+                {items.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      href={item.href}
+                      className="text-gray-400 hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
-          {/* Section Liens utiles */}
-          <div>
-            <h5 className="text-lg font-bold mb-4">Liens utiles</h5>
-            <ul>
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white">
-                  Accueil
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/conditions-guarantee"
-                  className="text-gray-400 hover:text-white"
-                >
-                  Conditions de la garantie
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/product-interviews"
-                  className="text-gray-400 hover:text-white"
-                >
-                  Entretien du produit
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white">
-                  À propos SofaChic
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-gray-400 hover:text-white"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/delivery"
-                  className="text-gray-400 hover:text-white"
-                >
-                  Livraison
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Section Service client et réseaux sociaux */}
+          {/* Service client et réseaux sociaux */}
           <div>
             <h5 className="text-lg font-bold mb-4">Service client</h5>
-            <p className="mb-2 w-3/4">
+            <p className="mb-2 w-3/4 mx-auto md:mx-0">
               Nos équipes sont à votre écoute du lundi au vendredi de 9h à 12h
               et de 13h30 à 17h30.
             </p>
@@ -90,27 +68,17 @@ const Footer = () => {
 
             {/* Icônes réseaux sociaux */}
             <div className="flex justify-center md:justify-start space-x-6">
-              <Link
-                href="https://www.instagram.com"
-                target="_blank"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="h-6 w-6 text-gray-400 hover:text-white" />
-              </Link>
-              <Link
-                href="https://www.facebook.com"
-                target="_blank"
-                aria-label="Facebook"
-              >
-                <FaFacebookSquare className="h-6 w-6 text-gray-400 hover:text-white" />
-              </Link>
-              <Link
-                href="https://www.tiktok.com"
-                target="_blank"
-                aria-label="TikTok"
-              >
-                <FaTiktok className="h-6 w-6 text-gray-400 hover:text-white" />
-              </Link>
+              {socialLinks.map(({ href, icon, label }, index) => (
+                <Link
+                  key={index}
+                  href={href}
+                  target="_blank"
+                  aria-label={label}
+                  className="text-gray-400 hover:text-white text-2xl"
+                >
+                  {icon}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

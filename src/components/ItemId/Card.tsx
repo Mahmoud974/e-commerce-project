@@ -36,10 +36,10 @@ const ProductCard: React.FC<{
   };
 
   return (
-    <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
+    <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-black border border-gray-200">
       <Link
         href={`/item/${item.id}`}
-        className="relative pt-5 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md h-80"
+        className="relative pt-5 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-black shadow-md h-80"
       >
         <div className="relative h-44 w-full">
           <Image
@@ -59,7 +59,7 @@ const ProductCard: React.FC<{
             <p className="text-2xl font-normal text-gray-800 truncate">
               {item.nom}
             </p>
-            <p className=" text-black text-3xl">{item.prix}€</p>
+            <p className=" text-white text-3xl">{item.prix}€</p>
           </div>
         </div>
       </Link>

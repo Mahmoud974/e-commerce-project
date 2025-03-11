@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { Trash } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export function CartList({ items, removeItem, handleQuantityChange }) {
   const [total, setTotal] = useState(0);
@@ -17,9 +19,7 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
 
   if (items.length === 0) {
     return (
-      <>
-        <div className="flex justify-center">Votre panier est vide 🛒</div>
-      </>
+      <div className="flex justify-center mt-4">Votre panier est vide 🛒</div>
     );
   }
 
@@ -66,10 +66,14 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
         ))}
       </ul>
 
-      <div>
-        <p className="text-3xl ml-3 mt-6 font-bold">
-          Total: {total.toFixed(2)}€
-        </p>
+      <div className="flex justify-between pt-3 items-center">
+        <div className="flex flex-col ">
+          <p>Total:</p>
+          <p className="text-xl text-center font-bold">{total.toFixed(2)}€</p>
+        </div>
+        <Button variant="destructive" className=" ">
+          <Link href="/panier/validation">Validez la commande</Link>
+        </Button>
       </div>
     </>
   );

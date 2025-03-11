@@ -10,13 +10,13 @@ export default function ErrorPage() {
       <div className="flex items-center justify-center flex-grow">
         <div className="text-center max-w-sm w-full">
           <Image
-            src="/error-img.png"
+            src="/error.png"
             alt="Error 404"
             width={1000}
             height={1000}
-            className="w-96 h-auto object-cover shadow-lg"
+            className="w-[100%] h-auto object-cover shadow-lg"
           />
-          <p className="text-7xl font-bold mt-4">ERROR</p>
+
           <div className="mt-6">
             <Link href="/" className="text-blue-500 text-lg hover:underline">
               <Button>{`Retour à l'accueil`}</Button>

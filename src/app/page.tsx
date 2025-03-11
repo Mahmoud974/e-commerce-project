@@ -3,7 +3,7 @@ import ProductCard from "@/components/ItemId/Card";
 import Footer from "@/components/SectionDown/Footer";
 import Navbar from "@/components/Header/Navbar";
 import { useTemplate } from "@/app/hook/useTemplate";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Canape } from "./types/canape";
 import { useSearchArticles, useLikeData, useCartStore } from "@/store/store";
 import Filter from "@/components/Header/Filter";
@@ -15,7 +15,6 @@ export default function Page() {
   const { data } = useTemplate();
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
-
   const [visibleCount, setVisibleCount] = useState(15);
 
   const handleLoadMore = () => {
@@ -23,10 +22,8 @@ export default function Page() {
   };
   let color = data && data.map((item) => item.color);
   let colorProduct = [...new Set(color)];
-
   let seat = data && data.map((item) => item.seat);
   let seatProduct = [...new Set(seat)];
-
   const flexCol = "flex flex-col";
 
   return (

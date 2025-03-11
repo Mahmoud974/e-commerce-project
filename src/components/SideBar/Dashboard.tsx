@@ -55,12 +55,6 @@ export function Dashboard({
       </div>
 
       {/* Section Mes favoris */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold flex items-center">❤️ Mes favoris</h2>
-        <div className="p-4 bg-yellow-700 text-yellow-200 ">
-          Oh, mais vous n'avez pas encore eu de coup de cœur ?
-        </div>
-      </div>
 
       {/* Section Besoin d'aide */}
       <div className="space-y-2 border-t border-gray-700 pt-4">

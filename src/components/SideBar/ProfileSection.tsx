@@ -1,8 +1,10 @@
+import { Button } from "../ui/button";
+
 export function ProfileSection({
   session,
   signIn,
   signOut,
-  handleFacebookLogin,
+
   isProcessing,
 }) {
   return (
@@ -10,28 +12,22 @@ export function ProfileSection({
       <div className="flex flex-col space-y-2">
         {!session || !session.user ? (
           <>
-            <button
+            <Button
               onClick={() => signIn("google")}
-              className="bg-red-500 text-white py-2 px-4 rounded-full w-64"
-              disabled={isProcessing}
+              variant="destructive"
+              className="mt-3"
             >
               {isProcessing ? "Chargement..." : "Se connecter avec Google"}
-            </button>
-            {/* <button
-              onClick={handleFacebookLogin}
-              className="bg-blue-600 text-white py-2 px-4 rounded-full w-64"
-              disabled={isProcessing}
-            >
-              {isProcessing ? "Chargement..." : "Se connecter avec Facebook"}
-            </button> */}
+            </Button>
           </>
         ) : (
-          <button
+          <Button
             onClick={() => signOut()}
-            className="bg-red-500 text-white py-2 px-4 rounded-full w-64"
+            variant="destructive"
+            className="mt-3"
           >
             Déconnecter
-          </button>
+          </Button>
         )}
       </div>
       <h2 className="font-bold">Mes informations</h2>

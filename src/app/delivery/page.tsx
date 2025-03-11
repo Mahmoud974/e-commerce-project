@@ -111,35 +111,6 @@ export default function Page() {
             </li>
           </ul>
         </div>
-
-        {/* Emballage et protection */}
-        {/* <div className="flex flex-col sm:flex-row justify-center items-center mt-12">
-          <div className="flex flex-col items-center w-full sm:w-2/3">
-            <h3 className="font-bold text-3xl text-center w-2/3">
-              Emballage et protection
-            </h3>
-            <p className="m-7 text-center">
-              Tous nos meubles en bois sont soigneusement emballés selon des
-              normes strictes de sécurité pour le transport. Chaque pièce est
-              protégée avec de la mousse et du polystyrène expansé (EPS) sur les
-              surfaces et les bords, et soumise à des tests de chute pour éviter
-              tout dommage en cas d'impact. Les cartons sont renforcés aux deux
-              extrémités pour permettre un placement vertical sécurisé, et des
-              symboles sur les articles fragiles indiquent la manière correcte
-              de les manipuler. Nos emballages sont conçus pour résister à une
-              pluie légère, bien qu'ils ne soient pas totalement étanches.
-            </p>
-          </div>
-          <div className="w-full sm:w-1/3">
-            <Image
-              src="/banners/sofa.jpg"
-              width={500}
-              height={500}
-              alt="Fonctionnalité"
-              className="object-cover w-full h-full lg:flex hidden"
-            />
-          </div>
-        </div> */}
       </div>
 
       <Informations />

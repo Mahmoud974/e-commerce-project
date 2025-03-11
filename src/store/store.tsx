@@ -1,10 +1,5 @@
 import { create } from "zustand";
-import {
-  SortDataState,
-  NewDataState,
-  LikeDataState,
-  Item,
-} from "../app/types/canape";
+import { LikeDataState, Item } from "../app/types/canape";
 
 type CartState = {
   items: Item[];

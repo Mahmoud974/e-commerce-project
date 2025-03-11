@@ -1,11 +1,11 @@
 import React from "react";
-import ProductCard from "./ItemId/Card";
+
 import { useTemplate } from "@/app/hook/useTemplate";
+import ProductCard from "../ItemId/Card";
 
 export default function Recommendations() {
   const { data } = useTemplate();
 
-  // Ensure fivesRecommendations is an array
   let fivesRecommendations = (data && data.slice(0, 5)) || [];
 
   const addItems = (item) => {

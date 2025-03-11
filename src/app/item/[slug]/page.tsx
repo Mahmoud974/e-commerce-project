@@ -48,7 +48,7 @@ export default function Page({ params }) {
 
   const handleLike = () => {
     setIsLiked(!isLiked);
-    addItems(item);
+    // addItems(item);
   };
 
   // Handle active button click
