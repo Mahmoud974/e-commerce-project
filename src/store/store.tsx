@@ -77,6 +77,7 @@ export const useCartStore = create<CartState>((set) => ({
  */
 export const useSearchArticles = create<any>((set) => ({
   filteredData: [],
+  nbreSeatColor: 0,
 
   setFilteredData: (db, searchTerm) => {
     const filtered = db?.filter((item) =>
@@ -112,20 +113,36 @@ export const useSearchArticles = create<any>((set) => ({
     console.log("Tri par pertinence appliqué :", sortedByRelevance);
   },
 
-  colorsArticles: (db, selectedColors) => {
-    const newTab = [...db]?.filter(
-      (item) =>
-        item.color && item.color.toLowerCase() === selectedColors.toLowerCase()
-    );
-    console.log("Articles filtrés par couleur :", newTab);
+  // colorsArticles: (db, selectedColors) => {
+  //   const newTab = [...db]?.filter(
+  //     (item) =>
+  //       item.color && item.color.toLowerCase() === selectedColors.toLowerCase()
+  //   );
+  //   console.log("Articles filtrés par couleur :", newTab);
 
-    set(() => ({ filteredData: newTab }));
+  //   set(() => ({ filteredData: newTab }));
+  // },
+  colorsArticles: (selectedColors) => {
+    set((state) => {
+      // Filtrage des articles par couleur
+      const newTab = [...state.filteredData]?.filter(
+        (item) =>
+          item.color &&
+          item.color.toLowerCase() === selectedColors.toLowerCase()
+      );
+
+      // Mise à jour de l'état avec les articles filtrés
+      console.log("Articles filtrés par couleur :", newTab);
+      return { filteredData: newTab };
+    });
   },
 
   numberSeatArticles: (db, selectedSeat) => {
     const newTab = db?.filter((item) => item.seat === selectedSeat);
-    console.log("Articles filtrés par nombre de sièges :", newTab);
+    let nbreSeat = newTab.map((ok) => ok.seat);
+    console.log("Articles filtrés par nombre de sièges :", nbreSeat.length);
 
     set(() => ({ filteredData: newTab }));
+    set(() => ({ nbreSeatColor: nbreSeat.length }));
   },
 }));

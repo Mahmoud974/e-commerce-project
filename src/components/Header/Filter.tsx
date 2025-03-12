@@ -11,10 +11,19 @@ import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
-  const { filteredData, colorsArticles, numberSeatArticles } =
+  const { nbreSeatColor, colorsArticles, numberSeatArticles } =
     useSearchArticles();
 
   const [assisesData, setAssisesData] = useState([]);
+  const uniqueSeats = [...new Set(data?.map((item) => item.seat))];
+
+  // Compter le nombre d'articles pour chaque siège unique
+  const seatCount = uniqueSeats.map((seat) => ({
+    seat,
+    count: data?.filter((item) => item.seat === seat).length,
+  }));
+
+  console.log("Nombre d'articles pour chaque siège similaire :", seatCount);
 
   useEffect(() => {
     if (data) {
@@ -40,7 +49,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
     {
       label: "Color",
       content: (
-        <div className="grid   grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {colors.map((color) => (
             <div
               key={color.name}
@@ -48,7 +57,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
               onClick={() => colorsArticles(data, color.name)}
             >
               <button
-                className={`w-10 h-10 rounded-full ${color.colorClass} border  `}
+                className={`w-10 h-10 rounded-full ${color.colorClass} border`}
               ></button>
               <p className="text-sm text-white rounded-md px-2 py-1 ">
                 {color.name}
@@ -57,7 +66,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
           ))}
           {/* Bouton Reset */}
           <div className="col-span-3 flex justify-center mt-4">
-            <button className="flex text-base  text-white hover:text-black">
+            <button className="flex text-base text-white hover:text-black">
               <RotateCcw className="text-xs w-4 text-white" />
               Réinitialiser
             </button>
@@ -69,14 +78,14 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       label: "Assises",
       content: (
         <div className="flex flex-col space-y-2">
-          {assisesData.length > 0 ? (
-            assisesData.map((item) => (
+          {seatCount.length > 0 ? (
+            seatCount.map((item) => (
               <button
-                key={item.name}
+                key={Math.random()}
                 className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-100 text-gray-800 hover:bg-gray-200"
-                onClick={() => numberSeatArticles(data, item.count)}
+                onClick={() => numberSeatArticles(data, item.seat)} // Utiliser `item.seat` pour passer la valeur correcte
               >
-                <span>{item.name.replace("Seat", "").trim()}</span>
+                <span>{`Seat ${item.seat}`}</span>
                 <span>{item.count}</span>
               </button>
             ))
@@ -107,7 +116,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       </ul>
 
       {/* Section des résultats et recherche */}
-      <div className="flex items-center   md:space-x-3">
+      <div className="flex items-center md:space-x-3">
         <p className="text-white"></p>
         <ComboboxDemo data={data} />
       </div>
