@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { LikeDataState, Item } from "../app/types/canape";
+import {
+  SortDataState,
+  NewDataState,
+  LikeDataState,
+  Item,
+} from "../app/types/canape";
 
 type CartState = {
   items: Item[];
@@ -72,45 +77,54 @@ export const useCartStore = create<CartState>((set) => ({
  */
 export const useSearchArticles = create<any>((set) => ({
   filteredData: [],
-  //Triez les éléments
+
   setFilteredData: (db, searchTerm) => {
-    const filtered = db?.filter(
-      (item) =>
-        item.nom.toLowerCase() &&
-        item.nom.toLowerCase().includes(searchTerm?.toLowerCase())
+    const filtered = db?.filter((item) =>
+      item.nom.toLowerCase().includes(searchTerm?.toLowerCase())
     );
 
     set(() => ({
       filteredData: filtered,
     }));
   },
-  croissantArticles: (db) => {
-    const newTab = [...db]?.sort((a, b) => a.prix - b.prix);
-    set(() => ({ filteredData: newTab }));
-    console.log("Tri croissant appliqué :", newTab);
-  },
-  decroissantArticles: (db) => {
-    const newTab = [...db]?.sort((a, b) => b.prix - a.prix);
-    set(() => ({ filteredData: newTab }));
-    console.log("Tri décroissant appliqué :", newTab);
-  },
-  pertinenceArticles: (db) => {
-    set(() => ({ filteredData: [...db] }));
-    console.log("Tri par pertinence appliqué :", db);
+
+  croissantArticles: () => {
+    set((state) => {
+      const sortedData = [...state.filteredData].sort(
+        (a, b) => a.prix - b.prix
+      );
+      return { filteredData: sortedData };
+    });
   },
 
-  //Triez en fonction des coleurs
+  decroissantArticles: () => {
+    set((state) => {
+      const sortedData = [...state.filteredData].sort(
+        (a, b) => b.prix - a.prix
+      );
+      return { filteredData: sortedData };
+    });
+  },
+
+  pertinenceArticles: (db) => {
+    const sortedByRelevance = [...db];
+    set(() => ({ filteredData: sortedByRelevance }));
+    console.log("Tri par pertinence appliqué :", sortedByRelevance);
+  },
+
   colorsArticles: (db, selectedColors) => {
     const newTab = [...db]?.filter(
-      (item) => item.color === selectedColors.toLowerCase()
+      (item) =>
+        item.color && item.color.toLowerCase() === selectedColors.toLowerCase()
     );
     console.log("Articles filtrés par couleur :", newTab);
 
     set(() => ({ filteredData: newTab }));
   },
+
   numberSeatArticles: (db, selectedSeat) => {
     const newTab = db?.filter((item) => item.seat === selectedSeat);
-    console.log("Nmbre de siege", newTab);
+    console.log("Articles filtrés par nombre de sièges :", newTab);
 
     set(() => ({ filteredData: newTab }));
   },
