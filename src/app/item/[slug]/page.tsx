@@ -19,14 +19,16 @@ import Newsletter from "@/components/SectionDown/Newsletter";
 import { SeveralPayment } from "@/components/ItemId/SeveralPayment";
 import HelpSection from "@/components/SectionDown/HelpSection";
 import PaymentSeveral from "@/components/ItemId/PaymentSeveral";
-import { CarouselPlugin } from "@/components/ItemId/Caroussel";
+import SwitchHt from "@/components/SwitchHt";
+import { Switch } from "@/components/ui/switch";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
   const [isInCart, setIsInCart] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [activeSection, setActiveSection] = useState("Description"); // Active section state
-  const [activeButton, setActiveButton] = useState<string | null>(null); // New state to track active button
+  const [activeSection, setActiveSection] = useState("Description");
+  const [activeButton, setActiveButton] = useState<string | null>(null);
+  const [isHT, setIsHT] = useState(false);
 
   useEffect(() => {
     async function fetchParams() {
@@ -40,7 +42,7 @@ export default function Page({ params }) {
 
   const idArticle =
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
-  console.log(idArticle?.nom);
+  const priceHT = idArticle ? (idArticle.prix / 1.2).toFixed(2) : "";
 
   function handleCart(event: any): void {
     throw new Error("Function not implemented.");
@@ -59,17 +61,18 @@ export default function Page({ params }) {
 
   return (
     <div>
+      {/* <SwitchHt /> */}
       <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
         <section className="md:mx-0 flex flex-col md:flex-row md:mt-32 mt-8 items-center">
-          <div className="w-full md:w-2/2">
+          {/* <div className="w-full md:w-2/2">
             <CarouselPlugin data={idArticle} />
-          </div>
+          </div> */}
 
           <div className="md:ml-12 md:w-1/2 w-full space-y-3">
             <div className="flex flex-col    md:flex-row gap-5 justify-between">
               <div>
-                <p className="text-6xl  md:mt-0 mt-8 font-bold pl-0">
+                <p className="text-4xl md:mt-0 mt-8 font-bold pl-0">
                   {idArticle?.nom}
                 </p>
                 <small>Ref 12578BO</small>
@@ -80,7 +83,30 @@ export default function Page({ params }) {
                   </span>{" "}
                   place{idArticle?.seat !== 1 && "s"}
                 </p>
+                <div className="flex  flex-col mt-6">
+                  <div className="flex items-center">
+                    <span className="mr-2 text-3xl">
+                      {isHT ? `${priceHT}€ HT` : `${idArticle?.prix}€ TTC`}
+                    </span>
+                    <div className="bg-red-700  px-1 ml-2 rounded-sm">
+                      <p className="text-white font-bold">-11%</p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-gray-00">
+                    dont eco-part. de 13,50 €
+                  </span>
+                  <div className="flex items-center mt-2">
+                    <span>Prix HT</span>
+                    <Switch
+                      checked={isHT}
+                      onCheckedChange={setIsHT}
+                      className="mx-2"
+                    />
+                    <span>Prix TTC</span>
+                  </div>
+                </div>
               </div>
+
               <PaymentSeveral />
             </div>
             <p className="text-lg">{idArticle?.description}</p>
@@ -119,14 +145,7 @@ export default function Page({ params }) {
                 <Instagram />
               </li>
             </ul>
-            <div className="flex items-center">
-              <span className="mr-2 text-3xl">{idArticle?.prix}€</span>
 
-              <p className="line-through ml-2">{idArticle?.prix + 100}€</p>
-              <div className="border-red-700 border px-1 ml-2 rounded-sm">
-                <p className="text-red-700 font-bold">-11%</p>
-              </div>
-            </div>
             <p className="text-xs mt-3">{`Avec 4.80€ d'économie`}</p>
             <div className="flex items-center gap-2 mt-2">
               <Truck />
