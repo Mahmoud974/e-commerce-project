@@ -3,9 +3,9 @@ import ProductCard from "@/components/ItemId/Card";
 import Footer from "@/components/SectionDown/Footer";
 import Navbar from "@/components/Header/Navbar";
 import { useTemplate } from "@/app/hook/useTemplate";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Canape } from "./types/canape";
-import { useSearchArticles, useLikeData, useCartStore } from "@/store/store";
+import { useSearchArticles, useLikeData } from "@/store/store";
 import Filter from "@/components/Header/Filter";
 import Newsletter from "@/components/SectionDown/Newsletter";
 import HelpSection from "@/components/SectionDown/HelpSection";
@@ -16,23 +16,27 @@ export default function Page() {
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
 
-  const [visibleCount, setVisibleCount] = useState(15);
+  const initialCount = 15; // Nombre de produits affichés initialement
+  const [visibleCount, setVisibleCount] = useState(initialCount);
+
+  const totalItems =
+    filteredData.length > 0 ? filteredData.length : data?.length || 0;
 
   const handleLoadMore = () => {
-    setVisibleCount(visibleCount + 15);
+    setVisibleCount((prev) => prev + initialCount);
   };
-  let color = data && data.map((item) => item.color);
-  let colorProduct = [...new Set(color)];
 
-  let seat = data && data.map((item) => item.seat);
-  let seatProduct = [...new Set(seat)];
+  const handleShowLess = () => {
+    setVisibleCount(initialCount);
+  };
 
-  const flexCol = "flex flex-col";
+  let colorProduct = [...new Set(data?.map((item) => item.color) || [])];
+  let seatProduct = [...new Set(data?.map((item) => item.seat) || [])];
 
   return (
-    <section className={`${flexCol} min-h-screen`}>
-      <div className={`${flexCol} items-center mt-6 w-full container mx-auto`}>
-        <section className={`${flexCol} justify-between w-full mb-12`}>
+    <section className="flex flex-col min-h-screen  ">
+      <div className="flex flex-col items-center mt-6 w-full container mx-auto">
+        <section className="flex flex-col justify-between w-full mb-12">
           <div className="flex flex-col">
             <Navbar />
 
@@ -41,41 +45,48 @@ export default function Page() {
               colorProduct={colorProduct}
               seatProduct={seatProduct}
             />
+
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
-              {filteredData && filteredData.length > 0 ? (
-                filteredData
-                  .slice(0, visibleCount)
-                  .map((item: any) => (
-                    <ProductCard
-                      key={item.id}
-                      item={item}
-                      addItems={addItems}
-                    />
-                  ))
-              ) : data && data.length > 0 ? (
-                data
-                  .slice(0, visibleCount)
-                  .map((item: Canape) => (
-                    <ProductCard
-                      key={item.id}
-                      item={item}
-                      addItems={addItems}
-                    />
-                  ))
-              ) : (
-                <p>Aucun produit disponible.</p>
-              )}
+              {filteredData.length > 0
+                ? filteredData
+                    .slice(0, visibleCount)
+                    .map((item: any) => (
+                      <ProductCard
+                        key={item.id}
+                        item={item}
+                        addItems={addItems}
+                      />
+                    ))
+                : data
+                    ?.slice(0, visibleCount)
+                    .map((item: Canape) => (
+                      <ProductCard
+                        key={item.id}
+                        item={item}
+                        addItems={addItems}
+                      />
+                    )) || <p>Aucun produit disponible.</p>}
             </section>
 
-            {/* Bouton "Voir plus" si plus de produits sont disponibles */}
-            {filteredData.length > visibleCount && (
-              <button
-                onClick={handleLoadMore}
-                className="mt-4 p-2 lg:mx-0 mx-8 border border-white text-white font-semibold rounded"
-              >
-                Voir +
-              </button>
-            )}
+            {/* Boutons Voir + / Voir - */}
+            <div className="flex justify-center mt-4">
+              {visibleCount < totalItems && (
+                <button
+                  onClick={handleLoadMore}
+                  className="mt-4 p-2 lg:mx-0 mx-8 border border-white text-white font-semibold rounded w-full"
+                >
+                  Voir +
+                </button>
+              )}
+              {visibleCount >= totalItems && totalItems > initialCount && (
+                <button
+                  onClick={handleShowLess}
+                  className="mt-4 p-2 lg:mx-0 mx-8 border border-white text-white font-semibold rounded w-full"
+                >
+                  Voir -
+                </button>
+              )}
+            </div>
           </div>
         </section>
       </div>
