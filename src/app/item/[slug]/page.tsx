@@ -1,33 +1,33 @@
 "use client";
 import Navbar from "@/components/Header/Navbar";
 import React, { useEffect, useState } from "react";
+import { Share2 } from "lucide-react";
 import { useTemplate } from "@/app/hook/useTemplate";
 import {
-  Facebook,
+  ChevronRight,
   Heart,
-  Instagram,
   ShoppingCart,
   SquareChevronLeft,
   SquareChevronRight,
-  Truck,
+  Star,
 } from "lucide-react";
 import Footer from "@/components/SectionDown/Footer";
 
-import { colors } from "@/Interface/model";
-import { Button } from "@/components/ui/button";
 import Newsletter from "@/components/SectionDown/Newsletter";
-import { SeveralPayment } from "@/components/ItemId/SeveralPayment";
+
 import HelpSection from "@/components/SectionDown/HelpSection";
-import PaymentSeveral from "@/components/ItemId/PaymentSeveral";
-import SwitchHt from "@/components/SwitchHt";
+
 import { Switch } from "@/components/ui/switch";
+import { FaStar } from "react-icons/fa";
+import Table from "@/components/ItemId/Table";
+import NavItem from "@/components/ItemId/NavItem";
+import Gallery from "@/components/Gallery";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
   const [isInCart, setIsInCart] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [activeSection, setActiveSection] = useState("Description");
-  const [activeButton, setActiveButton] = useState<string | null>(null);
+
   const [isHT, setIsHT] = useState(false);
 
   useEffect(() => {
@@ -53,48 +53,106 @@ export default function Page({ params }) {
     // addItems(item);
   };
 
-  // Handle active button click
-  const handleButtonClick = (section: string) => {
-    setActiveSection(section);
-    setActiveButton(section); // Set active button
-  };
-
   return (
     <div>
       {/* <SwitchHt /> */}
       <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
-        <section className="md:mx-0 flex flex-col md:flex-row md:mt-32 mt-8 items-center">
+        <section className="md:mx-0 flex flex-col md:flex-row md:mt-32 mt-8  ">
+          <Gallery />
           {/* <div className="w-full md:w-2/2">
             <CarouselPlugin data={idArticle} />
           </div> */}
 
           <div className="md:ml-12 md:w-1/2 w-full space-y-3">
             <div className="flex flex-col    md:flex-row gap-5 justify-between">
-              <div>
-                <p className="text-4xl md:mt-0 mt-8 font-bold pl-0">
-                  {idArticle?.nom}
-                </p>
-                <small>Ref 12578BO</small>
-                <p className="text-md my-2 font-sans">
-                  Canapé{" "}
-                  <span className="font-bold text-red-500">
-                    {idArticle?.seat}
-                  </span>{" "}
-                  place{idArticle?.seat !== 1 && "s"}
-                </p>
-                <div className="flex  flex-col mt-6">
-                  <div className="flex items-center">
-                    <span className="mr-2 text-3xl">
-                      {isHT ? `${priceHT}€ HT` : `${idArticle?.prix}€ TTC`}
-                    </span>
-                    <div className="bg-red-700  px-1 ml-2 rounded-sm">
-                      <p className="text-white font-bold">-11%</p>
+              <div className="space-y-2 ">
+                <div className="flex justify-between">
+                  <div>
+                    <p className="text-4xl md:mt-0 mt-8 font-bold  ">
+                      {idArticle?.nom}
+                    </p>
+                    <small>Ref 12578BO</small>
+                  </div>
+                  {/* Les buttons à coté du titre */}
+                  <div className="flex gap-2">
+                    <button
+                      className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                        isLiked ? "bg-red-500" : "bg-gray-200"
+                      }`}
+                      onClick={handleLike}
+                    >
+                      <Heart
+                        className={`w-6 h-6 ${
+                          isLiked ? "text-white" : "text-gray-800"
+                        }`}
+                      />
+                    </button>
+                    <button
+                      className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                        isLiked ? "bg-red-500" : "bg-gray-200"
+                      }`}
+                      onClick={handleLike}
+                    >
+                      <Share2
+                        className={`w-6 h-6 ${
+                          isLiked ? "text-white" : "text-gray-800"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200 ">
+                  <div className="flex gap-3 w-full"></div>
+                  <div className="flex gap-2">
+                    <SquareChevronLeft className="cursor-pointer" />
+                    <SquareChevronRight className="cursor-pointer" />
+                  </div>
+                </div>
+
+                <div className="flex ">
+                  <p className="text-md   font-sans">
+                    Canapé{" "}
+                    <span className="font-bold text-red-500">
+                      {idArticle?.seat}
+                    </span>{" "}
+                    place{idArticle?.seat !== 1 && "s"} -
+                  </p>
+                  <div className="flex items-center ml-1">
+                    <p className="mr-2">Color: {idArticle?.color} </p>{" "}
+                    <div className="w-3 h-3 bg-yellow-200 rounded-full"></div>
+                  </div>
+                </div>
+                <div className="flex justify-between  flex-col mt-6">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="flex items-center">
+                        <span className="mr-2 text-3xl">
+                          {isHT ? `${priceHT}€ HT` : `${idArticle?.prix}€ TTC`}
+                        </span>
+                        <div className="bg-red-700  px-1 ml-2 rounded-sm">
+                          <p className="text-white font-bold">-11%</p>
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-00">
+                        dont eco-part. de 13,50 €
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex  items-center">
+                        <input
+                          type="number"
+                          className="bg-black border border-gray-300 rounded-md w-24 py-2 px-4 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="Qty"
+                        />
+                      </div>
+                      <button className="bg-red-700 text-white py-2 px-4 flex items-center rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <ShoppingCart className="mr-2" />
+                        AJOUTER AU PANIER
+                      </button>
                     </div>
                   </div>
-                  <span className="text-xs text-gray-00">
-                    dont eco-part. de 13,50 €
-                  </span>
                   <div className="flex items-center mt-2">
                     <span>Prix HT</span>
                     <Switch
@@ -105,161 +163,54 @@ export default function Page({ params }) {
                     <span>Prix TTC</span>
                   </div>
                 </div>
+                <div className="flex items-center mt-2">
+                  <div className="flex gap-1  items-center">
+                    {[...Array(4)].map((_, index) => (
+                      <FaStar key={index} />
+                    ))}
+                    <Star className="w-4" />
+                  </div>
+                  <small className="ml-2">4,3/5 + de 1000 ventes</small>
+                </div>
+                <div>
+                  <div className="flex">
+                    <p className="mr-2">Services vendeur partenaire</p>
+                    <ChevronRight />
+                  </div>
+                  <div className="flex">
+                    <div className="mr-1 flex mt-1">
+                      <p className="mr-2">Payer en </p>
+                      <p className="bg-gray-700 rounded-full w-6 h-6 flex items-center pl-0.5">
+                        4x
+                      </p>
+                    </div>
+                    <ChevronRight />
+                  </div>
+                  <div>
+                    <div className="flex gap-2 mt-3"></div>
+                  </div>
+                </div>
+                <Table />
+                <ul className="gap-2">
+                  <li className="font-bold">Les plus produit</li>
+                  <li className="ml-2">
+                    Magnifique canapé droit style scandinave
+                  </li>
+                  <li className="ml-2">
+                    Revêtement tissu avec pieds en bois massif
+                  </li>
+                  <li className="ml-2">Deux coussins assortis fournis</li>
+                </ul>
               </div>
 
-              <PaymentSeveral />
+              {/* <PaymentSeveral /> */}
             </div>
             <p className="text-lg">{idArticle?.description}</p>
-            <div className="flex items-center">
-              <p className="mr-2">Color: {idArticle?.color}</p>
-              <div
-                className={`w-5 h-5 rounded-full ml-3 ${
-                  colors.find((color) => color.name === idArticle?.color)
-                    ?.colorClass
-                }`}
-              ></div>
-            </div>
-            <ul className="flex gap-5">
-              <li className="flex flex-col text-md font-bold">
-                <p>Hauteur </p> <p className="font-normal">54 cm</p>
-              </li>
-              <li className="flex flex-col text-md font-bold">
-                <p>Largeur </p> <p className="font-normal">160 cm</p>
-              </li>
-              <li className="flex flex-col text-md font-bold">
-                <p>Profondeur </p> <p className="font-normal">141 cm</p>
-              </li>
-            </ul>
-            <div className="border border-green-900 bg-green-950 p-3 rounded-md">
-              <p className="text-xs">
-                Bénéficiez de 5% de réduction supplémentaire en utilisant le
-                code CODE : CCFA5.
-              </p>
-            </div>
-            <ul className="flex gap-3">
-              <li>Share this product </li>
-              <li>
-                <Facebook />
-              </li>
-              <li>
-                <Instagram />
-              </li>
-            </ul>
 
-            <p className="text-xs mt-3">{`Avec 4.80€ d'économie`}</p>
-            <div className="flex items-center gap-2 mt-2">
-              <Truck />
-              <p className="ml-1 text-md">
-                Délai de livraison estimé 4 à 6 semaines
-              </p>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200">
-              <div className="flex gap-3">
-                <button
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    isInCart ? "bg-green-500" : "bg-gray-200"
-                  }`}
-                  onClick={handleCart}
-                >
-                  <ShoppingCart
-                    className={`w-6 h-6 ${
-                      isInCart ? "text-white" : "text-gray-800"
-                    }`}
-                  />
-                </button>
-                <button
-                  className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                    isLiked ? "bg-red-500" : "bg-gray-200"
-                  }`}
-                  onClick={handleLike}
-                >
-                  <Heart
-                    className={`w-6 h-6 ${
-                      isLiked ? "text-white" : "text-gray-800"
-                    }`}
-                  />
-                </button>
-              </div>
-              <div className="flex gap-2">
-                <SquareChevronLeft className="cursor-pointer" />
-                <SquareChevronRight className="cursor-pointer" />
-              </div>
-            </div>
+            <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200"></div>
+            <NavItem />
           </div>
         </section>
-
-        <div className="text-white mt-8">
-          <ul className="flex gap-3 mt-8">
-            <li>
-              <Button
-                onClick={() => handleButtonClick("Description")}
-                className={`transition-all ${
-                  activeButton === "Description"
-                    ? "transform active:scale-95 bg-gray-700"
-                    : "bg-gray-500"
-                }`}
-              >
-                Description
-              </Button>
-            </li>
-            <li>
-              <Button
-                onClick={() => handleButtonClick("Dimensions")}
-                className={`transition-all ${
-                  activeButton === "Dimensions"
-                    ? "transform active:scale-95 bg-gray-700"
-                    : "bg-gray-500"
-                }`}
-              >
-                Dimensions
-              </Button>
-            </li>
-            <li>
-              <Button
-                onClick={() => handleButtonClick("Livraison")}
-                className={`transition-all ${
-                  activeButton === "Livraison"
-                    ? "transform active:scale-95 bg-gray-700"
-                    : "bg-gray-500"
-                }`}
-              >
-                Livraison
-              </Button>
-            </li>
-          </ul>
-          <SeveralPayment />
-          <div className="mt-8">
-            {activeSection === "Description" && (
-              <div>
-                <h2 className="text-2xl font-bold">
-                  Un duo de chaises Miranda pour sublimer votre salle à manger
-                </h2>
-                <p className="text-lg">
-                  Elles sont dotées de matériaux de qualité et sont adaptées à
-                  des repas conviviaux.
-                </p>
-              </div>
-            )}
-            {activeSection === "Dimensions" && (
-              <div>
-                <h2 className="text-2xl font-bold">Dimensions du produit</h2>
-                <p className="text-lg">
-                  Taille de la chaise, profondeur, largeur et hauteur.
-                </p>
-              </div>
-            )}
-            {activeSection === "Livraison" && (
-              <div>
-                <h2 className="text-2xl font-bold">
-                  Informations de livraison
-                </h2>
-                <p className="text-lg">
-                  Les informations de livraison sont ici.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
       </main>
 
       <Newsletter />

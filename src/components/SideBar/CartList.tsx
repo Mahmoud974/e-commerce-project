@@ -71,7 +71,7 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
           <p>Total:</p>
           <p className="text-xl text-center font-bold">{total.toFixed(2)}€</p>
         </div>
-        <Button variant="destructive" className=" ">
+        <Button variant="destructive" className="bg-red-700">
           <Link href="/panier/validation">Validez la commande</Link>
         </Button>
       </div>

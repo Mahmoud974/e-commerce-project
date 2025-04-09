@@ -17,10 +17,10 @@ export default function Page() {
   const [activeStep, setActiveStep] = useState(1);
 
   const steps = [
-    { id: 1, label: "Informations", icon: "/icons/account.svg" },
     { id: 2, label: "Adresses", icon: "/icons/address.svg" },
     { id: 3, label: "Livraison", icon: "/icons/delivery.svg" },
     { id: 4, label: "Paiement", icon: "/icons/payment.svg" },
+    { id: 1, label: "Informations", icon: "/icons/account.svg" },
   ];
 
   return (

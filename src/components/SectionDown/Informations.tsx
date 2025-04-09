@@ -24,7 +24,7 @@ const infos = [
   },
 ];
 
-export default function Informations() {
+export default function Confirmation() {
   return (
     <div className="text-white mx-auto w-full h-auto pb-12">
       <div className="container mx-auto px-4">

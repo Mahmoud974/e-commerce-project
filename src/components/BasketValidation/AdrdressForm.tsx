@@ -62,7 +62,7 @@ export default function AddressForm() {
       <div className="container mx-auto px-6">
         {/* Présentation de l'adresse par défaut */}
         {!showForm && (
-          <>
+          <div className="max-w-6xl ">
             <h1 className="text-3xl text-white font-bold mb-6">
               Adresse sélectionnée
             </h1>
@@ -89,7 +89,7 @@ export default function AddressForm() {
                 L'adresse de facturation diffère de l'adresse de livraison
               </label>
             </div>
-          </>
+          </div>
         )}
 
         {/* Formulaire d'ajout d'adresse */}

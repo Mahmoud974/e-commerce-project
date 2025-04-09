@@ -14,11 +14,7 @@ import { Label } from "@/components/ui/label";
 export function SeveralPayment() {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <small className="hover:underline cursor-pointer  bg-none text-white  ">
-          Payez en plusieurs fois
-        </small>
-      </DialogTrigger>
+      <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white text-black">
         <DialogHeader>
           <DialogTitle className="text-black">

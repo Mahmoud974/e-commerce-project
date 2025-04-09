@@ -135,7 +135,7 @@ export default function SheetDisplay() {
                 }`}
               >
                 <DoorOpen className="text-red-600" onClick={handleSignOut} />
-                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
+                <span className="absolute bg-red-700 bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block  text-white text-xs p-1 rounded">
                   Se déconnecter
                 </span>
               </li>
