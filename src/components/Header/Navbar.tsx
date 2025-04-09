@@ -7,6 +7,7 @@ import { useSearchArticles } from "@/store/store";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import AlertElement from "../AlertElement";
 
 type Inputs = {
   search: string;
@@ -51,6 +52,7 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
+        <AlertElement />
         {window.location.pathname === "/" && (
           <form
             className="flex-grow lg:mx-28  "

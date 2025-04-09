@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { ShoppingCart, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import AlertNoLike from "../AlertNoLike";
+import AlertMessage from "../AlertNoLike";
 
 const ProductCard: React.FC<{
   item: any;
@@ -16,24 +16,47 @@ const ProductCard: React.FC<{
   const { data: session } = useSession();
   const [showAlert, setShowAlert] = useState(false);
 
+  const [alertType, setAlertType] = useState<"like" | "cart" | "error" | null>(
+    null
+  );
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertId, setAlertId] = useState(0);
+
   const handleLike = () => {
-    if (showAlert) {
-      setShowAlert(false);
-    }
+    if (showAlert) setShowAlert(false);
 
     if (session?.user) {
-      setIsLiked(!isLiked);
+      const newLiked = !isLiked;
+      setIsLiked(newLiked);
       addItems(item);
+
+      setAlertType("like");
+      setAlertMessage(
+        newLiked
+          ? `${item.nom} ajouté aux favoris.`
+          : `${item.nom} retiré des favoris.`
+      );
+      setAlertId((prev) => prev + 1);
     } else {
-      setShowAlert(true);
+      setAlertType("error");
+      setAlertMessage("Vous devez être connecté pour aimer un produit !");
+      setAlertId((prev) => prev + 1);
     }
   };
 
   const handleCart = () => {
-    setIsInCart(!isInCart);
+    const newInCart = !isInCart;
+    setIsInCart(newInCart);
     addItem(item);
-  };
 
+    setAlertType("cart");
+    setAlertMessage(
+      newInCart
+        ? `${item.nom} ajouté au panier.`
+        : `${item.nom} retiré du panier.`
+    );
+    setAlertId((prev) => prev + 1);
+  };
   return (
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
       <Link
@@ -93,8 +116,9 @@ const ProductCard: React.FC<{
         </div>
       </div>
 
-      {/* Affichage de l'alerte si showAlert est vrai */}
-      {showAlert && <AlertNoLike />}
+      {alertType && (
+        <AlertMessage key={alertId} type={alertType} message={alertMessage} />
+      )}
     </div>
   );
 };
