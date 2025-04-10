@@ -42,7 +42,6 @@ export default function ProductGallery({ data }) {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      // Réactiver le scroll
       document.body.style.overflow = "auto";
     }
 
@@ -77,8 +76,8 @@ export default function ProductGallery({ data }) {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row">
-        {/* Galerie avec 2 colonnes */}
+      <div className="md:flex hidden flex-col md:flex-row">
+        {/* Galerie pour desktop (sans carrousel) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-3xl">
           {media.map((item, index) => (
             <div
@@ -92,7 +91,7 @@ export default function ProductGallery({ data }) {
                   alt="Canapé"
                   width={700}
                   height={700}
-                  className="w-full h-full"
+                  className="w-full h-full object-cover"
                   unoptimized
                 />
               ) : (
@@ -111,6 +110,34 @@ export default function ProductGallery({ data }) {
         </div>
       </div>
 
+      {/* Carrousel avec flèches seulement en version mobile */}
+      <div className="block md:hidden relative">
+        <div className="flex items-center justify-center space-x-2 overflow-hidden">
+          <button
+            onClick={handlePrev}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-4xl p-2"
+          >
+            <CircleChevronLeft />
+          </button>
+
+          <Image
+            src={media[currentIndex].src}
+            alt="Canapé"
+            width={700}
+            height={700}
+            className="w-full h-auto object-cover"
+            unoptimized
+          />
+
+          <button
+            onClick={handleNext}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-4xl p-2"
+          >
+            <CircleChevronRight />
+          </button>
+        </div>
+      </div>
+
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
@@ -121,7 +148,7 @@ export default function ProductGallery({ data }) {
               onClick={closeModal}
               className="absolute top-4 right-4 text-white text-3xl p-2"
             >
-              &times; {/* Symbole "×" pour la croix */}
+              &times;
             </button>
             <div className="relative">
               <Image

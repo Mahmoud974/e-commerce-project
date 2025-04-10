@@ -1,6 +1,7 @@
 import { DoorOpen } from "lucide-react";
 import { Button } from "../ui/button";
 import Address from "./Adress";
+import { Dashboard } from "./Dashboard";
 
 export function ProfileSection({
   session,

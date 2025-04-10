@@ -12,24 +12,23 @@ import {
   Star,
 } from "lucide-react";
 import Footer from "@/components/SectionDown/Footer";
-
 import Newsletter from "@/components/SectionDown/Newsletter";
-
 import HelpSection from "@/components/SectionDown/HelpSection";
-
 import { Switch } from "@/components/ui/switch";
 import { FaStar } from "react-icons/fa";
 import Table from "@/components/ItemId/Table";
 import NavItem from "@/components/ItemId/NavItem";
 import Gallery from "@/components/Gallery";
 import Link from "next/link";
+import { useCartStore } from "@/store/store"; // Import du store
 
 export default function Page({ params }) {
-  const [slug, setSlug] = useState(null);
-
+  const [slug, setSlug] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
-
   const [isHT, setIsHT] = useState(false);
+  const [quantity, setQuantity] = useState(1); // Nouveau state pour la quantité
+
+  const { data } = useTemplate();
 
   useEffect(() => {
     async function fetchParams() {
@@ -39,40 +38,37 @@ export default function Page({ params }) {
     fetchParams();
   }, [params]);
 
-  const { data } = useTemplate();
-
   const idArticle =
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
   const priceHT = idArticle ? (idArticle.prix / 1.2).toFixed(2) : "";
 
-  const handleLike = () => {
-    // if (showAlert) setShowAlert(false);
-    // if (session?.user) {
-    //   const newLiked = !isLiked;
-    //   setIsLiked(newLiked);
-    //   addItems(item);
-    //   setAlertType("like");
-    //   setAlertMessage(
-    //     newLiked
-    //       ? `${item.nom} ajouté aux favoris.`
-    //       : `${item.nom} retiré des favoris.`
-    //   );
-    //   setAlertId((prev) => prev + 1);
-    // } else {
-    //   setAlertType("error");
-    //   setAlertMessage("Vous devez être connecté pour aimer un produit !");
-    //   setAlertId((prev) => prev + 1);
-    // }
+  // Récupération des fonctions du store
+  const { handleCart, isInCart, updateCartQuantity } = useCartStore();
+
+  // Fonction pour ajouter/retirer un produit du panier
+  const handleAddToCart = () => {
+    if (!idArticle) return;
+
+    if (isInCart(idArticle.id)) {
+      updateCartQuantity(idArticle.id, quantity); // Met à jour la quantité si l'article est déjà dans le panier
+    } else {
+      handleCart(idArticle, quantity); // Ajoute l'article au panier avec la quantité
+    }
   };
+
+  const handleLike = () => {
+    setIsLiked(!isLiked); // Change l'état du like
+  };
+
+  const isAlreadyInCart = idArticle ? isInCart(idArticle.id) : false;
 
   return (
     <div>
-      {/* <SwitchHt /> */}
       <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
-        <section className="md:mx-0 flex flex-col md:flex-row md:mt-16 mt-8  ">
+        <section className="md:mx-0 flex flex-col md:flex-row md:mt-16 mt-8">
           <div className="flex flex-col">
-            <div className="text-sm text-white flex items-center gap-2 mb-4 ">
+            <div className="text-sm text-white flex items-center gap-2 mb-4">
               <Link href="/">
                 <span className="text-gray-500 hover:underline cursor-pointer">
                   Accueil
@@ -89,21 +85,18 @@ export default function Page({ params }) {
             </div>
             <Gallery data={data} />
           </div>
-          {/* <div className="w-full md:w-2/2">
-            <CarouselPlugin data={idArticle} />
-          </div> */}
 
           <div className="md:ml-12 md:w-1/2 w-full space-y-3">
-            <div className="flex flex-col    md:flex-row gap-5 justify-between">
-              <div className="space-y-2 ">
+            <div className="flex flex-col md:flex-row gap-5 justify-between">
+              <div className="space-y-2">
                 <div className="flex justify-between">
                   <div>
-                    <p className="text-4xl md:mt-0 mt-8 font-bold  ">
+                    <p className="text-4xl md:mt-0 mt-8 font-bold">
                       {idArticle?.nom}
                     </p>
                     <small>Ref 12578BO</small>
                   </div>
-                  {/* Les buttons à coté du titre */}
+                  {/* Les buttons à côté du titre */}
                   <div className="flex gap-2">
                     <button
                       className={`flex items-center justify-center w-10 h-10 rounded-full ${
@@ -131,7 +124,7 @@ export default function Page({ params }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200 ">
+                <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200">
                   <div className="flex gap-3 w-full"></div>
                   <div className="flex gap-2">
                     <SquareChevronLeft className="cursor-pointer" />
@@ -139,8 +132,8 @@ export default function Page({ params }) {
                   </div>
                 </div>
 
-                <div className="flex ">
-                  <p className="text-md   font-sans">
+                <div className="flex">
+                  <p className="text-md font-sans">
                     Canapé{" "}
                     <span className="font-bold text-red-500">
                       {idArticle?.seat}
@@ -148,18 +141,18 @@ export default function Page({ params }) {
                     place{idArticle?.seat !== 1 && "s"} -
                   </p>
                   <div className="flex items-center ml-1">
-                    <p className="mr-2">Color: {idArticle?.color} </p>{" "}
+                    <p className="mr-2">Color: {idArticle?.color} </p>
                     <div className="w-3 h-3 bg-yellow-200 rounded-full"></div>
                   </div>
                 </div>
-                <div className="flex justify-between  flex-col mt-6">
+                <div className="flex justify-between flex-col mt-6">
                   <div className="flex justify-between items-start">
                     <div>
                       <div className="flex items-center">
                         <span className="mr-2 text-3xl">
                           {isHT ? `${priceHT}€ HT` : `${idArticle?.prix}€ TTC`}
                         </span>
-                        <div className="bg-red-700  px-1 ml-2 rounded-sm">
+                        <div className="bg-red-700 px-1 ml-2 rounded-sm">
                           <p className="text-white font-bold">-11%</p>
                         </div>
                       </div>
@@ -168,16 +161,26 @@ export default function Page({ params }) {
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="flex  items-center">
+                      <div className="flex items-center">
                         <input
                           type="number"
+                          value={quantity} // Valeur liée au state de la quantité
+                          onChange={(e) =>
+                            setQuantity(Math.max(1, parseInt(e.target.value)))
+                          } // Mise à jour de la quantité
                           className="bg-black border border-gray-300 rounded-md w-24 py-2 px-4 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                           placeholder="Qty"
+                          min="1"
                         />
                       </div>
-                      <button className="bg-red-700 text-white py-2 px-4 flex items-center rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+                      <button
+                        className="bg-red-700 text-white py-2 px-4 flex items-center rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        onClick={handleAddToCart}
+                      >
                         <ShoppingCart className="mr-2" />
-                        AJOUTER AU PANIER
+                        {isAlreadyInCart
+                          ? "RETIRER DU PANIER"
+                          : "AJOUTER AU PANIER"}
                       </button>
                     </div>
                   </div>
@@ -192,7 +195,7 @@ export default function Page({ params }) {
                   </div>
                 </div>
                 <div className="flex items-center mt-2">
-                  <div className="flex gap-1  items-center">
+                  <div className="flex gap-1 items-center">
                     {[...Array(4)].map((_, index) => (
                       <FaStar key={index} />
                     ))}
@@ -214,9 +217,6 @@ export default function Page({ params }) {
                     </div>
                     <ChevronRight />
                   </div>
-                  <div>
-                    <div className="flex gap-2 mt-3"></div>
-                  </div>
                 </div>
                 <Table />
                 <ul className="gap-2">
@@ -230,9 +230,8 @@ export default function Page({ params }) {
                   <li className="ml-2">Deux coussins assortis fournis</li>
                 </ul>
               </div>
-
-              {/* <PaymentSeveral /> */}
             </div>
+
             <p className="text-lg">{idArticle?.description}</p>
 
             <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200"></div>

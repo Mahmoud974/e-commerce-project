@@ -51,16 +51,12 @@ export default function SheetDisplay() {
             session={session}
             signIn={signIn}
             signOut={handleSignOut}
-            handleFacebookLogin={handleFacebookLogin}
             isProcessing={isProcessing}
           />
         );
       case "favorites":
         return (
           <FavoritesList
-            session={session}
-            signIn={signIn}
-            signOut={handleSignOut}
             selectedItems={selectedItems}
             removeItems={removeItems}
           />
@@ -75,28 +71,8 @@ export default function SheetDisplay() {
         );
       case "dashboard":
         return (
-          <Dashboard
-            session={session}
-            signIn={signIn}
-            signOut={handleSignOut}
-            selectedItems={selectedItems}
-            removeItems={removeItems}
-          />
+          <Dashboard selectedItems={selectedItems} removeItems={removeItems} />
         );
-      case "command":
-        return (
-          <Command
-            session={session}
-            signIn={signIn}
-            signOut={handleSignOut}
-            selectedItems={selectedItems}
-            removeItems={removeItems}
-          />
-        );
-      case "adress":
-        return <Address />;
-      default:
-        return null;
     }
   };
 
@@ -149,34 +125,6 @@ export default function SheetDisplay() {
                 Panier
               </span>
             </li>
-
-            {mySession && (
-              <li
-                className={`group relative ml-4 cursor-pointer ${
-                  activeTab === "profile" ? "text-white" : "text-gray-500"
-                }`}
-                onClick={() => setActiveTab("adress")}
-              >
-                <MapPinHouse />
-                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
-                  Adresses
-                </span>
-              </li>
-            )}
-
-            {mySession && (
-              <li
-                className={`group relative ml-4 cursor-pointer ${
-                  activeTab === "profile" ? "text-white" : "text-gray-500"
-                }`}
-                onClick={() => setActiveTab("command")}
-              >
-                <CalendarArrowUp />
-                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
-                  Commandes
-                </span>
-              </li>
-            )}
 
             {mySession && (
               <li

@@ -11,19 +11,16 @@ const ProductCard: React.FC<{
   addItems: (item: any) => void;
 }> = ({ item, addItems }) => {
   const [isInCart, setIsInCart] = useState(false);
-  const { addItem } = useCartStore();
   const { data: session } = useSession();
+  const { addItem } = useCartStore();
 
-  // Import depuis le store Zustand
   const { isLiked, handleLike, alertType, alertMessage, alertId, showAlert } =
     useLikeStore();
 
-  // Fonction pour gérer le clic sur le bouton like
   const onLikeClick = () => {
-    handleLike(item, session, addItems); // session & addItems sont passés ici
+    handleLike(item, session, addItems);
   };
 
-  // Fonction pour gérer le panier
   const handleCart = () => {
     const newInCart = !isInCart;
     setIsInCart(newInCart);
