@@ -38,6 +38,55 @@ export default function Page({ params }) {
     fetchParams();
   }, [params]);
 
+  const handleShare = () => {
+    const url = window.location.href; // L'URL actuelle de la page
+    const text = `Découvrez ce produit incroyable: ${idArticle?.nom}`; // Texte à partager
+
+    const shareData = {
+      title: idArticle?.nom,
+      text: text,
+      url: url,
+    };
+
+    // Vérification de l'option de partage disponible dans le navigateur
+    if (navigator.share) {
+      // Utilisation de l'API de partage native (pour les appareils mobiles principalement)
+      navigator
+        .share(shareData)
+        .catch((error) => console.error("Erreur de partage: ", error));
+    } else {
+      // Utilisation de liens spécifiques pour les plateformes
+      const shareOptions = [
+        {
+          name: "WhatsApp",
+          url: `https://api.whatsapp.com/send?text=${encodeURIComponent(
+            text
+          )} ${encodeURIComponent(url)}`,
+        },
+        {
+          name: "Instagram",
+          url: `https://www.instagram.com/?url=${encodeURIComponent(url)}`, // Instagram ne supporte pas directement le partage via URL (utilisation de l'app pour publier)
+        },
+        {
+          name: "Gmail",
+          url: `mailto:?subject=${encodeURIComponent(
+            idArticle?.nom
+          )}&body=${encodeURIComponent(text)} ${encodeURIComponent(url)}`,
+        },
+        {
+          name: "Message",
+          url: `sms:?body=${encodeURIComponent(text)} ${encodeURIComponent(
+            url
+          )}`,
+        },
+      ];
+
+      // Ouverture des liens dans une nouvelle fenêtre pour chaque plateforme
+      window.open(shareOptions[0].url, "_blank"); // Exemple pour WhatsApp
+      // Tu peux ajouter un menu déroulant ou plusieurs boutons pour chaque plateforme
+    }
+  };
+
   const idArticle =
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
   const priceHT = idArticle ? (idArticle.prix / 1.2).toFixed(2) : "";
@@ -102,7 +151,9 @@ export default function Page({ params }) {
                       className={`flex items-center justify-center w-10 h-10 rounded-full ${
                         isLiked ? "bg-red-500" : "bg-gray-200"
                       }`}
-                      onClick={handleLike}
+                      onClick={() => {
+                        handleLike(idArticle, session, addItems); // Utilisation de la méthode handleLike
+                      }}
                     >
                       <Heart
                         className={`w-6 h-6 ${
@@ -110,16 +161,12 @@ export default function Page({ params }) {
                         }`}
                       />
                     </button>
+
                     <button
-                      className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                        isLiked ? "bg-red-500" : "bg-gray-200"
-                      }`}
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200"
+                      onClick={handleShare}
                     >
-                      <Share2
-                        className={`w-6 h-6 ${
-                          isLiked ? "text-white" : "text-gray-800"
-                        }`}
-                      />
+                      <Share2 className="w-6 h-6 text-gray-800" />
                     </button>
                   </div>
                 </div>
@@ -164,10 +211,10 @@ export default function Page({ params }) {
                       <div className="flex items-center">
                         <input
                           type="number"
-                          value={quantity} // Valeur liée au state de la quantité
+                          value={quantity}
                           onChange={(e) =>
                             setQuantity(Math.max(1, parseInt(e.target.value)))
-                          } // Mise à jour de la quantité
+                          }
                           className="bg-black border border-gray-300 rounded-md w-24 py-2 px-4 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                           placeholder="Qty"
                           min="1"
@@ -209,14 +256,22 @@ export default function Page({ params }) {
                     <ChevronRight />
                   </div>
                   <div className="flex">
-                    <div className="mr-1 flex mt-1">
-                      <p className="mr-2">Payer en </p>
-                      <p className="bg-gray-700 rounded-full w-6 h-6 flex items-center pl-0.5">
-                        4x
-                      </p>
+                    <div className="mr-1 flex mt-1 gap-2">
+                      <p className="mr-2">Payer en</p>
+                      <div className="flex items-center gap-2">
+                        <p className="bg-gray-700 rounded-full w-full h-6 flex items-center  px-2">
+                          3x: {(idArticle?.prix / 3).toFixed(2)}€ par mois
+                        </p>
+                      </div>
+                      <p>ou</p>
+                      <div className="flex items-center gap-2">
+                        <p className="bg-gray-700 rounded-full w-full h-6 flex items-center  px-2">
+                          4x: {(idArticle?.prix / 4).toFixed(2)}€ par mois
+                        </p>
+                      </div>
                     </div>
-                    <ChevronRight />
                   </div>
+                  <div></div>
                 </div>
                 <Table />
                 <ul className="gap-2">
