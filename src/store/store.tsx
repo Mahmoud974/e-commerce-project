@@ -1,10 +1,55 @@
 import { create } from "zustand";
-import {
-  SortDataState,
-  NewDataState,
-  LikeDataState,
-  Item,
-} from "../app/types/canape";
+import { LikeDataState, Item } from "../app/types/canape";
+
+interface LikeStore {
+  likedItems: string[];
+  isLiked: (id: string) => boolean;
+  handleLike: (item: any, session: any, addItems: (item: any) => void) => void;
+  alertType: "like" | "error" | null;
+  alertMessage: string;
+  alertId: number;
+  showAlert: boolean;
+}
+
+export const useLikeStore = create<LikeStore>((set, get) => ({
+  likedItems: [],
+  isLiked: (id: string) => get().likedItems.includes(id),
+  alertType: null,
+  alertMessage: "",
+  alertId: 0,
+  showAlert: false,
+
+  handleLike: (item, session, addItems) => {
+    if (!session?.user) {
+      set((state) => ({
+        alertType: "error",
+        alertMessage: "Vous devez être connecté pour aimer un produit !",
+        alertId: state.alertId + 1,
+        showAlert: true,
+      }));
+      return;
+    }
+
+    const likedItems = get().likedItems;
+    const isLiked = likedItems.includes(item.id);
+
+    const updatedLikes = isLiked
+      ? likedItems.filter((id) => id !== item.id)
+      : [...likedItems, item.id];
+
+    set((state) => ({
+      likedItems: updatedLikes,
+      alertType: "like",
+      alertMessage: isLiked
+        ? `${item.nom} retiré des favoris.`
+        : `${item.nom} ajouté aux favoris.`,
+      alertId: state.alertId + 1,
+      showAlert: true,
+    }));
+
+    addItems(item);
+  },
+}));
 
 type CartState = {
   items: Item[];

@@ -25,27 +25,29 @@ function Table() {
   ];
 
   return (
-    <div className="  flex justify-center items-center bg-black">
+    <div className="flex justify-center items-center bg-black">
       <div className="p-6 w-full max-w-3xl border border-white rounded-lg">
-        <table className="w-full text-left table-auto text-white">
+        <table className="w-full text-left text-white table-auto">
           <thead>
             <tr className="bg-black border-b border-white">
-              <th className=" text-center flex items-center pb-4">
-                <Truck />
-                <p className="ml-1">Délai de livraison estimé 4 à 6 semaines</p>
+              <th colSpan={3} className="text-center py-4">
+                <div className="flex items-center  ">
+                  <Truck />
+                  <p className="ml-2">
+                    Délai de livraison estimé 4 à 6 semaines
+                  </p>
+                </div>
               </th>
             </tr>
           </thead>
           <tbody>
             {options.map((option, index) => (
-              <tr key={index} className="border-b flex flex-col  border-white">
-                <div className="flex justify-between">
-                  <td className="py-2 px-4 text-green-600 font-bold ">
-                    {option.deliveryPeriod}
-                  </td>
-                  <td className="py-2 px-4">{option.price}</td>
-                </div>
-                <td className="  px-4">{option.description}</td>
+              <tr key={index} className="border-b border-white">
+                <td className="py-2 px-4 text-green-600 font-bold">
+                  {option.deliveryPeriod}
+                </td>
+                <td className="py-2 px-2 font-semibold">{option.price}</td>
+                <td className="py-2 px-4">{option.description}</td>
               </tr>
             ))}
           </tbody>

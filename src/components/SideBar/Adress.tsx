@@ -29,8 +29,8 @@ export default function Address() {
   };
 
   return (
-    <div className="p-6   text-white -lg space-y-4">
-      <h2 className="text-2xl font-bold">📦 Modifier l'adresse</h2>
+    <div className="   text-white -lg space-y-4">
+      <h2 className="text-2xl font-bold mt-6">📦 Modifier l'adresse</h2>
 
       {/* Condition ternaire pour basculer entre mode affichage et mode édition */}
       {isEditing ? (

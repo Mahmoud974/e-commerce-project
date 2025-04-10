@@ -1,4 +1,6 @@
+import { DoorOpen } from "lucide-react";
 import { Button } from "../ui/button";
+import Address from "./Adress";
 
 export function ProfileSection({
   session,
@@ -10,7 +12,7 @@ export function ProfileSection({
   console.log(Boolean(session?.expires));
 
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col  space-y-4">
       <div className="flex flex-col space-y-2">
         {!session || !session.user ? (
           <>
@@ -25,13 +27,13 @@ export function ProfileSection({
           <Button
             onClick={() => signOut()}
             variant="destructive"
-            className="mt-3"
+            className="mt-3 bg-red-700 rounded-none"
           >
-            Déconnecter
+            <DoorOpen /> Déconnecter
           </Button>
         )}
       </div>
-      {Boolean(!session?.expires) && (
+      {Boolean(!session?.expires) ? (
         <>
           <h2 className="font-bold">ou</h2>
           <form className="flex flex-col space-y-2  ">
@@ -63,6 +65,10 @@ export function ProfileSection({
               Sauvegarder
             </button>
           </form>
+        </>
+      ) : (
+        <>
+          <Address />
         </>
       )}
     </div>

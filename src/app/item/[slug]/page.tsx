@@ -22,10 +22,11 @@ import { FaStar } from "react-icons/fa";
 import Table from "@/components/ItemId/Table";
 import NavItem from "@/components/ItemId/NavItem";
 import Gallery from "@/components/Gallery";
+import Link from "next/link";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState(null);
-  const [isInCart, setIsInCart] = useState(false);
+
   const [isLiked, setIsLiked] = useState(false);
 
   const [isHT, setIsHT] = useState(false);
@@ -44,13 +45,24 @@ export default function Page({ params }) {
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
   const priceHT = idArticle ? (idArticle.prix / 1.2).toFixed(2) : "";
 
-  function handleCart(event: any): void {
-    throw new Error("Function not implemented.");
-  }
-
   const handleLike = () => {
-    setIsLiked(!isLiked);
-    // addItems(item);
+    // if (showAlert) setShowAlert(false);
+    // if (session?.user) {
+    //   const newLiked = !isLiked;
+    //   setIsLiked(newLiked);
+    //   addItems(item);
+    //   setAlertType("like");
+    //   setAlertMessage(
+    //     newLiked
+    //       ? `${item.nom} ajouté aux favoris.`
+    //       : `${item.nom} retiré des favoris.`
+    //   );
+    //   setAlertId((prev) => prev + 1);
+    // } else {
+    //   setAlertType("error");
+    //   setAlertMessage("Vous devez être connecté pour aimer un produit !");
+    //   setAlertId((prev) => prev + 1);
+    // }
   };
 
   return (
@@ -58,8 +70,25 @@ export default function Page({ params }) {
       {/* <SwitchHt /> */}
       <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
-        <section className="md:mx-0 flex flex-col md:flex-row md:mt-32 mt-8  ">
-          <Gallery />
+        <section className="md:mx-0 flex flex-col md:flex-row md:mt-16 mt-8  ">
+          <div className="flex flex-col">
+            <div className="text-sm text-white flex items-center gap-2 mb-4 ">
+              <Link href="/">
+                <span className="text-gray-500 hover:underline cursor-pointer">
+                  Accueil
+                </span>
+              </Link>
+              <ChevronRight className="w-4 h-4" />
+              <span className="text-gray-500 hover:underline cursor-pointer">
+                Canapés
+              </span>
+              <ChevronRight className="w-4 h-4" />
+              <span className="text-gray-500 font-medium">
+                {idArticle?.nom}
+              </span>
+            </div>
+            <Gallery data={data} />
+          </div>
           {/* <div className="w-full md:w-2/2">
             <CarouselPlugin data={idArticle} />
           </div> */}
@@ -92,7 +121,6 @@ export default function Page({ params }) {
                       className={`flex items-center justify-center w-10 h-10 rounded-full ${
                         isLiked ? "bg-red-500" : "bg-gray-200"
                       }`}
-                      onClick={handleLike}
                     >
                       <Share2
                         className={`w-6 h-6 ${

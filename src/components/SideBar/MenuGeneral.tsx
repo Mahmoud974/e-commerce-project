@@ -11,8 +11,6 @@ import { useCartStore, useLikeData } from "@/store/store";
 import {
   CalendarArrowUp,
   CircleUser,
-  DoorClosed,
-  DoorOpen,
   Heart,
   LayoutDashboard,
   MapPinHouse,
@@ -127,19 +125,6 @@ export default function SheetDisplay() {
                 Profil
               </span>
             </li>
-
-            {mySession && (
-              <li
-                className={`group relative ml-4 cursor-pointer ${
-                  activeTab === "profile" ? "text-white" : "text-gray-500"
-                }`}
-              >
-                <DoorOpen className="text-red-600" onClick={handleSignOut} />
-                <span className="absolute bg-red-700 bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block  text-white text-xs p-1 rounded">
-                  Se déconnecter
-                </span>
-              </li>
-            )}
 
             <li
               className={`group relative cursor-pointer mx-3 ${
