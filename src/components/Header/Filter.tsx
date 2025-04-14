@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/popover";
 import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
+import Categories from "../Categories/Categories";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
   const { nbreSeatColor, colorsArticles, numberSeatArticles } =
@@ -16,6 +17,9 @@ export default function Filter({ data, colorProduct, seatProduct }) {
 
   const [assisesData, setAssisesData] = useState([]);
   const uniqueSeats = [...new Set(data?.map((item) => item.seat))];
+
+  const blueItems = data?.filter((el) => el.color?.toLowerCase() === "gray");
+  console.log("Articles gray :", blueItems);
 
   // Compter le nombre d'articles pour chaque siège unique
   const seatCount = uniqueSeats.map((seat) => ({
@@ -100,6 +104,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
   return (
     <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center  mb-6 space-y-4 md:space-y-0">
       {/* Section des filtres */}
+
       <ul className="flex space-x-6 md:space-x-4">
         {filters.map((filter) => (
           <li key={filter.label}>
@@ -113,11 +118,11 @@ export default function Filter({ data, colorProduct, seatProduct }) {
             </Popover>
           </li>
         ))}
+        <Categories />
       </ul>
 
       {/* Section des résultats et recherche */}
       <div className="flex items-center md:space-x-3">
-        <p className="text-white"></p>
         <ComboboxDemo data={data} />
       </div>
     </div>

@@ -185,16 +185,12 @@ export const useSearchArticles = create<any>((set) => ({
     console.log("Tri par pertinence appliqué :", sortedByRelevance);
   },
 
-  colorsArticles: (selectedColors) => {
-    set((state) => {
-      // Filtrage des articles par couleur
-      const newTab = [...state.filteredData]?.filter(
+  colorsArticles: (allData, selectedColor) => {
+    set(() => {
+      const newTab = [...allData].filter(
         (item) =>
-          item.color &&
-          item.color.toLowerCase() === selectedColors.toLowerCase()
+          item.color && item.color.toLowerCase() === selectedColor.toLowerCase()
       );
-
-      // Mise à jour de l'état avec les articles filtrés
       console.log("Articles filtrés par couleur :", newTab);
       return { filteredData: newTab };
     });

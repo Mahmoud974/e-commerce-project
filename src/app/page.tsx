@@ -10,6 +10,7 @@ import Filter from "@/components/Header/Filter";
 import Newsletter from "@/components/SectionDown/Newsletter";
 import HelpSection from "@/components/SectionDown/HelpSection";
 import Informations from "@/components/SectionDown/Informations";
+import Categories from "../components/Categories/Categories";
 
 export default function Page() {
   const { data } = useTemplate();
