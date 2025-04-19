@@ -16,18 +16,15 @@ export default function Filter({ data, colorProduct, seatProduct }) {
     useSearchArticles();
 
   const [assisesData, setAssisesData] = useState([]);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSeat, setSelectedSeat] = useState(null);
+
   const uniqueSeats = [...new Set(data?.map((item) => item.seat))];
 
-  const blueItems = data?.filter((el) => el.color?.toLowerCase() === "gray");
-  console.log("Articles gray :", blueItems);
-
-  // Compter le nombre d'articles pour chaque siège unique
   const seatCount = uniqueSeats.map((seat) => ({
     seat,
     count: data?.filter((item) => item.seat === seat).length,
   }));
-
-  console.log("Nombre d'articles pour chaque siège similaire :", seatCount);
 
   useEffect(() => {
     if (data) {
@@ -37,7 +34,6 @@ export default function Filter({ data, colorProduct, seatProduct }) {
         return acc;
       }, {});
 
-      // Convert seatCounts to assisesData structure
       const newAssisesData = Object.entries(seatCounts).map(
         ([seat, count]) => ({
           name: `Seat ${seat}`,
@@ -49,6 +45,11 @@ export default function Filter({ data, colorProduct, seatProduct }) {
     }
   }, [data]);
 
+  const handleReset = () => {
+    setSelectedColor(null);
+    setSelectedSeat(null);
+  };
+
   const filters = [
     {
       label: "Color",
@@ -58,20 +59,33 @@ export default function Filter({ data, colorProduct, seatProduct }) {
             <div
               key={color.name}
               className="flex flex-col items-center space-y-2 cursor-pointer"
-              onClick={() => colorsArticles(data, color.name)}
+              onClick={() => {
+                colorsArticles(data, color.name);
+                setSelectedColor(color.name);
+              }}
             >
               <button
-                className={`w-10 h-10 rounded-full ${color.colorClass} border`}
+                className={`w-10 h-10 rounded-full ${color.colorClass} border ${
+                  selectedColor === color.name ? "ring-4 ring-white" : ""
+                }`}
               ></button>
-              <p className="text-sm text-white rounded-md px-2 py-1 ">
+              <p
+                className={`text-sm rounded-md px-2 py-1 ${
+                  selectedColor === color.name
+                    ? "bg-white text-black"
+                    : "text-white"
+                }`}
+              >
                 {color.name}
               </p>
             </div>
           ))}
-          {/* Bouton Reset */}
           <div className="col-span-3 flex justify-center mt-4">
-            <button className="flex text-base text-white hover:text-black">
-              <RotateCcw className="text-xs w-4 text-white" />
+            <button
+              className="flex text-base text-white hover:text-black"
+              onClick={handleReset}
+            >
+              <RotateCcw className="text-xs w-4 text-white mr-2" />
               Réinitialiser
             </button>
           </div>
@@ -85,9 +99,16 @@ export default function Filter({ data, colorProduct, seatProduct }) {
           {seatCount.length > 0 ? (
             seatCount.map((item) => (
               <button
-                key={Math.random()}
-                className="flex justify-between items-center px-4 py-2 border rounded-md bg-gray-100 text-gray-800 hover:bg-gray-200"
-                onClick={() => numberSeatArticles(data, item.seat)} // Utiliser `item.seat` pour passer la valeur correcte
+                key={item.seat}
+                className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
+                  selectedSeat === item.seat
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-gray-800"
+                }`}
+                onClick={() => {
+                  numberSeatArticles(data, item.seat);
+                  setSelectedSeat(item.seat);
+                }}
               >
                 <span>{`Seat ${item.seat}`}</span>
                 <span>{item.count}</span>
@@ -102,17 +123,15 @@ export default function Filter({ data, colorProduct, seatProduct }) {
   ];
 
   return (
-    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center  mb-6 space-y-4 md:space-y-0">
-      {/* Section des filtres */}
-
+    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-6 space-y-4 md:space-y-0">
       <ul className="flex space-x-6 md:space-x-4">
         {filters.map((filter) => (
           <li key={filter.label}>
             <Popover>
-              <PopoverTrigger className="bg-black   border px-6 py-2 rounded-lg text-white hover:bg-gray-100 hover:text-black">
+              <PopoverTrigger className="bg-black border px-6 py-2 rounded-lg text-white hover:bg-gray-100 hover:text-black">
                 {filter.label}
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-4   border rounded-lg shadow-md bg-black text-white">
+              <PopoverContent className="w-64 p-4 border rounded-lg shadow-md bg-black text-white">
                 {filter.content}
               </PopoverContent>
             </Popover>
@@ -121,7 +140,6 @@ export default function Filter({ data, colorProduct, seatProduct }) {
         <Categories />
       </ul>
 
-      {/* Section des résultats et recherche */}
       <div className="flex items-center md:space-x-3">
         <ComboboxDemo data={data} />
       </div>

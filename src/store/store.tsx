@@ -191,7 +191,7 @@ export const useSearchArticles = create<any>((set) => ({
         (item) =>
           item.color && item.color.toLowerCase() === selectedColor.toLowerCase()
       );
-      console.log("Articles filtrés par couleur :", newTab);
+
       return { filteredData: newTab };
     });
   },

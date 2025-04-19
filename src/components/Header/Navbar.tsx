@@ -17,7 +17,6 @@ export default function Navbar() {
   let mySession = useSession().data?.user;
 
   const { data } = useTemplate();
-  console.log(data);
 
   const { setFilteredData } = useSearchArticles();
 
