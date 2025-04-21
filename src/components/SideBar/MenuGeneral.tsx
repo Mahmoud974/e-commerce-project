@@ -13,7 +13,6 @@ import {
   CircleUser,
   Heart,
   LayoutDashboard,
-  MapPinHouse,
   Menu,
   ShoppingCart,
 } from "lucide-react";
@@ -141,7 +140,9 @@ export default function SheetDisplay() {
             )}
           </ul>
 
-          {renderContent()}
+          <div className="overflow-y-auto max-h-screen mt-4 pr-2 scrollbar-black">
+            {renderContent()}
+          </div>
         </SheetHeader>
       </SheetContent>
     </Sheet>

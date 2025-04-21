@@ -4,35 +4,30 @@ import Footer from "@/components/SectionDown/Footer";
 import Navbar from "@/components/Header/Navbar";
 import { useTemplate } from "@/app/hook/useTemplate";
 import React, { useState } from "react";
-import { Canape } from "./types/canape";
 import { useSearchArticles, useLikeData } from "@/store/store";
 import Filter from "@/components/Header/Filter";
 import Newsletter from "@/components/SectionDown/Newsletter";
 import HelpSection from "@/components/SectionDown/HelpSection";
 import Informations from "@/components/SectionDown/Informations";
-import Categories from "../components/Categories/Categories";
 
 export default function Page() {
   const { data } = useTemplate();
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
 
-  const initialCount = 15; // Nombre de produits affichés initialement
-  const [visibleCount, setVisibleCount] = useState(initialCount);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
 
-  const totalItems =
-    filteredData.length > 0 ? filteredData.length : data?.length || 0;
+  const allProducts = filteredData.length > 0 ? filteredData : data || [];
+  const totalPages = Math.ceil(allProducts.length / itemsPerPage);
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + initialCount);
-  };
+  const paginatedData = allProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-  const handleShowLess = () => {
-    setVisibleCount(initialCount);
-  };
-
-  let colorProduct = [...new Set(data?.map((item) => item.color) || [])];
-  let seatProduct = [...new Set(data?.map((item) => item.seat) || [])];
+  const colorProduct = [...new Set(data?.map((item) => item.color) || [])];
+  const seatProduct = [...new Set(data?.map((item) => item.seat) || [])];
 
   return (
     <section className="flex flex-col min-h-screen">
@@ -48,40 +43,31 @@ export default function Page() {
             />
 
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
-              {filteredData.length > 0 ? (
-                filteredData
-                  .slice(0, visibleCount)
-                  .map((item: any) => (
-                    <ProductCard
-                      key={item.id}
-                      item={item}
-                      addItems={addItems}
-                    />
-                  ))
+              {paginatedData.length > 0 ? (
+                paginatedData.map((item: any) => (
+                  <ProductCard key={item.id} item={item} addItems={addItems} />
+                ))
               ) : (
                 <p>Aucun produit disponible.</p>
               )}
             </section>
 
-            {/* Boutons Voir + / Voir - */}
-            {filteredData.length > 0 && (
-              <div className="flex justify-center mt-4">
-                {visibleCount < totalItems && (
+            {/* 🔁 Pagination */}
+            {totalPages > 1 && (
+              <div className="flex justify-center mt-8 gap-2 flex-wrap">
+                {Array.from({ length: totalPages }, (_, i) => (
                   <button
-                    onClick={handleLoadMore}
-                    className="mt-4 p-2 lg:mx-0 mx-8 border border-white text-white font-semibold rounded w-full"
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`px-4 py-2 rounded border ${
+                      currentPage === i + 1
+                        ? "bg-white text-black font-bold"
+                        : "border-white text-white"
+                    }`}
                   >
-                    Voir +
+                    {i + 1}
                   </button>
-                )}
-                {visibleCount >= totalItems && totalItems > initialCount && (
-                  <button
-                    onClick={handleShowLess}
-                    className="mt-4 p-2 lg:mx-0 mx-8 border border-white text-white font-semibold rounded w-full"
-                  >
-                    Voir -
-                  </button>
-                )}
+                ))}
               </div>
             )}
           </div>
