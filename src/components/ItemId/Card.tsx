@@ -10,21 +10,35 @@ const ProductCard: React.FC<{
   item: any;
   addItems: (item: any) => void;
 }> = ({ item, addItems }) => {
-  const [isInCart, setIsInCart] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
-  const { addItem } = useCartStore();
-  const { isLiked, handleLike, alertType, alertMessage, alertId, showAlert } =
-    useLikeStore();
+
+  // Likes
+  const {
+    isLiked,
+    handleLike,
+    alertType: likeAlertType,
+    alertMessage: likeAlertMessage,
+    alertId: likeAlertId,
+    showAlert: likeShowAlert,
+  } = useLikeStore();
+
+  // Panier
+  const {
+    handleCart: toggleCart,
+    isInCart: isItemInCart,
+    alertType: cartAlertType,
+    alertMessage: cartAlertMessage,
+    alertId: cartAlertId,
+    showAlert: cartShowAlert,
+  } = useCartStore();
 
   const onLikeClick = () => {
     handleLike(item, session, addItems);
   };
 
   const handleCart = () => {
-    const newInCart = !isInCart;
-    setIsInCart(newInCart);
-    addItem(item);
+    toggleCart(item);
   };
 
   const nextImage = () => {
@@ -36,6 +50,8 @@ const ProductCard: React.FC<{
       (prev) => (prev - 1 + item.image.length) % item.image.length
     );
   };
+
+  const isInCart = isItemInCart(item.id);
 
   return (
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
@@ -119,8 +135,20 @@ const ProductCard: React.FC<{
         </div>
       </div>
 
-      {showAlert && alertType && (
-        <AlertMessage key={alertId} type={alertType} message={alertMessage} />
+      {/* Alertes Like + Cart */}
+      {likeShowAlert && likeAlertType && (
+        <AlertMessage
+          key={`like-${likeAlertId}`}
+          type={likeAlertType}
+          message={likeAlertMessage}
+        />
+      )}
+      {cartShowAlert && cartAlertType && (
+        <AlertMessage
+          key={`cart-${cartAlertId}`}
+          type={cartAlertType}
+          message={cartAlertMessage}
+        />
       )}
     </div>
   );

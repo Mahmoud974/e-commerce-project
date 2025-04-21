@@ -65,7 +65,7 @@ export default function Page({ params }) {
         },
         {
           name: "Instagram",
-          url: `https://www.instagram.com/?url=${encodeURIComponent(url)}`, // Instagram ne supporte pas directement le partage via URL (utilisation de l'app pour publier)
+          url: `https://www.instagram.com/?url=${encodeURIComponent(url)}`,
         },
         {
           name: "Gmail",
@@ -174,8 +174,13 @@ export default function Page({ params }) {
                 <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200">
                   <div className="flex gap-3 w-full"></div>
                   <div className="flex gap-2">
-                    <SquareChevronLeft className="cursor-pointer" />
-                    <SquareChevronRight className="cursor-pointer" />
+                    {/* À modifier le  carousel*/}
+                    <Link href={`/item/${(idArticle?.id ?? 0) - 1}`}>
+                      <SquareChevronLeft className="cursor-pointer" />
+                    </Link>
+                    <Link href={`/item/${(idArticle?.id ?? 0) + 1}`}>
+                      <SquareChevronRight className="cursor-pointer" />
+                    </Link>
                   </div>
                 </div>
 
