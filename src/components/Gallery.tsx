@@ -76,7 +76,7 @@ export default function ProductGallery({ data }) {
 
   return (
     <div>
-      <div className="md:flex hidden flex-col md:flex-row">
+      <div className="md:flex hidden mb-12 flex-col md:flex-row">
         {/* Galerie pour desktop (sans carrousel) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-3xl">
           {media.map((item, index) => (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { SeveralPayment } from "./SeveralPayment";
+import Table from "./Table";
 
 export default function NavItem() {
   const [activeSection, setActiveSection] = useState("Description");
@@ -181,8 +182,10 @@ export default function NavItem() {
         )}
         {activeSection === "Livraison" && (
           <div className=" mb-12">
-            <h2 className="text-2xl font-bold">Informations de livraison</h2>
-            <p className="text-lg">Les informations de livraison sont ici.</p>
+            <h2 className="text-2xl mb-5 font-bold">
+              Informations de livraison
+            </h2>
+            <Table />
           </div>
         )}
       </div>

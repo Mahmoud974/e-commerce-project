@@ -1,26 +1,37 @@
 import { Truck } from "lucide-react";
 
 function Table() {
+  // Obtenir la date actuelle
+  const currentDate = new Date();
+
+  // Ajouter 3 semaines à la date actuelle
+  const deliveryDate = new Date(currentDate);
+  deliveryDate.setDate(currentDate.getDate() + 30);
+
+  // Formater les dates pour l'affichage
+  const formattedCurrentDate = currentDate.toLocaleDateString("fr-FR");
+  const formattedDeliveryDate = deliveryDate.toLocaleDateString("fr-FR");
+
   const options = [
     {
       type: "Livraison",
       price: "79,00 €",
       description:
         "Livraison au pied de votre habitation ou en bas de votre immeuble",
-      deliveryPeriod: "Entre le 16/04 et le 22/04",
+      deliveryPeriod: `Entre le ${formattedCurrentDate} et le ${formattedDeliveryDate}`,
     },
     {
       type: "Livraison",
       price: "79,00 €",
       description:
         "Livraison au pied de votre habitation ou en bas de votre immeuble avec reprise",
-      deliveryPeriod: "Entre le 16/04 et le 22/04",
+      deliveryPeriod: `Entre le ${formattedCurrentDate} et le ${formattedDeliveryDate}`,
     },
     {
       type: "Livraison",
       price: "188,00 €",
       description: "Livraison dans la pièce",
-      deliveryPeriod: "Entre le 16/04 et le 22/04",
+      deliveryPeriod: `Entre le ${formattedCurrentDate} et le ${formattedDeliveryDate}`,
     },
   ];
 
@@ -34,7 +45,7 @@ function Table() {
                 <div className="flex items-center  ">
                   <Truck />
                   <p className="ml-2">
-                    Délai de livraison estimé 4 à 6 semaines
+                    Délai de livraison environ de 4 semaines
                   </p>
                 </div>
               </th>

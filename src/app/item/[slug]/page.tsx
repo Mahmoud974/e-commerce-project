@@ -20,13 +20,13 @@ import Table from "@/components/ItemId/Table";
 import NavItem from "@/components/ItemId/NavItem";
 import Gallery from "@/components/Gallery";
 import Link from "next/link";
-import { useCartStore } from "@/store/store"; // Import du store
+import { useCartStore } from "@/store/store";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isHT, setIsHT] = useState(false);
-  const [quantity, setQuantity] = useState(1); // Nouveau state pour la quantité
+  const [quantity, setQuantity] = useState(1);
 
   const { data } = useTemplate();
 
@@ -39,8 +39,8 @@ export default function Page({ params }) {
   }, [params]);
 
   const handleShare = () => {
-    const url = window.location.href; // L'URL actuelle de la page
-    const text = `Découvrez ce produit incroyable: ${idArticle?.nom}`; // Texte à partager
+    const url = window.location.href;
+    const text = `Découvrez ce produit incroyable: ${idArticle?.nom}`;
 
     const shareData = {
       title: idArticle?.nom,
@@ -48,14 +48,11 @@ export default function Page({ params }) {
       url: url,
     };
 
-    // Vérification de l'option de partage disponible dans le navigateur
     if (navigator.share) {
-      // Utilisation de l'API de partage native (pour les appareils mobiles principalement)
       navigator
         .share(shareData)
         .catch((error) => console.error("Erreur de partage: ", error));
     } else {
-      // Utilisation de liens spécifiques pour les plateformes
       const shareOptions = [
         {
           name: "WhatsApp",
@@ -81,9 +78,7 @@ export default function Page({ params }) {
         },
       ];
 
-      // Ouverture des liens dans une nouvelle fenêtre pour chaque plateforme
-      window.open(shareOptions[0].url, "_blank"); // Exemple pour WhatsApp
-      // Tu peux ajouter un menu déroulant ou plusieurs boutons pour chaque plateforme
+      window.open(shareOptions[0].url, "_blank");
     }
   };
 
@@ -91,22 +86,20 @@ export default function Page({ params }) {
     data && slug ? data.find((article) => article.id === Number(slug)) : null;
   const priceHT = idArticle ? (idArticle.prix / 1.2).toFixed(2) : "";
 
-  // Récupération des fonctions du store
   const { handleCart, isInCart, updateCartQuantity } = useCartStore();
 
-  // Fonction pour ajouter/retirer un produit du panier
   const handleAddToCart = () => {
     if (!idArticle) return;
 
     if (isInCart(idArticle.id)) {
-      updateCartQuantity(idArticle.id, quantity); // Met à jour la quantité si l'article est déjà dans le panier
+      updateCartQuantity(idArticle.id, quantity);
     } else {
-      handleCart(idArticle, quantity); // Ajoute l'article au panier avec la quantité
+      handleCart(idArticle, quantity);
     }
   };
 
   const handleLike = () => {
-    setIsLiked(!isLiked); // Change l'état du like
+    setIsLiked(!isLiked);
   };
 
   const isAlreadyInCart = idArticle ? isInCart(idArticle.id) : false;
@@ -138,21 +131,20 @@ export default function Page({ params }) {
           <div className="md:ml-12 md:w-1/2 w-full space-y-3">
             <div className="flex flex-col md:flex-row gap-5 justify-between">
               <div className="space-y-2">
-                <div className="flex justify-between">
+                <div className="flex  items-center justify-between">
                   <div>
                     <p className="text-4xl md:mt-0 mt-8 font-bold">
                       {idArticle?.nom}
                     </p>
                     <small>Ref 12578BO</small>
                   </div>
-                  {/* Les buttons à côté du titre */}
                   <div className="flex gap-2">
                     <button
                       className={`flex items-center justify-center w-10 h-10 rounded-full ${
                         isLiked ? "bg-red-500" : "bg-gray-200"
                       }`}
                       onClick={() => {
-                        handleLike(idArticle, session, addItems); // Utilisation de la méthode handleLike
+                        handleLike(idArticle, session, addItems);
                       }}
                     >
                       <Heart
@@ -174,7 +166,6 @@ export default function Page({ params }) {
                 <div className="flex flex-col md:flex-row justify-between gap-3 py-3 border-t border-gray-200">
                   <div className="flex gap-3 w-full"></div>
                   <div className="flex gap-2">
-                    {/* À modifier le  carousel*/}
                     <Link href={`/item/${(idArticle?.id ?? 0) - 1}`}>
                       <SquareChevronLeft className="cursor-pointer" />
                     </Link>
@@ -198,21 +189,22 @@ export default function Page({ params }) {
                   </div>
                 </div>
                 <div className="flex justify-between flex-col mt-6">
-                  <div className="flex justify-between items-start">
-                    <div>
+                  <div className="flex flex-col md:flex-row justify-between items-start space-y-4 md:space-y-0">
+                    <div className="flex flex-col md:w-1/2">
                       <div className="flex items-center">
                         <span className="mr-2 text-3xl">
                           {isHT ? `${priceHT}€ HT` : `${idArticle?.prix}€ TTC`}
                         </span>
-                        <div className="bg-red-700 px-1 ml-2 rounded-sm">
+                        <div className="bg-red-700 px-2 ml-2 rounded-sm">
                           <p className="text-white font-bold">-11%</p>
                         </div>
                       </div>
-                      <span className="text-xs text-gray-00">
-                        dont eco-part. de 13,50 €
+                      <span className="text-xs text-gray-500">
+                        dont éco-part. de 13,50 €
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
+
+                    <div className="flex flex-col md:flex-row items-center gap-4 md:gap-2">
                       <div className="flex items-center">
                         <input
                           type="number"
@@ -220,13 +212,13 @@ export default function Page({ params }) {
                           onChange={(e) =>
                             setQuantity(Math.max(1, parseInt(e.target.value)))
                           }
-                          className="bg-black border border-gray-300 rounded-md w-24 py-2 px-4 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="bg-black border border-gray-300 rounded-md w-full sm:w-24 py-2 px-4 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                           placeholder="Qty"
                           min="1"
                         />
                       </div>
                       <button
-                        className="bg-red-700 text-white py-2 px-4 flex items-center rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        className="bg-red-700 text-white py-2 px-6 flex items-center rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 w-full sm:w-auto"
                         onClick={handleAddToCart}
                       >
                         <ShoppingCart className="mr-2" />
@@ -236,6 +228,7 @@ export default function Page({ params }) {
                       </button>
                     </div>
                   </div>
+
                   <div className="flex items-center mt-2">
                     <span>Prix HT</span>
                     <Switch
@@ -261,24 +254,24 @@ export default function Page({ params }) {
                     <ChevronRight />
                   </div>
                   <div className="flex">
-                    <div className="mr-1 flex mt-1 gap-2">
-                      <p className="mr-2">Payer en</p>
-                      <div className="flex items-center gap-2">
-                        <p className="bg-gray-700 rounded-full w-full h-6 flex items-center  px-2">
-                          3x: {(idArticle?.prix / 3).toFixed(2)}€ par mois
+                    <div className="mr-1 flex items-center flex-row md:flex-row mt-1 gap-2">
+                      <p className="mr-2">Payer par mois</p>
+                      <div className="flex items-center gap-2 w-full">
+                        <p className="bg-gray-700 rounded-full w-full md:w-auto h-12 flex items-center px-2">
+                          3x: {(idArticle?.prix / 3).toFixed(2)}€
                         </p>
                       </div>
-                      <p>ou</p>
-                      <div className="flex items-center gap-2">
-                        <p className="bg-gray-700 rounded-full w-full h-6 flex items-center  px-2">
-                          4x: {(idArticle?.prix / 4).toFixed(2)}€ par mois
+                      <p className="text-center md:text-left">ou</p>
+                      <div className="flex items-center gap-2 w-full">
+                        <p className="bg-gray-700 rounded-full w-full md:w-auto h-12 flex items-center px-2">
+                          4x: {(idArticle?.prix / 4).toFixed(2)}€
                         </p>
                       </div>
                     </div>
                   </div>
                   <div></div>
                 </div>
-                <Table />
+                {/* <Table /> */}
                 <ul className="gap-2">
                   <li className="font-bold">Les plus produit</li>
                   <li className="ml-2">

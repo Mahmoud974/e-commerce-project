@@ -50,7 +50,7 @@ export function ComboboxDemo({ data }) {
   };
 
   return (
-    <>
+    <div className="flex justify-between items-center">
       <p>
         {filteredData.length} article{filteredData.length !== 1 && "s"}
       </p>
@@ -107,6 +107,6 @@ export function ComboboxDemo({ data }) {
           </Command>
         </PopoverContent>
       </Popover>
-    </>
+    </div>
   );
 }

@@ -37,11 +37,11 @@ export default function Page() {
 
         {/* Étapes interactives */}
         <div className="mt-12">
-          <ul className="flex justify-center items-center space-x-12">
+          <ul className="flex flex-wrap justify-center items-center space-x-8 sm:space-x-12">
             {steps.map((step) => (
               <li
                 key={step.id}
-                className={`flex flex-col  items-center text-center cursor-pointer transition-transform duration-300 ease-in-out ${
+                className={`flex flex-col items-center text-center cursor-pointer transition-transform duration-300 ease-in-out ${
                   activeStep === step.id
                     ? "scale-110 text-[#DD0534] font-bold"
                     : "opacity-50 hover:opacity-100"
@@ -62,14 +62,16 @@ export default function Page() {
         </div>
 
         {/* Contenu dynamique selon l'étape sélectionnée */}
-        <div className="flex justify-center my-12">
-          <div className="  text-center">
+        <div className="flex flex-col sm:flex-row justify-center my-12">
+          <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
             {activeStep === 1 && <InformationsPurchase />}
             {activeStep === 2 && <AddressForm />}
             {activeStep === 3 && <DeliveryOptions />}
             {activeStep === 4 && <PaymentOptions />}
           </div>
-          <TotalOptions />
+          <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
+            <TotalOptions />
+          </div>
         </div>
       </div>
       <Informations />

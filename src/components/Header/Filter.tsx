@@ -124,7 +124,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
 
   return (
     <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-6 space-y-4 md:space-y-0">
-      <ul className="flex space-x-6 md:space-x-4">
+      <ul className="flex justify-between  space-x-6 md:space-x-4">
         {filters.map((filter) => (
           <li key={filter.label}>
             <Popover>
@@ -137,7 +137,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
             </Popover>
           </li>
         ))}
-        <Categories />
+        {/* <Categories /> */}
       </ul>
 
       <div className="flex items-center md:space-x-3">

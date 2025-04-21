@@ -8,24 +8,20 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import AlertElement from "../AlertElement";
+import { usePathname } from "next/navigation";
 
 type Inputs = {
   search: string;
 };
 
 export default function Navbar() {
-  let mySession = useSession().data?.user;
+  const { data: session } = useSession();
+  const pathname = usePathname();
 
   const { data } = useTemplate();
-
   const { setFilteredData } = useSearchArticles();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit, watch } = useForm<Inputs>();
 
   const searchTerm = watch("search");
 
@@ -35,58 +31,52 @@ export default function Navbar() {
     }
   }, [data, searchTerm, setFilteredData]);
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {};
+  const onSubmit: SubmitHandler<Inputs> = () => {};
 
   return (
-    <nav className="md:mx-0 f  ">
-      <div className=" flex justify-between items-center mb-12">
-        <div>
-          <ul>
-            <li>
-              <Link href="/">
-                <p className="font-[800] md:text-2xl">
-                  SofaChic<span className="text-red-700 font-bold"> ./</span>{" "}
-                </p>
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <AlertElement />
-        {window.location.pathname === "/" && (
-          <form
-            className="flex-grow lg:mx-28  "
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <input
-              type="text"
-              placeholder="Search..."
-              className="lg:w-full  w-3/3 mx-auto   px-4 py-2 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              {...register("search")}
-            />
-          </form>
-        )}
+    <nav className="w-full bg-black text-white  py-4">
+      {/* Ligne du haut : logo à gauche, profil + menu à droite */}
+      <div className="flex items-center justify-between mb-4">
+        {/* Logo */}
+        <Link href="/">
+          <p className="font-extrabold text-xl md:text-2xl">
+            SofaChic<span className="text-red-700"> ./</span>
+          </p>
+        </Link>
 
-        <div className="flex  items-center">
-          {mySession && (
-            <>
+        {/* Droite : nom + photo + menu */}
+        <div className="flex items-center gap-4">
+          <AlertElement />
+          {session && (
+            <div className="flex items-center gap-2">
+              <span className="hidden lg:block">{session.user?.name}</span>
               <Image
-                src={mySession?.image}
-                alt={`Photo de profil `}
-                className="  w-8 mr-2 rounded-full cursor-pointer"
-                width={100}
-                height={100}
-                priority
+                src={session.user?.image ?? "/default.png"}
+                alt="Profil"
+                className="w-8 h-8 rounded-full object-cover"
+                width={32}
+                height={32}
               />
-              {/*  */}
-              <p className="mr-2 lg:flex hidden   cursor-pointer hover:underline">
-                {mySession?.name}
-              </p>
-            </>
+            </div>
           )}
-
           <SheetDisplay />
         </div>
       </div>
+
+      {/* Ligne du dessous : search visible uniquement sur "/" */}
+      {pathname === "/" && (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex justify-center"
+        >
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full max-w-md py-2 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("search")}
+          />
+        </form>
+      )}
     </nav>
   );
 }
