@@ -23,7 +23,6 @@ const ProductCard: React.FC<{
     showAlert: likeShowAlert,
   } = useLikeStore();
 
-  // Panier
   const {
     handleCart: toggleCart,
     isInCart: isItemInCart,

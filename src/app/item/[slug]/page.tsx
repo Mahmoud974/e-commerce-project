@@ -20,15 +20,39 @@ import Table from "@/components/ItemId/Table";
 import NavItem from "@/components/ItemId/NavItem";
 import Gallery from "@/components/Gallery";
 import Link from "next/link";
-import { useCartStore } from "@/store/store";
+import { useCartStore, useLikeData, useLikeStore } from "@/store/store";
+import { useSession } from "next-auth/react";
+import AlertMessage from "@/components/AlertNoLike";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState<string | null>(null);
-  const [isLiked, setIsLiked] = useState(false);
+
   const [isHT, setIsHT] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const {
+    isLiked,
+    handleLike,
+    alertType: likeAlertType,
+    alertMessage: likeAlertMessage,
+    alertId: likeAlertId,
+    showAlert: likeShowAlert,
+  } = useLikeStore();
+  const {
+    handleCart: toggleCart,
+    isInCart: isItemInCart,
+    alertType: cartAlertType,
+    alertMessage: cartAlertMessage,
+    alertId: cartAlertId,
+    showAlert: cartShowAlert,
+  } = useCartStore();
+  const { data: session } = useSession();
 
   const { data } = useTemplate();
+  const { addItems } = useLikeData();
+
+  const onLikeClick = () => {
+    handleLike(idArticle, session, addItems);
+  };
 
   useEffect(() => {
     async function fetchParams() {
@@ -98,10 +122,6 @@ export default function Page({ params }) {
     }
   };
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-  };
-
   const isAlreadyInCart = idArticle ? isInCart(idArticle.id) : false;
 
   return (
@@ -141,15 +161,17 @@ export default function Page({ params }) {
                   <div className="flex gap-2">
                     <button
                       className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                        isLiked ? "bg-red-500" : "bg-gray-200"
+                        isLiked(idArticle?.id)
+                          ? "bg-red-600 text-red-700"
+                          : "bg-gray-300"
                       }`}
-                      onClick={() => {
-                        handleLike(idArticle, session, addItems);
-                      }}
+                      onClick={onLikeClick}
                     >
                       <Heart
                         className={`w-6 h-6 ${
-                          isLiked ? "text-white" : "text-gray-800"
+                          isLiked(idArticle?.id)
+                            ? "text-white"
+                            : "text-gray-800"
                         }`}
                       />
                     </button>
@@ -291,6 +313,21 @@ export default function Page({ params }) {
             <NavItem />
           </div>
         </section>
+        {/* Alertes Like + Cart */}
+        {likeShowAlert && likeAlertType && (
+          <AlertMessage
+            key={`like-${likeAlertId}`}
+            type={likeAlertType}
+            message={likeAlertMessage}
+          />
+        )}
+        {cartShowAlert && cartAlertType && (
+          <AlertMessage
+            key={`cart-${cartAlertId}`}
+            type={cartAlertType}
+            message={cartAlertMessage}
+          />
+        )}
       </main>
 
       <Newsletter />
