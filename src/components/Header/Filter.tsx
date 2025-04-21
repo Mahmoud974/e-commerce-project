@@ -99,7 +99,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
           {seatCount.length > 0 ? (
             seatCount.map((item) => (
               <button
-                key={item.seat}
+                key={Math.random()}
                 className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
                   selectedSeat === item.seat
                     ? "bg-black text-white"
