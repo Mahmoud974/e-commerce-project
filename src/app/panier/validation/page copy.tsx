@@ -1,8 +1,7 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+"use session";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import Footer from "@/components/SectionDown/Footer";
 import HelpSection from "@/components/SectionDown/HelpSection";
@@ -17,23 +16,19 @@ import TotalOptions from "@/components/BasketValidation/TotalOptions";
 import Image from "next/image";
 import Banner from "@/components/BannerImage";
 
-export default function ValidationContent() {
+export default function Page() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(1);
-  const [loading, setLoading] = useState(true);
 
-  // Redirection vers l'accueil si l'utilisateur n'est pas connecté
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/");
-    } else if (status === "authenticated") {
-      setLoading(false);
+      router.push("/login"); // Redirige si non connecté
     }
   }, [status, router]);
 
-  if (loading) {
-    return <div className="text-center mt-10">Chargement...</div>;
+  if (status === "loading") {
+    return <div className="text-center mt-20">Chargement...</div>; // Facultatif
   }
 
   const steps = [
@@ -52,7 +47,6 @@ export default function ValidationContent() {
           description="Livraison rapide & retours gratuits – Achetez en toute confiance !"
           imageSrc="/banners/checkOrder.jpg"
         />
-
         <div className="mt-12">
           <ul className="flex flex-wrap justify-center items-center space-x-8 sm:space-x-12">
             {steps.map((step) => (
@@ -99,3 +93,4 @@ export default function ValidationContent() {
     </section>
   );
 }
+//http://localhost:3000/panier/validation

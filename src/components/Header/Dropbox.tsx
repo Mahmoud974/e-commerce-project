@@ -51,7 +51,7 @@ export function ComboboxDemo({ data }) {
 
   return (
     <div className="flex justify-between items-center">
-      <p>
+      <p className="mr-6">
         {filteredData.length} article{filteredData.length !== 1 && "s"}
       </p>
 

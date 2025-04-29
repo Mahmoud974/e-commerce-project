@@ -67,7 +67,7 @@ export default function Navbar() {
       {pathname === "/" && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex justify-center"
+          className="w-full flex justify-center md:-mt-12 md:mb-12"
         >
           <input
             type="text"

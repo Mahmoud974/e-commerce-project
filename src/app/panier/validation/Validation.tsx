@@ -1,9 +1,5 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-
 import Footer from "@/components/SectionDown/Footer";
 import HelpSection from "@/components/SectionDown/HelpSection";
 import Informations from "@/components/SectionDown/Informations";
@@ -16,25 +12,10 @@ import PaymentOptions from "@/components/BasketValidation/PaymentOptions";
 import TotalOptions from "@/components/BasketValidation/TotalOptions";
 import Image from "next/image";
 import Banner from "@/components/BannerImage";
+import React, { useState } from "react";
 
 export default function ValidationContent() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const [activeStep, setActiveStep] = useState(1);
-  const [loading, setLoading] = useState(true);
-
-  // Redirection vers l'accueil si l'utilisateur n'est pas connecté
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
-    } else if (status === "authenticated") {
-      setLoading(false);
-    }
-  }, [status, router]);
-
-  if (loading) {
-    return <div className="text-center mt-10">Chargement...</div>;
-  }
 
   const steps = [
     { id: 2, label: "Adresses", icon: "/icons/address.svg" },
