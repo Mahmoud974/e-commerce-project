@@ -1,9 +1,13 @@
 "use client";
+import { useCartStore } from "@/store/store";
+import { Trash } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Baskets() {
   const [showForm, setShowForm] = useState(false);
+  const { items, removeItem, updateQuantity } = useCartStore();
 
   const [addressData, setAddressData] = useState({
     firstName: "",
@@ -18,8 +22,8 @@ export default function Baskets() {
   const [error, setError] = useState("");
 
   const defaultAddress = {
-    firstName: "Mahmoud",
-    lastName: "Moussa",
+    firstName: "Yer",
+    lastName: "Mdfa",
     street: "123 Rue Edouard",
     city: "Balan",
     postalCode: "16000",
@@ -61,11 +65,52 @@ export default function Baskets() {
   return (
     <section className="relative bg-black text-white    ">
       <div className="container mx-auto px-6">
-        {/* Présentation de l'adresse par défaut */}
+        <h1 className="text-3xl text-white font-bold mb-6">Mon panier</h1>
         {!showForm && (
           <div className="max-w-6xl ">
-            <h1 className="text-3xl text-white font-bold mb-6">Mon panier</h1>
-            <button className="border p-3 rounded-md">
+            {items.map((item, index) => (
+              <li
+                key={index}
+                className="flex items-center justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 cursor-pointer  transition-transform duration-200 rounded-lg p-2"
+              >
+                <Link href={`/item/${item.id}`} className=" ">
+                  <div className="flex items-center">
+                    <Image
+                      src={item?.image[0]}
+                      alt="product image"
+                      className="object-contain p-1 w-16 h-16"
+                      width={64}
+                      height={64}
+                      priority
+                    />
+                    <div className="ml-3">
+                      <div className="text-lg font-bold">{item.nom}</div>
+                      <div className="text-gray-400">{item.prix}€</div>
+                    </div>
+                  </div>
+                </Link>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="number"
+                    value={item?.quantity || 1}
+                    // onChange={(e) =>
+                    //   handleQuantityChange(item.id, parseInt(e.target.value))
+                    // }
+                    className="w-16 p-1 text-center border rounded text-white bg-black"
+                    min="1"
+                  />
+
+                  <button
+                    onClick={() => removeItem(item.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <Trash className="w-5 h-5" />
+                  </button>
+                </div>
+              </li>
+            ))}
+
+            <button className="border p-3 mt-12 rounded-md">
               <Link href="/">{"<"} CONTINUER MES ACHATS</Link>
             </button>
           </div>

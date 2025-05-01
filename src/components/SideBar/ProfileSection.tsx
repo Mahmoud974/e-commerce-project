@@ -47,7 +47,7 @@ export function ProfileSection({ session, signIn, signOut, isProcessing }) {
           <div className="flex space-x-2 mt-6">
             <button
               onClick={() => setActiveTab("login")}
-              className={`flex-1 py-2 font-bold ${
+              className={`flex-1 rounded-md py-2 font-bold ${
                 activeTab === "login"
                   ? "bg-white text-black"
                   : "bg-black text-white border"
@@ -57,7 +57,7 @@ export function ProfileSection({ session, signIn, signOut, isProcessing }) {
             </button>
             <button
               onClick={() => setActiveTab("register")}
-              className={`flex-1 py-2 font-bold ${
+              className={`flex-1 rounded-md py-2 font-bold ${
                 activeTab === "register"
                   ? "bg-white text-black"
                   : "bg-black text-white border"

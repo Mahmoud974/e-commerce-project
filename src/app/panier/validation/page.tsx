@@ -10,11 +10,11 @@ import Navbar from "@/components/Header/Navbar";
 import Newsletter from "@/components/SectionDown/Newsletter";
 import AddressForm from "@/components/BasketValidation/AdrdressForm";
 import DeliveryOptions from "@/components/BasketValidation/DeliveryOptions";
-import InformationsPurchase from "@/components/BasketValidation/InformationsPurchase";
 import PaymentOptions from "@/components/BasketValidation/PaymentOptions";
 import TotalOptions from "@/components/BasketValidation/TotalOptions";
 import Image from "next/image";
 import Banner from "@/components/BannerImage";
+import Baskets from "@/components/BasketValidation/Baskets";
 
 export default function ValidationContent() {
   const { data: session, status } = useSession();
@@ -36,10 +36,11 @@ export default function ValidationContent() {
   }
 
   const steps = [
-    { id: 2, label: "Adresses", icon: "/icons/address.svg" },
+    { id: 1, label: "Panier", icon: "/icons/basket.svg" },
+    { id: 2, label: "Information", icon: "/icons/account.svg" },
+
     { id: 3, label: "Livraison", icon: "/icons/delivery.svg" },
     { id: 4, label: "Paiement", icon: "/icons/payment.svg" },
-    { id: 1, label: "Informations", icon: "/icons/account.svg" },
   ];
 
   return (
@@ -79,10 +80,11 @@ export default function ValidationContent() {
 
         <div className="flex flex-col sm:flex-row justify-center my-12">
           <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
-            {activeStep === 1 && <InformationsPurchase />}
+            {activeStep === 1 && <Baskets />}
             {activeStep === 2 && <AddressForm />}
             {activeStep === 3 && <DeliveryOptions />}
             {activeStep === 4 && <PaymentOptions />}
+            {activeStep === 5 && <Baskets />}
           </div>
           <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
             <TotalOptions />
