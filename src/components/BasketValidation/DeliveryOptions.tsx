@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function DeliveryOptions() {
+export default function DeliveryOption({ goToNextStep, goToPreviousStep }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const deliveryOptions = [
@@ -75,12 +75,21 @@ export default function DeliveryOptions() {
               </button>
             </div>
           ))}
-          <button
-            type="button"
-            className="w-1/3 border border-white text-white p-4  font-bold hover:bg-gray-300 transition duration-300"
-          >
-            Annuler
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={goToPreviousStep}
+              className="w-full mt-4 border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
+            >
+              Retour
+            </button>
+
+            <button
+              onClick={goToNextStep}
+              className="w-full mt-6 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
+            >
+              Continuer
+            </button>
+          </div>
         </div>
 
         {/* Message d'information */}

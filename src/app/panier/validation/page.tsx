@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -22,7 +21,6 @@ export default function ValidationContent() {
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  // Redirection vers l'accueil si l'utilisateur n'est pas connecté
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/");
@@ -38,10 +36,20 @@ export default function ValidationContent() {
   const steps = [
     { id: 1, label: "Panier", icon: "/icons/basket.svg" },
     { id: 2, label: "Information", icon: "/icons/account.svg" },
-
     { id: 3, label: "Livraison", icon: "/icons/delivery.svg" },
     { id: 4, label: "Paiement", icon: "/icons/payment.svg" },
   ];
+
+  const handleNextStep = (currentStep) => {
+    // Valider l'étape actuelle et passer à la suivante
+    if (currentStep === 1) {
+      setActiveStep(2);
+    } else if (currentStep === 2) {
+      setActiveStep(3);
+    } else if (currentStep === 3) {
+      setActiveStep(4);
+    }
+  };
 
   return (
     <section className="relative">
@@ -61,9 +69,11 @@ export default function ValidationContent() {
                 className={`flex flex-col items-center text-center cursor-pointer transition-transform duration-300 ease-in-out ${
                   activeStep === step.id
                     ? "scale-110 text-[#DD0534] font-bold"
-                    : "opacity-50 hover:opacity-100"
+                    : activeStep > step.id
+                    ? "opacity-100 cursor-pointer"
+                    : "opacity-50 pointer-events-none"
                 }`}
-                onClick={() => setActiveStep(step.id)}
+                onClick={() => activeStep > step.id && setActiveStep(step.id)}
               >
                 <Image
                   src={step.icon}
@@ -80,11 +90,24 @@ export default function ValidationContent() {
 
         <div className="flex flex-col sm:flex-row justify-center my-12">
           <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
-            {activeStep === 1 && <Baskets />}
-            {activeStep === 2 && <AddressForm />}
-            {activeStep === 3 && <DeliveryOptions />}
-            {activeStep === 4 && <PaymentOptions />}
-            {activeStep === 5 && <Baskets />}
+            {activeStep === 1 && (
+              <Baskets goToNextStep={() => handleNextStep(1)} />
+            )}
+            {activeStep === 2 && (
+              <AddressForm
+                goToNextStep={() => handleNextStep(2)}
+                goToPreviousStep={() => setActiveStep(1)}
+              />
+            )}
+            {activeStep === 3 && (
+              <DeliveryOptions
+                goToPreviousStep={() => setActiveStep(2)}
+                goToNextStep={() => handleNextStep(3)}
+              />
+            )}
+            {activeStep === 4 && (
+              <PaymentOptions goToPreviousStep={() => setActiveStep(3)} />
+            )}
           </div>
           <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
             <TotalOptions />

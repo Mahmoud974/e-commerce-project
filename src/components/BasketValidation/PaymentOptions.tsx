@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function PaymentOptions() {
+export default function PaymentOptions({ goToPreviousStep }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [error, setError] = useState("");
@@ -11,7 +11,6 @@ export default function PaymentOptions() {
     cvc: "",
   });
 
-  // Options de paiement
   const paymentOptions = [
     { id: 1, title: "Paiement en ligne sécurisé" },
     { id: 2, title: "Payer en 3 fois avec Alma" },
@@ -21,13 +20,11 @@ export default function PaymentOptions() {
     { id: 6, title: "Payez en plusieurs fois avec Younited" },
   ];
 
-  // Gestion de la sélection du mode de paiement
   const handleSelectPayment = (id) => {
     setSelectedPayment(id);
     setError("");
   };
 
-  // Gestion de la saisie des informations de carte bancaire
   const handleCardChange = (e) => {
     const { name, value } = e.target;
     setCardDetails({
@@ -36,13 +33,11 @@ export default function PaymentOptions() {
     });
   };
 
-  // Gestion de l'acceptation des CGV
   const handleTermsChange = (e) => {
     setTermsAccepted(e.target.checked);
     setError("");
   };
 
-  // Validation avant soumission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!selectedPayment) {
@@ -71,16 +66,15 @@ export default function PaymentOptions() {
   };
 
   return (
-    <section className="relative bg-black text-white    ">
+    <section className="relative bg-black text-white">
       <div className="container mx-auto px-6">
         <h1 className="text-3xl font-bold mb-6">Choisir le mode de paiement</h1>
 
-        {/* Liste des options de paiement */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {paymentOptions.map((option) => (
             <div
               key={option.id}
-              className={`p-6 border  cursor-pointer transition-all duration-300 ${
+              className={`p-6 border cursor-pointer transition-all duration-300 ${
                 selectedPayment === option.id
                   ? "border-white bg-[#101010]"
                   : "border-gray-700"
@@ -91,7 +85,6 @@ export default function PaymentOptions() {
             </div>
           ))}
 
-          {/* Afficher les champs de carte bancaire uniquement si "Paiement en ligne sécurisé" est sélectionné */}
           {selectedPayment === 1 && (
             <div className="space-y-4">
               <div>
@@ -107,7 +100,7 @@ export default function PaymentOptions() {
                   name="cardNumber"
                   value={cardDetails.cardNumber}
                   onChange={handleCardChange}
-                  className="w-full p-3 mt-2 border border-gray-700  text-black"
+                  className="w-full p-3 mt-2 border border-gray-700 text-black"
                   placeholder="1234 5678 9012 3456"
                   maxLength={16}
                   required
@@ -127,7 +120,7 @@ export default function PaymentOptions() {
                     name="expiryDate"
                     value={cardDetails.expiryDate}
                     onChange={handleCardChange}
-                    className="w-full p-3 mt-2 border border-gray-700  text-black"
+                    className="w-full p-3 mt-2 border border-gray-700 text-black"
                     placeholder="MM/AA"
                     maxLength={5}
                     required
@@ -143,7 +136,7 @@ export default function PaymentOptions() {
                     name="cvc"
                     value={cardDetails.cvc}
                     onChange={handleCardChange}
-                    className="w-full p-3 mt-2 border border-gray-700  text-black"
+                    className="w-full p-3 mt-2 border border-gray-700 text-black"
                     placeholder="CVC"
                     maxLength={3}
                     required
@@ -153,7 +146,6 @@ export default function PaymentOptions() {
             </div>
           )}
 
-          {/* Conditions Générales de Vente */}
           <label className="flex items-center space-x-3 mt-4">
             <input
               type="checkbox"
@@ -170,22 +162,20 @@ export default function PaymentOptions() {
             </span>
           </label>
 
-          {/* Message d'erreur */}
           {error && <p className="text-red-500">{error}</p>}
 
-          {/* Bouton de validation */}
-          <button
-            type="submit"
-            className="w-full bg-white text-black   p-4  font-bold hover:border-white hover:bg-none transition duration-300"
-          >
-            Confirmer le paiement
-          </button>
-          <button
-            type="button"
-            className="w-full border border-white text-white p-4  font-bold hover:bg-gray-300 transition duration-300"
-          >
-            Annuler
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={goToPreviousStep}
+              className="w-full mt-4 border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
+            >
+              Retour
+            </button>
+
+            <button className="w-full mt-6 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300">
+              Confirmer le payment
+            </button>
+          </div>
         </form>
       </div>
     </section>

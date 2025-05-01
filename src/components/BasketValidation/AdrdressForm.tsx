@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function AddressForm() {
+export default function AddressForm({ goToNextStep, goToPreviousStep }) {
   const [showForm, setShowForm] = useState(false);
   const [billingDifferent, setBillingDifferent] = useState(false);
   const [addressData, setAddressData] = useState({
@@ -26,7 +26,6 @@ export default function AddressForm() {
     phoneNumber: "+33669112343",
   };
 
-  // Gestion des changements dans le formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAddressData((prevData) => ({
@@ -35,9 +34,10 @@ export default function AddressForm() {
     }));
   };
 
-  // Validation du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validation des champs obligatoires
     if (
       !addressData.firstName ||
       !addressData.lastName ||
@@ -48,21 +48,28 @@ export default function AddressForm() {
       setError("Tous les champs marqués * sont obligatoires.");
       return;
     }
+
+    // Validation du numéro de téléphone
     if (addressData.phoneNumber.length < 10) {
       setError("Le numéro de téléphone doit comporter au moins 10 chiffres.");
       return;
     }
-    alert("Adresse enregistrée avec succès !");
+
     setError("");
+    alert("Adresse enregistrée avec succès !");
     setShowForm(false);
+
+    // Aller à l'étape suivante
+    if (typeof goToNextStep === "function") {
+      goToNextStep();
+    }
   };
 
   return (
-    <section className="relative bg-black text-white    ">
+    <section className="relative bg-black text-white">
       <div className="container mx-auto px-6">
-        {/* Présentation de l'adresse par défaut */}
-        {!showForm && (
-          <div className="max-w-6xl ">
+        {!showForm ? (
+          <div className="max-w-6xl">
             <h1 className="text-3xl text-white font-bold mb-6">
               Adresse sélectionnée
             </h1>
@@ -75,7 +82,7 @@ export default function AddressForm() {
 
             <button
               onClick={() => setShowForm(true)}
-              className="w-full mb-4 bg-white text-black   p-4  font-bold  hover:bg-slate-100 transition duration-300"
+              className="w-full mb-4 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
             >
               Indiquez vos détails de livraison.
             </button>
@@ -89,18 +96,28 @@ export default function AddressForm() {
                 L'adresse de facturation diffère de l'adresse de livraison
               </label>
             </div>
-          </div>
-        )}
+            <div className="flex gap-3">
+              <button
+                onClick={goToPreviousStep}
+                className="w-full mt-4 border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
+              >
+                Retour
+              </button>
 
-        {/* Formulaire d'ajout d'adresse */}
-        {showForm && (
-          <form onSubmit={handleSubmit} className="    space-y-6  ">
+              <button
+                onClick={goToNextStep}
+                className="w-full mt-6 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
+              >
+                Continuer
+              </button>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
             <h2 className="text-2xl font-bold mb-4">
               Indiquez vos détails de livraison.
             </h2>
-            <p></p>
 
-            {/* Nom et Prénom */}
             <div className="flex gap-3">
               <input
                 type="text"
@@ -108,7 +125,7 @@ export default function AddressForm() {
                 placeholder="Prénom *"
                 value={addressData.firstName}
                 onChange={handleChange}
-                className="w-full bg-none p-3  border border-gray-700"
+                className="w-full bg-none p-3 border border-gray-700"
                 required
               />
               <input
@@ -117,45 +134,41 @@ export default function AddressForm() {
                 placeholder="Nom *"
                 value={addressData.lastName}
                 onChange={handleChange}
-                className="w-full bg-black p-3  border border-gray-700"
+                className="w-full bg-black p-3 border border-gray-700"
                 required
               />
             </div>
 
-            {/* Rue */}
             <input
               type="text"
               name="street"
               placeholder="Adresse *"
               value={addressData.street}
               onChange={handleChange}
-              className="w-full bg-black p-3  border border-gray-700"
+              className="w-full bg-black p-3 border border-gray-700"
               required
             />
 
-            {/* Ville */}
             <input
               type="text"
               name="city"
               placeholder="Ville *"
               value={addressData.city}
               onChange={handleChange}
-              className="w-full bg-black p-3  border border-gray-700"
+              className="w-full bg-black p-3 border border-gray-700"
               required
             />
 
-            {/* Code Postal */}
             <input
               type="text"
               name="postalCode"
               placeholder="Code Postal *"
               value={addressData.postalCode}
               onChange={handleChange}
-              className="w-full bg-black p-3  border border-gray-700"
+              className="w-full bg-black p-3 border border-gray-700"
               required
             />
 
-            {/* Pays */}
             <select
               name="country"
               value={addressData.country}
@@ -163,41 +176,36 @@ export default function AddressForm() {
               className="w-full bg-black p-3 text-slate-500 border border-gray-700"
               required
             >
-              <option value="" className="">
-                Sélectionner un pays *
-              </option>
+              <option value="">Sélectionner un pays *</option>
               <option value="France">France</option>
               <option value="Belgique">Belgique</option>
               <option value="Suisse">Suisse</option>
               <option value="Canada">Canada</option>
             </select>
 
-            {/* Numéro de téléphone */}
             <input
               type="tel"
               name="phoneNumber"
               placeholder="Numéro de téléphone *"
               value={addressData.phoneNumber}
               onChange={handleChange}
-              className="w-full bg-black p-3  border border-gray-700"
+              className="w-full bg-black p-3 border border-gray-700"
               required
             />
 
-            {/* Message d'erreur */}
             {error && <p className="text-red-500">{error}</p>}
 
-            {/* Boutons */}
             <div className="flex gap-5">
               <button
                 type="submit"
-                className="w-full  bg-white text-black   p-4  font-bold  hover:bg-slate-100 transition duration-300"
+                className="w-full bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
               >
                 Enregistrer l'adresse
               </button>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="w-full border border-white text-white p-4  font-bold hover:bg-gray-300 transition duration-300"
+                className="w-full border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
               >
                 Annuler
               </button>
