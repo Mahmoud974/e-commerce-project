@@ -1,7 +1,7 @@
 import React from "react";
-import { ShieldCheck, Phone, Truck, RotateCcw } from "lucide-react";
+import { ShieldCheck, Phone, CreditCard, Truck, RotateCcw } from "lucide-react";
 
-export default function TotalOptions() {
+export default function TotalOptions({ total, totalQuantity }) {
   return (
     <>
       <div className="bg-[#0e0e0e] p-8 text-white">
@@ -9,8 +9,10 @@ export default function TotalOptions() {
 
         <ul>
           <li className="flex justify-between mt-4">
-            <p>Produit(1)</p>
-            <p>2999,00€</p>
+            <p>
+              Produit{totalQuantity > 1 ? "s" : ""} ({totalQuantity}){" "}
+            </p>
+            <p>{total?.toFixed(2)}€</p>
           </li>
           <li className="flex justify-between mt-4">
             <p>Livraison</p>
@@ -30,7 +32,7 @@ export default function TotalOptions() {
               <p>Prix total</p>
               <small>(Taxes 396,53€)</small>
             </div>
-            <p className="font-bold">2999,00€</p>
+            <p className="font-bold">{total?.toFixed(2)}€</p>
           </li>
         </ul>
       </div>
@@ -51,27 +53,12 @@ export default function TotalOptions() {
           <div>
             <p className="font-semibold">Paiement sécurisé :</p>
             <p>Paiement en plusieurs fois</p>
-            <div className="flex flex-wrap gap-3 mt-2 items-center">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg"
-                alt="Visa"
-                className="h-6"
-              />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mastercard-logo.png"
-                alt="Mastercard"
-                className="h-6"
-              />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Bancontact_logo.svg"
-                alt="Bancontact"
-                className="h-6"
-              />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-                alt="Apple Pay"
-                className="h-6"
-              />
+            <div className="flex flex-wrap gap-2 mt-1">
+              <CreditCard /> Visa
+              <CreditCard /> Mastercard
+              <CreditCard /> Bancontact
+              <CreditCard /> Apple Pay
+              <CreditCard /> Younited
             </div>
           </div>
         </div>

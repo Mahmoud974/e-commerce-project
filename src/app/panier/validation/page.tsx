@@ -17,6 +17,9 @@ import Baskets from "@/components/BasketValidation/Baskets";
 
 export default function ValidationContent() {
   const { data: session, status } = useSession();
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
+  const [total, setTotal] = useState(0);
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -28,6 +31,7 @@ export default function ValidationContent() {
       setLoading(false);
     }
   }, [status, router]);
+  console.log(total);
 
   if (loading) {
     return <div className="text-center mt-10">Chargement...</div>;
@@ -91,7 +95,13 @@ export default function ValidationContent() {
         <div className="flex flex-col sm:flex-row justify-center my-12">
           <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
             {activeStep === 1 && (
-              <Baskets goToNextStep={() => handleNextStep(1)} />
+              <Baskets
+                goToNextStep={() => handleNextStep(1)}
+                total={total}
+                setTotal={setTotal}
+                totalQuantity={totalQuantity}
+                setTotalQuantity={setTotalQuantity}
+              />
             )}
             {activeStep === 2 && (
               <AddressForm
@@ -110,7 +120,7 @@ export default function ValidationContent() {
             )}
           </div>
           <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
-            <TotalOptions />
+            <TotalOptions total={total} totalQuantity={totalQuantity} />
           </div>
         </div>
       </div>
