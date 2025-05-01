@@ -1,7 +1,6 @@
 import { DoorOpen } from "lucide-react";
 import { Button } from "../ui/button";
 import Address from "./Adress";
-import { Dashboard } from "./Dashboard";
 
 export function ProfileSection({
   session,
@@ -19,9 +18,16 @@ export function ProfileSection({
           <>
             <Button
               onClick={() => signIn("google")}
-              className="mt-3 bg-blue-600"
+              className="mt-3 bg-red-600"
             >
               {isProcessing ? "Chargement..." : "Se connecter avec Google"}
+            </Button>
+
+            <Button
+              onClick={() => signIn("facebook")}
+              className="mt-3 bg-blue-600"
+            >
+              {isProcessing ? "Chargement..." : "Se connecter avec Facebook"}
             </Button>
           </>
         ) : (
@@ -61,9 +67,9 @@ export function ProfileSection({
 
             <button
               type="submit"
-              className="bg-red-500 text-white py-2 px-4 rounded"
+              className="bg-white  text-black py-2 px-4 rounded"
             >
-              Sauvegarder
+              Se connecter
             </button>
           </form>
         </>

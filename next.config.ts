@@ -5,6 +5,7 @@ const nextConfig = {
       "images.unsplash.com",
       "lh3.googleusercontent.com",
       "pejotrvfcsqfdakpnqil.supabase.co",
+      "platform-lookaside.fbsbx.com",
     ],
   },
 };
