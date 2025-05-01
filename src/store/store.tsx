@@ -185,11 +185,14 @@ export const useSearchArticles = create<any>((set) => ({
     console.log("Tri par pertinence appliqué :", sortedByRelevance);
   },
 
-  colorsArticles: (allData, selectedColor) => {
+  colorsArticles: (allData, selectedColors) => {
     set(() => {
       const newTab = [...allData].filter(
         (item) =>
-          item.color && item.color.toLowerCase() === selectedColor.toLowerCase()
+          item.color &&
+          selectedColors
+            .map((color) => color.toLowerCase())
+            .includes(item.color.toLowerCase())
       );
 
       return { filteredData: newTab };

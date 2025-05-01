@@ -16,7 +16,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
     useSearchArticles();
 
   const [assisesData, setAssisesData] = useState([]);
-  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedColor, setSelectedColor] = useState<string[]>([]);
   const [selectedSeat, setSelectedSeat] = useState(null);
 
   const uniqueSeats = [...new Set(data?.map((item) => item.seat))];
@@ -46,8 +46,9 @@ export default function Filter({ data, colorProduct, seatProduct }) {
   }, [data]);
 
   const handleReset = () => {
-    setSelectedColor(null);
+    setSelectedColor([]);
     setSelectedSeat(null);
+    colorsArticles(data, []);
   };
 
   const filters = [
@@ -55,31 +56,38 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       label: "Color",
       content: (
         <div className="grid grid-cols-3 gap-4">
-          {colors.map((color) => (
-            <div
-              key={color.name}
-              className="flex flex-col items-center space-y-2 cursor-pointer"
-              onClick={() => {
-                colorsArticles(data, color.name);
-                setSelectedColor(color.name);
-              }}
-            >
-              <button
-                className={`w-10 h-10 rounded-full ${color.colorClass} border ${
-                  selectedColor === color.name ? "ring-4 ring-white" : ""
-                }`}
-              ></button>
-              <p
-                className={`text-sm rounded-md px-2 py-1 ${
-                  selectedColor === color.name
-                    ? "bg-white text-black"
-                    : "text-white"
-                }`}
+          {colors.map((color) => {
+            const isSelected = selectedColor.includes(color.name);
+
+            return (
+              <div
+                key={color.name}
+                className="flex flex-col items-center space-y-2 cursor-pointer"
+                onClick={() => {
+                  const updatedColors = isSelected
+                    ? selectedColor.filter((c) => c !== color.name)
+                    : [...selectedColor, color.name];
+
+                  setSelectedColor(updatedColors);
+                  colorsArticles(data, updatedColors);
+                }}
               >
-                {color.name}
-              </p>
-            </div>
-          ))}
+                <button
+                  className={`w-10 h-10 rounded-full ${
+                    color.colorClass
+                  } border ${isSelected ? "ring-4 ring-white" : ""}`}
+                ></button>
+                <p
+                  className={`text-sm rounded-md px-2 py-1 ${
+                    isSelected ? "bg-white text-black" : "text-white"
+                  }`}
+                >
+                  {color.name}
+                </p>
+              </div>
+            );
+          })}
+
           <div className="col-span-3 flex justify-center mt-4">
             <button
               className="flex text-base text-white hover:text-black"
@@ -99,7 +107,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
           {seatCount.length > 0 ? (
             seatCount.map((item) => (
               <button
-                key={Math.random()}
+                key={item.seat}
                 className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
                   selectedSeat === item.seat
                     ? "bg-black text-white"
@@ -137,7 +145,6 @@ export default function Filter({ data, colorProduct, seatProduct }) {
             </Popover>
           </li>
         ))}
-        {/* <Categories /> */}
       </ul>
 
       <div className="flex items-center md:space-x-3">

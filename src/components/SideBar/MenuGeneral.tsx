@@ -9,7 +9,6 @@ import {
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useCartStore, useLikeData } from "@/store/store";
 import {
-  CalendarArrowUp,
   CircleUser,
   Heart,
   LayoutDashboard,
@@ -21,8 +20,6 @@ import { FavoritesList } from "./FavoritesList";
 import { CartList } from "./CartList";
 import { ProfileSection } from "./ProfileSection";
 import { Dashboard } from "./Dashboard";
-import { Command } from "./Command";
-import Address from "./Adress";
 
 export default function SheetDisplay() {
   const [activeTab, setActiveTab] = useState("favorites");
