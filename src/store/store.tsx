@@ -199,12 +199,16 @@ export const useSearchArticles = create<any>((set) => ({
     });
   },
 
-  numberSeatArticles: (db, selectedSeat) => {
-    const newTab = db?.filter((item) => item.seat === selectedSeat);
-    let nbreSeat = newTab.map((ok) => ok.seat);
-    console.log("Articles filtrés par nombre de sièges :", nbreSeat.length);
+  numberSeatArticles: (allData, selectedSeats) => {
+    const newTab = [...allData].filter((item) =>
+      selectedSeats.includes(item.seat)
+    );
 
-    set(() => ({ filteredData: newTab }));
-    set(() => ({ nbreSeatColor: nbreSeat.length }));
+    let nbreSeat = newTab.length;
+
+    set(() => ({
+      filteredData: newTab,
+      nbreSeatColor: nbreSeat,
+    }));
   },
 }));

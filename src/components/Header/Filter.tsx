@@ -17,7 +17,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
 
   const [assisesData, setAssisesData] = useState([]);
   const [selectedColor, setSelectedColor] = useState<string[]>([]);
-  const [selectedSeat, setSelectedSeat] = useState(null);
+  const [selectedSeat, setSelectedSeat] = useState<number[]>([]);
 
   const uniqueSeats = [...new Set(data?.map((item) => item.seat))];
 
@@ -47,8 +47,9 @@ export default function Filter({ data, colorProduct, seatProduct }) {
 
   const handleReset = () => {
     setSelectedColor([]);
-    setSelectedSeat(null);
+    setSelectedSeat([]);
     colorsArticles(data, []);
+    numberSeatArticles(data, []);
   };
 
   const filters = [
@@ -105,23 +106,31 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       content: (
         <div className="flex flex-col space-y-2">
           {seatCount.length > 0 ? (
-            seatCount.map((item) => (
-              <button
-                key={item.seat}
-                className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
-                  selectedSeat === item.seat
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-gray-800"
-                }`}
-                onClick={() => {
-                  numberSeatArticles(data, item.seat);
-                  setSelectedSeat(item.seat);
-                }}
-              >
-                <span>{`Seat ${item.seat}`}</span>
-                <span>{item.count}</span>
-              </button>
-            ))
+            seatCount.map((item) => {
+              const isSelected = selectedSeat.includes(item.seat);
+
+              return (
+                <button
+                  key={item.seat}
+                  className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
+                    isSelected
+                      ? "bg-black text-white"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                  onClick={() => {
+                    const updatedSeats = isSelected
+                      ? selectedSeat.filter((s) => s !== item.seat)
+                      : [...selectedSeat, item.seat];
+
+                    setSelectedSeat(updatedSeats);
+                    numberSeatArticles(data, updatedSeats);
+                  }}
+                >
+                  <span>{`Seat ${item.seat}`}</span>
+                  <span>{item.count}</span>
+                </button>
+              );
+            })
           ) : (
             <p>{`Aucune donnée d'assises disponible.`}</p>
           )}
