@@ -1,12 +1,13 @@
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 import Image from "next/image";
 
+const baseImageUrl = process.env.NEXT_PUBLIC_BANNER_IMAGE || "";
 const EntretienPage = () => {
   return (
     <PageLayoutBanner
       title="Entretien du produit"
       description="Prenez soin de vos meubles pour préserver leur éclat et leur durabilité : des conseils simples pour une qualité qui dure."
-      bannerImage="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleanSofa.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFuU29mYS5wbmciLCJpYXQiOjE3NDYxNjI1NzMsImV4cCI6MjA2MTUyMjU3M30.XhXAGkbgsBp__KVFLMyR3nB-vmkUwhFKo9A2t6TmAao"
+      bannerImage={"cleanSofa.png"}
     >
       {/* Paragraphe principal */}
       <div className="mt-12 text-center px-4 mb-12">
@@ -42,7 +43,7 @@ const EntretienPage = () => {
           <li className="flex flex-col items-center w-full sm:w-1/3">
             <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
               <Image
-                src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleanwood.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFud29vZC5qcGciLCJpYXQiOjE3NDYxNjM2MzQsImV4cCI6MjA2MTUyMzYzNH0.HUMukjJ4GjwHFqiD1yNyU-KeUi_t_aVVNfeBGl9DPnE"
+                src={baseImageUrl + "cleanwood.jpg"}
                 width={500}
                 height={500}
                 alt="Entretien du bois : nettoyage et entretien du bois"
@@ -61,7 +62,7 @@ const EntretienPage = () => {
           <li className="flex flex-col items-center w-full sm:w-1/3">
             <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
               <Image
-                src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleantissu.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFudGlzc3UuanBnIiwiaWF0IjoxNzQ2MTYzNjcxLCJleHAiOjIwNjE1MjM2NzF9.tnWUw41y8VvnI3TLTbfqDHPtNEO6FdqGToh5jiHdjqU"
+                src={baseImageUrl + "cleantissu.jpg"}
                 width={500}
                 height={500}
                 alt="Entretien des tissus : nettoyage et protection des tissus"
@@ -80,7 +81,7 @@ const EntretienPage = () => {
           <li className="flex flex-col items-center w-full sm:w-1/3">
             <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
               <Image
-                src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleancuir.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFuY3Vpci5qcGciLCJpYXQiOjE3NDYxNjM3MTYsImV4cCI6MjA2MTUyMzcxNn0.cf3T-XBKVxbd6SKDGrRDJ3jSmIkauP8mdqwLUk_rozI"
+                src={baseImageUrl + "cleancuir.jpg"}
                 width={500}
                 height={500}
                 alt="Entretien du cuir : nettoyage et soin du cuir"
@@ -117,7 +118,7 @@ const EntretienPage = () => {
         </div>
         <div className="w-full sm:w-1/3 lg:mb-0 mb-12">
           <Image
-            src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleanTextile.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFuVGV4dGlsZS53ZWJwIiwiaWF0IjoxNzQ2MTYzNzQ2LCJleHAiOjIwNjE1MjM3NDZ9.LeFmk6No64dHpYHAxkrg8DRkXhy7hEYAEE6AGiUVMDQ"
+            src={baseImageUrl + "cleanTextile.webp"}
             width={500}
             height={500}
             alt="Protection des meubles : conseils pour éviter l'usure"

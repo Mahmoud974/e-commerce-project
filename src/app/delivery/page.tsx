@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
-
+const baseImageUrl = process.env.NEXT_PUBLIC_BANNER_IMAGE || "";
 export default function Page() {
   return (
     <PageLayoutBanner
@@ -9,7 +9,7 @@ export default function Page() {
       description="Votre meuble sur-mesure, livré avec soin et dans les meilleurs
               délais, pour une expérience unique jusque dans les moindres
               détails."
-      bannerImage="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/delivery-img.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2RlbGl2ZXJ5LWltZy5wbmciLCJpYXQiOjE3NDYxNjI1MTcsImV4cCI6MjA2MTUyMjUxN30.G4qjPzulU_mPxWRCjeDbuGXaxgtMnStVHpJUD6Wr0Bc"
+      bannerImage={"delivery-img.png"}
     >
       <section className="relative">
         <div className="container my-6 mx-auto">
@@ -46,7 +46,7 @@ export default function Page() {
               <li className="flex flex-col items-center w-full sm:w-1/3">
                 <div className="w-full  h-72 bg-gray-200 overflow-hidden rounded-lg">
                   <Image
-                    src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/art.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2FydC5qcGciLCJpYXQiOjE3NDYxNjMxMjQsImV4cCI6MjA2MTUyMzEyNH0.aTSV8ARyWHAnxiS9dv2Hl5e6uh17jbBRUvV8B33I65s"
+                    src={baseImageUrl + "/art2.jpg"}
                     width={500}
                     height={500}
                     alt="Forme"
@@ -66,7 +66,7 @@ export default function Page() {
               <li className="flex flex-col items-center w-full sm:w-1/3">
                 <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                   <Image
-                    src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/art2.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2FydDIuanBnIiwiaWF0IjoxNzQ2MTYzMTcxLCJleHAiOjIwNjE1MjMxNzF9.yr_IkJ6r_wFQaA8MjuCJDBF3JpbGeRir8uHI8fd4Xgo"
+                    src={baseImageUrl + "/art.jpg"}
                     width={500}
                     height={500}
                     alt="Sensation"
@@ -86,7 +86,7 @@ export default function Page() {
               <li className="flex flex-col items-center w-full sm:w-1/3">
                 <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg ">
                   <Image
-                    src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/sofa.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL3NvZmEuanBnIiwiaWF0IjoxNzQ2MTYzMTk2LCJleHAiOjIwNjE1MjMxOTZ9.9uBWMOhHTUB4jD19EYtvXqh2XnREUm7ajT-1mkneM0A"
+                    src={baseImageUrl + "/sofa.jpg"}
                     width={500}
                     height={500}
                     alt="Fonctionnalité"

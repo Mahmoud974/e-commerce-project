@@ -7,7 +7,7 @@ export default function Page() {
     <PageLayoutBanner
       title="À propos de nous"
       description="Nous créons des meubles uniques qui améliorent les nouvelles façons de vivre, de travailler et de jouer."
-      bannerImage="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/about-banner.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2Fib3V0LWJhbm5lci5wbmciLCJpYXQiOjE3NDYxNjIyNDAsImV4cCI6MjA2MTUyMjI0MH0.0zw9nIMGcKq1ZZVn1E4HTTnfkqyshaFb2sbmQulF3M8"
+      bannerImage={"about-banner.png"}
     >
       <section className="relative" role="main">
         <div className="container mt-6 mx-auto">

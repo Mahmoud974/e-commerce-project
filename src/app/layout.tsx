@@ -7,7 +7,6 @@ import Informations from "@/components/SectionDown/Informations";
 import HelpSection from "@/components/SectionDown/HelpSection";
 import Newsletter from "@/components/SectionDown/Newsletter";
 import Footer from "@/components/SectionDown/Footer";
-import Navbar from "@/components/Header/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",

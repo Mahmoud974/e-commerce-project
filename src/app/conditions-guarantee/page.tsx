@@ -9,7 +9,7 @@ export default function GuaranteePage() {
     <PageLayoutBanner
       title="CONDITIONS de la garanties"
       description="Profitez de notre garantie exceptionnelle pour une tranquillité d’esprit totale : des meubles conçus pour durer, avec un support qui vous accompagne à chaque étape."
-      imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/guarantie.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2d1YXJhbnRpZS5qcGciLCJpYXQiOjE3NDYxODQwMzUsImV4cCI6MjA2MTU0NDAzNX0.wVbETnU6-fvATwogSXRU_tBcesdsMSU49wasnqHXddY"
+      bannerImage={"guarantie.jpg"}
     >
       <div className="mt-12 text-center px-4 mb-12">
         <p className="text-white text-xl font-semibold mt-4 max-w-3xl mx-auto">
@@ -36,7 +36,6 @@ export default function GuaranteePage() {
           <span className="font-semibold italic">Live Ekstraordinær</span>
         </p>
       </div>
-
       <div>
         <div className="bg-red-700 w-1/3 h-3 mb-8 mx-auto"></div>
         <p className="text-white text-lg max-w-3xl mx-auto mb-8 lg:px-0 px-6">

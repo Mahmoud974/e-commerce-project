@@ -22,7 +22,7 @@ const PageLayoutBanner: React.FC<LayoutProps> = ({
         <Banner
           title={title}
           description={description}
-          imageSrc={bannerImage}
+          imageSrc={process.env.NEXT_PUBLIC_BANNER_IMAGE + bannerImage}
         />
         {children}
       </div>

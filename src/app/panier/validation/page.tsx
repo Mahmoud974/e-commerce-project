@@ -16,6 +16,7 @@ import Banner from "@/components/BannerImage";
 import Baskets from "@/components/BasketValidation/Baskets";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 
 export default function ValidationContent() {
   const { data: session, status } = useSession();
@@ -61,97 +62,96 @@ export default function ValidationContent() {
   };
 
   return (
-    <section className="relative">
-      <div className="container mt-6 mx-auto">
-        <Navbar />
-        <Banner
-          title="Validez votre commande"
-          description="Livraison rapide & retours gratuits – Achetez en toute confiance !"
-          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/checkOrder.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NoZWNrT3JkZXIuanBnIiwiaWF0IjoxNzQ2MTY0NDI1LCJleHAiOjIwNjE1MjQ0MjV9.SvugAUYHr9uQObJIZR7gLi0El-Id_9OCcLUOzi7VlJ0"
-        />
+    <PageLayoutBanner
+      title="Validez votre commande"
+      description="Livraison rapide & retours gratuits – Achetez en toute confiance !"
+      bannerImage="checkOrder.jpg"
+    >
+      <section className="relative">
+        <div className="container mt-6 mx-auto">
+          <div className="mt-12">
+            <ul className="flex flex-wrap justify-center items-center space-x-8 sm:space-x-12">
+              {steps.map((step) => (
+                <li
+                  key={step.id}
+                  className={`flex flex-col items-center text-center cursor-pointer transition-transform duration-300 ease-in-out ${
+                    activeStep === step.id
+                      ? "scale-110 text-[#DD0534] font-bold"
+                      : activeStep > step.id
+                      ? "opacity-100 cursor-pointer"
+                      : "opacity-50 pointer-events-none"
+                  }`}
+                  onClick={() => activeStep > step.id && setActiveStep(step.id)}
+                >
+                  <Image
+                    src={step.icon}
+                    alt={step.label}
+                    width={60}
+                    height={60}
+                    className="object-cover w-16"
+                  />
+                  <p className="mt-2">{step.label}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="text-sm text-white flex items-center gap-2 mb-4">
+            <Link href="/home">
+              <span className="text-gray-500 hover:underline cursor-pointer">
+                Accueil
+              </span>
+            </Link>
+            <ChevronRight className="w-4 h-4" />
+            <Link href="/">
+              <span className="text-gray-500 hover:underline cursor-pointer">
+                Canapés
+              </span>
+            </Link>
+            <ChevronRight className="w-4 h-4" />
+            <span className="text-gray-500 font-medium">Mon panier</span>
+          </div>
 
-        <div className="mt-12">
-          <ul className="flex flex-wrap justify-center items-center space-x-8 sm:space-x-12">
-            {steps.map((step) => (
-              <li
-                key={step.id}
-                className={`flex flex-col items-center text-center cursor-pointer transition-transform duration-300 ease-in-out ${
-                  activeStep === step.id
-                    ? "scale-110 text-[#DD0534] font-bold"
-                    : activeStep > step.id
-                    ? "opacity-100 cursor-pointer"
-                    : "opacity-50 pointer-events-none"
-                }`}
-                onClick={() => activeStep > step.id && setActiveStep(step.id)}
-              >
-                <Image
-                  src={step.icon}
-                  alt={step.label}
-                  width={60}
-                  height={60}
-                  className="object-cover w-16"
+          <div className="flex flex-col sm:flex-row justify-center my-12">
+            <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
+              {activeStep === 1 && (
+                <Baskets
+                  goToNextStep={() => handleNextStep(1)}
+                  total={total}
+                  setTotal={setTotal}
+                  totalQuantity={totalQuantity}
+                  setTotalQuantity={setTotalQuantity}
                 />
-                <p className="mt-2">{step.label}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="text-sm text-white flex items-center gap-2 mb-4">
-          <Link href="/home">
-            <span className="text-gray-500 hover:underline cursor-pointer">
-              Accueil
-            </span>
-          </Link>
-          <ChevronRight className="w-4 h-4" />
-          <Link href="/">
-            <span className="text-gray-500 hover:underline cursor-pointer">
-              Canapés
-            </span>
-          </Link>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-500 font-medium">Mon panier</span>
-        </div>
+              )}
+              {activeStep === 2 && (
+                <AddressForm
+                  goToNextStep={() => handleNextStep(2)}
+                  goToPreviousStep={() => setActiveStep(1)}
+                />
+              )}
+              {activeStep === 3 && (
+                <DeliveryOptions
+                  goToPreviousStep={() => setActiveStep(2)}
+                  goToNextStep={() => handleNextStep(3)}
+                  deliveryOption={deliveryOption}
+                  setDeliveryOption={setDeliveryOption} // ✅ Ceci manquait
+                />
+              )}
 
-        <div className="flex flex-col sm:flex-row justify-center my-12">
-          <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
-            {activeStep === 1 && (
-              <Baskets
-                goToNextStep={() => handleNextStep(1)}
+              {activeStep === 4 && (
+                <PaymentOptions goToPreviousStep={() => setActiveStep(3)} />
+              )}
+            </div>
+            <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
+              <TotalOptions
                 total={total}
-                setTotal={setTotal}
                 totalQuantity={totalQuantity}
-                setTotalQuantity={setTotalQuantity}
-              />
-            )}
-            {activeStep === 2 && (
-              <AddressForm
-                goToNextStep={() => handleNextStep(2)}
-                goToPreviousStep={() => setActiveStep(1)}
-              />
-            )}
-            {activeStep === 3 && (
-              <DeliveryOptions
-                goToPreviousStep={() => setActiveStep(2)}
-                goToNextStep={() => handleNextStep(3)}
                 deliveryOption={deliveryOption}
-                setDeliveryOption={setDeliveryOption} // ✅ Ceci manquait
+                setDeliveryOption={setDeliveryOption}
               />
-            )}
-
-            {activeStep === 4 && (
-              <PaymentOptions goToPreviousStep={() => setActiveStep(3)} />
-            )}
-          </div>
-          <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
-            <TotalOptions
-              total={total}
-              totalQuantity={totalQuantity}
-              deliveryOption={deliveryOption}
-              setDeliveryOption={setDeliveryOption}
-            />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </PageLayoutBanner>
   );
 }

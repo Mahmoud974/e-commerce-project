@@ -9,6 +9,7 @@ const links = {
     { href: "/about", label: "À propos SofaChic" },
     { href: "/contact", label: "Contact" },
     { href: "/delivery", label: "Livraison" },
+    { href: "/inspiration", label: "Inspiration" },
   ],
   informations: [
     { href: "/policy-credential", label: "Politique de confidentialité" },
