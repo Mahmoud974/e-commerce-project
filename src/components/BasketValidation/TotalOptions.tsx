@@ -1,7 +1,25 @@
 import React from "react";
-import { ShieldCheck, Phone, CreditCard, Truck, RotateCcw } from "lucide-react";
+import {
+  ShieldCheck,
+  Phone,
+  CreditCard,
+  Truck,
+  RotateCcw,
+  PhoneCall,
+} from "lucide-react";
 
-export default function TotalOptions({ total, totalQuantity }) {
+export default function TotalOptions({ total, totalQuantity, deliveryOption }) {
+  const livraison =
+    deliveryOption && typeof deliveryOption.price === "string"
+      ? deliveryOption.price.toLowerCase().includes("gratuit")
+        ? 0
+        : parseFloat(
+            deliveryOption.price.replace("€", "").replace(",", ".").trim()
+          )
+      : 0;
+
+  const totalFinal = (total + livraison).toFixed(2);
+
   return (
     <>
       <div className="bg-[#0e0e0e] p-8 text-white">
@@ -10,13 +28,13 @@ export default function TotalOptions({ total, totalQuantity }) {
         <ul>
           <li className="flex justify-between mt-4">
             <p>
-              Produit{totalQuantity > 1 ? "s" : ""} ({totalQuantity}){" "}
+              Produit{totalQuantity > 1 ? "s" : ""} ({totalQuantity})
             </p>
             <p>{total?.toFixed(2)}€</p>
           </li>
           <li className="flex justify-between mt-4">
             <p>Livraison</p>
-            <p>-</p>
+            <p>{deliveryOption ? deliveryOption.price : "-"}</p>
           </li>
           <li className="flex justify-between mt-4">
             <p>Remise</p>
@@ -32,20 +50,28 @@ export default function TotalOptions({ total, totalQuantity }) {
               <p>Prix total</p>
               <small>(Taxes 396,53€)</small>
             </div>
-            <p className="font-bold">{total?.toFixed(2)}€</p>
+            <p className="font-bold">{totalFinal}€</p>
           </li>
         </ul>
       </div>
 
       {/* Infos supplémentaires */}
       <div className="mt-8 text-sm space-y-6">
-        <div className="bg-[#0e0e0e] p-8 text-white flex gap-4 items-start">
-          <Phone className="mt-1" />
-          <div>
-            <p className="font-semibold">Conseils et vente :</p>
-            <p>03 27 73 94 18</p>
-            <p>Du lundi au vendredi, 9h à 12h et 13h30 à 17h30</p>
+        <div className="bg-[#0e0e0e] p-8 text-white flex flex-col gap-4 items-center">
+          <div className="flex">
+            <input
+              type="text"
+              id="discountCode"
+              className="bg-transparent border-b-2 border-white text-white placeholder-gray-300 focus:outline-none"
+              placeholder="Entrez votre code"
+            />
+            <button className="text-white bg-[#101010] p-2 rounded-md hover:bg-gray-700">
+              Appliquer
+            </button>
           </div>
+          <label htmlFor="discountCode" className="font-semibold">
+            Code de réduction
+          </label>
         </div>
 
         <div className="bg-[#0e0e0e] p-8 text-white flex gap-4 items-start">

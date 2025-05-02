@@ -18,6 +18,7 @@ import Baskets from "@/components/BasketValidation/Baskets";
 export default function ValidationContent() {
   const { data: session, status } = useSession();
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [deliveryOption, setDeliveryOption] = useState();
 
   const [total, setTotal] = useState(0);
   const router = useRouter();
@@ -32,6 +33,8 @@ export default function ValidationContent() {
     }
   }, [status, router]);
   console.log(total);
+  console.log(totalQuantity);
+  console.log(deliveryOption?.price);
 
   if (loading) {
     return <div className="text-center mt-10">Chargement...</div>;
@@ -113,14 +116,22 @@ export default function ValidationContent() {
               <DeliveryOptions
                 goToPreviousStep={() => setActiveStep(2)}
                 goToNextStep={() => handleNextStep(3)}
+                deliveryOption={deliveryOption}
+                setDeliveryOption={setDeliveryOption} // ✅ Ceci manquait
               />
             )}
+
             {activeStep === 4 && (
               <PaymentOptions goToPreviousStep={() => setActiveStep(3)} />
             )}
           </div>
           <div className="w-full sm:w-1/3 lg:w-1/4 mt-6 sm:mt-0 sm:ml-6">
-            <TotalOptions total={total} totalQuantity={totalQuantity} />
+            <TotalOptions
+              total={total}
+              totalQuantity={totalQuantity}
+              deliveryOption={deliveryOption}
+              setDeliveryOption={setDeliveryOption}
+            />
           </div>
         </div>
       </div>

@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 
-export default function DeliveryOption({ goToNextStep, goToPreviousStep }) {
+export default function DeliveryOption({
+  goToNextStep,
+  goToPreviousStep,
+  deliveryOption,
+  setDeliveryOption,
+}) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const deliveryOptions = [
@@ -10,14 +15,14 @@ export default function DeliveryOption({ goToNextStep, goToPreviousStep }) {
       title: "Livraison devant chez vous sur rendez-vous",
       description:
         "Livraison à domicile avec dépôt du colis au pied du camion sur RDV. En France (hors Corse et îles), Belgique et au Luxembourg.",
-      price: "99,00 € TTC",
+      price: "99,00 € ",
     },
     {
       id: 2,
       title: "Livraison chez vous dans la pièce de votre choix sur rendez-vous",
       description:
         "Livraison à domicile sur RDV dans la pièce de votre choix. En France (hors Corse et îles), Belgique et au Luxembourg.",
-      price: "129,00 € TTC",
+      price: "129,00 € ",
     },
     {
       id: 3,
@@ -29,12 +34,12 @@ export default function DeliveryOption({ goToNextStep, goToPreviousStep }) {
   ];
 
   const handleSelect = (id) => {
+    const selected = deliveryOptions.find((opt) => opt.id === id);
     setSelectedOption(id);
-    alert(
-      `Vous avez sélectionné l'option : ${
-        deliveryOptions.find((opt) => opt.id === id).title
-      }`
-    );
+    console.log(selected.price);
+
+    setDeliveryOption(selected);
+    alert(`Vous avez sélectionné l'option : ${selected.title}`);
   };
 
   return (

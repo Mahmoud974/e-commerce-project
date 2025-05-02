@@ -51,7 +51,7 @@ export default function Baskets({
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex items-center justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 transition-transform duration-200 rounded-lg p-2"
+                className="flex items-center cursor-pointer justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 transition-transform duration-200 rounded-lg p-2"
               >
                 <Link href={`/item/${item.id}`} className="flex items-center">
                   <Image
