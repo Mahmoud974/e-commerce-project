@@ -40,6 +40,7 @@ export default function Page() {
           loop
           muted
           playsInline
+          aria-label="Vidéo de notre collection de meubles"
         >
           <source src="/videos/furniture.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la lecture de vidéos.
@@ -48,7 +49,10 @@ export default function Page() {
           <h1 className="text-white text-3xl md:text-5xl font-bold text-center mb-4">
             Découvrez notre collection exclusive
           </h1>
-          <button className="px-6 py-3  border text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">
+          <button
+            className="px-6 py-3 border text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200"
+            aria-label="En savoir plus sur la collection exclusive"
+          >
             En savoir +
           </button>
         </div>
@@ -68,7 +72,10 @@ export default function Page() {
         </section>
 
         <Link href="/">
-          <Button className="flex justify-center mx-auto border px-20 mt-6">
+          <Button
+            className="flex justify-center mx-auto border px-20 mt-6"
+            aria-label="Découvrez tous les fauteuils"
+          >
             <p>Découvrez tous les fauteuils </p>
             <ArrowRight />
           </Button>
@@ -86,11 +93,14 @@ export default function Page() {
 
           <div className="flex justify-between mt-7 gap-6 flex-wrap">
             {/* Première image */}
-            <Link href="/inspiration">
+            <Link
+              href="/inspiration"
+              aria-label="Inspiration pour un chez-vous personnalisé"
+            >
               <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
                 <Image
                   src="/img/article-1.jpg"
-                  alt="Intérieur personnalisé"
+                  alt="Intérieur personnalisé avec décoration moderne"
                   className="w-full h-full cursor-pointer object-cover transform transition-transform duration-500 group-hover:scale-105"
                   width={720}
                   height={520}
@@ -113,11 +123,14 @@ export default function Page() {
             </Link>
 
             {/* Deuxième image */}
-            <Link href="">
+            <Link
+              href=""
+              aria-label="Explorer un espace détente pour la maison"
+            >
               <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
                 <Image
                   src="/img/article-2.png"
-                  alt="Espace détente"
+                  alt="Espace détente avec un canapé confortable"
                   className="w-full cursor-pointer h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
                   width={720}
                   height={520}

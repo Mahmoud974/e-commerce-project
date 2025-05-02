@@ -4,16 +4,20 @@ import Link from "next/link";
 const links = {
   utiles: [
     { href: "/", label: "Accueil" },
-    { href: "/conditions-guarantee", label: "Conditions de la garantie" },
-    { href: "/product-interviews", label: "Entretien du produit" },
-    { href: "/about", label: "À propos SofaChic" },
-    { href: "/contact", label: "Contact" },
-    { href: "/delivery", label: "Livraison" },
+    { href: "/conditions-garantie", label: "Conditions de la garantie" },
+    { href: "/produits-entretien", label: "Entretien du produit" },
+    { href: "a-propos", label: "À propos SofaChic" },
+    { href: "/contactez-nous", label: "Contact" },
+    { href: "/infos-livraison", label: "Livraison" },
     { href: "/inspiration", label: "Inspiration" },
   ],
   informations: [
-    { href: "/policy-credential", label: "Politique de confidentialité" },
+    {
+      href: "/politique-confidentialite",
+      label: "Politique de confidentialité",
+    },
     { href: "/conditions-utilisation", label: "Conditions d'utilisation" },
+    { href: "/moyen-de-paiement", label: "Moyen de paiement" },
   ],
 };
 

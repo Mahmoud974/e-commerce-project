@@ -56,7 +56,7 @@ const ProductCard: React.FC<{
   return (
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
       <Link
-        href={`/item/${item.id}`}
+        href={`/produit/${item.id}`}
         className="relative pt-5 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-black shadow-md"
       >
         <div className="relative h-44 w-full group">

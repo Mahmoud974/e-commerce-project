@@ -8,27 +8,27 @@ export default function HelpSection() {
     {
       title: "Nous contacter",
       image: baseImageUrl + "/logo-mockup.png",
-      link: "/contact",
+      link: "/contactez-nous",
     },
     {
       title: "Délai de livraison",
       image: baseImageUrl + "delivery1.png",
-      link: "/delivery",
+      link: "/infos-livraison",
     },
     {
       title: "Entretien des meubles",
       image: baseImageUrl + "cleanSofa2.jpg",
-      link: "/product-interviews",
+      link: "/produits-entretien",
     },
     {
       title: "Instructions d’assemblage",
       image: baseImageUrl + "instruction.jpg",
-      link: "/assembly-instructions",
+      link: "/instructions-assemblage",
     },
     {
       title: "Garantie",
       image: baseImageUrl + "guarantie.jpg",
-      link: "/conditions-guarantee",
+      link: "/conditions-garantie",
     },
   ];
 

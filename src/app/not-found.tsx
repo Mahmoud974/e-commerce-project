@@ -1,5 +1,6 @@
 import Footer from "@/components/SectionDown/Footer";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -20,6 +21,7 @@ export default function ErrorPage() {
           <div className="mt-6">
             <Link href="/home" className="  text-lg hover:underline">
               <Button>
+                <ArrowLeft />
                 <p className="text-3xl">{`Retour à l'accueil`}</p>
               </Button>
             </Link>

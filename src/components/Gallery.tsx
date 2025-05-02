@@ -3,12 +3,12 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const media = [
-  { type: "image", src: "/item/5.png" },
-  { type: "image", src: "/item/2.png" },
-  { type: "image", src: "/item/3.png" },
-  { type: "image", src: "/item/4.png" },
-  { type: "image", src: "/item/1.png" },
-  { type: "image", src: "/item/6.png" },
+  { type: "image", src: "/produit/5.png" },
+  { type: "image", src: "/produit/2.png" },
+  { type: "image", src: "/produit/3.png" },
+  { type: "image", src: "/produit/4.png" },
+  { type: "image", src: "/produit/1.png" },
+  { type: "image", src: "/produit/6.png" },
 ];
 
 export default function ProductGallery({ data }) {

@@ -53,7 +53,10 @@ export default function Baskets({
                 key={index}
                 className="flex items-center cursor-pointer justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 transition-transform duration-200 rounded-lg p-2"
               >
-                <Link href={`/item/${item.id}`} className="flex items-center">
+                <Link
+                  href={`/produit/${item.id}`}
+                  className="flex items-center"
+                >
                   <Image
                     src={item?.image[0]}
                     alt="product image"

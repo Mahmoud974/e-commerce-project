@@ -56,7 +56,7 @@ export function Dashboard({ selectedItems, removeItems }) {
           ❓ Besoin d'aide ?
         </h2>
 
-        <a href="/contact" className="text-blue-400 underline">
+        <a href="/contactez-nous" className="text-blue-400 underline">
           Nous contacter
         </a>
       </div>

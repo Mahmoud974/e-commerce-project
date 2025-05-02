@@ -1,12 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Footer from "@/components/SectionDown/Footer";
-import HelpSection from "@/components/SectionDown/HelpSection";
-import Informations from "@/components/SectionDown/Informations";
-import Navbar from "@/components/Header/Navbar";
-import Newsletter from "@/components/SectionDown/Newsletter";
 import AddressForm from "@/components/BasketValidation/AdrdressForm";
 import DeliveryOptions from "@/components/BasketValidation/DeliveryOptions";
 import PaymentOptions from "@/components/BasketValidation/PaymentOptions";
