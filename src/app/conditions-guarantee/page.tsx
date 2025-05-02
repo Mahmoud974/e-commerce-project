@@ -19,7 +19,7 @@ export default function Page() {
         <Banner
           title="CONDITIONS de la garanties"
           description="Profitez de notre garantie exceptionnelle pour une tranquillité d’esprit totale : des meubles conçus pour durer, avec un support qui vous accompagne à chaque étape."
-          imageSrc="/banners/guarantee.jpg"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/guarantee.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2d1YXJhbnRlZS5qcGciLCJpYXQiOjE3NDYxNjI2ODIsImV4cCI6MjA2MTUyMjY4Mn0.3PHJDvr1KGnEZSOj094K3k03flP3AhrP_quCd1ntOEM"
         />
 
         {/* Paragraphe sous l'image */}

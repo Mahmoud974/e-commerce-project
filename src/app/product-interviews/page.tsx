@@ -17,7 +17,7 @@ export default function Page() {
           title="Entretien du produit"
           description="Prenez soin de vos meubles pour préserver leur éclat et leur
               durabilité : des conseils simples pour une qualité qui dure."
-          imageSrc="/banners/cleanSofa.png"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleanSofa.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFuU29mYS5wbmciLCJpYXQiOjE3NDYxNjI1NzMsImV4cCI6MjA2MTUyMjU3M30.XhXAGkbgsBp__KVFLMyR3nB-vmkUwhFKo9A2t6TmAao"
         />
 
         {/* Paragraphe principal */}

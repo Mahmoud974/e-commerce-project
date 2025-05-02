@@ -19,7 +19,7 @@ export default function Page() {
           description="Votre meuble sur-mesure, livré avec soin et dans les meilleurs
               délais, pour une expérience unique jusque dans les moindres
               détails."
-          imageSrc="/banners/delivery-img.png"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/delivery-img.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2RlbGl2ZXJ5LWltZy5wbmciLCJpYXQiOjE3NDYxNjI1MTcsImV4cCI6MjA2MTUyMjUxN30.G4qjPzulU_mPxWRCjeDbuGXaxgtMnStVHpJUD6Wr0Bc"
         />
 
         {/* Paragraphe sous l'image */}

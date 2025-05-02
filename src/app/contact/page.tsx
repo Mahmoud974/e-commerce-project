@@ -15,7 +15,7 @@ export default function Page() {
         <Banner
           title="Contactez-nous"
           description=" Nous nous réjouissons de vous rencontrer bientôt."
-          imageSrc="/banners/service-img.png"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/service-img.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL3NlcnZpY2UtaW1nLnBuZyIsImlhdCI6MTc0NjE2MjQzMiwiZXhwIjoyMDYxNTIyNDMyfQ.K4GxOQjxs_Pi_erSM4sL3Pw-fPQOYZcTI-n3-2jnZh4"
         />
 
         <div>

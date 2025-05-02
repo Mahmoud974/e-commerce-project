@@ -17,7 +17,7 @@ export default function Page() {
           title="Instructions d'assemblage"
           description="Une garantie exceptionnelle pour des meubles conçus pour durer et
               un accompagnement à chaque étape."
-          imageSrc="/banners/montage.jpg"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/montage.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL21vbnRhZ2UuanBnIiwiaWF0IjoxNzQ2MTYyNjM2LCJleHAiOjIwNjE1MjI2MzZ9.jnXa4hkoemOeK7o1s1jI4aNKuEwtkLOe1jJKTQ7mFAs"
         />
 
         {/* Paragraphe principal */}
