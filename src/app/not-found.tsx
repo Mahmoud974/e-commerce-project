@@ -10,7 +10,7 @@ export default function ErrorPage() {
       <div className="flex items-center justify-center flex-grow">
         <div className="text-center max-w-sm w-full">
           <Image
-            src="/error.png"
+            src="/error.webp"
             alt="Error 404"
             width={1000}
             height={1000}

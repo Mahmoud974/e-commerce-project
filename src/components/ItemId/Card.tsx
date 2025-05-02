@@ -34,6 +34,7 @@ const ProductCard: React.FC<{
 
   const onLikeClick = () => {
     handleLike(item, session, addItems);
+    console.log(item);
   };
 
   const handleCart = () => {
