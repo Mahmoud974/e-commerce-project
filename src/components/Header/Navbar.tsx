@@ -38,10 +38,14 @@ export default function Navbar() {
       {/* Ligne du haut : logo à gauche, profil + menu à droite */}
       <div className="flex items-center justify-between mb-4">
         {/* Logo */}
-        <Link href="/">
-          <p className="font-extrabold text-xl md:text-2xl">
-            SofaChic<span className="text-red-700"> ./</span>
-          </p>
+        <Link href="/home">
+          <Image
+            src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/logo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2xvZ28ucG5nIiwiaWF0IjoxNzQ2MTY1MDI5LCJleHAiOjIwNjE1MjUwMjl9.qJtgB6xhSlaFabNGTlv13XMRW0MbPYs_Rj1sgoW0o_E"
+            alt="Profil"
+            className=" object-cover"
+            width={180}
+            height={180}
+          />
         </Link>
 
         {/* Droite : nom + photo + menu */}
@@ -67,7 +71,7 @@ export default function Navbar() {
       {pathname === "/" && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex justify-center md:-mt-12 md:mb-12"
+          className="w-full flex justify-center md:-mt-20 md:mb-12"
         >
           <input
             type="text"
