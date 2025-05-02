@@ -62,7 +62,7 @@ const ProductCard: React.FC<{
         <div className="relative h-44 w-full group">
           <Image
             src={item?.image[currentImage]}
-            alt={item.nom}
+            alt={`Photo du produit ${item.nom} - vue ${currentImage + 1}`}
             className="rounded-t-lg object-contain p-4"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -76,8 +76,12 @@ const ProductCard: React.FC<{
                   e.preventDefault();
                   prevImage();
                 }}
+                aria-label="Image précédente"
               >
-                <ChevronLeft className="w-5 h-5 text-black" />
+                <ChevronLeft
+                  className="w-5 h-5 text-black"
+                  aria-hidden="true"
+                />
               </button>
               <button
                 className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/70 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
@@ -85,8 +89,12 @@ const ProductCard: React.FC<{
                   e.preventDefault();
                   nextImage();
                 }}
+                aria-label="Image suivante"
               >
-                <ChevronRight className="w-5 h-5 text-black" />
+                <ChevronRight
+                  className="w-5 h-5 text-black"
+                  aria-hidden="true"
+                />
               </button>
             </>
           )}
@@ -103,6 +111,7 @@ const ProductCard: React.FC<{
               </span>
             )}
           </div>
+          <small>Tissu • Laqué</small>
           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p>
         </div>
       </div>
@@ -115,9 +124,12 @@ const ProductCard: React.FC<{
               isInCart ? "bg-amber-500" : "bg-gray-300"
             }`}
             onClick={handleCart}
+            aria-label={isInCart ? "Retirer du panier" : "Ajouter au panier"}
+            aria-pressed={isInCart}
           >
             <ShoppingCart
               className={`w-6 h-6 ${isInCart ? "text-white" : "text-gray-800"}`}
+              aria-hidden="true"
             />
           </button>
           <button
@@ -125,11 +137,16 @@ const ProductCard: React.FC<{
               isLiked(item.id) ? "bg-red-600 text-red-700" : "bg-gray-300"
             }`}
             onClick={onLikeClick}
+            aria-label={
+              isLiked(item.id) ? "Retirer des favoris" : "Ajouter aux favoris"
+            }
+            aria-pressed={isLiked(item.id)}
           >
             <Heart
               className={`w-6 h-6 ${
                 isLiked(item.id) ? "text-white" : "text-gray-800"
               }`}
+              aria-hidden="true"
             />
           </button>
         </div>

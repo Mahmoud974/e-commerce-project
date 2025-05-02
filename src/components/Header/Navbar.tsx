@@ -38,15 +38,21 @@ export default function Navbar() {
       {/* Ligne du haut : logo à gauche, profil + menu à droite */}
       <div className="flex items-center justify-between mb-4">
         {/* Logo */}
-        <Link href="/home">
-          <Image
-            src={process.env.NEXT_PUBLIC_BANNER_IMAGE + "/logo.png"}
-            alt="Profil"
-            className=" object-cover"
-            width={180}
-            height={180}
-          />
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/home">
+            <Image
+              src={process.env.NEXT_PUBLIC_BANNER_IMAGE + "/logo.png"}
+              alt="Profil"
+              className=" object-cover"
+              width={180}
+              height={180}
+            />
+          </Link>
+          <ul>
+            <li>Canapé</li>
+            <li>Produits </li>
+          </ul>
+        </div>
 
         {/* Droite : nom + photo + menu */}
         <div className="flex items-center gap-4">
