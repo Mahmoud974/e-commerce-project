@@ -20,6 +20,7 @@ model Canape {
   image         String[]
   color         String   @default("default_color")
   seat          Int      @default(1)
+  likes         Like[]
 
   @@map("canapes")
 }
@@ -63,6 +64,7 @@ model User {
   image         String?
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @default(now()) @map("updated_at")
+  likes         Like[]
 
   @@map("users")
 }
@@ -76,4 +78,17 @@ model VerificationRequest {
   updatedAt  DateTime @default(now()) @map("updated_at")
 
   @@map("verification_requests")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  canapeId  Int
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  canape Canape @relation(fields: [canapeId], references: [id])
+
+  @@unique([userId, canapeId])
+  @@map("likes")
 }
