@@ -11,12 +11,8 @@ import {
   SquareChevronRight,
   Star,
 } from "lucide-react";
-import Footer from "@/components/SectionDown/Footer";
-import Newsletter from "@/components/SectionDown/Newsletter";
-import HelpSection from "@/components/SectionDown/HelpSection";
 import { Switch } from "@/components/ui/switch";
 import { FaStar } from "react-icons/fa";
-import Table from "@/components/ItemId/Table";
 import NavItem from "@/components/ItemId/NavItem";
 import Gallery from "@/components/Gallery";
 import Link from "next/link";

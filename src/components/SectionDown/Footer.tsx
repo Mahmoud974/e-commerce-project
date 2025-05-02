@@ -2,10 +2,6 @@ import { FaTiktok, FaInstagram, FaFacebookSquare } from "react-icons/fa";
 import Link from "next/link";
 
 const links = {
-  informations: [
-    { href: "/policy-credential", label: "Politique de confidentialité" },
-    { href: "/conditions-utilisation", label: "Conditions d'utilisation" },
-  ],
   utiles: [
     { href: "/", label: "Accueil" },
     { href: "/conditions-guarantee", label: "Conditions de la garantie" },
@@ -13,6 +9,10 @@ const links = {
     { href: "/about", label: "À propos SofaChic" },
     { href: "/contact", label: "Contact" },
     { href: "/delivery", label: "Livraison" },
+  ],
+  informations: [
+    { href: "/policy-credential", label: "Politique de confidentialité" },
+    { href: "/conditions-utilisation", label: "Conditions d'utilisation" },
   ],
 };
 
