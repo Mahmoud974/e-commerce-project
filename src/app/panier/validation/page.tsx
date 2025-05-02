@@ -65,7 +65,7 @@ export default function ValidationContent() {
         <Banner
           title="Validez votre commande"
           description="Livraison rapide & retours gratuits – Achetez en toute confiance !"
-          imageSrc="/banners/checkOrder.jpg"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/checkOrder.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NoZWNrT3JkZXIuanBnIiwiaWF0IjoxNzQ2MTY0NDI1LCJleHAiOjIwNjE1MjQ0MjV9.SvugAUYHr9uQObJIZR7gLi0El-Id_9OCcLUOzi7VlJ0"
         />
 
         <div className="mt-12">

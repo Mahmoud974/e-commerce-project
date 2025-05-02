@@ -50,11 +50,11 @@ export default function Page() {
           <h2 className="font-bold text-3xl text-center">
             Estimations des dates de livraison
           </h2>
-          <ul className="flex mx-12 flex-col sm:flex-row mt-8 gap-12 items-center justify-center sm:space-x-8">
+          <ul className="flex   flex-col sm:flex-row mt-8 gap-12 items-center justify-start sm:space-x-8">
             <li className="flex flex-col items-center w-full sm:w-1/3">
               <div className="w-full  h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
-                  src="/banners/art.jpg"
+                  src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/art.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2FydC5qcGciLCJpYXQiOjE3NDYxNjMxMjQsImV4cCI6MjA2MTUyMzEyNH0.aTSV8ARyWHAnxiS9dv2Hl5e6uh17jbBRUvV8B33I65s"
                   width={500}
                   height={500}
                   alt="Forme"
@@ -65,16 +65,16 @@ export default function Page() {
                 Meubles en bois : 2 à 4 semaines
               </strong>
               <p className="mt-2 text-center sm:max-w-xs">
-                Fabriqués dans notre atelier au Danemark, nos meubles en bois
-                sont expédiés directement vers vous une fois terminés. Chaque
-                pièce est soigneusement conçue pour garantir une qualité
-                exceptionnelle.
+                Conçus dans notre atelier au Danemark, ces meubles sont
+                fabriqués avec des matériaux nobles. Chaque pièce est unique,
+                alliant artisanat traditionnel et design moderne pour une
+                qualité durable.
               </p>
             </li>
             <li className="flex flex-col items-center w-full sm:w-1/3">
               <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
-                  src="/banners/art2.jpg"
+                  src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/art2.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2FydDIuanBnIiwiaWF0IjoxNzQ2MTYzMTcxLCJleHAiOjIwNjE1MjMxNzF9.yr_IkJ6r_wFQaA8MjuCJDBF3JpbGeRir8uHI8fd4Xgo"
                   width={500}
                   height={500}
                   alt="Sensation"
@@ -85,15 +85,16 @@ export default function Page() {
                 Meubles capitonnés : 6 à 8 semaines
               </strong>
               <p className="mt-2 text-center sm:max-w-xs">
-                La fabrication de meubles capitonnés exige un savoir-faire
-                spécialisé, avec des artisans qualifiés pour des pièces comme le
-                fauteuil Imola, dont la formation dure près d’un an.
+                Réalisés par des artisans experts, nos meubles capitonnés
+                demandent un savoir-faire de précision. Chaque modèle est
+                soigneusement assemblé à la main pour garantir confort et
+                élégance.
               </p>
             </li>
             <li className="flex flex-col items-center w-full sm:w-1/3">
               <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg ">
                 <Image
-                  src="/banners/sofa.jpg"
+                  src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/sofa.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL3NvZmEuanBnIiwiaWF0IjoxNzQ2MTYzMTk2LCJleHAiOjIwNjE1MjMxOTZ9.9uBWMOhHTUB4jD19EYtvXqh2XnREUm7ajT-1mkneM0A"
                   width={500}
                   height={500}
                   alt="Fonctionnalité"
@@ -101,12 +102,12 @@ export default function Page() {
                 />
               </div>
               <strong className="text-red-600 text-center mt-4 text-xl">
-                Chaises : 6 à 8 semaines
+                Meubles capitonnés : 6 à 8 semaines
               </strong>
               <p className="mt-2 text-center sm:max-w-xs">
-                Nous proposons une large gamme de chaises, bancs et fauteuils
-                inclinables, tous fabriqués avec soin et livrés dans les délais
-                mentionnés.
+                Nos chaises sont pensées pour allier confort et esthétique.
+                Disponibles en plusieurs styles et couleurs, elles sont
+                parfaites pour compléter votre intérieur avec raffinement.
               </p>
             </li>
           </ul>

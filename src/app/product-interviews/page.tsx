@@ -10,7 +10,7 @@ import React from "react";
 export default function Page() {
   return (
     <section className="relative">
-      <div className="container mt-6 mx-auto">
+      <div className="container my-8 mx-auto">
         <Navbar />
 
         <Banner
@@ -46,7 +46,7 @@ export default function Page() {
             <li className="flex flex-col items-center w-full sm:w-1/3">
               <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
-                  src="/banners/cleanwood.jpg"
+                  src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleanwood.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFud29vZC5qcGciLCJpYXQiOjE3NDYxNjM2MzQsImV4cCI6MjA2MTUyMzYzNH0.HUMukjJ4GjwHFqiD1yNyU-KeUi_t_aVVNfeBGl9DPnE"
                   width={500}
                   height={500}
                   alt="Entretien du bois"
@@ -65,7 +65,7 @@ export default function Page() {
             <li className="flex flex-col items-center w-full sm:w-1/3">
               <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
-                  src="/banners/cleantissu.jpg"
+                  src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleantissu.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFudGlzc3UuanBnIiwiaWF0IjoxNzQ2MTYzNjcxLCJleHAiOjIwNjE1MjM2NzF9.tnWUw41y8VvnI3TLTbfqDHPtNEO6FdqGToh5jiHdjqU"
                   width={500}
                   height={500}
                   alt="Entretien des tissus"
@@ -84,7 +84,7 @@ export default function Page() {
             <li className="flex flex-col items-center w-full sm:w-1/3">
               <div className="w-full h-72 bg-gray-200 overflow-hidden rounded-lg">
                 <Image
-                  src="/banners/cleancuir.jpg"
+                  src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleancuir.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFuY3Vpci5qcGciLCJpYXQiOjE3NDYxNjM3MTYsImV4cCI6MjA2MTUyMzcxNn0.cf3T-XBKVxbd6SKDGrRDJ3jSmIkauP8mdqwLUk_rozI"
                   width={500}
                   height={500}
                   alt="Entretien du cuir"
@@ -116,7 +116,7 @@ export default function Page() {
 
           <div className="w-full sm:w-1/3 lg:mb-0 mb-12 ">
             <Image
-              src="/banners/cleanTextile.webp"
+              src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/cleanTextile.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2NsZWFuVGV4dGlsZS53ZWJwIiwiaWF0IjoxNzQ2MTYzNzQ2LCJleHAiOjIwNjE1MjM3NDZ9.LeFmk6No64dHpYHAxkrg8DRkXhy7hEYAEE6AGiUVMDQ"
               width={500}
               height={500}
               alt="Protection des meubles"
