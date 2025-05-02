@@ -34,29 +34,33 @@ export default function Page() {
 
   return (
     <section className="flex flex-col min-h-screen">
-      <div className="flex flex-row justify-between items-center my-6 w-full container mx-auto">
-        <div>
-          <Link href="/" className="hover:underline">
-            <p>Cananpé</p>
-          </Link>
-          <Link href="/about" className="hover:underline">
-            <p>A propos de Sofachic</p>
+      {/* Navbar Positionnée au-dessus de la vidéo */}
+      <div className="absolute container top-0 left-0 w-full z-10 flex justify-center items-center my-6 container mx-auto px-4">
+        <div className="flex mx-auto justify-between w-full max-w-9xl px-4">
+          <div>
+            <Link href="/" className="hover:underline">
+              <p>Cananpé</p>
+            </Link>
+            <Link href="/about" className="hover:underline">
+              <p>A propos de Sofachic</p>
+            </Link>
+          </div>
+
+          <Image
+            src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/logo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2xvZ28ucG5nIiwiaWF0IjoxNzQ2MTY1MDI5LCJleHAiOjIwNjE1MjUwMjl9.qJtgB6xhSlaFabNGTlv13XMRW0MbPYs_Rj1sgoW0o_E"
+            alt="Profil"
+            className="object-cover"
+            width={220}
+            height={220}
+          />
+          <Link href="/panier/validation" className="hover:underline">
+            <ShoppingBasket />
           </Link>
         </div>
-
-        <Image
-          src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/logo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2xvZ28ucG5nIiwiaWF0IjoxNzQ2MTY1MDI5LCJleHAiOjIwNjE1MjUwMjl9.qJtgB6xhSlaFabNGTlv13XMRW0MbPYs_Rj1sgoW0o_E"
-          alt="Profil"
-          className="object-cover"
-          width={220}
-          height={220}
-        />
-        <Link href="/panier/validation" className="hover:underline">
-          <ShoppingBasket />
-        </Link>
       </div>
 
-      <div className="relative w-full h-[700px] mb-16 overflow-hidden">
+      {/* Video avec overlay */}
+      <div className="relative w-full h-[900px] mb-16 overflow-hidden">
         <video
           className="w-full h-full object-cover"
           autoPlay
@@ -67,13 +71,17 @@ export default function Page() {
           <source src="/videos/furniture.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
-        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-          <h1 className="text-white text-3xl md:text-5xl font-bold text-center">
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center flex-col">
+          <h1 className="text-white text-3xl md:text-5xl font-bold text-center mb-4">
             Découvrez notre collection exclusive
           </h1>
+          <button className="px-6 py-3  border text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">
+            En savoir +
+          </button>
         </div>
       </div>
 
+      {/* Contenu du reste de la page */}
       <div className="container mx-auto mb-12">
         <h2 className="font-bold text-3xl">Plongez dans le confort moderne</h2>
 
@@ -105,54 +113,58 @@ export default function Page() {
 
           <div className="flex justify-between mt-7 gap-6 flex-wrap">
             {/* Première image */}
-            <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
-              <Image
-                src="/img/article-1.jpg"
-                alt="Intérieur personnalisé"
-                className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                width={720}
-                height={520}
-                unoptimized
-              />
-              <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
-                <h3 className="text-xl font-semibold mb-2">
-                  Un chez-vous à votre image
-                </h3>
-                <p className="text-sm mb-4">
-                  Chaque pièce a son caractère. Nos spécialistes en décoration
-                  vous accompagnent pour créer un cadre de vie sur-mesure,
-                  élégant et fonctionnel.
-                </p>
-                <button className="flex items-center text-sm font-medium hover:underline">
-                  Découvrir <ArrowRight className="ml-2 w-4 h-4" />
-                </button>
+            <Link href="/inspiration">
+              <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
+                <Image
+                  src="/img/article-1.jpg"
+                  alt="Intérieur personnalisé"
+                  className="w-full h-full cursor-pointer object-cover transform transition-transform duration-500 group-hover:scale-105"
+                  width={720}
+                  height={520}
+                  unoptimized
+                />
+                <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
+                  <h3 className="text-xl font-semibold mb-2">
+                    Un chez-vous à votre image
+                  </h3>
+                  <p className="text-sm mb-4">
+                    Chaque pièce a son caractère. Nos spécialistes en décoration
+                    vous accompagnent pour créer un cadre de vie sur-mesure,
+                    élégant et fonctionnel.
+                  </p>
+                  <button className="flex items-center text-sm font-medium hover:underline">
+                    Découvrir <ArrowRight className="ml-2 w-4 h-4" />
+                  </button>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* Deuxième image */}
-            <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
-              <Image
-                src="/img/article-2.png"
-                alt="Espace détente"
-                className="w-full cursor-pointer h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                width={720}
-                height={520}
-                unoptimized
-              />
-              <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
-                <h3 className="text-xl font-semibold mb-2">
-                  Faites de votre maison un havre de paix
-                </h3>
-                <p className="text-sm mb-4">
-                  Offrez-vous un environnement pensé pour le repos et
-                  l’équilibre, alliant confort, esthétisme et sérénité au
-                  quotidien.
-                </p>
-                <button className="flex items-center text-sm font-medium hover:underline">
-                  Explorer <ArrowRight className="ml-2 w-4 h-4" />
-                </button>
+            <Link href="">
+              <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
+                <Image
+                  src="/img/article-2.png"
+                  alt="Espace détente"
+                  className="w-full cursor-pointer h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                  width={720}
+                  height={520}
+                  unoptimized
+                />
+                <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
+                  <h3 className="text-xl font-semibold mb-2">
+                    Faites de votre maison un havre de paix
+                  </h3>
+                  <p className="text-sm mb-4">
+                    Offrez-vous un environnement pensé pour le repos et
+                    l’équilibre, alliant confort, esthétisme et sérénité au
+                    quotidien.
+                  </p>
+                  <button className="flex items-center text-sm font-medium hover:underline">
+                    Explorer <ArrowRight className="ml-2 w-4 h-4" />
+                  </button>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="space-y-4 w-2/3 mx-auto mt-12 text-center">

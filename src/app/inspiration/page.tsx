@@ -1,12 +1,10 @@
 import Banner from "@/components/BannerImage";
 import { AccordionGuarantee } from "@/components/ConditionsGuarantee/Accordion";
-
 import Footer from "@/components/SectionDown/Footer";
 import HelpSection from "@/components/SectionDown/HelpSection";
 import Informations from "@/components/SectionDown/Informations";
 import Navbar from "@/components/Header/Navbar";
 import Newsletter from "@/components/SectionDown/Newsletter";
-import Image from "next/image";
 import React from "react";
 
 export default function Page() {
@@ -17,9 +15,9 @@ export default function Page() {
 
         {/* Image */}
         <Banner
-          title="CONDITIONS de la garanties"
+          title="Inspiration"
           description="Profitez de notre garantie exceptionnelle pour une tranquillité d’esprit totale : des meubles conçus pour durer, avec un support qui vous accompagne à chaque étape."
-          imageSrc="/banners/guarantee.jpg"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/Femme%20noire%20heureuse%20en%20lotus.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL0ZlbW1lIG5vaXJlIGhldXJldXNlIGVuIGxvdHVzLmpwZyIsImlhdCI6MTc0NjE3Nzg0NiwiZXhwIjoyMDYxNTM3ODQ2fQ.7VlbNb2rRelfzOtDBswwqp3GpqGtNdi1ViGAQ6qb4QQ"
         />
 
         {/* Paragraphe sous l'image */}
