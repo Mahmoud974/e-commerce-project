@@ -71,12 +71,7 @@ export default function ValidationContent() {
           </div>
         </div>
       </div>
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
-      </div>
+      psd
     </section>
   );
 }

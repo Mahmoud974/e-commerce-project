@@ -1,12 +1,6 @@
 import Banner from "@/components/BannerImage";
 import { AccordionGuarantee } from "@/components/ConditionsGuarantee/Accordion";
-
-import Footer from "@/components/SectionDown/Footer";
-import HelpSection from "@/components/SectionDown/HelpSection";
-import Informations from "@/components/SectionDown/Informations";
 import Navbar from "@/components/Header/Navbar";
-import Newsletter from "@/components/SectionDown/Newsletter";
-import Image from "next/image";
 import React from "react";
 
 export default function Page() {
@@ -19,7 +13,7 @@ export default function Page() {
         <Banner
           title="CONDITIONS de la garanties"
           description="Profitez de notre garantie exceptionnelle pour une tranquillité d’esprit totale : des meubles conçus pour durer, avec un support qui vous accompagne à chaque étape."
-          imageSrc="/banners/guarantee.jpg"
+          imageSrc="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/instruction.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2luc3RydWN0aW9uLmpwZyIsImlhdCI6MTc0NjE4MDY2MCwiZXhwIjoyMDYxNTQwNjYwfQ.2IkdBOyFoLnH5CIxvTuPwh_-A4ANR2nk7hurHFMpq6E"
         />
 
         {/* Paragraphe sous l'image */}
@@ -65,15 +59,7 @@ export default function Page() {
           <div className="flex flex-col  lg:px-0 px-6  sm:flex-row my-12 max-w-2xl mx-auto items-start sm:items-center">
             <AccordionGuarantee />
           </div>
-          <HelpSection />
         </div>
-      </div>
-
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
       </div>
     </section>
   );

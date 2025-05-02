@@ -14,6 +14,8 @@ import TotalOptions from "@/components/BasketValidation/TotalOptions";
 import Image from "next/image";
 import Banner from "@/components/BannerImage";
 import Baskets from "@/components/BasketValidation/Baskets";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 export default function ValidationContent() {
   const { data: session, status } = useSession();
@@ -94,6 +96,21 @@ export default function ValidationContent() {
             ))}
           </ul>
         </div>
+        <div className="text-sm text-white flex items-center gap-2 mb-4">
+          <Link href="/home">
+            <span className="text-gray-500 hover:underline cursor-pointer">
+              Accueil
+            </span>
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <Link href="/">
+            <span className="text-gray-500 hover:underline cursor-pointer">
+              Canapés
+            </span>
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-gray-500 font-medium">Mon panier</span>
+        </div>
 
         <div className="flex flex-col sm:flex-row justify-center my-12">
           <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
@@ -134,12 +151,6 @@ export default function ValidationContent() {
             />
           </div>
         </div>
-      </div>
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
       </div>
     </section>
   );

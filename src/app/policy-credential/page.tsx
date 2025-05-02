@@ -110,12 +110,6 @@ const PrivacyPolicy = () => {
           </p>
         </section>
       </div>
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
-      </div>
     </>
   );
 };

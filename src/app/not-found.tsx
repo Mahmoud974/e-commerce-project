@@ -18,18 +18,13 @@ export default function ErrorPage() {
           />
 
           <div className="mt-6">
-            <Link
-              href="/home"
-              className="text-blue-500 text-lg hover:underline"
-            >
-              <Button>{`Retour à l'accueil`}</Button>
+            <Link href="/home" className="  text-lg hover:underline">
+              <Button>
+                <p className="text-3xl">{`Retour à l'accueil`}</p>
+              </Button>
             </Link>
           </div>
         </div>
-      </div>
-
-      <div className="container mx-auto">
-        <Footer />
       </div>
     </div>
   );

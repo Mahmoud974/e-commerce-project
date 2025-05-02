@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+
 import "./globals.css";
 import QueryProvider from "@/app/hook/__provider";
 import SessionWrapper from "./SessionWrapper";
+import Informations from "@/components/SectionDown/Informations";
+import HelpSection from "@/components/SectionDown/HelpSection";
+import Newsletter from "@/components/SectionDown/Newsletter";
+import Footer from "@/components/SectionDown/Footer";
+import Navbar from "@/components/Header/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,6 +24,12 @@ export default function RootLayout({
       <html lang="en">
         <body className={` antialiased`}>
           <QueryProvider>{children}</QueryProvider>
+          <Informations />
+          <Newsletter />
+          <HelpSection />
+          <div className="container mx-auto">
+            <Footer />
+          </div>
         </body>
       </html>
     </SessionWrapper>

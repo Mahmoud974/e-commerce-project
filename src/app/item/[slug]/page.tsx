@@ -128,18 +128,20 @@ export default function Page({ params }) {
     <div>
       <main className="container mx-auto mt-6 flex-grow px-6">
         <Navbar />
-        <section className="md:mx-0 flex flex-col md:flex-row md:mt-16 mt-8">
+        <section className="md:mx-0 flex flex-col md:flex-row  mt-8">
           <div className="flex flex-col">
             <div className="text-sm text-white flex items-center gap-2 mb-4">
-              <Link href="/">
+              <Link href="/home">
                 <span className="text-gray-500 hover:underline cursor-pointer">
                   Accueil
                 </span>
               </Link>
               <ChevronRight className="w-4 h-4" />
-              <span className="text-gray-500 hover:underline cursor-pointer">
-                Canapés
-              </span>
+              <Link href="/">
+                <span className="text-gray-500 hover:underline cursor-pointer">
+                  Canapés
+                </span>
+              </Link>
               <ChevronRight className="w-4 h-4" />
               <span className="text-gray-500 font-medium">
                 {idArticle?.nom}
@@ -329,10 +331,6 @@ export default function Page({ params }) {
           />
         )}
       </main>
-
-      <Newsletter />
-      <HelpSection />
-      <Footer />
     </div>
   );
 }

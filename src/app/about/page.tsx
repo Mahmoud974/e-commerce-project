@@ -104,12 +104,6 @@ export default function Page() {
           </ul>
         </div>
       </div>
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
-      </div>
     </section>
   );
 }

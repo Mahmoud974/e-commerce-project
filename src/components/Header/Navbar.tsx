@@ -34,7 +34,7 @@ export default function Navbar() {
   const onSubmit: SubmitHandler<Inputs> = () => {};
 
   return (
-    <nav className="w-full bg-black text-white  py-4">
+    <nav className="w-full   text-white  py-4">
       {/* Ligne du haut : logo à gauche, profil + menu à droite */}
       <div className="flex items-center justify-between mb-4">
         {/* Logo */}

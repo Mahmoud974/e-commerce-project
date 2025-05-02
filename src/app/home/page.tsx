@@ -1,20 +1,14 @@
 "use client";
-
 import ProductCard from "@/components/ItemId/Card";
-import Footer from "@/components/SectionDown/Footer";
-
 import { useTemplate } from "@/app/hook/useTemplate";
 import React, { useState } from "react";
 import { useSearchArticles, useLikeData } from "@/store/store";
-
-import Newsletter from "@/components/SectionDown/Newsletter";
-import HelpSection from "@/components/SectionDown/HelpSection";
-import Informations from "@/components/SectionDown/Informations";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShoppingBasket } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { AccordionGuarantee } from "@/components/ConditionsGuarantee/Accordion";
+import Navbar from "@/components/Header/Navbar";
 
 export default function Page() {
   const { data } = useTemplate();
@@ -34,29 +28,8 @@ export default function Page() {
 
   return (
     <section className="flex flex-col min-h-screen">
-      {/* Navbar Positionnée au-dessus de la vidéo */}
-      <div className="absolute container top-0 left-0 w-full z-10 flex justify-center items-center my-6 container mx-auto px-4">
-        <div className="flex mx-auto justify-between w-full max-w-9xl px-4">
-          <div>
-            <Link href="/" className="hover:underline">
-              <p>Cananpé</p>
-            </Link>
-            <Link href="/about" className="hover:underline">
-              <p>A propos de Sofachic</p>
-            </Link>
-          </div>
-
-          <Image
-            src="https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/sign/element-page-img/logo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5XzFjMmFkYWJkLTY5YWYtNGI0ZC04MmJiLTRiMWNjZWJhM2Y2NSJ9.eyJ1cmwiOiJlbGVtZW50LXBhZ2UtaW1nL2xvZ28ucG5nIiwiaWF0IjoxNzQ2MTY1MDI5LCJleHAiOjIwNjE1MjUwMjl9.qJtgB6xhSlaFabNGTlv13XMRW0MbPYs_Rj1sgoW0o_E"
-            alt="Profil"
-            className="object-cover"
-            width={220}
-            height={220}
-          />
-          <Link href="/panier/validation" className="hover:underline">
-            <ShoppingBasket />
-          </Link>
-        </div>
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-50 w-full container px-4 flex justify-center">
+        <Navbar />
       </div>
 
       {/* Video avec overlay */}
@@ -178,13 +151,6 @@ export default function Page() {
           </p>
           <AccordionGuarantee />
         </div>
-      </div>
-
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
       </div>
     </section>
   );

@@ -1,14 +1,12 @@
 "use client";
 import ProductCard from "@/components/ItemId/Card";
-import Footer from "@/components/SectionDown/Footer";
 import Navbar from "@/components/Header/Navbar";
 import { useTemplate } from "@/app/hook/useTemplate";
 import React, { useState } from "react";
 import { useSearchArticles, useLikeData } from "@/store/store";
 import Filter from "@/components/Header/Filter";
-import Newsletter from "@/components/SectionDown/Newsletter";
-import HelpSection from "@/components/SectionDown/HelpSection";
-import Informations from "@/components/SectionDown/Informations";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 export default function Page() {
   const { data } = useTemplate();
@@ -41,6 +39,15 @@ export default function Page() {
               colorProduct={colorProduct}
               seatProduct={seatProduct}
             />
+            <div className="text-sm text-white flex items-center gap-2 mb-4">
+              <Link href="/home">
+                <span className="text-gray-500 hover:underline cursor-pointer">
+                  Accueil
+                </span>
+              </Link>
+              <ChevronRight className="w-4 h-4" />
+              <span className="text-gray-500  ">Canapés</span>
+            </div>
 
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
               {paginatedData.length > 0 ? (
@@ -72,12 +79,6 @@ export default function Page() {
             )}
           </div>
         </section>
-      </div>
-      <Informations />
-      <Newsletter />
-      <HelpSection />
-      <div className="container mx-auto">
-        <Footer />
       </div>
     </section>
   );
