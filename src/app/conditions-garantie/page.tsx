@@ -1,5 +1,5 @@
 import React from "react";
-import { AccordionGeneral } from "@/components/Accordion/Accordion";
+import { AccordionGeneral } from "@/components/Accordion/AccordionGeneral";
 import HelpSection from "@/components/BottomSection/HelpSection";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 

@@ -1,6 +1,3 @@
-// components/Accordion/AccordionGeneral.tsx
-"use client";
-
 import {
   Accordion,
   AccordionContent,
@@ -16,7 +13,7 @@ export type AccordionItemType = {
 
 export function AccordionGeneral({ items }: { items: AccordionItemType[] }) {
   return (
-    <Accordion type="single" collapsible className="w-full">
+    <Accordion type="single" collapsible className="w-full text-left">
       {items.map((item) => (
         <AccordionItem key={item.value} value={item.value}>
           <AccordionTrigger>{item.trigger}</AccordionTrigger>

@@ -14,6 +14,6 @@ const fetchElements = async (url: string) => {
 export const useTemplate = () => {
   return useQuery({
     queryKey: ["get-template"],
-    queryFn: () => fetchElements("http://localhost:3000/api/articles"),
+    queryFn: () => fetchElements("/api/articles"),
   });
 };
