@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-
 import "./globals.css";
 import QueryProvider from "@/app/hook/__provider";
 import SessionWrapper from "./SessionWrapper";
-import Informations from "@/components/SectionDown/Informations";
-import HelpSection from "@/components/SectionDown/HelpSection";
-import Newsletter from "@/components/SectionDown/Newsletter";
-import Footer from "@/components/SectionDown/Footer";
+import Informations from "@/components/BottomSection/Informations";
+import HelpSection from "@/components/BottomSection/HelpSection";
+import Newsletter from "@/components/BottomSection/Newsletter";
+import Footer from "@/components/BottomSection/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",

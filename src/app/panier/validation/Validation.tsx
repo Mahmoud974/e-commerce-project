@@ -1,15 +1,15 @@
 "use client";
 
-import Footer from "@/components/SectionDown/Footer";
-import HelpSection from "@/components/SectionDown/HelpSection";
-import Informations from "@/components/SectionDown/Informations";
+import Footer from "@/components/BottomSection/Footer";
+import HelpSection from "@/components/BottomSection/HelpSection";
+import Informations from "@/components/BottomSection/Informations";
 import Navbar from "@/components/Header/Navbar";
-import Newsletter from "@/components/SectionDown/Newsletter";
-import AddressForm from "@/components/BasketValidation/AdrdressForm";
-import DeliveryOptions from "@/components/BasketValidation/DeliveryOptions";
-import InformationsPurchase from "@/components/BasketValidation/InformationsPurchase";
-import PaymentOptions from "@/components/BasketValidation/PaymentOptions";
-import TotalOptions from "@/components/BasketValidation/TotalOptions";
+import Newsletter from "@/components/BottomSection/Newsletter";
+import AddressForm from "@/components/Panier/AdrdressForm";
+import DeliveryOptions from "@/components/Panier/DeliveryOptions";
+import InformationsPurchase from "@/components/Panier/InformationsPurchase";
+import PaymentOptions from "@/components/Panier/PaymentOptions";
+import TotalOptions from "@/components/Panier/TotalOptions";
 import Image from "next/image";
 import Banner from "@/components/BannerImage";
 import React, { useState } from "react";

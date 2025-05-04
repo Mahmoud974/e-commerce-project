@@ -1,10 +1,65 @@
-// app/guarantee/page.tsx
 import React from "react";
-import { AccordionGuarantee } from "@/components/ConditionsGuarantee/Accordion";
-import HelpSection from "@/components/SectionDown/HelpSection";
+import { AccordionGeneral } from "@/components/Accordion/Accordion";
+import HelpSection from "@/components/BottomSection/HelpSection";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 
 export default function GuaranteePage() {
+  const accordionItems = [
+    {
+      value: "coverage",
+      trigger: "Que couvre la garantie ?",
+      content: (
+        <p>
+          La garantie couvre les défauts matériels et de fabrication sur tous
+          les produits de notre collection. Pendant la période de garantie, tout
+          défaut constaté sera corrigé ou le produit sera remplacé.
+        </p>
+      ),
+    },
+    {
+      value: "duration",
+      trigger: "Quelle est la durée de la garantie ?",
+      content: (
+        <p>
+          La garantie s’applique aux produits achetés après le 1er janvier 2022
+          et est valable pendant 5 ans, à compter de la date d’achat en magasin
+          ou de la livraison effectuée par Sofachic./.
+        </p>
+      ),
+    },
+    {
+      value: "claim",
+      trigger: "Comment faire une réclamation au titre de la garantie ?",
+      content: (
+        <p>
+          Les réclamations doivent être adressées au magasin Sofachic./ où le
+          produit a été acheté, dans un délai raisonnable après la découverte du
+          défaut et avant la fin de la période de garantie. [...]
+        </p>
+      ),
+    },
+    {
+      value: "exclusions",
+      trigger: "Qu’est-ce qui n’est pas couvert par la garantie ?",
+      content: (
+        <p>
+          La garantie ne couvre pas l’usure normale, les marques causées par des
+          accidents ou une mauvaise utilisation [...]
+        </p>
+      ),
+    },
+    {
+      value: "resolution",
+      trigger: "Que fait Sofachic./ en cas de défaut ?",
+      content: (
+        <p>
+          En cas de réclamation acceptée, Sofachic./ décidera si le défaut peut
+          être corrigé ou si le produit doit être remplacé. [...]
+        </p>
+      ),
+    },
+  ];
+
   return (
     <PageLayoutBanner
       title="CONDITIONS de la garanties"
@@ -12,43 +67,22 @@ export default function GuaranteePage() {
       bannerImage={"guarantie.jpg"}
     >
       <div className="mt-12 text-center px-4 mb-12">
-        <p className="text-white text-xl font-semibold mt-4 max-w-3xl mx-auto">
-          Chez Sofachic., nous sommes fiers de concevoir des meubles intemporels
-          en utilisant les meilleurs matériaux pour garantir leur qualité et
-          leur durabilité. Pour refléter notre engagement, nous offrons une
-          garantie de 5 ans sur tous les produits achetés après le 1er janvier
-          2022. Cette garantie s’ajoute à vos droits prévus par la loi et
-          témoigne de notre volonté de vous fournir un service exceptionnel.
-        </p>
-
-        <p className="text-white text-lg mt-6 max-w-3xl mx-auto">
-          Que vous choisissiez des meubles pour vivre, travailler ou jouer,
-          notre expertise de plus de 70 ans dans le design danois vous garantit
-          des produits modulaires, fonctionnels et de qualité supérieure.
-          Inspirés par la créativité et l’artisanat danois, nos designs
-          iconiques vous offrent joie et inspiration pour embellir votre
-          quotidien.
-        </p>
-
-        <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
-          Nous nous efforçons d’améliorer la vie de chacun avec le design
-          danois, et cette mission inspire notre devise :{" "}
-          <span className="font-semibold italic">Live Ekstraordinær</span>
-        </p>
+        {/* Texte de présentation */}
       </div>
+
       <div>
         <div className="bg-red-700 w-1/3 h-3 mb-8 mx-auto"></div>
         <p className="text-white text-lg max-w-3xl mx-auto mb-8 lg:px-0 px-6">
-          Chez SofaChic, nous concevons nos produits avec des matériaux
-          robustes, durables et innovants. Pour les cadres de canapé, nous
-          faisons un pas de plus en proposant une garantie de 10 ans couvrant
-          les défauts de fabrication et de structure.
+          Chez SofaChic, nous concevons nos produits avec des matériaux robustes
+          [...]
         </p>
+
         <h2 className="font-bold text-3xl text-left sm:text-center mb-4 sm:mb-0">
           Questions fréquentes
         </h2>
+
         <div className="flex flex-col lg:px-0 px-6 sm:flex-row my-12 max-w-2xl mx-auto items-start sm:items-center">
-          <AccordionGuarantee />
+          <AccordionGeneral items={accordionItems} />
         </div>
       </div>
     </PageLayoutBanner>

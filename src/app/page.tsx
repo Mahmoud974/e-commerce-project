@@ -1,5 +1,5 @@
 "use client";
-import ProductCard from "@/components/ItemId/Card";
+import ProductCard from "@/components/ProduitId/Card";
 import Navbar from "@/components/Header/Navbar";
 import { useTemplate } from "@/app/hook/useTemplate";
 import React, { useState } from "react";

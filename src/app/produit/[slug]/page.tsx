@@ -13,16 +13,16 @@ import {
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { FaStar } from "react-icons/fa";
-import NavItem from "@/components/ItemId/NavItem";
-import Gallery from "@/components/Gallery";
+import NavItem from "@/components/ProduitId/NavItem";
+
 import Link from "next/link";
 import { useCartStore, useLikeData, useLikeStore } from "@/store/store";
 import { useSession } from "next-auth/react";
 import AlertMessage from "@/components/AlertNoLike";
+import Gallery from "@/components/ProduitId/Gallery";
 
 export default function Page({ params }) {
   const [slug, setSlug] = useState<string | null>(null);
-
   const [isHT, setIsHT] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const {

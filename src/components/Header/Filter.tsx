@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/popover";
 import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
-import Categories from "../Categories/Categories";
 
 export default function Filter({ data, colorProduct, seatProduct }) {
   const { nbreSeatColor, colorsArticles, numberSeatArticles } =

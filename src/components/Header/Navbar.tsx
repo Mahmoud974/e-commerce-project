@@ -49,8 +49,10 @@ export default function Navbar() {
             />
           </Link>
           <ul>
-            <li>Canapé</li>
-            <li>Produits </li>
+            <Link href="/">
+              <li className="hover:underline cursor-pointer">Canapé</li>
+            </Link>
+            <li className="hover:underline cursor-pointer">Produits </li>
           </ul>
         </div>
 

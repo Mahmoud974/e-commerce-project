@@ -1,21 +1,29 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import AddressForm from "@/components/BasketValidation/AdrdressForm";
-import DeliveryOptions from "@/components/BasketValidation/DeliveryOptions";
-import PaymentOptions from "@/components/BasketValidation/PaymentOptions";
-import TotalOptions from "@/components/BasketValidation/TotalOptions";
+import AddressForm from "@/components/Panier/AdrdressForm";
+import DeliveryOptions from "@/components/Panier/DeliveryOptions";
+import PaymentOptions from "@/components/Panier/PaymentOptions";
+import TotalOptions from "@/components/Panier/TotalOptions";
 import Image from "next/image";
-import Banner from "@/components/BannerImage";
-import Baskets from "@/components/BasketValidation/Baskets";
+import Baskets from "@/components/Panier/Baskets";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
+import { useRouter } from "next/navigation";
 
 export default function ValidationContent() {
   const { data: session, status } = useSession();
   const [totalQuantity, setTotalQuantity] = useState(0);
-  const [deliveryOption, setDeliveryOption] = useState();
+  const [deliveryOption, setDeliveryOption] = useState<
+    | {
+        id: number;
+        title: string;
+        description: string;
+        price: string;
+      }
+    | undefined
+  >(undefined);
 
   const [total, setTotal] = useState(0);
   const router = useRouter();

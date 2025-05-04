@@ -1,5 +1,5 @@
-import { AccordionGuarantee } from "@/components/ConditionsGuarantee/Accordion";
-import HelpSection from "@/components/SectionDown/HelpSection";
+import { AccordionGuarantee } from "@/components/Accordion/Accordion";
+import HelpSection from "@/components/BottomSection/HelpSection";
 import React from "react";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 

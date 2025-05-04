@@ -8,7 +8,27 @@ import {
   PhoneCall,
 } from "lucide-react";
 
-export default function TotalOptions({ total, totalQuantity, deliveryOption }) {
+export default function TotalOptions({
+  total,
+  totalQuantity,
+  deliveryOption,
+  setDeliveryOption,
+}: {
+  total: number;
+  totalQuantity: number;
+  deliveryOption?: {
+    id: number;
+    title: string;
+    description: string;
+    price: string;
+  };
+  setDeliveryOption?: (option: {
+    id: number;
+    title: string;
+    description: string;
+    price: string;
+  }) => void;
+}) {
   const livraison =
     deliveryOption && typeof deliveryOption.price === "string"
       ? deliveryOption.price.toLowerCase().includes("gratuit")
