@@ -1,115 +1,99 @@
-/* src/app/echantillons/page.tsx */
-
 "use client";
 
 import React, { useState } from "react";
 import Navbar from "@/components/Header/Navbar";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Heart, ShoppingCart } from "lucide-react";
+import { ChevronRight, Check } from "lucide-react";
 import { useSearchArticles, useLikeData } from "@/store/store";
+import { materials } from "@/db/echantillions";
 
-interface SampleProduct {
-  id: string;
-  name: string;
-  description: string;
-  label?: string;
-  price: number;
-  images: string[];
-}
-
-export default function CanapesClient() {
-  // Données statiques
-  const data: SampleProduct[] = [
-    {
-      id: "12",
-      name: "Cuire",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit…",
-      label: "NOUVEAU",
-      price: 10,
-      images: ["/images/hello-1.jpg"],
-    },
-  ];
-
-  // Hooks fictifs (n'utilisent pas de db pour le moment)
+export default function EchantillonsPage() {
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
+  const allProducts = filteredData.length > 0 ? filteredData : materials;
 
-  const allProducts = filteredData.length > 0 ? filteredData : data;
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
+  const toggleSelect = (id: number) => {
+    setSelectedIds((prev) => {
+      const isSelected = prev.includes(id);
+      const newSelected = isSelected
+        ? prev.filter((pid) => pid !== id)
+        : [...prev, id];
+      if (!isSelected) {
+        const item = allProducts.find((item) => item.id === id);
+        if (item) addItems(item);
+      }
+      return newSelected;
+    });
+  };
 
   return (
     <section className="flex flex-col min-h-screen  ">
-      <div className="container mx-auto mt-6 mb-12">
+      <div className="container mx-auto mt-8 mb-12">
         <Navbar />
 
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+        <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
           <Link href="/home" className="hover:underline">
             Accueil
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <span>Echantillons</span>
+          <span className="font-medium">Échantillons</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {allProducts.map((product) => (
-            <div
-              key={product.id}
-              className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden"
-            >
-              <Link href={`/produit/${product.id}`}>
-                <div className="relative h-44 w-full bg-black">
+          {allProducts.map((item) => {
+            const isSelected = selectedIds.includes(item.id);
+            return (
+              <button
+                key={item.id}
+                onClick={() => toggleSelect(item.id)}
+                className={
+                  `group relative flex flex-col bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ` +
+                  (isSelected ? "ring-4 ring-blue-300" : "")
+                }
+              >
+                <div className="relative w-full aspect-square">
                   <Image
-                    src={product.images[0]}
-                    alt={`Photo du produit ${product.name}`}
+                    src={item.image}
+                    alt={item.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-contain p-4"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                </div>
-              </Link>
-
-              <div className="p-4 space-y-2">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold truncate">
-                    {product.name}
-                  </h3>
-                  {product.label && (
-                    <span className="bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
-                      {product.label}
+                  {(item.type === "cuir" || item.type === "tissu") && (
+                    <span className="absolute top-3 left-3 bg-black text-white text-xs font-semibold uppercase px-3 py-1 rounded-full">
+                      {item.type}
                     </span>
                   )}
+                  <div className="absolute top-3 right-3">
+                    <div
+                      className={
+                        `flex items-center justify-center w-6 h-6 rounded-full bg-white bg-opacity-80 shadow-sm transition-all duration-200 ` +
+                        (isSelected
+                          ? "scale-110 bg-white"
+                          : "group-hover:scale-105")
+                      }
+                    >
+                      {isSelected && <Check className="w-4 h-4 text-red-700" />}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-500">{product.description}</p>
-              </div>
-
-              <div className="flex items-center justify-between gap-2 px-4 py-3 border-t">
-                <p className="text-2xl font-bold text-gray-900">
-                  {product.price.toLocaleString("fr-FR", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
-                </p>
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => {
-                      /* ajouter au panier */
-                    }}
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition"
-                    aria-label="Ajouter au panier"
-                  >
-                    <ShoppingCart className="w-6 h-6 text-gray-700" />
-                  </button>
-                  <button
-                    onClick={() => addItems(product as any)}
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 hover:bg-red-200 transition"
-                    aria-label="Ajouter aux favoris"
-                  >
-                    <Heart className="w-6 h-6 text-red-600" />
-                  </button>
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-base font-bold text-gray-800 truncate">
+                      {item.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500 truncate">
+                      {item.description}
+                    </p>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between"></div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>
