@@ -57,7 +57,7 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { href: "/canapes", label: "Canapés" },
+    { href: "/", label: "Canapés" },
     { href: "/produits", label: "Produits" },
     { href: "/echantillons", label: "Échantillons" },
   ];
@@ -66,7 +66,7 @@ export default function Navbar() {
     <nav
       role="navigation"
       aria-label="Barre de navigation principale"
-      className="w-full flex items-center justify-between py-4   bg-black text-white"
+      className="w-full flex items-center justify-between py-4   text-white"
     >
       {/* === GAUCHE : logo + menu === */}
       <div className="flex items-center space-x-8">

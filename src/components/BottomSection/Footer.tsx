@@ -12,6 +12,7 @@ const links = {
     { href: "/contactez-nous", label: "Contact" },
     { href: "/infos-livraison", label: "Livraison" },
     { href: "/inspiration", label: "Inspiration" },
+    { href: "/eco-mobilier", label: "Eco-mobilier" },
   ],
   informations: [
     { href: "/moyen-de-paiement", label: "Les moyens de paiements" },
