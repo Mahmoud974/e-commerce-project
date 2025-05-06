@@ -20,7 +20,7 @@ export default function Baskets({
 
   useEffect(() => {
     const newTotal = items.reduce(
-      (acc, item) => acc + item.prix * (item.quantity || 1),
+      (acc, item) => acc + item.price * (item.quantity || 1),
       0
     );
     setTotal(newTotal);
@@ -66,7 +66,7 @@ export default function Baskets({
                   />
                   <div className="ml-3">
                     <div className="text-lg font-bold">{item.nom}</div>
-                    <div className="text-gray-400">{item.prix}€</div>
+                    <div className="text-gray-400">{item.price}€</div>
                   </div>
                 </Link>
                 <div className="flex items-center space-x-2">

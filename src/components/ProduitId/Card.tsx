@@ -104,20 +104,20 @@ const ProductCard: React.FC<{
       <div className="p-4 space-y-1">
         <div className="flex flex-col text-black justify-between">
           <div className="flex justify-between items-center">
-            <p className="text-2xl font-semibold truncate">{item.nom}</p>
+            <p className="text-2xl font-semibold truncate">{item.title}</p>
             {(item.nom === "Carmo1" || item.nom === "Carlton") && (
               <span className="bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
                 NOUVEAU
               </span>
             )}
           </div>
-          <small>Tissu • Laqué</small>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p>
+          <small>{item?.brand}</small>
+          <p>{item?.description.slice(0, 70)}...</p>
         </div>
       </div>
 
       <div className="flex items-center justify-between gap-2 px-4 py-3 border-t border-gray-200">
-        <p className="text-black text-2xl font-bold">{item.prix}€</p>
+        <p className="text-black text-2xl font-bold">{item.price}€</p>
         <div className="flex gap-3">
           <button
             className={`flex items-center justify-center w-10 h-10 rounded-full text-amber-400 ${

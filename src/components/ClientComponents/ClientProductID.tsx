@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Navbar from "@/components/Header/Navbar";
 import Gallery from "@/components/ProduitId/Gallery";
@@ -52,7 +51,7 @@ export default function ProductPageClient({
   } = useCartStore();
 
   const idArticle = data.find((article: any) => article.id === Number(slug));
-  const priceHT = idArticle ? (idArticle.prix / 1.2).toFixed(2) : "";
+  const priceHT = idArticle ? (idArticle.price / 1.2).toFixed(2) : "";
 
   const onLikeClick = () => {
     handleLike(idArticle, session, addItems);
@@ -145,7 +144,7 @@ export default function ProductPageClient({
           </div>
 
           <div className="flex items-center mt-2">
-            <span>Prix :</span>
+            <span>price :</span>
             <span className="text-3xl ml-2">
               {isHT ? `${priceHT}€ HT` : `${idArticle?.price}€ TTC`}
             </span>

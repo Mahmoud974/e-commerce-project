@@ -164,7 +164,7 @@ export const useSearchArticles = create<any>((set) => ({
   croissantArticles: () => {
     set((state) => {
       const sortedData = [...state.filteredData].sort(
-        (a, b) => a.prix - b.prix
+        (a, b) => a.price - b.price
       );
       return { filteredData: sortedData };
     });
@@ -173,7 +173,7 @@ export const useSearchArticles = create<any>((set) => ({
   decroissantArticles: () => {
     set((state) => {
       const sortedData = [...state.filteredData].sort(
-        (a, b) => b.prix - a.prix
+        (a, b) => b.price - a.price
       );
       return { filteredData: sortedData };
     });

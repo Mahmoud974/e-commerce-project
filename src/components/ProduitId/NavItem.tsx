@@ -82,27 +82,21 @@ export default function NavItem({ description }) {
               <tbody>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
-                    EAN
+                    Reference
                   </td>
-                  <td className="py-2 px-4">3700538219185</td>
+                  <td className="py-2 px-4">{description?.reference}</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
                     Marque
                   </td>
-                  <td className="py-2 px-4">LOUNGITUDE</td>
+                  <td className="py-2 px-4">{description?.brand}</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
                     Couleur
                   </td>
-                  <td className="py-2 px-4">Bleu</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-4 font-semibold border-r border-white">
-                    Nombre de produits
-                  </td>
-                  <td className="py-2 px-4">1</td>
+                  <td className="py-2 px-4">{description?.color}</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
@@ -120,13 +114,13 @@ export default function NavItem({ description }) {
                   <td className="py-2 px-4 font-semibold border-r border-white">
                     Revêtement de l’assise
                   </td>
-                  <td className="py-2 px-4">Tissu</td>
+                  <td className="py-2 px-4">{description?.fabricType}</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
                     Nombre de places
                   </td>
-                  <td className="py-2 px-4">3</td>
+                  <td className="py-2 px-4">{description?.seat}</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
@@ -134,31 +128,15 @@ export default function NavItem({ description }) {
                   </td>
                   <td className="py-2 px-4">Dossier rabattable</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-4 font-semibold border-r border-white">
-                    Couchage
-                  </td>
-                  <td className="py-2 px-4">Occasionnel</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2 px-4 font-semibold border-r border-white">
-                    Dimensions du couchage
-                  </td>
-                  <td className="py-2 px-4">114 x 186 cm</td>
-                </tr>
+
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
                     Dimensions du canapé
                   </td>
                   <td className="py-2 px-4">
-                    Longueur : 205 cm, Largeur : 87 cm, Hauteur : 85 cm
+                    Longueur : {description?.hauteur}, Largeur :
+                    {description?.largeur}, Hauteur : {description?.profondeur}
                   </td>
-                </tr>
-                <tr>
-                  <td className="py-2 px-4 font-semibold border-r border-white">
-                    Dimensions du colis
-                  </td>
-                  <td className="py-2 px-4">185 x 115 x 21,5 cm</td>
                 </tr>
               </tbody>
             </table>

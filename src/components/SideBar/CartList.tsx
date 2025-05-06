@@ -10,7 +10,7 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
 
   useEffect(() => {
     const newTotal = items.reduce(
-      (acc, item) => acc + item.prix * (item.quantity || 1),
+      (acc, item) => acc + item.price * (item.quantity || 1),
       0
     );
     setTotal(newTotal);
@@ -42,8 +42,8 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
                     priority
                   />
                   <div className="ml-3">
-                    <div className="text-lg font-bold">{item.nom}</div>
-                    <div className="text-gray-400">{item.prix}€</div>
+                    <div className="text-lg font-bold">{item.title}</div>
+                    <div className="text-gray-400">{item.price}€</div>
                   </div>
                 </div>
               </Link>

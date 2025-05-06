@@ -18,8 +18,8 @@ import {
 
 const sortingOptions = [
   { value: "Pertinence", label: "Pertinence" },
-  { value: "Croissant", label: "Prix Croissant" },
-  { value: "Decroissant", label: "Prix Décroissant" },
+  { value: "Croissant", label: "price Croissant" },
+  { value: "Decroissant", label: "price Décroissant" },
 ];
 
 export function ComboboxDemo({ data }) {
@@ -69,7 +69,7 @@ export function ComboboxDemo({ data }) {
                 {value
                   ? sortingOptions.find((option) => option.value === value)
                       ?.label
-                  : "Trier par prix"}
+                  : "Trier par price"}
               </p>
               <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50 text-white" />
             </Button>

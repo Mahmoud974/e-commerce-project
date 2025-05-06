@@ -33,7 +33,7 @@ export function Dashboard({ selectedItems, removeItems }) {
                   />
                   <div className="ml-3">
                     <div className="text-lg font-bold">{item.nom}</div>
-                    <div className="text-gray-400">{item.prix}€</div>
+                    <div className="text-gray-400">{item.price}€</div>
                   </div>
                 </div>
                 <button

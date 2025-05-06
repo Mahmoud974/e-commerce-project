@@ -4,7 +4,7 @@ export interface Canape {
   id: number;
   nom: string;
   description: string;
-  prix: number;
+  price: number;
   couleur: string[];
   largeur: string;
   profondeur: string;

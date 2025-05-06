@@ -67,7 +67,7 @@ export default function TotalOptions({
         <ul>
           <li className="flex justify-between mt-4">
             <div>
-              <p>Prix total</p>
+              <p>price total</p>
               <small>(Taxes 396,53€)</small>
             </div>
             <p className="font-bold">{totalFinal}€</p>
