@@ -5,7 +5,7 @@ import { HandCoins } from "lucide-react";
 
 const links = {
   utiles: [
-    { href: "/", label: "Accueil" },
+    { href: "/home", label: "Accueil" },
     { href: "/conditions-garantie", label: "Conditions de la garantie" },
     { href: "/produits-entretien", label: "Entretien du produit" },
     { href: "a-propos", label: "À propos SofaChic" },

@@ -63,7 +63,7 @@ export default function EchantillonsPage() {
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   {(item.type === "cuir" || item.type === "tissu") && (
-                    <span className="absolute top-3 left-3 bg-black text-white text-xs font-semibold uppercase px-3 py-1 rounded-full">
+                    <span className="absolute top-3 left-3 bg-gradient-to-r  bg-black text-white text-xs font-semibold uppercase px-3 py-1 rounded-full">
                       {item.type}
                     </span>
                   )}
@@ -72,7 +72,7 @@ export default function EchantillonsPage() {
                       className={
                         `flex items-center justify-center w-6 h-6 rounded-full bg-white bg-opacity-80 shadow-sm transition-all duration-200 ` +
                         (isSelected
-                          ? "scale-110 bg-white"
+                          ? "scale-110 bg-black"
                           : "group-hover:scale-105")
                       }
                     >

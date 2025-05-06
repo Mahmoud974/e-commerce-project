@@ -189,10 +189,10 @@ export const useSearchArticles = create<any>((set) => ({
     set(() => {
       const newTab = [...allData].filter(
         (item) =>
-          item.color &&
+          item.couleur &&
           selectedColors
-            .map((color) => color.toLowerCase())
-            .includes(item.color.toLowerCase())
+            .map((couleur) => couleur.toLowerCase())
+            .includes(item.couleur.toLowerCase())
       );
 
       return { filteredData: newTab };
