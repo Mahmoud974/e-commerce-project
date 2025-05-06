@@ -8,19 +8,24 @@ datasource db {
 }
 
 model Canape {
-  id            Int      @id @default(autoincrement())
-  nom           String
-  description   String
-  prix          Float
-  couleur       String[]
-  largeur       String
-  profondeur    String
-  hauteur       String
-  disponibilite Boolean
-  image         String[]
-  color         String   @default("default_color")
-  seat          Int      @default(1)
-  likes         Like[]
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  price           Float
+  largeur         String
+  profondeur      String
+  hauteur         String
+  disponibilite   Boolean
+  image           String[]
+  color           String   @default("default_color")
+  seat            Int      @default(1)
+  reference       String   @unique
+  quantity        Int
+  miniDescription String[]
+  fabricType      String
+  brand           String
+  ecoMobilier     Int
+  likes           Like[]
 
   @@map("canapes")
 }

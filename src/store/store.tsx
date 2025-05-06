@@ -71,8 +71,8 @@ export const useCartStore = create<CartState>((set, get) => ({
     set((state) => ({
       alertType: "cart",
       alertMessage: isInCart
-        ? `${item.nom} retiré du panier.`
-        : `${item.nom} ajouté au panier.`,
+        ? `${item.title} retiré du panier.`
+        : `${item.title} ajouté au panier.`,
       alertId: state.alertId + 1,
       showAlert: true,
     }));
@@ -109,8 +109,8 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
       likedItems: updatedLikes,
       alertType: "like",
       alertMessage: isLiked
-        ? `${item.nom} retiré des favoris.`
-        : `${item.nom} ajouté aux favoris.`,
+        ? `${item.title} retiré des favoris.`
+        : `${item.title} ajouté aux favoris.`,
       alertId: state.alertId + 1,
       showAlert: true,
     }));
@@ -153,7 +153,7 @@ export const useSearchArticles = create<any>((set) => ({
 
   setFilteredData: (db, searchTerm) => {
     const filtered = db?.filter((item) =>
-      item.nom.toLowerCase().includes(searchTerm?.toLowerCase())
+      item.title.toLowerCase().includes(searchTerm?.toLowerCase())
     );
 
     set(() => ({

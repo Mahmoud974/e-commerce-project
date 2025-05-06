@@ -115,8 +115,14 @@ export default function ProductPageClient({
         <div className="md:ml-12 md:w-1/2 w-full space-y-3">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold">{idArticle?.nom}</h1>
-              <small>Ref 12578BO</small>
+              <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
+              <small>Ref. {idArticle?.reference}</small>
+              <div className="flex gap-3">
+                <p>{idArticle?.color}</p>
+                <p className="bg-yellow-200 text-black px-3">
+                  {idArticle?.fabricType}
+                </p>
+              </div>
             </div>
             <div className="flex gap-2">
               <button
@@ -141,7 +147,7 @@ export default function ProductPageClient({
           <div className="flex items-center mt-2">
             <span>Prix :</span>
             <span className="text-3xl ml-2">
-              {isHT ? `${priceHT}€ HT` : `${idArticle?.prix}€ TTC`}
+              {isHT ? `${priceHT}€ HT` : `${idArticle?.price}€ TTC`}
             </span>
             <Switch checked={isHT} onCheckedChange={setIsHT} className="mx-4" />
           </div>
@@ -170,7 +176,7 @@ export default function ProductPageClient({
               onChange={(e) =>
                 setQuantity(Math.max(1, parseInt(e.target.value)))
               }
-              className="border p-2 rounded-md w-24"
+              className="border bg-black p-2 rounded-md w-24"
             />
             <button
               onClick={handleAddToCart}
@@ -183,15 +189,13 @@ export default function ProductPageClient({
 
           <div className="mt-6">
             <ul className="list-disc pl-5">
-              <li>Magnifique canapé droit style scandinave</li>
-              <li>Revêtement tissu avec pieds en bois massif</li>
-              <li>Deux coussins assortis fournis</li>
+              {idArticle.miniDescription.map((ok) => (
+                <li>{ok}</li>
+              ))}
             </ul>
           </div>
 
-          <p className="mt-4">{idArticle?.description}</p>
-
-          <NavItem />
+          <NavItem description={idArticle} />
         </div>
       </section>
 

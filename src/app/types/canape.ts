@@ -1,3 +1,5 @@
+import { Like } from "@prisma/client";
+
 export interface Canape {
   id: number;
   nom: string;
@@ -13,10 +15,23 @@ export interface Canape {
 
 export type Item = {
   id: number;
-  nom: string;
-  prix: number;
+  title: string;
+  description: string;
+  price: number;
+  largeur: string;
+  profondeur: string;
+  hauteur: string;
+  disponibilite: boolean;
+  image: string[];
   color: string;
   seat: number;
+  reference: string;
+  quantity: number;
+  miniDescription: string[];
+  fabricType: string;
+  brand: string;
+  ecoMobilier: number;
+  likes: Like[];
 };
 
 export type NewDataState = {

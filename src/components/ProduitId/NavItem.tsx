@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { SeveralPayment } from "./SeveralPayment";
 import Table from "./Table";
 
-export default function NavItem() {
+export default function NavItem({ description }) {
   const [activeSection, setActiveSection] = useState("Description");
   const [activeButton, setActiveButton] = useState<string | null>(null);
 
@@ -58,25 +58,9 @@ export default function NavItem() {
         {activeSection === "Description" && (
           <div className=" mb-12">
             <h2 className="text-2xl font-bold">
-              Un duo de chaises Miranda pour sublimer votre salle à manger
+              Un canapé {description?.title} pour sublimer votre sallon
             </h2>
-            <p className="text-lg">
-              Donnez du style à votre salon avec ce canapé scandinave aux pieds
-              en bois massifs évasés et ses lignes épurées, parfaitement
-              symétriques. Ce canapé convertible au design scandinave s'adapte à
-              tous les styles d'intérieurs.
-            </p>
-            <p className="mt-2">
-              Avec ses coussins carrés et moelleux, son capitonnage avec boutons
-              et ses pieds en bois, ce canapé apportera modernité et confort à
-              votre intérieur. Décliné en plusieurs coloris sobres ou colorés
-              pour correspondre à tous les goûts, ce canapé scandinave
-              réchauffera votre espace salon. Idéale pour les petits espaces,
-              cette banquette scandinave vous permettra de passer d'un espace
-              salon à un espace nuit en quelques instants. Elle se déplie très
-              facilement pour se transformer en lit d'appoint et offrir une
-              confortable nuit de sommeil à une ou deux personnes.
-            </p>
+            <p className="text-lg">{description?.description}</p>
           </div>
         )}
         {activeSection === "Dimensions" && (
