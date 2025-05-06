@@ -113,10 +113,15 @@ export default function HomeClient({ data }: { data: any[] }) {
                 <Image
                   src="/img/article-1.jpg"
                   alt="Intérieur personnalisé"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   width={720}
                   height={520}
                   unoptimized
+                  className="
+                    w-full h-full object-cover
+                    transform transition-transform duration-500 ease-in-out
+                    group-hover:scale-105
+                    group-hover:-rotate-2
+                  "
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
                   <h3 className="text-xl font-semibold mb-2">
@@ -138,10 +143,15 @@ export default function HomeClient({ data }: { data: any[] }) {
                 <Image
                   src="/img/article-2.png"
                   alt="Espace détente"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   width={720}
                   height={520}
                   unoptimized
+                  className="
+                    w-full h-full object-cover
+                    transform transition-transform duration-500 ease-in-out
+                    group-hover:scale-105
+                    group-hover:-rotate-2
+                  "
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
                   <h3 className="text-xl font-semibold mb-2">

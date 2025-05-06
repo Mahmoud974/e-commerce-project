@@ -47,7 +47,7 @@ export default function EchantillonsPage() {
             const isSelected = selectedIds.includes(item.id);
             return (
               <button
-                key={item.id}
+                key={item?.id}
                 onClick={() => toggleSelect(item.id)}
                 className={
                   `group relative flex flex-col bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ` +
@@ -56,15 +56,15 @@ export default function EchantillonsPage() {
               >
                 <div className="relative w-full aspect-square">
                   <Image
-                    src={item.image}
-                    alt={item.name}
+                    src={item?.image}
+                    alt={item?.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  {(item.type === "cuir" || item.type === "tissu") && (
+                  {(item?.type === "cuir" || item?.type === "tissu") && (
                     <span className="absolute top-3 left-3 bg-gradient-to-r  bg-black text-white text-xs font-semibold uppercase px-3 py-1 rounded-full">
-                      {item.type}
+                      {item?.type}
                     </span>
                   )}
                   <div className="absolute top-3 right-3">

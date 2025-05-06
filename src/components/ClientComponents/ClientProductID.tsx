@@ -188,8 +188,8 @@ export default function ProductPageClient({
 
           <div className="mt-6">
             <ul className="list-disc pl-5">
-              {idArticle.miniDescription.map((ok) => (
-                <li>{ok}</li>
+              {idArticle.miniDescription.map((description, _) => (
+                <li key={_}>{description}</li>
               ))}
             </ul>
           </div>
