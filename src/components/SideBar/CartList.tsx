@@ -34,7 +34,7 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
               <Link href={`/produit/${item.id}`} className="">
                 <div className="flex items-center">
                   <Image
-                    src={item?.image[0]}
+                    src={item?.images[0]}
                     alt="product image"
                     className="object-contain p-1 w-16 h-16"
                     width={64}

@@ -66,7 +66,7 @@ export default function Navbar() {
     <nav
       role="navigation"
       aria-label="Barre de navigation principale"
-      className="w-full flex items-center justify-between py-4   text-white"
+      className="relative z-50 w-full flex items-center justify-between py-4 text-white"
     >
       {/* === GAUCHE : logo + menu === */}
       <div className="flex items-center space-x-8">
@@ -104,7 +104,7 @@ export default function Navbar() {
 
       {/* === MILIEU : barre de recherche === */}
       {pathname === "/" && (
-        <div className="relative w-1/3" ref={containerRef}>
+        <div className="relative z-40 w-1/3" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
@@ -123,7 +123,7 @@ export default function Navbar() {
             <ul
               id="suggestions-list"
               role="listbox"
-              className="absolute top-full mt-1 w-full bg-white text-black rounded-lg shadow-lg overflow-auto max-h-60"
+              className="absolute top-full mt-1 w-full bg-white text-black rounded-lg shadow-lg overflow-auto max-h-60 z-50"
             >
               {suggestions.map((item) => (
                 <Link href={`/produit/${item.id}`} key={item.id}>
@@ -138,7 +138,7 @@ export default function Navbar() {
                   >
                     <div className="w-12 h-12 relative flex-shrink-0">
                       <Image
-                        src={item.image[0]}
+                        src={item.images[0]}
                         alt={item.title}
                         fill
                         className="object-contain rounded"
