@@ -15,29 +15,29 @@ function Table() {
   const options = [
     {
       type: "Livraison",
-      price: "79,00 €",
+      price: "39€",
       description:
         "Livraison au pied de votre habitation ou en bas de votre immeuble",
-      deliveryPeriod: `Entre le ${formattedCurrentDate} et le ${formattedDeliveryDate}`,
+      deliveryPeriod: `Entre le ${formattedCurrentDate} & le ${formattedDeliveryDate}`,
     },
     {
       type: "Livraison",
-      price: "79,00 €",
+      price: "79€",
       description:
         "Livraison au pied de votre habitation ou en bas de votre immeuble avec reprise",
-      deliveryPeriod: `Entre le ${formattedCurrentDate} et le ${formattedDeliveryDate}`,
+      deliveryPeriod: `Entre le ${formattedCurrentDate} & le ${formattedDeliveryDate}`,
     },
     {
       type: "Livraison",
-      price: "188,00 €",
+      price: "100€",
       description: "Livraison dans la pièce",
-      deliveryPeriod: `Entre le ${formattedCurrentDate} et le ${formattedDeliveryDate}`,
+      deliveryPeriod: `Entre le ${formattedCurrentDate} & le ${formattedDeliveryDate}`,
     },
   ];
 
   return (
     <div className="flex justify-center items-center bg-black">
-      <div className="p-6 w-full max-w-3xl border border-white rounded-lg">
+      <div className="p-6 w-full max-w-5xl border border-white rounded-lg">
         <table className="w-full text-left text-white table-auto">
           <thead>
             <tr className="bg-black border-b border-white">
@@ -54,11 +54,11 @@ function Table() {
           <tbody>
             {options.map((option, index) => (
               <tr key={index} className="border-b border-white">
-                <td className="py-2 px-4 text-green-600 font-bold">
+                <td className="py-2 px-9 text-green-600 font-bold">
                   {option.deliveryPeriod}
                 </td>
-                <td className="py-2 px-2 font-semibold">{option.price}</td>
-                <td className="py-2 px-4">{option.description}</td>
+                <td className="py-4 font-semibold">{option.price}</td>
+                <td className="py-5 px-4">{option.description}</td>
               </tr>
             ))}
           </tbody>
