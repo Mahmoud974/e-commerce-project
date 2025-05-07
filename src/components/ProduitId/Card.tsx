@@ -6,10 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 import AlertMessage from "../AlertNoLike";
 
-const ProductCard: React.FC<{
-  item: any;
-  addItems: (item: any) => void;
-}> = ({ item, addItems }) => {
+const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
+  item,
+  addItems,
+}) => {
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
 
@@ -23,6 +23,7 @@ const ProductCard: React.FC<{
     showAlert: likeShowAlert,
   } = useLikeStore();
 
+  // Cart
   const {
     handleCart: toggleCart,
     isInCart: isItemInCart,
@@ -57,44 +58,39 @@ const ProductCard: React.FC<{
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
       <Link
         href={`/produit/${item.id}`}
-        className="relative pt-5 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-black shadow-md"
+        className="relative block w-full overflow-hidden rounded-t-lg bg-black"
       >
-        <div className="relative h-44 w-full group">
+        <div className="relative w-full aspect-[3/3] group">
           <Image
-            src={item?.image[currentImage]}
+            src={item.image[currentImage]}
             alt={`Photo du produit ${item.nom} - vue ${currentImage + 1}`}
-            className="rounded-t-lg object-contain p-4"
+            className="rounded-t-lg object-contain object-center"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
+
           {item.image.length > 1 && (
             <>
               <button
-                className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/70 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                 onClick={(e) => {
                   e.preventDefault();
                   prevImage();
                 }}
                 aria-label="Image précédente"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/70 p-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
               >
-                <ChevronLeft
-                  className="w-5 h-5 text-black"
-                  aria-hidden="true"
-                />
+                <ChevronLeft className="w-5 h-5 text-black" />
               </button>
               <button
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/70 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                 onClick={(e) => {
                   e.preventDefault();
                   nextImage();
                 }}
                 aria-label="Image suivante"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/70 p-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
               >
-                <ChevronRight
-                  className="w-5 h-5 text-black"
-                  aria-hidden="true"
-                />
+                <ChevronRight className="w-5 h-5 text-black" />
               </button>
             </>
           )}
@@ -115,15 +111,14 @@ const ProductCard: React.FC<{
               </span>
             )}
           </div>
-          <small>{item?.brand}</small>
-          <p>{item?.description.slice(0, 70)}...</p>
+          <small>{item.brand}</small>
+          <p>{item.description.slice(0, 70)}...</p>
         </div>
       </div>
 
       <div className="flex items-center justify-between gap-2 px-4 py-3 border-t border-gray-200">
         <div>
-          {" "}
-          <p className="text-black text-2xl  font-bold">{item.price}€</p>
+          <p className="text-black text-2xl font-bold">{item.price}€</p>
           <Link href="/eco-mobilier">
             <small className="text-black underline mt-6">
               Dont {item.ecoMobilier} € d’éco-part

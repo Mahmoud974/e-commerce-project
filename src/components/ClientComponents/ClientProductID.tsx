@@ -85,6 +85,7 @@ export default function ProductPageClient({
       window.open(shareURL, "_blank");
     }
   };
+  console.log(idArticle);
 
   return (
     <main className="container mx-auto mt-6 px-6">
@@ -108,7 +109,7 @@ export default function ProductPageClient({
             <span className="text-gray-500 font-medium">{idArticle?.nom}</span>
           </div>
 
-          <Gallery data={data} />
+          <Gallery data={idArticle} />
         </div>
 
         <div className="md:ml-12 md:w-1/2 w-full space-y-3">
@@ -144,7 +145,7 @@ export default function ProductPageClient({
           </div>
 
           <div className="flex items-center mt-2">
-            <span>price :</span>
+            <span>prix :</span>
             <span className="text-3xl ml-2">
               {isHT ? `${priceHT}€ HT` : `${idArticle?.price}€ TTC`}
             </span>
