@@ -1,11 +1,21 @@
 import ProductPageClient from "../../../components/ClientComponents/ClientProductID";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles`, {
-    cache: "force-cache",
+interface PageProps {
+  params: { slug: string };
+}
+
+export default async function Page({ params }: PageProps) {
+  const slug = params.slug;
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/`, {
+    cache: "no-cache",
   });
+
+  if (!res.ok) {
+    throw new Error(`Échec du chargement de l'article ${slug}`);
+  }
 
   const data = await res.json();
 
-  return <ProductPageClient data={data} slug={params.slug} />;
+  return <ProductPageClient data={data} slug={slug} />;
 }

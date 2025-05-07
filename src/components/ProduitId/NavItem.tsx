@@ -5,12 +5,12 @@ import Table from "./Table";
 
 export default function NavItem({ description }: { description: any }) {
   const [activeSection, setActiveSection] = useState<
-    "Description" | "Dimensions" | "Livraison"
+    "Description" | "Caractéristiques" | "Livraison"
   >("Description");
 
   const sections: { key: typeof activeSection; label: string }[] = [
     { key: "Description", label: "Description" },
-    { key: "Dimensions", label: "Dimensions" },
+    { key: "Caractéristiques", label: "Caractéristiques" },
     { key: "Livraison", label: "Livraison" },
   ];
 
@@ -46,10 +46,10 @@ export default function NavItem({ description }: { description: any }) {
           </div>
         )}
 
-        {activeSection === "Dimensions" && (
+        {activeSection === "Caractéristiques" && (
           <div>
             <h2 className="text-2xl font-bold mb-4">
-              Dimensions et Caractéristiques
+              Caractéristiques et Caractéristiques
             </h2>
             <table className="w-full border border-white text-left mb-12">
               <thead>
@@ -62,6 +62,13 @@ export default function NavItem({ description }: { description: any }) {
               <tbody>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
+                    EAN
+                  </td>
+                  <td className="py-2 px-4">{description?.ean}</td>
+                </tr>
+
+                <tr className="border-b">
+                  <td className="py-2 px-4 font-semibold border-r border-white">
                     Référence
                   </td>
                   <td className="py-2 px-4">{description?.reference}</td>
@@ -72,6 +79,28 @@ export default function NavItem({ description }: { description: any }) {
                   </td>
                   <td className="py-2 px-4">{description?.brand}</td>
                 </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-4 font-semibold border-r border-white">
+                    Poids
+                  </td>
+                  <td className="py-2 px-4">{description?.poids} kg</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-4 font-semibold border-r border-white">
+                    Garanties
+                  </td>
+                  <td className="py-2 px-4">
+                    {description?.garantie}{" "}
+                    {description?.garantie > 1 ? "ans" : "an"}
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 px-4 font-semibold border-r border-white">
+                    Marque
+                  </td>
+                  <td className="py-2 px-4">{description?.brand}</td>
+                </tr>
+
                 <tr className="border-b">
                   <td className="py-2 px-4 font-semibold border-r border-white">
                     Couleur
@@ -92,7 +121,7 @@ export default function NavItem({ description }: { description: any }) {
                 </tr>
                 <tr>
                   <td className="py-2 px-4 font-semibold border-r border-white">
-                    Dimensions
+                    Caractéristiques
                   </td>
                   <td className="py-2 px-4">
                     H : {description?.hauteur}, L : {description?.largeur}, P :{" "}

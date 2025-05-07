@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Navbar from "@/components/Header/Navbar";
 import Gallery from "@/components/ProduitId/Gallery";
 import AlertMessage from "@/components/AlertNoLike";
 import NavItem from "@/components/ProduitId/NavItem";
 import {
+  ArrowRight,
   ChevronRight,
   Heart,
   Share2,
@@ -18,6 +19,8 @@ import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { useCartStore, useLikeData, useLikeStore } from "@/store/store";
 import { useSession } from "next-auth/react";
+import { Button } from "../ui/button";
+import ProductCard from "../ProduitId/Card";
 
 export default function ProductPageClient({
   data,
@@ -30,7 +33,10 @@ export default function ProductPageClient({
   const [quantity, setQuantity] = useState(1);
   const { data: session } = useSession();
   const { addItems } = useLikeData();
-
+  const randomFive = useMemo(() => {
+    // copie du tableau, shuffle, puis slice
+    return [...data].sort(() => Math.random() - 0.5).slice(0, 5);
+  }, [data]);
   const {
     isLiked,
     handleLike,
@@ -161,10 +167,10 @@ export default function ProductPageClient({
           </div>
 
           <div className="flex gap-2">
-            <Link href={`/item/${(idArticle?.id ?? 0) - 1}`}>
+            <Link href={`/produit/${(idArticle?.id ?? 0) - 1}`}>
               <SquareChevronLeft className="cursor-pointer" />
             </Link>
-            <Link href={`/item/${(idArticle?.id ?? 0) + 1}`}>
+            <Link href={`/produit/${(idArticle?.id ?? 0) + 1}`}>
               <SquareChevronRight className="cursor-pointer" />
             </Link>
           </div>
@@ -189,7 +195,7 @@ export default function ProductPageClient({
 
           <div className="mt-6">
             <ul className="list-disc pl-5">
-              {idArticle.miniDescription.map((description, _) => (
+              {idArticle?.miniDescription.map((description, _) => (
                 <li key={_}>{description}</li>
               ))}
             </ul>
@@ -214,6 +220,18 @@ export default function ProductPageClient({
           message={cartAlertMessage}
         />
       )}
+      <h2 className="font-bold text-3xl">Faite votre choix</h2>
+      <section className="grid grid-cols-1 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        {randomFive.map((item) => (
+          <ProductCard key={item.id} item={item} addItems={addItems} />
+        ))}
+      </section>
+      <Link href="/">
+        <Button className="flex justify-center mx-auto border px-20 my-12">
+          <p>Découvrez tous les fauteuils</p>
+          <ArrowRight />
+        </Button>
+      </Link>
     </main>
   );
 }

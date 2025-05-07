@@ -13,6 +13,9 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
 
+  // Limiter à maximum 3 images
+  const images = item.images.slice(0, 3);
+
   // Likes
   const {
     isLiked,
@@ -43,13 +46,11 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   };
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % item.image.length);
+    setCurrentImage((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    setCurrentImage(
-      (prev) => (prev - 1 + item.image.length) % item.image.length
-    );
+    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
   const isInCart = isItemInCart(item.id);
@@ -62,7 +63,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
       >
         <div className="relative w-full aspect-[3/3] group">
           <Image
-            src={item.image[currentImage]}
+            src={images[currentImage]}
             alt={`Photo du produit ${item.nom} - vue ${currentImage + 1}`}
             className="rounded-t-lg object-contain object-center"
             fill
@@ -70,7 +71,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
             priority
           />
 
-          {item.image.length > 1 && (
+          {images.length > 1 && (
             <>
               <button
                 onClick={(e) => {
@@ -160,7 +161,6 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
         </div>
       </div>
 
-      {/* Alertes Like + Cart */}
       {likeShowAlert && likeAlertType && (
         <AlertMessage
           key={`like-${likeAlertId}`}

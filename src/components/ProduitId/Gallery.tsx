@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function ProductGallery({ data }) {
   // Construire dynamiquement le tableau de médias
-  const media = Array.isArray(data.image) ? data.image : [];
+  const media = Array.isArray(data.images) ? data.images : [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,7 +12,7 @@ export default function ProductGallery({ data }) {
   // Reset index quand les images changent
   useEffect(() => {
     setCurrentIndex(0);
-  }, [data.image]);
+  }, [data.images]);
 
   const selectedSrc = media[currentIndex];
   const handlePrev = () =>
