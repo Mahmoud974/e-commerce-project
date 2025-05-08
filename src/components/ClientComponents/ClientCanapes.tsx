@@ -7,13 +7,15 @@ import { useSearchArticles, useLikeData } from "@/store/store";
 import Filter from "@/components/Header/Filter";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { useTemplate } from "@/app/hook/useTemplate";
 
-export default function CanapesClient({ data }: { data: any[] }) {
+export default function CanapesClient() {
   const { filteredData } = useSearchArticles();
   const { addItems } = useLikeData();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
+  const { data } = useTemplate();
 
   const allProducts = filteredData.length > 0 ? filteredData : data || [];
   const totalPages = Math.ceil(allProducts.length / itemsPerPage);

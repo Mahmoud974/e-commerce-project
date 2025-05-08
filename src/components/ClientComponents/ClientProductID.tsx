@@ -220,7 +220,7 @@ export default function ProductPageClient({
           message={cartAlertMessage}
         />
       )}
-      <h2 className="font-bold text-3xl">Faite votre choix</h2>
+      <h2 className="font-bold text-3xl">À vous de choisir </h2>
       <section className="grid grid-cols-1 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
         {randomFive.map((item) => (
           <ProductCard key={item.id} item={item} addItems={addItems} />

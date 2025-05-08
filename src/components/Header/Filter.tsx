@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ComboboxDemo } from "./Dropbox";
 import { useSearchArticles } from "@/store/store";
 import {
@@ -7,46 +7,38 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { assisesData as defaultAssisesData, colors } from "@/Interface/model";
+import { assisesData, colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
 
-export default function Filter({ data, colorProduct, seatProduct }) {
-  const { nbreSeatColor, colorsArticles, numberSeatArticles } =
-    useSearchArticles();
+type Article = {
+  seat: number;
+  color: string;
+  title: string;
+  price: number;
+};
 
-  const [assisesData, setAssisesData] = useState([]);
-  const [selectedColor, setSelectedColor] = useState<string[]>([]);
-  const [selectedSeat, setSelectedSeat] = useState<number[]>([]);
+export default function Filter({ data }: { data: Article[] }) {
+  const {
+    selectedColors,
+    selectedSeats,
+    setSelectedColors,
+    setSelectedSeats,
+    colorsArticles,
+    numberSeatArticles,
+  } = useSearchArticles();
 
-  const uniqueSeats = [...new Set(data?.map((item) => item.seat))];
+  const uniqueSeats = [
+    ...new Set(data?.map((item) => item.seat).filter(Boolean)),
+  ];
 
   const seatCount = uniqueSeats.map((seat) => ({
     seat,
     count: data?.filter((item) => item.seat === seat).length,
   }));
 
-  useEffect(() => {
-    if (data) {
-      const seatCounts = data.reduce((acc, item) => {
-        const seat = item.seat;
-        acc[seat] = (acc[seat] || 0) + 1;
-        return acc;
-      }, {});
-
-      const newAssisesData = Object.entries(seatCounts).map(
-        ([seat, count]) => ({
-          name: `Seat ${seat}`,
-          count,
-        })
-      );
-
-      setAssisesData(newAssisesData);
-    }
-  }, [data]);
-
   const handleReset = () => {
-    setSelectedColor([]);
-    setSelectedSeat([]);
+    setSelectedColors([]);
+    setSelectedSeats([]);
     colorsArticles(data, []);
     numberSeatArticles(data, []);
   };
@@ -57,7 +49,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
       content: (
         <div className="grid grid-cols-3 gap-4">
           {colors.map((color) => {
-            const isSelected = selectedColor.includes(color.name);
+            const isSelected = selectedColors.includes(color.name);
 
             return (
               <div
@@ -65,10 +57,10 @@ export default function Filter({ data, colorProduct, seatProduct }) {
                 className="flex flex-col items-center space-y-2 cursor-pointer"
                 onClick={() => {
                   const updatedColors = isSelected
-                    ? selectedColor.filter((c) => c !== color.name)
-                    : [...selectedColor, color.name];
+                    ? selectedColors.filter((c) => c !== color.name)
+                    : [...selectedColors, color.name];
 
-                  setSelectedColor(updatedColors);
+                  setSelectedColors(updatedColors);
                   colorsArticles(data, updatedColors);
                 }}
               >
@@ -106,7 +98,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
         <div className="flex flex-col space-y-2">
           {seatCount.length > 0 ? (
             seatCount.map((item) => {
-              const isSelected = selectedSeat.includes(item.seat);
+              const isSelected = selectedSeats.includes(item.seat);
 
               return (
                 <button
@@ -118,20 +110,22 @@ export default function Filter({ data, colorProduct, seatProduct }) {
                   }`}
                   onClick={() => {
                     const updatedSeats = isSelected
-                      ? selectedSeat.filter((s) => s !== item.seat)
-                      : [...selectedSeat, item.seat];
+                      ? selectedSeats.filter((s) => s !== item.seat)
+                      : [...selectedSeats, item.seat];
 
-                    setSelectedSeat(updatedSeats);
+                    setSelectedSeats(updatedSeats);
                     numberSeatArticles(data, updatedSeats);
                   }}
                 >
-                  <span>{`Seat ${item.seat}`}</span>
+                  <span>
+                    {item.seat} place{item.seat > 1 ? "s" : ""}
+                  </span>
                   <span>{item.count}</span>
                 </button>
               );
             })
           ) : (
-            <p>{`Aucune donnée d'assises disponible.`}</p>
+            <p>Aucune donnée d'assises disponible.</p>
           )}
         </div>
       ),
@@ -140,7 +134,7 @@ export default function Filter({ data, colorProduct, seatProduct }) {
 
   return (
     <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-6 space-y-4 md:space-y-0">
-      <ul className="flex justify-between  space-x-6 md:space-x-4">
+      <ul className="flex justify-between space-x-6 md:space-x-4">
         {filters.map((filter) => (
           <li key={filter.label}>
             <Popover>

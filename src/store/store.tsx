@@ -147,42 +147,36 @@ export const useLikeData = create<LikeDataState>((set) => ({
 /**
  * Afficher les résultats de recherche via la barre de recherche
  */
-export const useSearchArticles = create<any>((set) => ({
+export const useSearchArticles = create<any>((set, get) => ({
   filteredData: [],
+  selectedColors: [],
+  selectedSeats: [],
   nbreSeatColor: 0,
+
+  setSelectedColors: (colors) => set({ selectedColors: colors }),
+  setSelectedSeats: (seats) => set({ selectedSeats: seats }),
 
   setFilteredData: (db, searchTerm) => {
     const filtered = db?.filter((item) =>
       item.title.toLowerCase().includes(searchTerm?.toLowerCase())
     );
-
-    set(() => ({
-      filteredData: filtered,
-    }));
+    set(() => ({ filteredData: filtered }));
   },
 
   croissantArticles: () => {
-    set((state) => {
-      const sortedData = [...state.filteredData].sort(
-        (a, b) => a.price - b.price
-      );
-      return { filteredData: sortedData };
-    });
+    set((state) => ({
+      filteredData: [...state.filteredData].sort((a, b) => a.price - b.price),
+    }));
   },
 
   decroissantArticles: () => {
-    set((state) => {
-      const sortedData = [...state.filteredData].sort(
-        (a, b) => b.price - a.price
-      );
-      return { filteredData: sortedData };
-    });
+    set((state) => ({
+      filteredData: [...state.filteredData].sort((a, b) => b.price - a.price),
+    }));
   },
 
   pertinenceArticles: (db) => {
-    const sortedByRelevance = [...db];
-    set(() => ({ filteredData: sortedByRelevance }));
-    console.log("Tri par pertinence appliqué :", sortedByRelevance);
+    set(() => ({ filteredData: [...db] }));
   },
 
   colorsArticles: (allData, selectedColors) => {
@@ -194,7 +188,6 @@ export const useSearchArticles = create<any>((set) => ({
             .map((color) => color.toLowerCase())
             .includes(item.color.toLowerCase())
       );
-
       return { filteredData: newTab };
     });
   },
@@ -203,12 +196,9 @@ export const useSearchArticles = create<any>((set) => ({
     const newTab = [...allData].filter((item) =>
       selectedSeats.includes(item.seat)
     );
-
-    let nbreSeat = newTab.length;
-
     set(() => ({
       filteredData: newTab,
-      nbreSeatColor: nbreSeat,
+      nbreSeatColor: newTab.length,
     }));
   },
 }));

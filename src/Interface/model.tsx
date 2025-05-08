@@ -1,15 +1,16 @@
 // Généré d'après le tableau CSV
 export enum Colors {
-  Gris = "Gris",
-  BleuMarine = "Bleu Marine",
-  BleuClair = "Bleu Clair",
-  VertMousse = "Vert Mousse",
   Beige = "Beige",
-  Noir = "Noir",
   Blanc = "Blanc",
-  Anthracite = "Anthracite",
+  Bleu = "Bleu",
+  Gris = "Gris",
+  Jaune = "Jaune",
+  Marron = "Marron",
+  Noir = "Noir",
+  Rose = "Rose",
+  Rouge = "Rouge",
   Taupe = "Taupe",
-  Terracotta = "Terracotta",
+  Vert = "Vert",
 }
 
 export enum Seats {
@@ -35,14 +36,15 @@ export const assisesData = [
 ];
 
 export const colors = [
-  { name: Colors.Gris, colorClass: "bg-gray-400" },
-  { name: Colors.BleuMarine, colorClass: "bg-blue-800" },
-  { name: Colors.BleuClair, colorClass: "bg-blue-300" },
-  { name: Colors.VertMousse, colorClass: "bg-green-700" },
   { name: Colors.Beige, colorClass: "bg-yellow-200" },
-  { name: Colors.Noir, colorClass: "bg-black" },
   { name: Colors.Blanc, colorClass: "bg-white" },
-  { name: Colors.Anthracite, colorClass: "bg-gray-800" },
+  { name: Colors.Bleu, colorClass: "bg-blue-500" },
+  { name: Colors.Gris, colorClass: "bg-gray-400" },
+  { name: Colors.Jaune, colorClass: "bg-yellow-500" },
+  { name: Colors.Marron, colorClass: "bg-amber-900" },
+  { name: Colors.Noir, colorClass: "bg-black" },
+  { name: Colors.Rose, colorClass: "bg-pink-400" },
+  { name: Colors.Rouge, colorClass: "bg-red-600" },
   { name: Colors.Taupe, colorClass: "bg-amber-700" },
-  { name: Colors.Terracotta, colorClass: "bg-orange-600" },
+  { name: Colors.Vert, colorClass: "bg-green-500" },
 ];
