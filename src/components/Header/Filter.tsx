@@ -1,14 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { ComboboxDemo } from "./Dropbox";
 import { useSearchArticles } from "@/store/store";
+import { cn } from "@/lib/utils";
+import { Slider } from "@/components/ui/slider";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { assisesData, colors } from "@/Interface/model";
+import { colors } from "@/Interface/model";
 import { RotateCcw } from "lucide-react";
+import { useQueryState } from "nuqs";
 
 type Article = {
   seat: number;
@@ -17,7 +20,17 @@ type Article = {
   price: number;
 };
 
-export default function Filter({ data }: { data: Article[] }) {
+type FilterProps = {
+  data: Article[];
+  setPage: (value: string) => void;
+} & React.ComponentProps<typeof Slider>;
+
+export default function Filter({
+  data,
+  setPage,
+  className,
+  ...props
+}: FilterProps) {
   const {
     selectedColors,
     selectedSeats,
@@ -27,25 +40,55 @@ export default function Filter({ data }: { data: Article[] }) {
     numberSeatArticles,
   } = useSearchArticles();
 
-  const uniqueSeats = [
-    ...new Set(data?.map((item) => item.seat).filter(Boolean)),
-  ];
+  const [colorQuery, setColorQuery] = useQueryState<string[]>("colors", {
+    history: "push",
+    parse: (value) => value.split(","),
+    serialize: (value) => value.join(","),
+  });
 
-  const seatCount = uniqueSeats.map((seat) => ({
+  const [seatQuery, setSeatQuery] = useQueryState<string[]>("seats", {
+    history: "push",
+    parse: (value) => value.split(","),
+    serialize: (value) => value.join(","),
+  });
+
+  useEffect(() => {
+    if (colorQuery?.length) {
+      setSelectedColors(colorQuery);
+      colorsArticles(data, colorQuery);
+    }
+
+    if (seatQuery?.length) {
+      const seatNumbers = seatQuery.map(Number);
+      setSelectedSeats(seatNumbers);
+      numberSeatArticles(data, seatNumbers);
+    }
+  }, [colorQuery, seatQuery]);
+
+  const seatCount = Array.from(
+    new Set(data?.map((item) => item.seat).filter(Boolean))
+  ).map((seat) => ({
     seat,
-    count: data?.filter((item) => item.seat === seat).length,
+    count: data.filter((item) => item.seat === seat).length,
   }));
+
+  const prices = data?.map((item) => item.price);
+  const minPrice = data && Math.min(...prices);
+  const maxPrice = data && Math.max(...prices);
 
   const handleReset = () => {
     setSelectedColors([]);
     setSelectedSeats([]);
     colorsArticles(data, []);
     numberSeatArticles(data, []);
+    setPage("1");
+    setColorQuery([]);
+    setSeatQuery([]);
   };
 
   const filters = [
     {
-      label: "Color",
+      label: "Couleur",
       content: (
         <div className="grid grid-cols-3 gap-4">
           {colors.map((color) => {
@@ -62,6 +105,8 @@ export default function Filter({ data }: { data: Article[] }) {
 
                   setSelectedColors(updatedColors);
                   colorsArticles(data, updatedColors);
+                  setPage("1");
+                  setColorQuery(updatedColors);
                 }}
               >
                 <button
@@ -115,18 +160,41 @@ export default function Filter({ data }: { data: Article[] }) {
 
                     setSelectedSeats(updatedSeats);
                     numberSeatArticles(data, updatedSeats);
+                    setPage("1");
+                    setSeatQuery(updatedSeats.map(String));
                   }}
                 >
                   <span>
                     {item.seat} place{item.seat > 1 ? "s" : ""}
                   </span>
-                  <span>{item.count}</span>
+                  <span>
+                    {item.count} produit{item.count > 1 ? "s" : ""}
+                  </span>
                 </button>
               );
             })
           ) : (
             <p>Aucune donnée d'assises disponible.</p>
           )}
+        </div>
+      ),
+    },
+    {
+      label: "Prix",
+      content: (
+        <div className="px-2 py-4">
+          <Slider
+            defaultValue={[minPrice]}
+            min={minPrice}
+            max={maxPrice}
+            step={10}
+            className={cn("w-full", "bg-white/10 text-white", className)}
+            {...props}
+          />
+          <div className="flex justify-between text-xs mt-2 text-white">
+            <span>{minPrice} €</span>
+            <span>{maxPrice} €</span>
+          </div>
         </div>
       ),
     },

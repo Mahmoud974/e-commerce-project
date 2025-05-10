@@ -181,8 +181,6 @@ export const useSearchArticles = create<any>((set, get) => ({
 
   colorsArticles: (allData, selectedColors) => {
     set(() => {
-      if (!Array.isArray(allData)) return { filteredData: [] };
-
       const newTab = [...allData].filter(
         (item) =>
           item.color &&
@@ -190,20 +188,17 @@ export const useSearchArticles = create<any>((set, get) => ({
             .map((color) => color.toLowerCase())
             .includes(item.color.toLowerCase())
       );
-
       return { filteredData: newTab };
     });
   },
 
   numberSeatArticles: (allData, selectedSeats) => {
-    set(() => {
-      if (!Array.isArray(allData)) return { filteredData: [] };
-
-      const newTab = [...allData].filter((item) =>
-        selectedSeats.includes(item.seat)
-      );
-
-      return { filteredData: newTab };
-    });
+    const newTab = [...allData].filter((item) =>
+      selectedSeats.includes(item.seat)
+    );
+    set(() => ({
+      filteredData: newTab,
+      nbreSeatColor: newTab.length,
+    }));
   },
 }));

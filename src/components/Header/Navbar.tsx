@@ -4,12 +4,12 @@ import React, { useEffect, useState, useRef, KeyboardEvent } from "react";
 import SheetDisplay from "../SideBar/MenuGeneral";
 import { useTemplate } from "@/app/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useSearchArticles } from "@/store/store";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import AlertElement from "../AlertElement";
 import { usePathname } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 type Inputs = { search: string };
 
@@ -17,22 +17,33 @@ export default function Navbar() {
   const { data: session } = useSession();
   const pathname = usePathname();
   const { data } = useTemplate();
-  const { setFilteredData } = useSearchArticles();
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const searchTerm = watch("search");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [searchQuery, setSearchQuery] = useQueryState("search", {
+    parse: (v) => decodeURIComponent(v),
+    serialize: (v) => encodeURIComponent(v),
+  });
 
   useEffect(() => {
     if (data) {
-      setFilteredData(data, searchTerm);
       const list = data.filter((item) =>
         item.title.toLowerCase().includes(searchTerm?.toLowerCase())
       );
       setSuggestions(searchTerm ? list.slice(0, 5) : []);
     }
-  }, [data, searchTerm, setFilteredData]);
+  }, [data, searchTerm]);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      if (searchTerm !== undefined) {
+        setSearchQuery(searchTerm);
+      }
+    }, 300);
+    return () => clearTimeout(delay);
+  }, [searchTerm]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -68,7 +79,7 @@ export default function Navbar() {
       aria-label="Barre de navigation principale"
       className="relative z-50 w-full flex items-center justify-between py-4 text-white"
     >
-      {/* === GAUCHE : logo + menu === */}
+      {/* === GAUCHE === */}
       <div className="flex items-center space-x-8">
         <Link
           href="/home"
@@ -85,7 +96,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <ul role="menubar" className="flex flex-col ">
+        <ul role="menubar" className="flex flex-col">
           {navItems.map((item) => (
             <li key={item.href} role="none">
               <Link
@@ -102,7 +113,7 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* === MILIEU : barre de recherche === */}
+      {/* === MILIEU : recherche === */}
       {pathname === "/" && (
         <div className="relative z-40 w-1/3" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,9 +121,6 @@ export default function Navbar() {
               type="text"
               placeholder="Rechercher un produit…"
               aria-label="Recherche de produit"
-              aria-autocomplete="list"
-              aria-controls="suggestions-list"
-              aria-expanded={showSuggestions}
               className="w-full py-2 px-4 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
               {...register("search", {
                 onChange: () => setShowSuggestions(true),
@@ -120,21 +128,12 @@ export default function Navbar() {
             />
           </form>
           {showSuggestions && suggestions.length > 0 && (
-            <ul
-              id="suggestions-list"
-              role="listbox"
-              className="absolute top-full mt-1 w-full bg-white text-black rounded-lg shadow-lg overflow-auto max-h-60 z-50"
-            >
+            <ul className="absolute top-full mt-1 w-full bg-white text-black rounded-lg shadow-lg max-h-60 overflow-auto z-50">
               {suggestions.map((item) => (
                 <Link href={`/produit/${item.id}`} key={item.id}>
                   <li
-                    role="option"
-                    tabIndex={0}
-                    className="flex items-center px-4 py-2 hover:bg-gray-100 focus:bg-gray-200 cursor-pointer"
+                    className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
                     onClick={() => setShowSuggestions(false)}
-                    onKeyDown={(e) =>
-                      e.key === "Enter" && setShowSuggestions(false)
-                    }
                   >
                     <div className="w-12 h-12 relative flex-shrink-0">
                       <Image
@@ -156,10 +155,9 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* === DROITE : compte + burger === */}
+      {/* === DROITE === */}
       <div className="flex items-center space-x-4">
         <AlertElement />
-
         {session && (
           <div className="flex items-center space-x-2">
             <span className="hidden lg:block">{session.user?.title}</span>
@@ -172,7 +170,6 @@ export default function Navbar() {
             />
           </div>
         )}
-
         <SheetDisplay />
       </div>
     </nav>

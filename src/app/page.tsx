@@ -1,3 +1,4 @@
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import CanapesClient from "../components/ClientComponents/ClientCanapes";
 
 export default async function Page() {
@@ -8,5 +9,9 @@ export default async function Page() {
   const data = await res.json();
   console.log(data);
 
-  return <CanapesClient data={data} />;
+  return (
+    <NuqsAdapter>
+      <CanapesClient data={data} />
+    </NuqsAdapter>
+  );
 }

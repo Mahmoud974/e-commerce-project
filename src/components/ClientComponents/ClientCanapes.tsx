@@ -1,26 +1,80 @@
+// ✅ CanapesClient.tsx avec recherche et tri corrigés
 "use client";
 
+import React from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "@/components/ProduitId/Card";
 import Navbar from "@/components/Header/Navbar";
-import React, { useState } from "react";
-import { useSearchArticles, useLikeData } from "@/store/store";
 import Filter from "@/components/Header/Filter";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { useTemplate } from "@/app/hook/useTemplate";
+import { useLikeData } from "@/store/store";
+import { useQueryState } from "nuqs";
 
 export default function CanapesClient() {
-  const { filteredData } = useSearchArticles();
+  const { data } = useTemplate();
   const { addItems } = useLikeData();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  // Nuqs states pour pagination, filtres et recherche
+  const [page, setPage] = useQueryState("page", {
+    history: "push",
+    parse: (v) => parseInt(v),
+    serialize: (v) => String(v),
+  });
+
+  const [colorQuery] = useQueryState<string[]>("colors", {
+    parse: (v) => v.split(","),
+    serialize: (v) => v.join(","),
+  });
+
+  const [seatQuery] = useQueryState<string[]>("seats", {
+    parse: (v) => v.split(","),
+    serialize: (v) => v.join(","),
+  });
+
+  const [searchQuery] = useQueryState("search", {
+    parse: (v) => decodeURIComponent(v),
+    serialize: (v) => encodeURIComponent(v),
+  });
+
+  const [sortQuery] = useQueryState("sort", {
+    parse: (v) => v,
+    serialize: (v) => v,
+  });
+
+  const currentPage = page || 1;
   const itemsPerPage = 15;
-  const { data } = useTemplate();
 
-  const allProducts = filteredData.length > 0 ? filteredData : data || [];
-  const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+  // 🔁 Appliquer les filtres manuellement
+  let filtered = data || [];
 
-  const paginatedData = allProducts.slice(
+  if (colorQuery?.length) {
+    filtered = filtered.filter((item) =>
+      colorQuery.map((c) => c.toLowerCase()).includes(item.color?.toLowerCase())
+    );
+  }
+
+  if (seatQuery?.length) {
+    const seats = seatQuery.map(Number);
+    filtered = filtered.filter((item) => seats.includes(item.seat));
+  }
+
+  if (searchQuery) {
+    filtered = filtered.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  if (sortQuery === "Croissant") {
+    filtered = [...filtered].sort((a, b) => a.price - b.price);
+  } else if (sortQuery === "Decroissant") {
+    filtered = [...filtered].sort((a, b) => b.price - a.price);
+  }
+
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+
+  const paginatedData = filtered.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -36,7 +90,8 @@ export default function CanapesClient() {
             <Navbar />
 
             <Filter
-              data={data}
+              data={data || []}
+              setPage={(v) => setPage(parseInt(v))}
               colorProduct={colorProduct}
               seatProduct={seatProduct}
             />
@@ -57,17 +112,16 @@ export default function CanapesClient() {
                   <ProductCard key={item.id} item={item} addItems={addItems} />
                 ))
               ) : (
-                <p>Aucun produit disponible.</p>
+                <p className="text-white">Aucun produit disponible.</p>
               )}
             </section>
 
-            {/* 🔁 Pagination */}
             {totalPages > 1 && (
               <div className="flex justify-center mt-8 gap-2 flex-wrap">
                 {Array.from({ length: totalPages }, (_, i) => (
                   <button
                     key={i}
-                    onClick={() => setCurrentPage(i + 1)}
+                    onClick={() => setPage(i + 1)}
                     className={`px-4 py-2 rounded border ${
                       currentPage === i + 1
                         ? "bg-white text-black font-bold"

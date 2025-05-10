@@ -1,8 +1,10 @@
+// ✅ ComboboxDemo.tsx avec nuqs pour le tri
+"use client";
+
 import * as React from "react";
 import { ArrowUpDown, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useSearchArticles } from "@/store/store";
 import {
   Command,
   CommandEmpty,
@@ -15,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useQueryState } from "nuqs";
 
 const sortingOptions = [
   { value: "Pertinence", label: "Pertinence" },
@@ -25,36 +28,14 @@ const sortingOptions = [
 export function ComboboxDemo({ data }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const {
-    setFilteredData,
-    filteredData,
-    croissantArticles,
-    decroissantArticles,
-    pertinenceArticles,
-  } = useSearchArticles();
+  const [sortQuery, setSortQuery] = useQueryState("sort");
 
   const handleSort = (optionValue) => {
-    switch (optionValue) {
-      case "Croissant":
-        croissantArticles(data);
-        break;
-      case "Decroissant":
-        decroissantArticles(data);
-        break;
-      case "Pertinence":
-        pertinenceArticles(data);
-        break;
-      default:
-        console.error("Option de tri non reconnue :", optionValue);
-    }
+    setSortQuery(optionValue);
   };
 
   return (
     <div className="flex justify-between items-center">
-      <p className="mr-6">
-        {filteredData.length} article{filteredData.length !== 1 && "s"}
-      </p>
-
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <div>
