@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { LikeDataState, Item } from "../app/types/canape";
+import axios from "axios";
 
 interface LikeStore {
   likedItems: string[];
@@ -10,18 +11,21 @@ interface LikeStore {
   alertId: number;
   showAlert: boolean;
 }
+
 type CartState = {
   items: Item[];
-  addItem: (item: Item) => void;
-  removeItem: (itemId: number) => void;
-  clearCart: () => void;
-  updateQuantity: (itemId: number, quantity: number) => void;
-  isInCart: (id: number) => boolean;
-  handleCart: (item: Item) => void;
   alertType: "cart" | null;
   alertMessage: string;
   alertId: number;
   showAlert: boolean;
+
+  fetchItems: () => Promise<void>;
+  addItem: (item: Item) => Promise<void>;
+  removeItem: (itemId: number) => Promise<void>;
+  clearCart: () => Promise<void>;
+  updateQuantity: (itemId: number, quantity: number) => Promise<void>;
+  isInCart: (id: number) => boolean;
+  handleCart: (item: Item) => Promise<void>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -31,41 +35,47 @@ export const useCartStore = create<CartState>((set, get) => ({
   alertId: 0,
   showAlert: false,
 
-  isInCart: (id) => get().items.some((item) => item.id === id),
-
-  addItem: (item: Item) => {
-    set((state) => {
-      const exists = state.items.find((i) => i.id === item.id);
-      if (exists) return state;
-      return { items: [...state.items, item] };
-    });
+  fetchItems: async () => {
+    const res = await axios.get("/api/panier");
+    set({ items: res.data });
   },
 
-  removeItem: (itemId: number) => {
-    set((state) => ({
-      items: state.items.filter((item) => item.id !== itemId),
-    }));
+  addItem: async (item) => {
+    await axios.post("/api/panier", item);
+    await get().fetchItems();
   },
 
-  clearCart: () => {
-    set({ items: [] });
+  removeItem: async (itemId) => {
+    await axios.delete("/api/panier", { data: { id: itemId } });
+    await get().fetchItems();
   },
 
-  updateQuantity: (itemId: number, quantity: number) => {
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === itemId ? { ...item, quantity } : item
-      ),
-    }));
+  clearCart: async () => {
+    const currentItems = get().items;
+    for (const item of currentItems) {
+      await axios.delete("/api/panier", { data: { id: item.id } });
+    }
+    await get().fetchItems();
   },
 
-  handleCart: (item: Item) => {
+  updateQuantity: async (itemId, quantity) => {
+    const item = get().items.find((i) => i.id === itemId);
+    if (!item) return;
+    await axios.post("/api/panier", { ...item, quantity });
+    await get().fetchItems();
+  },
+
+  isInCart: (id) => {
+    return get().items.some((item) => item.id === id);
+  },
+
+  handleCart: async (item) => {
     const isInCart = get().isInCart(item.id);
 
     if (isInCart) {
-      get().removeItem(item.id);
+      await get().removeItem(item.id);
     } else {
-      get().addItem(item);
+      await get().addItem({ ...item, quantity: 1 });
     }
 
     set((state) => ({

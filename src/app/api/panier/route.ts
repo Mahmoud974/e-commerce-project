@@ -1,26 +1,33 @@
-// /app/api/panier/route.ts
 import { NextResponse } from "next/server";
-import redis from "@/lib/redis"; // ajuster le chemin selon ton projet
+import redis from "@/lib/redis"; // Assure-toi que ce fichier existe
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/authOptions";
 
-// GET: Récupère le panier pour un utilisateur
-export async function GET(req: Request) {
-  const userId = "user1"; // en vrai, récupère ça depuis un token/session
+// Simule un user (remplace plus tard par session.user.id)
+const getUserId = async () => {
+  const session = await getServerSession(authOptions);
+  return session?.user?.email || "user1";
+};
+
+// GET: Récupérer le panier
+export async function GET() {
+  const userId = await getUserId();
   const data = await redis.get(`panier:${userId}`);
   return NextResponse.json(JSON.parse(data || "[]"));
 }
 
-// POST: Ajoute ou met à jour un article
+// POST: Ajouter ou modifier un article
 export async function POST(req: Request) {
+  const userId = await getUserId();
   const body = await req.json();
-  const userId = "user1";
   const { id, title, price, quantity, images } = body;
 
   const panierKey = `panier:${userId}`;
   const data = JSON.parse((await redis.get(panierKey)) || "[]");
 
-  const existingIndex = data.findIndex((item: any) => item.id === id);
-  if (existingIndex > -1) {
-    data[existingIndex].quantity = quantity;
+  const index = data.findIndex((item: any) => item.id === id);
+  if (index > -1) {
+    data[index].quantity = quantity;
   } else {
     data.push({ id, title, price, quantity, images });
   }
@@ -29,11 +36,10 @@ export async function POST(req: Request) {
   return NextResponse.json({ success: true });
 }
 
-// DELETE: Supprime un article
+// DELETE: Supprimer un article
 export async function DELETE(req: Request) {
-  const body = await req.json();
-  const userId = "user1";
-  const { id } = body;
+  const userId = await getUserId();
+  const { id } = await req.json();
 
   const panierKey = `panier:${userId}`;
   const data = JSON.parse((await redis.get(panierKey)) || "[]");

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -15,7 +17,7 @@ import {
   Menu,
   ShoppingCart,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FavoritesList } from "./FavoritesList";
 import { CartList } from "./CartList";
 import { ProfileSection } from "./ProfileSection";
@@ -25,9 +27,9 @@ export default function SheetDisplay() {
   const [activeTab, setActiveTab] = useState("favorites");
   const { data: session } = useSession();
   const { selectedItems, removeItems } = useLikeData();
-  const { items, removeItem, updateQuantity } = useCartStore();
+  const { items, removeItem, updateQuantity, fetchItems } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
-  let mySession = useSession().data?.user;
+  const mySession = session?.user;
 
   const handleFacebookLogin = () => {
     setIsProcessing(true);
@@ -69,8 +71,22 @@ export default function SheetDisplay() {
         return (
           <Dashboard selectedItems={selectedItems} removeItems={removeItems} />
         );
+      default:
+        return null;
     }
   };
+
+  // ✅ Charger le panier au chargement initial
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  // ✅ Charger à chaque fois qu'on ouvre l'onglet panier
+  useEffect(() => {
+    if (activeTab === "cart") {
+      fetchItems();
+    }
+  }, [activeTab]);
 
   return (
     <Sheet>
@@ -83,8 +99,8 @@ export default function SheetDisplay() {
         aria-describedby="dialog-description"
       >
         <SheetHeader>
-          <SheetTitle></SheetTitle>
-          <SheetDescription></SheetDescription>
+          <SheetTitle />
+          <SheetDescription />
           <ul className="flex items-center">
             <li
               className={`group relative cursor-pointer ${
@@ -125,7 +141,7 @@ export default function SheetDisplay() {
             {mySession && (
               <li
                 className={`group relative ml-4 cursor-pointer ${
-                  activeTab === "profile" ? "text-white" : "text-gray-500"
+                  activeTab === "dashboard" ? "text-white" : "text-gray-500"
                 }`}
                 onClick={() => setActiveTab("dashboard")}
               >
