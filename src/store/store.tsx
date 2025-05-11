@@ -216,4 +216,13 @@ export const useSearchArticles = create<any>((set, get) => ({
       return { filteredData: newTab };
     });
   },
+  priceRangeArticles: (allData, [min, max]) => {
+    set(() => {
+      if (!Array.isArray(allData)) return { filteredData: [] };
+      const newTab = allData.filter(
+        (item) => item.price >= min && item.price <= max
+      );
+      return { filteredData: newTab };
+    });
+  },
 }));

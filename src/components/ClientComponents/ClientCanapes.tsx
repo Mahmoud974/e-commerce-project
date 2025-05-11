@@ -1,4 +1,3 @@
-// ✅ CanapesClient.tsx avec recherche et tri corrigés
 "use client";
 
 import React from "react";
@@ -16,7 +15,6 @@ export default function CanapesClient() {
   const { data } = useTemplate();
   const { addItems } = useLikeData();
 
-  // Nuqs states pour pagination, filtres et recherche
   const [page, setPage] = useQueryState("page", {
     history: "push",
     parse: (v) => parseInt(v),
@@ -33,6 +31,11 @@ export default function CanapesClient() {
     serialize: (v) => v.join(","),
   });
 
+  const [priceQuery] = useQueryState<number[]>("price", {
+    parse: (v) => v.split("-").map(Number),
+    serialize: (v) => v.join("-"),
+  });
+
   const [searchQuery] = useQueryState("search", {
     parse: (v) => decodeURIComponent(v),
     serialize: (v) => encodeURIComponent(v),
@@ -46,9 +49,9 @@ export default function CanapesClient() {
   const currentPage = page || 1;
   const itemsPerPage = 15;
 
-  // 🔁 Appliquer les filtres manuellement
   let filtered = data || [];
 
+  // ✅ Filtres dynamiques
   if (colorQuery?.length) {
     filtered = filtered.filter((item) =>
       colorQuery.map((c) => c.toLowerCase()).includes(item.color?.toLowerCase())
@@ -60,12 +63,20 @@ export default function CanapesClient() {
     filtered = filtered.filter((item) => seats.includes(item.seat));
   }
 
+  if (priceQuery?.length === 2) {
+    const [min, max] = priceQuery;
+    filtered = filtered.filter(
+      (item) => item.price >= min && item.price <= max
+    );
+  }
+
   if (searchQuery) {
     filtered = filtered.filter((item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
+  // ✅ Tri dynamique
   if (sortQuery === "Croissant") {
     filtered = [...filtered].sort((a, b) => a.price - b.price);
   } else if (sortQuery === "Decroissant") {

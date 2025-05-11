@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect } from "react";
 import { ComboboxDemo } from "./Dropbox";
 import { useSearchArticles } from "@/store/store";
@@ -38,6 +39,7 @@ export default function Filter({
     setSelectedSeats,
     colorsArticles,
     numberSeatArticles,
+    priceRangeArticles,
   } = useSearchArticles();
 
   const [colorQuery, setColorQuery] = useQueryState<string[]>("colors", {
@@ -52,6 +54,12 @@ export default function Filter({
     serialize: (value) => value.join(","),
   });
 
+  const [priceQuery, setPriceQuery] = useQueryState<number[]>("price", {
+    history: "push",
+    parse: (value) => value.split("-").map(Number),
+    serialize: (value) => value.join("-"),
+  });
+
   useEffect(() => {
     if (colorQuery?.length) {
       setSelectedColors(colorQuery);
@@ -63,7 +71,11 @@ export default function Filter({
       setSelectedSeats(seatNumbers);
       numberSeatArticles(data, seatNumbers);
     }
-  }, [colorQuery, seatQuery]);
+
+    if (priceQuery?.length === 2) {
+      priceRangeArticles(data, priceQuery);
+    }
+  }, [colorQuery, seatQuery, priceQuery]);
 
   const seatCount = Array.from(
     new Set(data?.map((item) => item.seat).filter(Boolean))
@@ -73,17 +85,21 @@ export default function Filter({
   }));
 
   const prices = data?.map((item) => item.price);
-  const minPrice = data && Math.min(...prices);
-  const maxPrice = data && Math.max(...prices);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const selectedPrice =
+    priceQuery?.length === 2 ? priceQuery : [minPrice, maxPrice];
 
   const handleReset = () => {
     setSelectedColors([]);
     setSelectedSeats([]);
     colorsArticles(data, []);
     numberSeatArticles(data, []);
+    priceRangeArticles(data, [minPrice, maxPrice]);
     setPage("1");
     setColorQuery([]);
     setSeatQuery([]);
+    setPriceQuery([]);
   };
 
   const filters = [
@@ -93,7 +109,6 @@ export default function Filter({
         <div className="grid grid-cols-3 gap-4">
           {colors.map((color) => {
             const isSelected = selectedColors.includes(color.name);
-
             return (
               <div
                 key={color.name}
@@ -102,11 +117,10 @@ export default function Filter({
                   const updatedColors = isSelected
                     ? selectedColors.filter((c) => c !== color.name)
                     : [...selectedColors, color.name];
-
                   setSelectedColors(updatedColors);
                   colorsArticles(data, updatedColors);
-                  setPage("1");
                   setColorQuery(updatedColors);
+                  setPage("1");
                 }}
               >
                 <button
@@ -124,7 +138,6 @@ export default function Filter({
               </div>
             );
           })}
-
           <div className="col-span-3 flex justify-center mt-4">
             <button
               className="flex text-base text-white hover:text-black"
@@ -141,60 +154,86 @@ export default function Filter({
       label: "Assises",
       content: (
         <div className="flex flex-col space-y-2">
-          {seatCount.length > 0 ? (
-            seatCount.map((item) => {
-              const isSelected = selectedSeats.includes(item.seat);
-
-              return (
-                <button
-                  key={item.seat}
-                  className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
-                    isSelected
-                      ? "bg-black text-white"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                  onClick={() => {
-                    const updatedSeats = isSelected
-                      ? selectedSeats.filter((s) => s !== item.seat)
-                      : [...selectedSeats, item.seat];
-
-                    setSelectedSeats(updatedSeats);
-                    numberSeatArticles(data, updatedSeats);
-                    setPage("1");
-                    setSeatQuery(updatedSeats.map(String));
-                  }}
-                >
-                  <span>
-                    {item.seat} place{item.seat > 1 ? "s" : ""}
-                  </span>
-                  <span>
-                    {item.count} produit{item.count > 1 ? "s" : ""}
-                  </span>
-                </button>
-              );
-            })
-          ) : (
-            <p>Aucune donnée d'assises disponible.</p>
-          )}
+          {seatCount.map((item) => {
+            const isSelected = selectedSeats.includes(item.seat);
+            return (
+              <button
+                key={item.seat}
+                className={`flex justify-between items-center px-4 py-2 border rounded-md hover:bg-gray-200 ${
+                  isSelected
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-gray-800"
+                }`}
+                onClick={() => {
+                  const updatedSeats = isSelected
+                    ? selectedSeats.filter((s) => s !== item.seat)
+                    : [...selectedSeats, item.seat];
+                  setSelectedSeats(updatedSeats);
+                  numberSeatArticles(data, updatedSeats);
+                  setSeatQuery(updatedSeats.map(String));
+                  setPage("1");
+                }}
+              >
+                <span>
+                  {item.seat} place{item.seat > 1 ? "s" : ""}
+                </span>
+                <span>
+                  {item.count} produit{item.count > 1 ? "s" : ""}
+                </span>
+              </button>
+            );
+          })}
         </div>
       ),
     },
     {
       label: "Prix",
       content: (
-        <div className="px-2 py-4">
+        <div className="px-2 py-4 space-y-4">
+          <p className="text-sm text-white font-semibold">Filtrer par prix :</p>
+
+          <div className="flex items-center justify-between gap-2">
+            <input
+              type="number"
+              value={selectedPrice[0]}
+              onChange={(e) => {
+                const value = Math.max(minPrice, Number(e.target.value));
+                const updated = [value, selectedPrice[1]];
+                priceRangeArticles(data, updated);
+                setPriceQuery(updated);
+                setPage("1");
+              }}
+              className="w-20 px-2 py-1 text-sm text-black rounded border border-gray-300"
+            />
+            <span className="text-white">à</span>
+            <input
+              type="number"
+              value={selectedPrice[1]}
+              onChange={(e) => {
+                const value = Math.min(maxPrice, Number(e.target.value));
+                const updated = [selectedPrice[0], value];
+                priceRangeArticles(data, updated);
+                setPriceQuery(updated);
+                setPage("1");
+              }}
+              className="w-20 px-2 py-1 text-sm text-black rounded border border-gray-300"
+            />
+            <span className="text-white">€</span>
+          </div>
+
           <Slider
-            defaultValue={[minPrice]}
+            value={selectedPrice}
             min={minPrice}
             max={maxPrice}
             step={10}
+            onValueChange={(range: number[]) => {
+              priceRangeArticles(data, range);
+              setPriceQuery(range);
+              setPage("1");
+            }}
             className={cn("w-full", "bg-white/10 text-white", className)}
             {...props}
           />
-          <div className="flex justify-between text-xs mt-2 text-white">
-            <span>{minPrice} €</span>
-            <span>{maxPrice} €</span>
-          </div>
         </div>
       ),
     },

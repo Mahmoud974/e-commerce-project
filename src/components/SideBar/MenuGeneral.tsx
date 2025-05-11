@@ -37,6 +37,7 @@ export default function SheetDisplay() {
   };
 
   const handleSignOut = () => {
+    useCartStore.getState().clearCart(); // Vide Zustand localement
     alert("Vous avez été déconnecté.");
     signOut();
   };
