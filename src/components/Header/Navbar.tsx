@@ -28,13 +28,29 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    if (data) {
-      const list = data.filter((item) =>
-        item.title.toLowerCase().includes(searchTerm?.toLowerCase())
-      );
-      setSuggestions(searchTerm ? list.slice(0, 5) : []);
-    }
-  }, [data, searchTerm]);
+    const fetchSuggestions = async () => {
+      if (searchTerm) {
+        try {
+          const response = await fetch(
+            `/api/search?q=${encodeURIComponent(searchTerm)}`
+          );
+          const data = await response.json();
+          setSuggestions(data);
+        } catch (error) {
+          console.error("Erreur lors de la recherche:", error);
+          setSuggestions([]);
+        }
+      } else {
+        setSuggestions([]);
+      }
+    };
+
+    const delay = setTimeout(() => {
+      fetchSuggestions();
+    }, 300);
+
+    return () => clearTimeout(delay);
+  }, [searchTerm]);
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -69,7 +85,7 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "Canapés" },
-    { href: "/produits", label: "Produits" },
+    { href: "/nettoyants", label: "Produits" },
     { href: "/echantillons", label: "Échantillons" },
   ];
 
@@ -160,7 +176,7 @@ export default function Navbar() {
         <AlertElement />
         {session && (
           <div className="flex items-center space-x-2">
-            <span className="hidden lg:block">{session.user?.title}</span>
+            <span className="hidden lg:block">{session.user?.name}</span>
             <Image
               src={session.user?.image ?? "/default.png"}
               alt="Photo de profil"

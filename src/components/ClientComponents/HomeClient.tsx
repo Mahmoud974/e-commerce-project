@@ -125,7 +125,7 @@ export default function HomeClient({ data }: { data: any[] }) {
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
                   <h3 className="text-xl font-semibold mb-2">
-                    Un chez-vous à votre image
+                    Inspiration de chez-vous
                   </h3>
                   <p className="text-sm mb-4">
                     Créez un espace sur-mesure avec nos experts déco.
@@ -138,7 +138,7 @@ export default function HomeClient({ data }: { data: any[] }) {
             </Link>
 
             {/* Image 2 */}
-            <Link href="/">
+            <Link href="/conseil">
               <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
                 <Image
                   src="/img/article-2.png"
