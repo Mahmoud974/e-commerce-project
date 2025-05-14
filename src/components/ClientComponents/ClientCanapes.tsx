@@ -10,6 +10,7 @@ import { ChevronRight } from "lucide-react";
 import { useTemplate } from "@/app/hook/useTemplate";
 import { useLikeData } from "@/store/store";
 import { useQueryState } from "nuqs";
+import LexChat from "../chat/Chat";
 
 export default function CanapesClient() {
   const { data } = useTemplate();
@@ -95,6 +96,7 @@ export default function CanapesClient() {
 
   return (
     <section className="flex flex-col min-h-screen">
+      <LexChat />
       <div className="flex flex-col items-center mt-6 mb-12 w-full container mx-auto">
         <section className="flex flex-col justify-between w-full mb-12">
           <div className="flex flex-col">

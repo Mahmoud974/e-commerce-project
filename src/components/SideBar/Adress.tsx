@@ -1,168 +1,234 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Address() {
-  const [address, setAddress] = useState({
-    firstName: "Albert",
-    lastName: "YEEERS",
-    street: "18 rue Sola Bert",
-    postalCode: "56100",
-    city: "Meaux",
-    country: "France",
-    phone: "+33669791234",
+  const { data: session, status } = useSession();
+  const [isEditing, setIsEditing] = useState(false);
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    postalCode: "",
+    city: "",
+    country: "",
+    phone: "",
   });
 
-  const [isEditing, setIsEditing] = useState(false);
+  useEffect(() => {
+    console.log("Status de la session:", status);
+    console.log("Session actuelle:", session);
+
+    if (status === "authenticated" && session?.user) {
+      setFormData({
+        name: session.user.name || "",
+        address: session.user.address || "",
+        postalCode: session.user.postalCode || "",
+        city: session.user.city || "",
+        country: session.user.country || "France",
+        phone: session.user.phone || "",
+      });
+    }
+  }, [session, status]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAddress((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  // Fonction pour sauvegarder l'adresse
-  const handleSave = () => {
-    setIsEditing(false);
-    alert("Adresse sauvegardée avec succès !");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (status !== "authenticated" || !session?.user) {
+      console.log("Status de la session:", status);
+      console.log("Session actuelle:", session);
+      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
+      return;
+    }
+
+    try {
+      console.log("Envoi de la requête avec la session:", session);
+      console.log("Status lors de l'envoi:", status);
+
+      const res = await fetch("/api/user/address", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      console.log("Réponse du serveur:", data);
+
+      if (res.ok) {
+        setMessage("✅ Adresse mise à jour avec succès !");
+        setIsEditing(false);
+      } else {
+        setMessage(`❌ ${data.message || "Erreur lors de la mise à jour"}`);
+        console.error("Détails de l'erreur:", data);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête:", error);
+      setMessage("❌ Erreur de connexion au serveur");
+    }
   };
 
+  const startEditing = () => {
+    if (status !== "authenticated") {
+      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
+      return;
+    }
+    setIsEditing(true);
+    setMessage("");
+  };
+
+  // Si on charge la session
+  if (status === "loading") {
+    return <div>Chargement...</div>;
+  }
+
+  // Si pas connecté
+  if (status === "unauthenticated") {
+    return <div>Veuillez vous connecter pour gérer votre adresse.</div>;
+  }
+
   return (
-    <div className="   text-white -lg space-y-4">
-      <h2 className="text-2xl font-bold mt-6">📦 Modifier l'adresse</h2>
+    <div className="mt-4 p-4 bg-gray-800 rounded-lg">
+      <h2 className="text-xl font-bold mb-4">Adresse de livraison</h2>
 
-      {/* Condition ternaire pour basculer entre mode affichage et mode édition */}
-      {isEditing ? (
-        // Mode édition (formulaire)
-        <form className="space-y-4">
+      {!isEditing ? (
+        <div className="space-y-2">
+          <p>
+            <strong>Nom :</strong> {session?.user?.name || "Non renseigné"}
+          </p>
+          <p>
+            <strong>Adresse :</strong>{" "}
+            {session?.user?.address || "Non renseignée"}
+          </p>
+          <p>
+            <strong>Code Postal :</strong>{" "}
+            {session?.user?.postalCode || "Non renseigné"}
+          </p>
+          <p>
+            <strong>Ville :</strong> {session?.user?.city || "Non renseignée"}
+          </p>
+          <p>
+            <strong>Pays :</strong> {session?.user?.country || "Non renseigné"}
+          </p>
+          <p>
+            <strong>Téléphone :</strong>{" "}
+            {session?.user?.phone || "Non renseigné"}
+          </p>
+          <button
+            onClick={startEditing}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Modifier l'adresse
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block">Prénom</label>
+            <label className="block text-sm font-medium mb-1">Nom</label>
             <input
               type="text"
-              name="firstName"
-              value={address.firstName}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
-              className="w-full p-2 bg-black border border-gray-700 "
+              className="w-full p-2 bg-gray-700 rounded"
+              required
             />
           </div>
-
           <div>
-            <label className="block">Nom</label>
+            <label className="block text-sm font-medium mb-1">Adresse</label>
             <input
               type="text"
-              name="lastName"
-              value={address.lastName}
+              name="address"
+              value={formData.address}
               onChange={handleChange}
-              className="w-full p-2 bg-black border border-gray-700 "
+              className="w-full p-2 bg-gray-700 rounded"
+              required
             />
           </div>
-
           <div>
-            <label className="block">Adresse</label>
+            <label className="block text-sm font-medium mb-1">
+              Code Postal
+            </label>
             <input
               type="text"
-              name="street"
-              value={address.street}
+              name="postalCode"
+              value={formData.postalCode}
               onChange={handleChange}
-              className="w-full p-2 bg-black border border-gray-700 "
+              className="w-full p-2 bg-gray-700 rounded"
+              required
             />
           </div>
-
-          <div className="flex space-x-4">
-            <div className="flex-1">
-              <label className="block">Code Postal</label>
-              <input
-                type="text"
-                name="postalCode"
-                value={address.postalCode}
-                onChange={handleChange}
-                className="w-full p-2 bg-black border border-gray-700 "
-              />
-            </div>
-
-            <div className="flex-1">
-              <label className="block">Ville</label>
-              <input
-                type="text"
-                name="city"
-                value={address.city}
-                onChange={handleChange}
-                className="w-full p-2 bg-black border border-gray-700 "
-              />
-            </div>
-          </div>
-
           <div>
-            <label className="block">Pays</label>
+            <label className="block text-sm font-medium mb-1">Ville</label>
+            <input
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              className="w-full p-2 bg-gray-700 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Pays</label>
             <input
               type="text"
               name="country"
-              value={address.country}
+              value={formData.country}
               onChange={handleChange}
-              className="w-full p-2 bg-black border border-gray-700 "
+              className="w-full p-2 bg-gray-700 rounded"
+              required
             />
           </div>
-
           <div>
-            <label className="block">Téléphone</label>
+            <label className="block text-sm font-medium mb-1">Téléphone</label>
             <input
-              type="text"
+              type="tel"
               name="phone"
-              value={address.phone}
+              value={formData.phone}
               onChange={handleChange}
-              className="w-full p-2 bg-black border border-gray-700 "
+              className="w-full p-2 bg-gray-700 rounded"
+              required
             />
           </div>
 
-          {/* Boutons de sauvegarde et annulation */}
+          {message && (
+            <p
+              className={`text-sm ${
+                message.includes("✅") ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {message}
+            </p>
+          )}
+
           <div className="flex space-x-4">
             <button
-              type="button"
-              onClick={handleSave}
-              className="w-full p-3 bg-white  hover:bg-green-700 text-black font-bold"
+              type="submit"
+              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
             >
-              Sauvegarder
+              Enregistrer
             </button>
             <button
               type="button"
               onClick={() => setIsEditing(false)}
-              className="w-full p-3 bg-gray-600 -lg hover:bg-gray-700 text-white font-bold"
+              className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
             >
               Annuler
             </button>
           </div>
         </form>
-      ) : (
-        // Mode affichage
-        <div className="space-y-2">
-          <p>
-            <strong>Nom :</strong> {`${address.firstName} ${address.lastName}`}
-          </p>
-          <p>
-            <strong>Adresse :</strong> {address.street}
-          </p>
-          <p>
-            <strong>Code Postal :</strong> {address.postalCode}
-          </p>
-          <p>
-            <strong>Ville :</strong> {address.city}
-          </p>
-          <p>
-            <strong>Pays :</strong> {address.country}
-          </p>
-          <p>
-            <strong>Téléphone :</strong> {address.phone}
-          </p>
-
-          {/* Bouton pour passer en mode édition */}
-          <button
-            onClick={() => setIsEditing(true)}
-            className="mt-4 w-full p-3     bg-white text-black   font-bold"
-          >
-            Modifier l'adresse
-          </button>
-        </div>
       )}
     </div>
   );

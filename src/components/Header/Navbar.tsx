@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef, KeyboardEvent } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SheetDisplay from "../SideBar/MenuGeneral";
 import { useTemplate } from "@/app/hook/useTemplate";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -76,13 +76,6 @@ export default function Navbar() {
 
   const onSubmit: SubmitHandler<Inputs> = () => {};
 
-  const navLinkKey = (e: KeyboardEvent, href: string) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      window.location.href = href;
-    }
-  };
-
   const navItems = [
     { href: "/", label: "Canapés" },
     { href: "/nettoyants", label: "Produits" },
@@ -90,20 +83,10 @@ export default function Navbar() {
   ];
 
   return (
-    <nav
-      role="navigation"
-      aria-label="Barre de navigation principale"
-      className="relative z-50 w-full flex items-center justify-between py-4 text-white"
-    >
-      {/* === GAUCHE === */}
+    <nav className="relative z-50 w-full flex items-center justify-between py-4 text-white">
+      {/* GAUCHE */}
       <div className="flex items-center space-x-8">
-        <Link
-          href="/home"
-          aria-label="Accueil"
-          tabIndex={0}
-          className="focus:outline-none focus:ring-2 focus:ring-white rounded"
-          onKeyDown={(e) => navLinkKey(e, "/home")}
-        >
+        <Link href="/home">
           <Image
             src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/logo.png`}
             alt="Logo"
@@ -112,16 +95,10 @@ export default function Navbar() {
           />
         </Link>
 
-        <ul role="menubar" className="flex flex-col">
+        <ul className="flex flex-col">
           {navItems.map((item) => (
-            <li key={item.href} role="none">
-              <Link
-                href={item.href}
-                role="menuitem"
-                tabIndex={0}
-                className="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded"
-                onKeyDown={(e) => navLinkKey(e, item.href)}
-              >
+            <li key={item.href}>
+              <Link href={item.href} className="hover:underline">
                 {item.label}
               </Link>
             </li>
@@ -129,14 +106,13 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* === MILIEU : recherche === */}
+      {/* MILIEU : barre de recherche */}
       {pathname === "/" && (
         <div className="relative z-40 w-1/3" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
               placeholder="Rechercher un produit…"
-              aria-label="Recherche de produit"
               className="w-full py-2 px-4 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
               {...register("search", {
                 onChange: () => setShowSuggestions(true),
@@ -171,15 +147,15 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* === DROITE === */}
+      {/* DROITE */}
       <div className="flex items-center space-x-4">
         <AlertElement />
         {session && (
           <div className="flex items-center space-x-2">
             <span className="hidden lg:block">{session.user?.name}</span>
             <Image
-              src={session.user?.image ?? "/default.png"}
-              alt="Photo de profil"
+              src={session.user?.image ?? "/images/default.png"}
+              alt="Profil"
               width={32}
               height={32}
               className="rounded-full object-cover"
