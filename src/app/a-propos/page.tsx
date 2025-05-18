@@ -11,7 +11,6 @@ export default function Page() {
     >
       <section className="relative" role="main">
         <div className="container mt-6 mx-auto">
-          {/* Paragraphe sous l'image */}
           <div className="mt-12 text-center px-4 mb-12">
             <p className="drop-shadow-lg w-1/2 text-center mx-auto">
               Nous créons des meubles uniques qui améliorent les nouvelles
