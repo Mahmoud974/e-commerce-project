@@ -1,92 +1,99 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/ProduitId/Card";
 import Navbar from "@/components/Header/Navbar";
 import Filter from "@/components/Header/Filter";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { useTemplate } from "@/app/hook/useTemplate";
 import { useLikeData } from "@/store/store";
 import { useQueryState } from "nuqs";
 import LexChat from "../chat/Chat";
 
-export default function CanapesClient() {
-  const { data } = useTemplate();
+export default function CanapesClient({ data }) {
   const { addItems } = useLikeData();
+  const [filteredData, setFilteredData] = useState(data || []);
 
   const [page, setPage] = useQueryState("page", {
     history: "push",
-    parse: (v) => parseInt(v),
+    parse: (v) => parseInt(v || "1"),
     serialize: (v) => String(v),
   });
 
   const [colorQuery] = useQueryState<string[]>("colors", {
-    parse: (v) => v.split(","),
-    serialize: (v) => v.join(","),
+    parse: (v) => v?.split(",").filter(Boolean) || [],
+    serialize: (v) => v?.join(",") || "",
   });
 
   const [seatQuery] = useQueryState<string[]>("seats", {
-    parse: (v) => v.split(","),
-    serialize: (v) => v.join(","),
+    parse: (v) => v?.split(",").filter(Boolean) || [],
+    serialize: (v) => v?.join(",") || "",
   });
 
   const [priceQuery] = useQueryState<number[]>("price", {
-    parse: (v) => v.split("-").map(Number),
-    serialize: (v) => v.join("-"),
+    parse: (v) => v?.split("-").map(Number) || [],
+    serialize: (v) => v?.join("-") || "",
   });
 
   const [searchQuery] = useQueryState("search", {
-    parse: (v) => decodeURIComponent(v),
-    serialize: (v) => encodeURIComponent(v),
+    parse: (v) => v ? decodeURIComponent(v) : "",
+    serialize: (v) => v ? encodeURIComponent(v) : "",
   });
 
   const [sortQuery] = useQueryState("sort", {
-    parse: (v) => v,
-    serialize: (v) => v,
+    parse: (v) => v || "",
+    serialize: (v) => v || "",
   });
+
+  // Effet pour appliquer les filtres lorsque les paramètres d'URL changent
+  useEffect(() => {
+    if (!data) return;
+    
+    let result = [...data];
+
+    // Filtre par couleur
+    if (colorQuery?.length) {
+      result = result.filter((item) =>
+        colorQuery
+          .map((c) => c.toLowerCase())
+          .includes(item.color?.toLowerCase())
+      );
+    }
+
+    // Filtre par nombre de places
+    if (seatQuery?.length) {
+      const seats = seatQuery.map(Number);
+      result = result.filter((item) => seats.includes(item.seat));
+    }
+
+    // Filtre par prix
+    if (priceQuery?.length === 2) {
+      const [min, max] = priceQuery;
+      result = result.filter((item) => item.price >= min && item.price <= max);
+    }
+
+    // Filtre par recherche
+    if (searchQuery) {
+      result = result.filter((item) =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Tri
+    if (sortQuery === "Croissant") {
+      result = [...result].sort((a, b) => a.price - b.price);
+    } else if (sortQuery === "Decroissant") {
+      result = [...result].sort((a, b) => b.price - a.price);
+    }
+
+    setFilteredData(result);
+  }, [data, colorQuery, seatQuery, priceQuery, searchQuery, sortQuery]);
 
   const currentPage = page || 1;
   const itemsPerPage = 15;
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  let filtered = data || [];
-
-  // ✅ Filtres dynamiques
-  if (colorQuery?.length) {
-    filtered = filtered.filter((item) =>
-      colorQuery.map((c) => c.toLowerCase()).includes(item.color?.toLowerCase())
-    );
-  }
-
-  if (seatQuery?.length) {
-    const seats = seatQuery.map(Number);
-    filtered = filtered.filter((item) => seats.includes(item.seat));
-  }
-
-  if (priceQuery?.length === 2) {
-    const [min, max] = priceQuery;
-    filtered = filtered.filter(
-      (item) => item.price >= min && item.price <= max
-    );
-  }
-
-  if (searchQuery) {
-    filtered = filtered.filter((item) =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }
-
-  // ✅ Tri dynamique
-  if (sortQuery === "Croissant") {
-    filtered = [...filtered].sort((a, b) => a.price - b.price);
-  } else if (sortQuery === "Decroissant") {
-    filtered = [...filtered].sort((a, b) => b.price - a.price);
-  }
-
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
-
-  const paginatedData = filtered.slice(
+  const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import SheetDisplay from "../SideBar/MenuGeneral";
-import { useTemplate } from "@/app/hook/useTemplate";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -16,7 +16,7 @@ type Inputs = { search: string };
 export default function Navbar() {
   const { data: session } = useSession();
   const pathname = usePathname();
-  const { data } = useTemplate();
+
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const searchTerm = watch("search");
   const [suggestions, setSuggestions] = useState<any[]>([]);

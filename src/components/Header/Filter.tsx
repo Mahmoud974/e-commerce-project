@@ -24,12 +24,16 @@ type Article = {
 type FilterProps = {
   data: Article[];
   setPage: (value: string) => void;
+  colorProduct?: string[];
+  seatProduct?: number[];
 } & React.ComponentProps<typeof Slider>;
 
 export default function Filter({
   data,
   setPage,
   className,
+  colorProduct,
+  seatProduct,
   ...props
 }: FilterProps) {
   const {
@@ -44,20 +48,20 @@ export default function Filter({
 
   const [colorQuery, setColorQuery] = useQueryState<string[]>("colors", {
     history: "push",
-    parse: (value) => value.split(","),
-    serialize: (value) => value.join(","),
+    parse: (value) => value?.split(",").filter(Boolean) || [],
+    serialize: (value) => value?.join(",") || "",
   });
 
   const [seatQuery, setSeatQuery] = useQueryState<string[]>("seats", {
     history: "push",
-    parse: (value) => value.split(","),
-    serialize: (value) => value.join(","),
+    parse: (value) => value?.split(",").filter(Boolean) || [],
+    serialize: (value) => value?.join(",") || "",
   });
 
   const [priceQuery, setPriceQuery] = useQueryState<number[]>("price", {
     history: "push",
-    parse: (value) => value.split("-").map(Number),
-    serialize: (value) => value.join("-"),
+    parse: (value) => value?.split("-").map(Number) || [],
+    serialize: (value) => value?.join("-") || "",
   });
 
   useEffect(() => {
@@ -75,8 +79,9 @@ export default function Filter({
     if (priceQuery?.length === 2) {
       priceRangeArticles(data, priceQuery);
     }
-  }, [colorQuery, seatQuery, priceQuery]);
+  }, [colorQuery, seatQuery, priceQuery, data, colorsArticles, numberSeatArticles, priceRangeArticles, setSelectedColors, setSelectedSeats]);
 
+  // Assurez-vous que les données sont disponibles avant de calculer
   const seatCount = Array.from(
     new Set(data?.map((item) => item.seat).filter(Boolean))
   ).map((seat) => ({
@@ -84,9 +89,9 @@ export default function Filter({
     count: data.filter((item) => item.seat === seat).length,
   }));
 
-  const prices = data?.map((item) => item.price);
-  const minPrice = Math.min(...prices);
-  const maxPrice = Math.max(...prices);
+  const prices = data?.map((item) => item.price) || [0, 1000];
+  const minPrice = prices.length ? Math.min(...prices) : 0;
+  const maxPrice = prices.length ? Math.max(...prices) : 1000;
   const selectedPrice =
     priceQuery?.length === 2 ? priceQuery : [minPrice, maxPrice];
 

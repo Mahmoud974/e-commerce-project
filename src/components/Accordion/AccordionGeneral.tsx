@@ -1,15 +1,10 @@
+import { AccordionItemType } from "../../db/Accordions/conditionsItems";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-export type AccordionItemType = {
-  value: string;
-  trigger: string;
-  content: React.ReactNode;
-};
 
 export function AccordionGeneral({ items }: { items: AccordionItemType[] }) {
   return (
@@ -23,3 +18,4 @@ export function AccordionGeneral({ items }: { items: AccordionItemType[] }) {
     </Accordion>
   );
 }
+export type { AccordionItemType };

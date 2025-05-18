@@ -1,46 +1,10 @@
 import React from "react";
 import HelpSection from "@/components/BottomSection/HelpSection";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
-import {
-  AccordionGeneral,
-  AccordionItemType,
-} from "@/components/Accordion/AccordionGeneral";
+import { AccordionGeneral } from "@/components/Accordion/AccordionGeneral";
+import { inspirationsItems } from "@/db/Accordions/inspirations";
 
 export default function Page() {
-  const accordionItems: AccordionItemType[] = [
-    {
-      value: "service",
-      trigger: "Comment contacter le service client ?",
-      content: (
-        <p>
-          Vous pouvez nous contacter par e-mail, téléphone ou via notre
-          formulaire de contact en ligne. Nous sommes disponibles du lundi au
-          samedi, de 9h à 18h.
-        </p>
-      ),
-    },
-    {
-      value: "garantie",
-      trigger: "Comment fonctionne la garantie ?",
-      content: (
-        <p>
-          Nos produits sont garantis 5 ans contre les défauts de fabrication.
-          Pour toute réclamation, présentez simplement votre preuve d’achat.
-        </p>
-      ),
-    },
-    {
-      value: "delai",
-      trigger: "Quels sont les délais de traitement d'une demande ?",
-      content: (
-        <p>
-          Les demandes sont généralement traitées sous 48h. Un conseiller vous
-          contactera si des informations supplémentaires sont nécessaires.
-        </p>
-      ),
-    },
-  ];
-
   return (
     <PageLayoutBanner
       title="Inspiration"
@@ -86,7 +50,7 @@ export default function Page() {
             </h2>
 
             <div className="flex flex-col px-6 my-12 max-w-2xl mx-auto items-center">
-              <AccordionGeneral items={accordionItems} />
+              <AccordionGeneral items={inspirationsItems} />
             </div>
 
             <HelpSection />
