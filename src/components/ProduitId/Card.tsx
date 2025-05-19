@@ -101,7 +101,9 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
       <div className="p-4 space-y-1">
         <div className="flex flex-col text-black justify-between">
           <div className="flex justify-between items-center">
-            <p className="text-2xl font-semibold truncate">{item.title}</p>
+            <p className="text-2xl font-semibold truncate">
+              {item?.title || "Produit"}
+            </p>
             {(item.title === "Aube Dorée" ||
               item.title === "Atelier Urbain" ||
               item.title === "Matelassé Confort" ||

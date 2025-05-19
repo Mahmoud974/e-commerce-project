@@ -33,7 +33,6 @@ export default function Baskets({
   }, [items]);
 
   useEffect(() => {
-    // Redirection vers l'accueil si le panier est vide
     if (items.length === 0) {
       router.push("/");
     }
@@ -58,14 +57,20 @@ export default function Baskets({
                   className="flex items-center"
                 >
                   <Image
-                    src={item?.image[0]}
+                    src={
+                      item?.images?.[0] ||
+                      item?.images?.[0] ||
+                      "/placeholder-image.jpg"
+                    }
                     alt="product image"
                     className="object-contain p-1 w-16 h-16"
                     width={64}
                     height={64}
                   />
                   <div className="ml-3">
-                    <div className="text-lg font-bold">{item.nom}</div>
+                    <div className="text-lg font-bold">
+                      {item.title || item.nom || "Produit"}
+                    </div>
                     <div className="text-gray-400">{item.price}€</div>
                   </div>
                 </Link>

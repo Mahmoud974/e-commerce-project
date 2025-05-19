@@ -37,7 +37,6 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validation des champs obligatoires
     if (
       !addressData.firstName ||
       !addressData.lastName ||
@@ -49,7 +48,6 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
       return;
     }
 
-    // Validation du numéro de téléphone
     if (addressData.phoneNumber.length < 10) {
       setError("Le numéro de téléphone doit comporter au moins 10 chiffres.");
       return;

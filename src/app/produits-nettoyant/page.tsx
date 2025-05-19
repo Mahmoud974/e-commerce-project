@@ -35,7 +35,6 @@ export default function NettoyantsProduits() {
     fetchProducts();
   }, []);
 
-  // Adapter les produits au format attendu par ProductCard
   const adaptedProducts = products.map((product) => {
     // Calculer le prix avec réduction si disponible
     let finalPrice = product.price;
@@ -53,18 +52,14 @@ export default function NettoyantsProduits() {
       }
     }
 
-    // Formater le prix avec 2 décimales maximum APRÈS tous les calculs
     const formattedPrice = parseFloat(finalPrice.toFixed(2));
 
-    // Nettoyer les URLs des images (enlever les guillemets supplémentaires)
     const cleanedImages = product.images?.map((img) =>
       img.replace(/["'`]/g, "").trim()
     ) || ["/placeholder-image.jpg"];
 
-    // Générer un titre descriptif basé sur la description ou d'autres propriétés
     let descriptiveTitle = product.title;
 
-    // Si le titre est juste un numéro, essayer d'extraire un meilleur titre de la description
     if (/^\d+$/.test(product.title)) {
       // Extraire les premiers mots de la description pour créer un titre
       const descriptionWords = product.description.split(" ");
