@@ -11,22 +11,21 @@ export default function Page() {
               besoins."
       bannerImage={"paiement.jpg"}
     >
-      <section className="relative">
+      <main className="relative">
         <div className="container mt-6 mx-auto">
-          {/* Paragraphe sous l'image */}
-
-          {/* Section des caractéristiques */}
-          <div>
-            <div className="bg-red-700 w-1/3 h-3 my-8  "></div>
+          <article>
+            <header>
+              <div className="bg-red-700 w-1/3 h-3 my-8"></div>
+            </header>
             <p>
               {`Chez SofaChic, nous mettons un point d'honneur à utiliser des
-            matériaux robustes et durables. C’est pourquoi nous proposons une
+            matériaux robustes et durables. C'est pourquoi nous proposons une
             garantie de 10 ans pour les cadres de canapé, couvrant les défauts
             de fabrication et de structure.`}
             </p>
 
-            <div className="mt-12">
-              <h2 className="font-bold text-3xl text-left">
+            <section className="mt-12" aria-labelledby="payment-methods">
+              <h2 id="payment-methods" className="font-bold text-3xl text-left">
                 Moyens de paiement
               </h2>
               <p className="mt-4">
@@ -34,9 +33,8 @@ export default function Page() {
                 options de paiement sécurisé.
               </p>
 
-              {/* Paiement par carte bancaire */}
-              <div className="mt-8">
-                <h3 className="font-semibold text-xl">
+              <section className="mt-8" aria-labelledby="card-payment">
+                <h3 id="card-payment" className="font-semibold text-xl">
                   Paiement par carte bancaire
                 </h3>
                 <p className="mt-2">
@@ -55,46 +53,56 @@ export default function Page() {
                 possibilité de demander l'annulation du paiement et le
                 remboursement.`}
                 </p>
-              </div>
+              </section>
 
-              {/* Options de paiement en plusieurs fois */}
-              <div className="mt-8">
-                <h3 className="font-semibold text-xl">
+              <section className="mt-8" aria-labelledby="installment-payment">
+                <h3 id="installment-payment" className="font-semibold text-xl">
                   Paiement en plusieurs fois
                 </h3>
                 <p className="mt-2">
                   Pour faciliter vos achats, nous vous proposons des solutions
                   de paiement en plusieurs fois :
                 </p>
-                <table className="mt-4 table-auto w-full text-left border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="border px-4 py-2">Option de paiement</th>
-                      <th className="border px-4 py-2">Durée</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border px-4 py-2">
-                        Paiement en 3 ou 4 fois
-                      </td>
-                      <td className="border px-4 py-2">Avec Alma</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2">
-                        Paiement en 10 ou 12 fois
-                      </td>
-                      <td className="border px-4 py-2">Avec Alma</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                <div className="mt-4 overflow-x-auto">
+                  <table className="table-auto w-full text-left border-collapse">
+                    <caption className="sr-only">
+                      Options de paiement en plusieurs fois
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col" className="border px-4 py-2">
+                          Option de paiement
+                        </th>
+                        <th scope="col" className="border px-4 py-2">
+                          Durée
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="border px-4 py-2">
+                          Paiement en 3 ou 4 fois
+                        </td>
+                        <td className="border px-4 py-2">Avec Alma</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-4 py-2">
+                          Paiement en 10 ou 12 fois
+                        </td>
+                        <td className="border px-4 py-2">Avec Alma</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </section>
 
-            <HelpSection />
-          </div>
+            <footer className="mt-12">
+              <HelpSection />
+            </footer>
+          </article>
         </div>
-      </section>
+      </main>
     </PageLayoutBanner>
   );
 }

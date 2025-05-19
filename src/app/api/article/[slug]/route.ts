@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import redis from "@/lib/redis"; // tu dois avoir le fichier redis.ts bien configuré
+import redis from "@/lib/redis";
 
 export async function GET(
   _req: Request,

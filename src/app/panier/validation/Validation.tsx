@@ -1,10 +1,6 @@
 "use client";
 
-import Footer from "@/components/BottomSection/Footer";
-import HelpSection from "@/components/BottomSection/HelpSection";
-import Informations from "@/components/BottomSection/Informations";
 import Navbar from "@/components/Header/Navbar";
-import Newsletter from "@/components/BottomSection/Newsletter";
 import AddressForm from "@/components/Panier/AdrdressForm";
 import DeliveryOptions from "@/components/Panier/DeliveryOptions";
 import InformationsPurchase from "@/components/Panier/InformationsPurchase";

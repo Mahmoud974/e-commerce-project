@@ -2,13 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/ProduitId/Card";
-import Navbar from "@/components/Header/Navbar";
 import Filter from "@/components/Header/Filter";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 import { useLikeData } from "@/store/store";
 import { useQueryState } from "nuqs";
-import LexChat from "../chat/Chat";
+import LexChat from "../Chat/Chat";
+import ProductLayout from "@/components/Layout/ProductLayout";
 
 export default function CanapesClient({ data }) {
   const { addItems } = useLikeData();
@@ -36,8 +34,8 @@ export default function CanapesClient({ data }) {
   });
 
   const [searchQuery] = useQueryState("search", {
-    parse: (v) => v ? decodeURIComponent(v) : "",
-    serialize: (v) => v ? encodeURIComponent(v) : "",
+    parse: (v) => (v ? decodeURIComponent(v) : ""),
+    serialize: (v) => (v ? encodeURIComponent(v) : ""),
   });
 
   const [sortQuery] = useQueryState("sort", {
@@ -45,10 +43,9 @@ export default function CanapesClient({ data }) {
     serialize: (v) => v || "",
   });
 
-  // Effet pour appliquer les filtres lorsque les paramètres d'URL changent
   useEffect(() => {
     if (!data) return;
-    
+
     let result = [...data];
 
     // Filtre par couleur
@@ -60,26 +57,22 @@ export default function CanapesClient({ data }) {
       );
     }
 
-    // Filtre par nombre de places
     if (seatQuery?.length) {
       const seats = seatQuery.map(Number);
       result = result.filter((item) => seats.includes(item.seat));
     }
 
-    // Filtre par prix
     if (priceQuery?.length === 2) {
       const [min, max] = priceQuery;
       result = result.filter((item) => item.price >= min && item.price <= max);
     }
 
-    // Filtre par recherche
     if (searchQuery) {
       result = result.filter((item) =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    // Tri
     if (sortQuery === "Croissant") {
       result = [...result].sort((a, b) => a.price - b.price);
     } else if (sortQuery === "Decroissant") {
@@ -102,60 +95,60 @@ export default function CanapesClient({ data }) {
   const seatProduct = [...new Set(data?.map((item) => item.seat) || [])];
 
   return (
-    <section className="flex flex-col min-h-screen">
-      <LexChat />
-      <div className="flex flex-col items-center mt-6 mb-12 w-full container mx-auto">
-        <section className="flex flex-col justify-between w-full mb-12">
-          <div className="flex flex-col">
-            <Navbar />
+    <ProductLayout
+      title="Canapés"
+      description="Découvrez notre sélection de canapés confortables et élégants pour votre intérieur."
+      breadcrumbs={[{ label: "Accueil", href: "/home" }, { label: "Canapés" }]}
+    >
+      <section className="flex flex-col min-h-screen">
+        <LexChat />
+        <div className="flex flex-col items-center w-full">
+          <section className="flex flex-col justify-between w-full mb-8 sm:mb-12">
+            <div className="flex flex-col">
+              <Filter
+                data={data || []}
+                setPage={(v) => setPage(parseInt(v))}
+                colorProduct={colorProduct}
+                seatProduct={seatProduct}
+              />
 
-            <Filter
-              data={data || []}
-              setPage={(v) => setPage(parseInt(v))}
-              colorProduct={colorProduct}
-              seatProduct={seatProduct}
-            />
+              <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 mx-auto w-full">
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((item: any) => (
+                    <ProductCard
+                      key={item.id}
+                      item={item}
+                      addItems={addItems}
+                    />
+                  ))
+                ) : (
+                  <p className="text-white text-center col-span-full">
+                    Aucun produit disponible.
+                  </p>
+                )}
+              </section>
 
-            <div className="text-sm text-white flex items-center gap-2 mb-4">
-              <Link href="/home">
-                <span className="text-gray-500 hover:underline cursor-pointer">
-                  Accueil
-                </span>
-              </Link>
-              <ChevronRight className="w-4 h-4" />
-              <span className="text-gray-500">Canapés</span>
-            </div>
-
-            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mx-auto w-full">
-              {paginatedData.length > 0 ? (
-                paginatedData.map((item: any) => (
-                  <ProductCard key={item.id} item={item} addItems={addItems} />
-                ))
-              ) : (
-                <p className="text-white">Aucun produit disponible.</p>
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-6 sm:mt-8 gap-1 sm:gap-2 flex-wrap">
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPage(i + 1)}
+                      className={`px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base rounded border ${
+                        currentPage === i + 1
+                          ? "bg-white text-black font-bold"
+                          : "border-white text-white hover:bg-gray-800 transition-colors"
+                      }`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                </div>
               )}
-            </section>
-
-            {totalPages > 1 && (
-              <div className="flex justify-center mt-8 gap-2 flex-wrap">
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setPage(i + 1)}
-                    className={`px-4 py-2 rounded border ${
-                      currentPage === i + 1
-                        ? "bg-white text-black font-bold"
-                        : "border-white text-white"
-                    }`}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
-    </section>
+            </div>
+          </section>
+        </div>
+      </section>
+    </ProductLayout>
   );
 }

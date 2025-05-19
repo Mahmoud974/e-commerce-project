@@ -3,7 +3,7 @@ import prisma from "../../../lib/prisma";
 import redis from "@/lib/redis";
 
 export async function GET() {
-  const cacheKey = "canapes:all";
+  const cacheKey = "produits-entretien:all";
 
   const cached = await redis.get(cacheKey);
   if (cached) {
@@ -14,13 +14,16 @@ export async function GET() {
     });
   }
 
-  const items = await prisma.canape.findMany();
+  // Utilisez Produit avec un P majuscule, pas produit
+  const items = await prisma.produit.findMany({
+    where: {},
+  });
 
   const jsonString = JSON.stringify(items, (_key, value) =>
     typeof value === "bigint" ? value.toString() : value
   );
 
-  await redis.set(cacheKey, jsonString, "EX", 60);
+  await redis.set(cacheKey, jsonString, "EX", 3);
 
   const safeItems = JSON.parse(jsonString);
 

@@ -58,7 +58,7 @@ export default function Filter({
     serialize: (value) => value?.join(",") || "",
   });
 
-  const [priceQuery, setPriceQuery] = useQueryState<number[]>("price", {
+  const [priceQuery, setPriceQuery] = useQueryState<any>("price", {
     history: "push",
     parse: (value) => value?.split("-").map(Number) || [],
     serialize: (value) => value?.join("-") || "",
@@ -79,7 +79,17 @@ export default function Filter({
     if (priceQuery?.length === 2) {
       priceRangeArticles(data, priceQuery);
     }
-  }, [colorQuery, seatQuery, priceQuery, data, colorsArticles, numberSeatArticles, priceRangeArticles, setSelectedColors, setSelectedSeats]);
+  }, [
+    colorQuery,
+    seatQuery,
+    priceQuery,
+    data,
+    colorsArticles,
+    numberSeatArticles,
+    priceRangeArticles,
+    setSelectedColors,
+    setSelectedSeats,
+  ]);
 
   // Assurez-vous que les données sont disponibles avant de calculer
   const seatCount = Array.from(
@@ -203,7 +213,7 @@ export default function Filter({
               value={selectedPrice[0]}
               onChange={(e) => {
                 const value = Math.max(minPrice, Number(e.target.value));
-                const updated = [value, selectedPrice[1]];
+                const updated: any = [value, selectedPrice[1]];
                 priceRangeArticles(data, updated);
                 setPriceQuery(updated);
                 setPage("1");
@@ -216,7 +226,7 @@ export default function Filter({
               value={selectedPrice[1]}
               onChange={(e) => {
                 const value = Math.min(maxPrice, Number(e.target.value));
-                const updated = [selectedPrice[0], value];
+                const updated: any = [selectedPrice[0], value];
                 priceRangeArticles(data, updated);
                 setPriceQuery(updated);
                 setPage("1");
@@ -231,7 +241,7 @@ export default function Filter({
             min={minPrice}
             max={maxPrice}
             step={10}
-            onValueChange={(range: number[]) => {
+            onValueChange={(range: any) => {
               priceRangeArticles(data, range);
               setPriceQuery(range);
               setPage("1");
@@ -245,15 +255,15 @@ export default function Filter({
   ];
 
   return (
-    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-6 space-y-4 md:space-y-0">
-      <ul className="flex justify-between space-x-6 md:space-x-4">
+    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-4 sm:mb-6 space-y-4 md:space-y-0 px-2 sm:px-4">
+      <ul className="flex flex-wrap justify-center md:justify-between gap-2 sm:gap-4 md:space-x-4 w-full md:w-auto">
         {filters.map((filter) => (
-          <li key={filter.label}>
+          <li key={filter.label} className="mb-2 md:mb-0">
             <Popover>
-              <PopoverTrigger className="bg-black border px-6 py-2 rounded-lg text-white hover:bg-gray-100 hover:text-black">
+              <PopoverTrigger className="bg-black border px-3 sm:px-6 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg text-white hover:bg-gray-100 hover:text-black transition-colors">
                 {filter.label}
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-4 border rounded-lg shadow-md bg-black text-white">
+              <PopoverContent className="w-64 sm:w-72 p-3 sm:p-4 border rounded-lg shadow-md bg-black text-white">
                 {filter.content}
               </PopoverContent>
             </Popover>
@@ -261,7 +271,7 @@ export default function Filter({
         ))}
       </ul>
 
-      <div className="flex items-center md:space-x-3">
+      <div className="flex items-center w-full md:w-auto justify-center md:justify-end mt-2 md:mt-0">
         <ComboboxDemo data={data} />
       </div>
     </div>

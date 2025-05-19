@@ -52,3 +52,15 @@ export interface LikeDataState {
   removeItems: (itemId: number | string) => void;
   clearItems: () => void;
 }
+
+export type FabricType = "tissu" | "cuir";
+
+export interface Material {
+  id: number;
+  name: string;
+  type: FabricType;
+  description: string;
+  care: string;
+  image: string;
+  price: number;
+}

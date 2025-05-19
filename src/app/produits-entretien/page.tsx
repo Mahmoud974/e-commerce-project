@@ -9,7 +9,6 @@ const EntretienPage = () => {
       description="Prenez soin de vos meubles pour préserver leur éclat et leur durabilité : des conseils simples pour une qualité qui dure."
       bannerImage={"cleanSofa.png"}
     >
-      {/* Paragraphe principal */}
       <div className="mt-12 text-center px-4 mb-12">
         <p className="text-white text-lg mt-6 max-w-3xl mx-auto">
           Pour garantir une longévité optimale et maintenir l'apparence

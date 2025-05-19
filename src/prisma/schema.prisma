@@ -7,6 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Produit {
+  id            Int      @id @default(autoincrement())
+  title         String
+  price         Float
+  description   String
+  discount      String?
+  disponibilite Boolean
+  quantity      Int
+  images        String[]
+  reference     String   @unique
+  delivery      String
+  brand         String
+  likes         Like[]
+  ean           BigInt   @db.BigInt
+  ecoMobilier   Int
+
+  @@map("produits")
+}
+
 model Canape {
   id              Int      @id @default(autoincrement())
   title           String
@@ -101,8 +120,10 @@ model Like {
   canapeId  Int
   createdAt DateTime @default(now())
 
-  user   User   @relation(fields: [userId], references: [id])
-  canape Canape @relation(fields: [canapeId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  canape    Canape   @relation(fields: [canapeId], references: [id])
+  Produit   Produit? @relation(fields: [produitId], references: [id])
+  produitId Int?
 
   @@unique([userId, canapeId])
   @@map("likes")

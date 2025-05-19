@@ -1,11 +1,16 @@
 "use client";
 import Image from "next/image";
-import { Trash } from "lucide-react";
+import { Trash, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
-export function CartList({ items, removeItem, handleQuantityChange }) {
+export function CartList({
+  items,
+  removeItem,
+  handleQuantityChange,
+  clearCart,
+}) {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -24,6 +29,19 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
 
   return (
     <>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-bold">Votre panier</h2>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={clearCart}
+          className="text-red-500 hover:bg-red-100 hover:text-red-700 flex items-center gap-1"
+        >
+          <X className="w-4 h-4" />
+          Vider
+        </Button>
+      </div>
+
       <div className="max-h-[900px] overflow-y-auto pr-2">
         <ul className="space-y-4 mt-3">
           {items.map((item, index) => (
@@ -34,7 +52,11 @@ export function CartList({ items, removeItem, handleQuantityChange }) {
               <Link href={`/produit/${item.id}`} className="">
                 <div className="flex items-center">
                   <Image
-                    src={item?.images[0]}
+                    src={
+                      item?.images?.[0] ||
+                      item?.image ||
+                      "/placeholder-image.jpg"
+                    }
                     alt="product image"
                     className="object-contain p-1 w-16 h-16"
                     width={64}

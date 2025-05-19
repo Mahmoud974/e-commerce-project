@@ -78,7 +78,7 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "Canapés" },
-    { href: "/nettoyants", label: "Produits" },
+    { href: "/produits-nettoyant", label: "Produits d'entretien" },
     { href: "/echantillons", label: "Échantillons" },
   ];
 
