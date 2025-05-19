@@ -16,16 +16,15 @@ export default function EchantillonsPage() {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const toggleSelect = (id: number) => {
+    const isSelected = selectedIds.includes(id);
+
+    if (!isSelected) {
+      const item = allProducts.find((item) => item.id === id);
+      if (item) addItems(item);
+    }
+
     setSelectedIds((prev) => {
-      const isSelected = prev.includes(id);
-      const newSelected = isSelected
-        ? prev.filter((pid) => pid !== id)
-        : [...prev, id];
-      if (!isSelected) {
-        const item = allProducts.find((item) => item.id === id);
-        if (item) addItems(item);
-      }
-      return newSelected;
+      return isSelected ? prev.filter((pid) => pid !== id) : [...prev, id];
     });
   };
 
@@ -35,7 +34,7 @@ export default function EchantillonsPage() {
       description="Découvrez notre sélection d'échantillons de tissus et de cuirs pour personnaliser votre mobilier."
       breadcrumbs={[
         { label: "Accueil", href: "/home" },
-        { label: "Échantillons" }
+        { label: "Échantillons" },
       ]}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">

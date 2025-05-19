@@ -17,7 +17,7 @@ export function FavoritesList({ selectedItems, removeItems }) {
           <Link href={`/produit/${item.id}`} className=" ">
             <div className="flex items-center">
               <Image
-                src={item?.images[0]}
+                src={item?.images && item.images.length > 0 ? item.images[0] : "/placeholder-image.jpg"}
                 alt="product image"
                 className="object-contain p-1 w-16 h-16"
                 width={64}

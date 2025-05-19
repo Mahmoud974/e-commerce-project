@@ -204,7 +204,7 @@ export default function Filter({
     {
       label: "Prix",
       content: (
-        <div className="px-2 py-4 space-y-4">
+        <div className=" py-4 space-y-4">
           <p className="text-sm text-white font-semibold">Filtrer par prix :</p>
 
           <div className="flex items-center justify-between gap-2">
