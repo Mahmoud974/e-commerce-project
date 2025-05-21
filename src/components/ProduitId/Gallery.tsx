@@ -48,6 +48,53 @@ export default function ProductGallery({ data }) {
 
   if (!media.length) return null;
 
+  // Si une seule image, afficher en grand format
+  if (media.length === 1) {
+    return (
+      <div className="mb-12">
+        <div
+          className="relative cursor-pointer overflow-hidden bg-white"
+          onClick={() => openModal(0)}
+        >
+          <Image
+            src={media[0]}
+            alt={data.title || "Image produit"}
+            width={1000}
+            height={1000}
+            className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+            unoptimized
+          />
+        </div>
+
+        {/* Modal Fullscreen */}
+        {isModalOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+            onClick={(e) => e.target === e.currentTarget && closeModal()}
+          >
+            <div className="relative bg-white p-4">
+              <button
+                onClick={closeModal}
+                className="absolute top-2 right-2 text-black text-3xl"
+                aria-label="Fermer la fenêtre"
+              >
+                &times;
+              </button>
+              <Image
+                src={media[0]}
+                alt={data.title || "Image produit"}
+                width={1200}
+                height={1200}
+                className="object-cover transition-transform duration-300 hover:scale-110"
+                unoptimized
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Desktop Grid */}

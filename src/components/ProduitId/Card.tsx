@@ -12,6 +12,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
+  const [showId, setShowId] = useState(false);
 
   const images = item.images.slice(0, 3);
 
@@ -53,11 +54,17 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
   const isInCart = isItemInCart(item.id);
 
+  const handleProductClick = (e) => {
+    setShowId(true);
+    setTimeout(() => setShowId(false), 3000);
+  };
+
   return (
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
       <Link
         href={`/produit/${item.id}`}
         className="relative block w-full overflow-hidden rounded-t-lg bg-black"
+        onClick={handleProductClick}
       >
         <div className="relative w-full aspect-[3/3] group">
           <Image

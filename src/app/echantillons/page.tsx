@@ -4,7 +4,7 @@ import EchantillonClient from "./EchantillonClient";
 
 async function getEchantillons() {
   try {
-    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL); // Ajoutez cette ligne pour vérifier l'URL
+    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL || ""}/api/echantillons`,
       {
@@ -26,6 +26,7 @@ async function getEchantillons() {
 
 export default async function EchantillonsPage() {
   const echantillons = await getEchantillons();
+  console.log(echantillons);
 
   return (
     <ProductLayout

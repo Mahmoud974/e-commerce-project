@@ -1,0 +1,12 @@
+id,nom,type,price,description,care,images
+56,Arezzo,tissu,0,"Arezzo est un tissu à l'aspect lin exclusif. Disponible en beige, marron, ocre, vert.",Aspirez régulièrement. Évitez solvants et humidité.,https://.../tissus/8.png
+57,Colmar,tissu,0,Tissu robuste au toucher doux. Teintes neutres.,Taches : nettoyage rapide. Nettoyage à sec annuel.,https://.../tissus/6.png
+58,Orlando,tissu,0,Velours contemporain. Aspect légèrement vintage.,Chiffon humide. Nettoyage pro si besoin.,https://.../tissus/7.png
+59,Bresso,tissu,0,Coton lavé. Toucher naturel et doux.,Nettoyage à sec professionnel.,https://.../tissus/12%20(1).png
+60,Frisco,tissu,0,Durabilité et confort. Motif subtil.,Nettoyage à sec professionnel.,https://.../tissus/15%20(1).png
+61,Tomelilla,tissu,0,Chenille légère. Couleurs pastel.,Nettoyage humide léger. Brossage doux.,https://.../tissus/2.png
+62,Avellino,tissu,0,Jacquard à motifs géométriques sophistiqués.,Nettoyage à sec et entretien professionnel.,https://.../tissus/16.png
+63,Estoril,tissu,0,Lin haut de gamme tissé en Italie.,Nettoyage à sec. Repassage basse température.,https://.../cuir/4.png
+64,Cuir Nappa,cuir,0,Cuir pleine fleur souple et luxueux. Toucher lisse.,Chiffon humide. Baume tous les 6 mois.,https://.../cuir/2.png
+65,Cuir Grainé,cuir,0,Grain naturel prononcé. Effet texturé et sophistiqué.,Essuyez avec chiffon sec. Imperméabilisant annuel.,https://.../cuir/3.png
+66,Cuir Soft,cuir,0,Surface lisse et souple. Confort optimal.,Savon cuir et conditionneur.,https://.../cuir/11.png
