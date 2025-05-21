@@ -13,10 +13,8 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
 
-  // Limiter à maximum 3 images
   const images = item.images.slice(0, 3);
 
-  // Likes
   const {
     isLiked,
     handleLike,

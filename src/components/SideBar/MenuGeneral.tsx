@@ -66,6 +66,7 @@ export default function SheetDisplay() {
             items={items}
             removeItem={removeItem}
             handleQuantityChange={updateQuantity}
+            clearCart={useCartStore.getState().clearCart}
           />
         );
       case "dashboard":

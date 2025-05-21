@@ -26,6 +26,18 @@ model Produit {
   @@map("produits")
 }
 
+model Echantillon {
+  id          Int    @id @default(autoincrement())
+  nom         String
+  type        String
+  price       Float  @default(0)
+  description String
+  care        String
+  images      String
+
+  @@map("echantillons")
+}
+
 model Canape {
   id              Int      @id @default(autoincrement())
   title           String

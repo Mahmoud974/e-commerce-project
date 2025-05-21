@@ -1,32 +1,31 @@
-"use client";
-
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Check } from "lucide-react";
-import { useSearchArticles, useLikeData } from "@/store/store";
-import { materials } from "@/db/echantillions";
+import React from "react";
 import ProductLayout from "@/components/Layout/ProductLayout";
+import EchantillonClient from "./EchantillonClient";
 
-export default function EchantillonsPage() {
-  const { filteredData } = useSearchArticles();
-  const { addItems } = useLikeData();
-  const allProducts = filteredData.length > 0 ? filteredData : materials;
+async function getEchantillons() {
+  try {
+    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL); // Ajoutez cette ligne pour vérifier l'URL
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/echantillons`,
+      {
+        cache: "no-store",
+      }
+    );
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-
-  const toggleSelect = (id: number) => {
-    const isSelected = selectedIds.includes(id);
-
-    if (!isSelected) {
-      const item = allProducts.find((item) => item.id === id);
-      if (item) addItems(item);
+    if (!res.ok) {
+      throw new Error("Erreur lors de la récupération des échantillons");
     }
 
-    setSelectedIds((prev) => {
-      return isSelected ? prev.filter((pid) => pid !== id) : [...prev, id];
-    });
-  };
+    return res.json();
+  } catch (error) {
+    console.error("Erreur lors de la récupération des échantillons:", error);
+
+    return;
+  }
+}
+
+export default async function EchantillonsPage() {
+  const echantillons = await getEchantillons();
 
   return (
     <ProductLayout
@@ -37,59 +36,7 @@ export default function EchantillonsPage() {
         { label: "Échantillons" },
       ]}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {allProducts.map((item) => {
-          const isSelected = selectedIds.includes(item.id);
-          return (
-            <button
-              key={item?.id}
-              onClick={() => toggleSelect(item.id)}
-              className={
-                `group relative flex flex-col bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ` +
-                (isSelected ? "ring-4 ring-blue-300" : "")
-              }
-            >
-              <div className="relative w-full aspect-square">
-                <Image
-                  src={item?.image}
-                  alt={item?.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {(item?.type === "cuir" || item?.type === "tissu") && (
-                  <span className="absolute top-3 left-3 bg-gradient-to-r  bg-black text-white text-xs font-semibold uppercase px-3 py-1 rounded-full">
-                    {item?.type}
-                  </span>
-                )}
-                <div className="absolute top-3 right-3">
-                  <div
-                    className={
-                      `flex items-center justify-center w-6 h-6 rounded-full bg-white bg-opacity-80 shadow-sm transition-all duration-200 ` +
-                      (isSelected
-                        ? "scale-110 bg-black"
-                        : "group-hover:scale-105")
-                    }
-                  >
-                    {isSelected && <Check className="w-4 h-4 text-red-700" />}
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-gray-800 truncate">
-                    {item.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500 truncate">
-                    {item.description}
-                  </p>
-                </div>
-                <div className="mt-4 flex items-center justify-between"></div>
-              </div>
-            </button>
-          );
-        })}
-      </div>
+      <EchantillonClient initialEchantillons={echantillons} />
     </ProductLayout>
   );
 }

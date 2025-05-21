@@ -9,7 +9,7 @@ export enum Colors {
   Noir = "Noir",
   Rose = "Rose",
   Rouge = "Rouge",
-  Taupe = "Taupe",
+
   Vert = "Vert",
 }
 
@@ -45,6 +45,6 @@ export const colors = [
   { name: Colors.Noir, colorClass: "bg-black" },
   { name: Colors.Rose, colorClass: "bg-pink-400" },
   { name: Colors.Rouge, colorClass: "bg-red-600" },
-  { name: Colors.Taupe, colorClass: "bg-amber-700" },
+
   { name: Colors.Vert, colorClass: "bg-green-500" },
 ];

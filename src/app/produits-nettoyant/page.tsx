@@ -1,46 +1,34 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { useLikeData } from "@/store/store";
-import ProductCard from "@/components/ProduitId/Card";
+import React from "react";
 import ProductLayout from "@/components/Layout/ProductLayout";
+import ClientComponent from "../../components/ClientComponents/ClientProduitEntretien";
 
-export default function NettoyantsProduits() {
-  const { addItems } = useLikeData();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default async function NettoyantsProduits() {
+  let products = [];
+  let error = null;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/produits-entretien");
-
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("Données brutes de l'API:", data);
-        setProducts(data);
-      } catch (err) {
-        console.error("Erreur lors du chargement des produits:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  try {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/api/produits-entretien",
+      {
+        cache: "no-store",
       }
-    };
+    );
 
-    fetchProducts();
-  }, []);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+
+    products = await response.json();
+    console.log("Données brutes de l'API (côté serveur):", products);
+  } catch (err) {
+    console.error("Erreur lors du chargement des produits:", err);
+    error = err.message;
+  }
 
   const adaptedProducts = products.map((product) => {
-    // Calculer le prix avec réduction si disponible
     let finalPrice = product.price;
     if (product.discount && product.discount !== "null") {
       try {
-        // Enlever le signe % et convertir en nombre
         const discountValue = parseFloat(
           product.discount.replace("%", "").replace("-", "")
         );
@@ -61,7 +49,6 @@ export default function NettoyantsProduits() {
     let descriptiveTitle = product.title;
 
     if (/^\d+$/.test(product.title)) {
-      // Extraire les premiers mots de la description pour créer un titre
       const descriptionWords = product.description.split(" ");
       const firstFewWords = descriptionWords.slice(0, 3).join(" ");
 
@@ -89,23 +76,6 @@ export default function NettoyantsProduits() {
     };
   });
 
-  if (loading) {
-    return (
-      <ProductLayout
-        title="Produits d'entretien pour canapés en cuir"
-        description="Découvrez notre sélection de produits spécialement conçus pour nettoyer, entretenir et protéger vos canapés en cuir."
-        breadcrumbs={[
-          { label: "Accueil", href: "/home" },
-          { label: "Produits nettoyants pour cuir" },
-        ]}
-      >
-        <div className="flex justify-center items-center min-h-[300px]">
-          <p className="text-xl">Chargement des produits...</p>
-        </div>
-      </ProductLayout>
-    );
-  }
-
   if (error) {
     return (
       <ProductLayout
@@ -132,17 +102,8 @@ export default function NettoyantsProduits() {
         { label: "Produits d'entretien" },
       ]}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {adaptedProducts.length > 0 ? (
-          adaptedProducts.map((item) => (
-            <ProductCard key={item.id} item={item} addItems={addItems} />
-          ))
-        ) : (
-          <p className="col-span-full text-center text-lg">
-            Aucun produit trouvé
-          </p>
-        )}
-      </div>
+      {/* Utilisation du composant client pour les fonctionnalités interactives */}
+      <ClientComponent products={adaptedProducts} />
     </ProductLayout>
   );
 }

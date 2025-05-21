@@ -46,15 +46,7 @@ export const materials: Material[] = [
     image:
       "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/cuir/3.png",
   },
-  {
-    id: 3,
-    name: "Copenhagen",
-    type: "tissu",
-    description: `Copenhagen propose une texture bouclée inspirée du style scandinave, chaude et confortable.`,
-    care: `Utilisez un aspirateur à brosse douce et évitez le soleil direct.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/cuir/10.png",
-  },
+
   {
     id: 29,
     name: "Cuir Soft",
@@ -64,23 +56,7 @@ export const materials: Material[] = [
     image:
       "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/cuir/11.png",
   },
-  {
-    id: 4,
-    name: "Lucca",
-    type: "tissu",
-    description: `Lucca est un tissage jacquard raffiné, apportant relief et élégance.`,
-    care: `Nettoyage à sec recommandé et brossage doux pour préserver le relief.`,
-    image: "/images/lucca.jpg",
-  },
-  {
-    id: 30,
-    name: "Cuir Vintage",
-    type: "cuir",
-    description: `Cuir Vintage vieilli naturellement, apportant authenticité et caractère à votre mobilier.`,
-    care: `Nettoyez avec un chiffon doux et entretenez régulièrement avec une cire neutre.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/cuir/3.png",
-  },
+
   {
     id: 5,
     name: "Orlando",
@@ -89,15 +65,6 @@ export const materials: Material[] = [
     care: `Passez un chiffon humide pour enlever les poussières et confiez un nettoyage professionnel si besoin.`,
     image:
       "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/7.png",
-  },
-  {
-    id: 6,
-    name: "Rimini",
-    type: "tissu",
-    description: `Rimini combine un toucher soyeux et une grande résistance à l’usure.`,
-    care: `Aspirez régulièrement et évitez les produits chimiques agressifs.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/13.png",
   },
 
   {
@@ -109,51 +76,7 @@ export const materials: Material[] = [
     image:
       "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/12%20(1).png",
   },
-  {
-    id: 10,
-    name: "Bristol",
-    type: "tissu",
-    description: `Bristol est une toile épaisse avec un aspect légèrement rustique.`,
-    care: `Brossage doux et nettoyage à sec.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/10.png",
-  },
-  {
-    id: 11,
-    name: "Ravello",
-    type: "tissu",
-    description: `Ravello est un chenille luxueuse très douce au toucher.`,
-    care: `Aspirez avec embout brosse et utilisez un nettoyeur vapeur basse pression.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/4.pngg",
-  },
-  {
-    id: 12,
-    name: "Bologna",
-    type: "tissu",
-    description: `Bologna est un mélange laine-coton offrant chaleur et confort.`,
-    care: `Nettoyage à sec uniquement.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/5.png",
-  },
-  {
-    id: 13,
-    name: "Skagen",
-    type: "tissu",
-    description: `Skagen est un mélange technique résistant aux taches.`,
-    care: `Nettoyage humide doux et séchage à l'air libre.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/8.png",
-  },
-  {
-    id: 14,
-    name: "Tuscany",
-    type: "tissu",
-    description: `Tuscany rappelle les textures de la campagne toscane, robuste et authentique.`,
-    care: `Brossage doux et nettoyage à sec.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/8.png",
-  },
+
   {
     id: 15,
     name: "Frisco",
@@ -181,42 +104,7 @@ export const materials: Material[] = [
     image:
       "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/16.png",
   },
-  {
-    id: 18,
-    name: "Napoli",
-    type: "tissu",
-    description: `Napoli est une toile technique résistante à l'eau.`,
-    care: `Essuyez avec un chiffon humide et laissez sécher.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/7.png",
-  },
-  {
-    id: 19,
-    name: "Auckland Boucle",
-    type: "tissu",
-    description: `Auckland Boucle offre un aspect bouclé moderne.`,
-    care: `Nettoyage à sec et brossage doux.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/18.png",
-  },
-  {
-    id: 20,
-    name: "Salto",
-    type: "tissu",
-    description: `Salto est un velours léger et légèrement brillant.`,
-    care: `Aspirez doucement et nettoyez à sec.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/8.png",
-  },
-  {
-    id: 21,
-    name: "Nordic Grain",
-    type: "cuir",
-    description: `Nordic Grain est un mélange texturé inspiré des paysages nordiques.`,
-    care: `Nettoyage humide doux.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/cuir/2.png",
-  },
+
   {
     id: 22,
     name: "Estoril",
@@ -225,23 +113,5 @@ export const materials: Material[] = [
     care: `Nettoyage à sec et repassage à basse température.`,
     image:
       "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/cuir/4.png",
-  },
-  {
-    id: 23,
-    name: "Nordic Soft",
-    type: "tissu",
-    description: `Nordic Soft combine douceur et résistance avec un toucher velouté.`,
-    care: `Nettoyage humide doux.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/14.png",
-  },
-  {
-    id: 24,
-    name: "York",
-    type: "tissu",
-    description: `York est un tissu épais à l'apparence classique et chic.`,
-    care: `Nettoyage à sec.`,
-    image:
-      "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/echantillons-images-client/tissus/5.png",
   },
 ];
