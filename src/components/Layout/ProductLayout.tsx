@@ -13,6 +13,7 @@ interface ProductLayoutProps {
   title: string;
   description: string;
   breadcrumbs: BreadcrumbItem[];
+  showNavbar?: boolean;
 }
 
 export default function ProductLayout({
@@ -20,11 +21,12 @@ export default function ProductLayout({
   title,
   description,
   breadcrumbs,
+  showNavbar = true,
 }: ProductLayoutProps) {
   return (
     <section className="flex flex-col min-h-screen">
       <div className="container mx-auto mt-8 mb-12">
-        <Navbar />
+        {showNavbar && <Navbar />}
 
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
           {breadcrumbs.map((item, index) => (

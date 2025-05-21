@@ -236,11 +236,12 @@ export default function ProductPageClient({
               </div>
 
               <div className="mt-6">
-                {/* <ul className="list-disc pl-5">
-                  {idArticle?.miniDescription.map((description, _) => (
-                    <li key={_}>{description}</li>
-                  ))}
-                </ul> */}
+                <ul className="list-disc pl-5">
+                  {idArticle.id <= 55 &&
+                    idArticle?.miniDescription.map((description, _) => (
+                      <li key={_}>{description}</li>
+                    ))}
+                </ul>
               </div>
 
               <NavItem description={idArticle} />
@@ -268,9 +269,12 @@ export default function ProductPageClient({
               <ProductCard key={item.id} item={item} addItems={addItems} />
             ))}
           </section>
-          <Link href="/">
+          <Link href={idArticle.id <= 55 ? "/" : "/produits-nettoyant"}>
             <Button className="flex justify-center mx-auto border px-20 my-12">
-              <p>Découvrez tous les fauteuils</p>
+              <p>
+                Découvrez tous les{" "}
+                {idArticle.id <= 55 ? "fauteuils" : "produits"}{" "}
+              </p>
               <ArrowRight />
             </Button>
           </Link>
