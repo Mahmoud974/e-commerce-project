@@ -4,7 +4,6 @@ import { ShoppingCart, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Type pour les propriétés du produit
 export type ProductItem = {
   id: string | number;
   title: string;
@@ -16,7 +15,6 @@ export type ProductItem = {
   isNew?: boolean;
 };
 
-// Props du composant
 interface CardProps {
   item: ProductItem;
   onAddToCart?: (item: ProductItem) => void;
@@ -65,12 +63,10 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  // Vérifier si l'item a toutes les propriétés nécessaires
   if (!item || !item.id || !item.title || !item.price) {
-    return null; // Ne pas rendre la carte si les données essentielles sont manquantes
+    return null;
   }
 
-  // Vérifier si le produit est nouveau
   const isNewProduct =
     item.isNew ||
     [

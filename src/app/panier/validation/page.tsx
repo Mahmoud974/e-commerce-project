@@ -44,16 +44,30 @@ export default function ValidationContent() {
   if (loading) {
     return <div className="text-center mt-10">Chargement...</div>;
   }
-
   const steps = [
-    { id: 1, label: "Panier", icon: "/icons/basket.svg" },
-    { id: 2, label: "Information", icon: "/icons/account.svg" },
-    { id: 3, label: "Livraison", icon: "/icons/delivery.svg" },
-    { id: 4, label: "Paiement", icon: "/icons/payment.svg" },
+    {
+      id: 1,
+      label: "Panier",
+      icon: `${process.env.NEXT_PUBLIC_BANNER_IMAGE}icons/basket.svg`,
+    },
+    {
+      id: 2,
+      label: "Information",
+      icon: `${process.env.NEXT_PUBLIC_BANNER_IMAGE}icons/account.svg`,
+    },
+    {
+      id: 3,
+      label: "Livraison",
+      icon: `${process.env.NEXT_PUBLIC_BANNER_IMAGE}icons/delivery.svg`,
+    },
+    {
+      id: 4,
+      label: "Paiement",
+      icon: `${process.env.NEXT_PUBLIC_BANNER_IMAGE}icons/payment.svg`,
+    },
   ];
 
   const handleNextStep = (currentStep) => {
-    // Valider l'étape actuelle et passer à la suivante
     if (currentStep === 1) {
       setActiveStep(2);
     } else if (currentStep === 2) {

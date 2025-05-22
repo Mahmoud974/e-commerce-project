@@ -4,8 +4,8 @@ import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 import {
   AccordionGeneral,
   AccordionItemType,
-} from "@/components/Accordion/AccordionGeneral";
-import { conseilsItems } from "@/db/Accordions/conseilsItems";
+} from "@/components/Accordions/AccordionGeneral";
+import { conseilsItems } from "@/components/Accordions/conseilsItems";
 
 export default function Page() {
   return (

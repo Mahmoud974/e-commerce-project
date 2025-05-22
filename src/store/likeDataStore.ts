@@ -12,7 +12,7 @@ export const useLikeData = create<LikeDataState>((set) => ({
         return state;
       }
       const newItems = [...state.selectedItems, item];
-      console.log(newItems);
+
       return { selectedItems: newItems };
     });
   },

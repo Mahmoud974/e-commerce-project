@@ -6,7 +6,6 @@ export async function GET() {
   const cacheKey = "echantillons:all";
 
   try {
-    console.log("Tentative de récupération du cache Redis...");
     const cached = await redis.get(cacheKey);
     if (cached) {
       const safeItems = JSON.parse(cached);

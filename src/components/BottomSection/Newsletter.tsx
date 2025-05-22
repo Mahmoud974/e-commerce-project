@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { CheckCircle } from "lucide-react"; // Icône de validation
+import { CheckCircle } from "lucide-react";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");

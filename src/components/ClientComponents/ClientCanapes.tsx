@@ -6,7 +6,7 @@ import Filter from "@/components/Header/Filter";
 import { useLikeData } from "@/store/store";
 import { useQueryState } from "nuqs";
 import LexChat from "../Chat/Chat";
-import ProductLayout from "@/components/Layout/ProductLayout";
+import ProductLayout from "@/components/Layouts/ProductLayout";
 
 export default function CanapesClient({ data }) {
   const { addItems } = useLikeData();
@@ -101,7 +101,6 @@ export default function CanapesClient({ data }) {
       breadcrumbs={[{ label: "Accueil", href: "/home" }, { label: "Canapés" }]}
     >
       <section className="flex flex-col min-h-screen">
-        <LexChat />
         <div className="flex flex-col items-center w-full">
           <section className="flex flex-col justify-between w-full mb-8 sm:mb-12">
             <div className="flex flex-col">
@@ -111,6 +110,7 @@ export default function CanapesClient({ data }) {
                 colorProduct={colorProduct}
                 seatProduct={seatProduct}
               />
+              <LexChat />
 
               <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 mx-auto w-full">
                 {paginatedData.length > 0 ? (

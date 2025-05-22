@@ -43,7 +43,6 @@ export default function UserForm() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Pré-remplir le formulaire avec les données de la session si disponibles
   useEffect(() => {
     console.log("Session actuelle:", session);
     console.log("Status de la session:", status);

@@ -14,8 +14,9 @@ import { useQueryState } from "nuqs";
 type Inputs = { search: string };
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const pathname = usePathname();
+  const [userName, setUserName] = useState("");
 
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const searchTerm = watch("search");
@@ -27,24 +28,31 @@ export default function Navbar() {
     serialize: (v) => encodeURIComponent(v),
   });
 
+  // Effet pour mettre à jour le nom d'utilisateur lorsque la session change
   useEffect(() => {
-    const fetchSuggestions = async () => {
-      if (searchTerm) {
-        try {
-          const response = await fetch(
-            `/api/search?q=${encodeURIComponent(searchTerm)}`
-          );
-          const data = await response.json();
-          setSuggestions(data);
-        } catch (error) {
-          console.error("Erreur lors de la recherche:", error);
-          setSuggestions([]);
-        }
-      } else {
+    if (session?.user?.name) {
+      setUserName(session.user.name);
+    }
+  }, [session]);
+
+  const fetchSuggestions = async () => {
+    if (searchTerm) {
+      try {
+        const response = await fetch(
+          `/api/search?q=${encodeURIComponent(searchTerm)}`
+        );
+        const data = await response.json();
+        setSuggestions(data);
+      } catch (error) {
+        console.error("Erreur lors de la recherche:", error);
         setSuggestions([]);
       }
-    };
+    } else {
+      setSuggestions([]);
+    }
+  };
 
+  useEffect(() => {
     const delay = setTimeout(() => {
       fetchSuggestions();
     }, 300);
@@ -92,6 +100,7 @@ export default function Navbar() {
             alt="Logo"
             width={180}
             height={180}
+            className="w-auto"
           />
         </Link>
 
@@ -132,7 +141,7 @@ export default function Navbar() {
                         src={item.images[0]}
                         alt={item.title}
                         fill
-                        className="object-contain rounded"
+                        className="object-contain rounded w-auto"
                       />
                     </div>
                     <div className="ml-3">
@@ -147,18 +156,19 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* DROITE */}
       <div className="flex items-center space-x-4">
         <AlertElement />
         {session && (
           <div className="flex items-center space-x-2">
-            <span className="hidden lg:block">{session.user?.name}</span>
+            <span className="hidden lg:block">
+              {userName || session.user?.name}
+            </span>
             <Image
               src={session.user?.image ?? "/images/default.png"}
               alt="Profil"
               width={32}
               height={32}
-              className="rounded-full object-cover"
+              className="rounded-full object-cover w-auto"
             />
           </div>
         )}

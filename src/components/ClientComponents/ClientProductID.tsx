@@ -29,8 +29,6 @@ export default function ProductPageClient({
   data: any[];
   slug: string;
 }) {
-  console.log(data);
-
   const [isHT, setIsHT] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { data: session } = useSession();
@@ -69,11 +67,6 @@ export default function ProductPageClient({
     return articleIdStr === slugStr;
   });
 
-  console.log(
-    "Produits disponibles:",
-    data.map((a) => ({ id: a.id, type: typeof a.id, title: a.title }))
-  );
-  console.log("Produit trouvé:", idArticle);
   const priceHT = idArticle ? (idArticle.price / 1.2).toFixed(2) : "";
 
   const onLikeClick = () => {
@@ -108,7 +101,6 @@ export default function ProductPageClient({
       window.open(shareURL, "_blank");
     }
   };
-  console.log(idArticle);
 
   return (
     <main className="container mx-auto mt-6 px-6">

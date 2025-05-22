@@ -59,7 +59,6 @@ export default function LexChat() {
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      {/* Bouton rond flottant */}
       {!open && (
         <button
           onClick={() => setOpen(true)}

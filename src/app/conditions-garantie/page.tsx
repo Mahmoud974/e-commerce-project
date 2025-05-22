@@ -1,7 +1,7 @@
 import React from "react";
-import { AccordionGeneral } from "@/components/Accordion/AccordionGeneral";
+import { AccordionGeneral } from "@/components/Accordions/AccordionGeneral";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
-import { conditionsItems } from "@/db/Accordions/conditionsItems";
+import { conditionsItems } from "@/components/Accordions/conditionsItems";
 
 export default function GuaranteePage() {
   return (

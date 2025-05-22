@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { colors } from "@/Interface/model";
+import { colors } from "@/FilterModelCanape/model";
 import { RotateCcw } from "lucide-react";
 import { useQueryState } from "nuqs";
 

@@ -36,7 +36,6 @@ export default function Baskets() {
     }));
   };
 
-  // Validation du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     if (

@@ -4,7 +4,7 @@ import React from "react";
 import { useLikeData } from "@/store/store";
 import ProductCard from "@/components/ProduitId/Card";
 
-import ProductLayout from "@/components/Layout/ProductLayout";
+import ProductLayout from "@/components/Layouts/ProductLayout";
 
 export default function ClientComponent({ products = [] }) {
   const { addItems } = useLikeData();

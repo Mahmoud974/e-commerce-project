@@ -16,7 +16,7 @@ export default function NotFound() {
 
           <figure className="mb-8">
             <Image
-              src="/error.webp"
+              src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}error.webp`}
               alt="Erreur 404 - Page non trouvée"
               width={1000}
               height={1000}
@@ -28,7 +28,6 @@ export default function NotFound() {
               Image illustrant l'erreur 404
             </figcaption>
           </figure>
-          <Card />
 
           <p className="text-white text-xl mb-6">
             Oups ! La page que vous recherchez semble introuvable.
@@ -44,10 +43,6 @@ export default function NotFound() {
           </nav>
         </article>
       </section>
-
-      <footer className="py-4 text-center text-white/60 text-sm">
-        <p>&copy; {new Date().getFullYear()} - Votre Boutique E-commerce</p>
-      </footer>
     </main>
   );
 }

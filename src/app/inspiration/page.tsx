@@ -1,8 +1,8 @@
 import React from "react";
 import HelpSection from "@/components/BottomSection/HelpSection";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
-import { AccordionGeneral } from "@/components/Accordion/AccordionGeneral";
-import { inspirationsItems } from "@/db/Accordions/inspirations";
+import { AccordionGeneral } from "@/components/Accordions/AccordionGeneral";
+import { inspirationsItems } from "@/components/Accordions/inspirations";
 
 export default function Page() {
   return (

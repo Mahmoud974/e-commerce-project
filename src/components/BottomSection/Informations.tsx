@@ -3,22 +3,22 @@ import React from "react";
 
 const infos = [
   {
-    img: "/img/service.svg",
+    img: `${`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/service.svg`}`,
     title: "Conseils et vente",
     desc: "Lun-Ven : 9h-12h / 13h30-17h30",
   },
   {
-    img: "/img/payment.svg",
+    img: `${`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/payment.svg`}`,
     title: "Paiement sécurisé",
     desc: "Paiement échelonné disponible",
   },
   {
-    img: "/img/delivery.svg",
+    img: `${`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/delivery.svg`}`,
     title: "Livraison à domicile",
     desc: "Sur rendez-vous, à l'étage",
   },
   {
-    img: "/img/badge.svg",
+    img: `${`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/badge.svg`}`,
     title: "Satisfait ou remboursé",
     desc: "14 jours pour changer d'avis",
   },

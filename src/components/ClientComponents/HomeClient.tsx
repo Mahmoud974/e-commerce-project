@@ -11,7 +11,7 @@ import Image from "next/image";
 import {
   AccordionGeneral,
   AccordionItemType,
-} from "@/components/Accordion/AccordionGeneral";
+} from "@/components/Accordions/AccordionGeneral";
 
 export default function HomeClient({ data }: { data: any[] }) {
   const { addItems } = useLikeData();
@@ -65,7 +65,10 @@ export default function HomeClient({ data }: { data: any[] }) {
           playsInline
           aria-label="Vidéo de notre collection de meubles"
         >
-          <source src="/videos/furniture.mp4" type="video/mp4" />
+          <source
+            src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/video-home.mp4`}
+            type="video/mp4"
+          />
           Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center flex-col">
@@ -106,12 +109,11 @@ export default function HomeClient({ data }: { data: any[] }) {
             </h3>
           </div>
 
-          <div className="flex justify-between mt-7 gap-6 flex-wrap">
-            {/* Image 1 */}
+          <div className="flex   mt-7 gap-6 flex-wrap justify-center">
             <Link href="/inspiration">
-              <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
+              <div className="w-full sm:w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
                 <Image
-                  src="/img/article-1.jpg"
+                  src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/article-1.jpg`}
                   alt="Intérieur personnalisé"
                   width={720}
                   height={520}
@@ -137,11 +139,10 @@ export default function HomeClient({ data }: { data: any[] }) {
               </div>
             </Link>
 
-            {/* Image 2 */}
             <Link href="/conseil">
-              <div className="w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
+              <div className="w-full sm:w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
                 <Image
-                  src="/img/article-2.png"
+                  src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/article-2.png`}
                   alt="Espace détente"
                   width={720}
                   height={520}

@@ -1,5 +1,5 @@
 import React from "react";
-import ProductLayout from "@/components/Layout/ProductLayout";
+import ProductLayout from "@/components/Layouts/ProductLayout";
 import EchantillonClient from "./EchantillonClient";
 
 async function getEchantillons() {
