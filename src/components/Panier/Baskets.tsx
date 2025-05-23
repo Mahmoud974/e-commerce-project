@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation"; // Import du router
 
 export default function Baskets({
   goToNextStep,
-  total,
   setTotal,
   setTotalQuantity,
   totalQuantity,

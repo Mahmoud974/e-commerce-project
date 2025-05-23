@@ -91,7 +91,6 @@ export default function Filter({
     setSelectedSeats,
   ]);
 
-  // Assurez-vous que les données sont disponibles avant de calculer
   const seatCount = Array.from(
     new Set(data?.map((item) => item.seat).filter(Boolean))
   ).map((seat) => ({

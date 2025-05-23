@@ -8,6 +8,7 @@ export default function Address() {
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
+    lastname: "",
     address: "",
     postalCode: "",
     city: "",
@@ -22,6 +23,7 @@ export default function Address() {
     if (status === "authenticated" && session?.user) {
       setFormData({
         name: session.user.name || "",
+        lastname: session.user.lastname || "",
         address: session.user.address || "",
         postalCode: session.user.postalCode || "",
         city: session.user.city || "",
@@ -50,6 +52,7 @@ export default function Address() {
 
     const requiredFields = [
       "name",
+      "lastname",
       "address",
       "postalCode",
       "city",
@@ -120,15 +123,18 @@ export default function Address() {
   const userData = updatedUserData || session?.user;
 
   return (
-    <div className="mt-4 p-4 bg-gray-800 rounded-lg">
+    <div className="mt-4 p-4   rounded-lg">
       <h2 className="text-xl font-bold mb-4">Adresse de livraison</h2>
-      
-      {session?.user?.provider === "google" || session?.user?.provider === "facebook" ? (
+
+      {session?.user?.provider === "google" ||
+      session?.user?.provider === "facebook" ? (
         <div className="mb-4 p-3 bg-blue-900 rounded text-sm">
           <p>
-            <strong>Note :</strong> La modification de ces coordonnées n'affectera pas votre compte 
-            {session?.user?.provider === "google" ? " Google" : " Facebook"}. 
-            Ces informations sont uniquement utilisées pour la livraison de vos commandes.
+            <strong>Note :</strong> La modification de ces coordonnées
+            n'affectera pas votre compte
+            {session?.user?.provider === "google" ? " Google" : " Facebook"}.
+            Ces informations sont uniquement utilisées pour la livraison de vos
+            commandes.
           </p>
         </div>
       ) : null}
@@ -136,7 +142,10 @@ export default function Address() {
       {!isEditing ? (
         <div className="space-y-2">
           <p>
-            <strong>Nom :</strong> {userData?.name || "Non renseigné"}
+            <strong>Prénom :</strong> {userData?.name || "Non renseigné"}
+          </p>
+          <p>
+            <strong>Nom :</strong> {userData?.lastname || "Non renseigné"}
           </p>
           <p>
             <strong>Adresse :</strong> {userData?.address || "Non renseignée"}
@@ -156,7 +165,7 @@ export default function Address() {
           </p>
           <button
             onClick={startEditing}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="mt-4 px-4 py-2 bg-white text-black   hover:bg-blue-700"
           >
             Modifier l'adresse
           </button>
@@ -164,11 +173,22 @@ export default function Address() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Nom</label>
+            <label className="block text-sm font-medium mb-1">Prénom</label>
             <input
               type="text"
               name="name"
               value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 bg-gray-700 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Nom</label>
+            <input
+              type="text"
+              name="lastname"
+              value={formData.lastname}
               onChange={handleChange}
               className="w-full p-2 bg-gray-700 rounded"
               required

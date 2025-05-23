@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import AddressForm from "@/components/Panier/AdrdressForm";
+import AddressForm from "@/components/Panier/AdressForm";
 import DeliveryOptions from "@/components/Panier/DeliveryOptions";
 import PaymentOptions from "@/components/Panier/PaymentOptions";
 import TotalOptions from "@/components/Panier/TotalOptions";

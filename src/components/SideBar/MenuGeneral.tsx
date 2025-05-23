@@ -24,20 +24,15 @@ import { ProfileSection } from "./ProfileSection";
 import { Dashboard } from "./Dashboard";
 
 export default function SheetDisplay() {
-  const [activeTab, setActiveTab] = useState("favorites");
+  const [activeTab, setActiveTab] = useState("profile");
   const { data: session } = useSession();
   const { selectedItems, removeItems } = useLikeData();
   const { items, removeItem, updateQuantity, fetchItems } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const mySession = session?.user;
 
-  const handleFacebookLogin = () => {
-    setIsProcessing(true);
-    setTimeout(() => setIsProcessing(false), 2000);
-  };
-
   const handleSignOut = () => {
-    useCartStore.getState().clearCart(); // Vide Zustand localement
+    useCartStore.getState().clearCart();
     alert("Vous avez été déconnecté.");
     signOut();
   };
@@ -78,12 +73,10 @@ export default function SheetDisplay() {
     }
   };
 
-  // ✅ Charger le panier au chargement initial
   useEffect(() => {
     fetchItems();
   }, []);
 
-  // ✅ Charger à chaque fois qu'on ouvre l'onglet panier
   useEffect(() => {
     if (activeTab === "cart") {
       fetchItems();
@@ -134,7 +127,12 @@ export default function SheetDisplay() {
               }`}
               onClick={() => setActiveTab("cart")}
             >
-              <ShoppingCart />
+              <div className="relative">
+                <ShoppingCart />
+                {items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+                )}
+              </div>
               <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
                 Panier
               </span>

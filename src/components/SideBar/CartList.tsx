@@ -54,7 +54,7 @@ export function CartList({
             clearCart();
             setTotal(0);
           }}
-          className="text-red-500 hover:bg-red-100 hover:text-red-700 flex items-center gap-1"
+          className="bg-red-700  border-none  text-white hover:text-red-700 flex items-center gap-1"
         >
           <X className="w-4 h-4" />
           Vider

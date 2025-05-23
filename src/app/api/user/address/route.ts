@@ -22,6 +22,7 @@ export async function PUT(request: NextRequest) {
 
     const requiredFields = [
       "name",
+      "lastname",
       "address",
       "postalCode",
       "city",
@@ -37,7 +38,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const { name, address, postalCode, city, country, phone } = body;
+    const { name, lastname, address, postalCode, city, country, phone } = body;
 
     const user = await prisma.user.findUnique({
       where: { email: token.email },
@@ -54,6 +55,7 @@ export async function PUT(request: NextRequest) {
       where: { email: token.email },
       data: {
         name,
+        lastname,
         address,
         postalCode,
         city,
@@ -67,6 +69,7 @@ export async function PUT(request: NextRequest) {
       message: "Adresse mise à jour avec succès",
       user: {
         name: updatedUser.name,
+        lastname: updatedUser.lastname,
         email: updatedUser.email,
         address: updatedUser.address,
         postalCode: updatedUser.postalCode,
@@ -108,6 +111,7 @@ export async function POST(request: NextRequest) {
     // Vérification des données requises
     const requiredFields = [
       "name",
+      "lastname",
       "address",
       "postalCode",
       "city",
@@ -128,6 +132,7 @@ export async function POST(request: NextRequest) {
       where: { email: token.email },
       data: {
         name: body.name,
+        lastname: body.lastname,
         address: body.address,
         postalCode: body.postalCode,
         city: body.city,
@@ -141,6 +146,7 @@ export async function POST(request: NextRequest) {
       message: "Coordonnées ajoutées/mises à jour avec succès",
       user: {
         name: updatedUser.name,
+        lastname: updatedUser.lastname,
         email: updatedUser.email,
         address: updatedUser.address,
         postalCode: updatedUser.postalCode,
@@ -154,6 +160,35 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         message: "Erreur lors de l'ajout des coordonnées",
+        error: error instanceof Error ? error.message : "Erreur inconnue",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// Ajoutez cette méthode pour gérer les requêtes OPTIONS (CORS)
+export async function OPTIONS() {
+  return NextResponse.json({}, { status: 200 });
+}
+
+// Ajoutez cette méthode pour déboguer
+export async function GET(request: NextRequest) {
+  try {
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    return NextResponse.json({
+      message: "Route API fonctionnelle",
+      tokenExists: !!token,
+      tokenEmail: token?.email || null,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Erreur lors du test de la route",
         error: error instanceof Error ? error.message : "Erreur inconnue",
       },
       { status: 500 }
