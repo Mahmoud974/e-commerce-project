@@ -126,19 +126,6 @@ export default function Address() {
     <div className="mt-4 p-4   rounded-lg">
       <h2 className="text-xl font-bold mb-4">Adresse de livraison</h2>
 
-      {session?.user?.provider === "google" ||
-      session?.user?.provider === "facebook" ? (
-        <div className="mb-4 p-3 bg-blue-900 rounded text-sm">
-          <p>
-            <strong>Note :</strong> La modification de ces coordonnées
-            n'affectera pas votre compte
-            {session?.user?.provider === "google" ? " Google" : " Facebook"}.
-            Ces informations sont uniquement utilisées pour la livraison de vos
-            commandes.
-          </p>
-        </div>
-      ) : null}
-
       {!isEditing ? (
         <div className="space-y-2">
           <p>

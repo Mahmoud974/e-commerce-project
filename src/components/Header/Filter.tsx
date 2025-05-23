@@ -254,7 +254,7 @@ export default function Filter({
   ];
 
   return (
-    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-4 sm:mb-6 space-y-4 md:space-y-0 px-2 sm:px-4">
+    <div className="flex border-none flex-col md:flex-row items-center lg:justify-between justify-center mb-4 sm:mb-6 space-y-4 md:space-y-0 ">
       <ul className="flex flex-wrap justify-center md:justify-between gap-2 sm:gap-4 md:space-x-4 w-full md:w-auto">
         {filters.map((filter) => (
           <li key={filter.label} className="mb-2 md:mb-0">

@@ -4,8 +4,8 @@ import { useCartStore } from "@/store/store";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Import du router
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Baskets({
   goToNextStep,
@@ -67,9 +67,7 @@ export default function Baskets({
                     height={64}
                   />
                   <div className="ml-3">
-                    <div className="text-lg font-bold">
-                      {item.title || item.nom || "Produit"}
-                    </div>
+                    <div className="text-lg font-bold">{item.title}</div>
                     <div className="text-gray-400">{item.price}€</div>
                   </div>
                 </Link>

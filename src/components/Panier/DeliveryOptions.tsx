@@ -4,7 +4,6 @@ import React, { useState } from "react";
 export default function DeliveryOption({
   goToNextStep,
   goToPreviousStep,
-  deliveryOption,
   setDeliveryOption,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);

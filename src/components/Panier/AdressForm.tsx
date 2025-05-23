@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSession, update } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function AddressForm({ goToNextStep, goToPreviousStep }) {
   const { data: session, status } = useSession();
@@ -9,6 +9,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
   const [message, setMessage] = useState("");
   const [addressData, setAddressData] = useState({
     name: "",
+    lastname: "",
     address: "",
     postalCode: "",
     city: "",
@@ -27,6 +28,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
     if (status === "authenticated" && session?.user) {
       setAddressData({
         name: session.user.name || "",
+        lastname: session.user.lastname || "",
         address: session.user.address || "",
         postalCode: session.user.postalCode || "",
         city: session.user.city || "",
@@ -58,6 +60,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
 
     const requiredFields = [
       "name",
+      "lastname",
       "address",
       "postalCode",
       "city",
@@ -116,8 +119,6 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
 
         setUpdatedUserData(data.user);
 
-        await update();
-
         if (typeof goToNextStep === "function") {
           goToNextStep();
         }
@@ -163,8 +164,14 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
             <div className="   rounded-lg mb-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-gray-400 text-sm">Nom</p>
+                  <p className="text-gray-400 text-sm">Prénom</p>
                   <p className="text-lg">{userData?.name || "Non renseigné"}</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm">Nom</p>
+                  <p className="text-lg">
+                    {userData?.lastname || "Non renseigné"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm">Téléphone</p>
@@ -247,11 +254,22 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
             </h2>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Nom</label>
+              <label className="block text-sm font-medium mb-1">Prénom</label>
               <input
                 type="text"
                 name="name"
                 value={addressData.name}
+                onChange={handleChange}
+                className="w-full p-2 bg-gray-700 rounded"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Nom</label>
+              <input
+                type="text"
+                name="lastname"
+                value={addressData.lastname}
                 onChange={handleChange}
                 className="w-full p-2 bg-gray-700 rounded"
                 required

@@ -43,7 +43,7 @@ export default function ProductLayout({
           ))}
         </div>
 
-        <h1 className="text-3xl font-bold mb-6">{title}</h1>
+        <h1 className="text-3xl font-bold mb-2">{title}</h1>
         <p className="mb-8 text-gray-600">{description}</p>
 
         {children}

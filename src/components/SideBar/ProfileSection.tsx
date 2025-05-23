@@ -56,7 +56,6 @@ export function ProfileSection({ session, isProcessing }) {
           return;
         }
 
-        // Connexion automatique
         const result = await signIn("credentials", {
           email: formData.email,
           password: formData.password,

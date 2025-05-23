@@ -40,14 +40,7 @@ export default function SheetDisplay() {
   const renderContent = () => {
     switch (activeTab) {
       case "profile":
-        return (
-          <ProfileSection
-            session={session}
-            signIn={signIn}
-            signOut={handleSignOut}
-            isProcessing={isProcessing}
-          />
-        );
+        return <ProfileSection session={session} isProcessing={isProcessing} />;
       case "favorites":
         return (
           <FavoritesList
@@ -115,7 +108,12 @@ export default function SheetDisplay() {
               }`}
               onClick={() => setActiveTab("favorites")}
             >
-              <Heart />
+              <div className="relative">
+                <Heart />
+                {selectedItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+                )}
+              </div>
               <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-700 text-white text-xs p-1 rounded">
                 Favoris
               </span>

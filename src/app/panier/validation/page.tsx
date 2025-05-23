@@ -132,7 +132,6 @@ export default function ValidationContent() {
               {activeStep === 1 && (
                 <Baskets
                   goToNextStep={() => handleNextStep(1)}
-                  total={total}
                   setTotal={setTotal}
                   totalQuantity={totalQuantity}
                   setTotalQuantity={setTotalQuantity}
@@ -148,7 +147,6 @@ export default function ValidationContent() {
                 <DeliveryOptions
                   goToPreviousStep={() => setActiveStep(2)}
                   goToNextStep={() => handleNextStep(3)}
-                  deliveryOption={deliveryOption}
                   setDeliveryOption={setDeliveryOption} // ✅ Ceci manquait
                 />
               )}
