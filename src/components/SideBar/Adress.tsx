@@ -18,19 +18,46 @@ export default function Address() {
 
   const [updatedUserData, setUpdatedUserData] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchUserData = async () => {
+    if (status === "authenticated" && session?.user?.email) {
+      try {
+        setIsLoading(true);
+        const res = await fetch("/api/user/address", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.tokenExists && data.tokenEmail) {
+            setFormData({
+              name: session.user.name || "",
+              lastname: session.user.lastname || "",
+              address: session.user.address || "",
+              postalCode: session.user.postalCode || "",
+              city: session.user.city || "",
+              country: session.user.country || "France",
+              phone: session.user.phone || "",
+            });
+          }
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données utilisateur:",
+          error
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (status === "authenticated" && session?.user) {
-      setFormData({
-        name: session.user.name || "",
-        lastname: session.user.lastname || "",
-        address: session.user.address || "",
-        postalCode: session.user.postalCode || "",
-        city: session.user.city || "",
-        country: session.user.country || "France",
-        phone: session.user.phone || "",
-      });
-    }
+    fetchUserData();
   }, [session, status, refreshKey]);
 
   const handleChange = (e) => {
@@ -94,6 +121,16 @@ export default function Address() {
         setMessage("✅ Adresse mise à jour avec succès !");
         setIsEditing(false);
 
+        if (updateSession) {
+          await updateSession({
+            ...session,
+            user: {
+              ...session.user,
+              ...data.user,
+            },
+          });
+        }
+
         setRefreshKey((prevKey) => prevKey + 1);
       } else {
         setMessage(`❌ ${data.message || "Erreur lors de la mise à jour"}`);
@@ -112,7 +149,7 @@ export default function Address() {
     setMessage("");
   };
 
-  if (status === "loading") {
+  if (status === "loading" || isLoading) {
     return <div>Chargement...</div>;
   }
 
@@ -156,6 +193,9 @@ export default function Address() {
           >
             Modifier l'adresse
           </button>
+          <p className="text-center mt-6 text-red-600 hover:underline cursor-pointer">
+            Supprimer le compte
+          </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">

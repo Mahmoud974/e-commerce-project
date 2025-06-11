@@ -5,14 +5,13 @@ import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 
 export default function CookiesPage() {
   const [cookiePreferences, setCookiePreferences] = useState({
-    necessary: true, // Toujours activé
+    necessary: true,
     functional: false,
     analytics: false,
     marketing: false,
   });
   const [saved, setSaved] = useState(false);
 
-  // Charger les préférences existantes au chargement de la page
   useEffect(() => {
     const savedPreferences = localStorage.getItem("cookiePreferences");
     if (savedPreferences) {
@@ -30,12 +29,11 @@ export default function CookiesPage() {
   };
 
   const handleSavePreferences = () => {
-    // Enregistrer les préférences dans localStorage
-    localStorage.setItem("cookiePreferences", JSON.stringify(cookiePreferences));
-    
-    // Ici, vous pourriez également définir ou supprimer des cookies réels
-    // en fonction des préférences de l'utilisateur
-    
+    localStorage.setItem(
+      "cookiePreferences",
+      JSON.stringify(cookiePreferences)
+    );
+
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
@@ -74,9 +72,10 @@ export default function CookiesPage() {
           <section className="mb-12 max-w-3xl mx-auto">
             <div className="bg-black p-6 shadow-lg">
               <p className="mb-6 text-gray-300">
-                Nous utilisons des cookies pour améliorer votre expérience sur notre site, 
-                personnaliser le contenu et les publicités, fournir des fonctionnalités 
-                de médias sociaux et analyser notre trafic. Vous pouvez gérer vos préférences ci-dessous.
+                Nous utilisons des cookies pour améliorer votre expérience sur
+                notre site, personnaliser le contenu et les publicités, fournir
+                des fonctionnalités de médias sociaux et analyser notre trafic.
+                Vous pouvez gérer vos préférences ci-dessous.
               </p>
 
               <div className="space-y-4 mb-8">
@@ -84,7 +83,8 @@ export default function CookiesPage() {
                   <div>
                     <h3 className="font-bold">Cookies nécessaires</h3>
                     <p className="text-sm text-gray-400">
-                      Ces cookies sont indispensables au fonctionnement du site et ne peuvent pas être désactivés.
+                      Ces cookies sont indispensables au fonctionnement du site
+                      et ne peuvent pas être désactivés.
                     </p>
                   </div>
                   <input
@@ -100,7 +100,8 @@ export default function CookiesPage() {
                   <div>
                     <h3 className="font-bold">Cookies fonctionnels</h3>
                     <p className="text-sm text-gray-400">
-                      Ces cookies permettent d'améliorer les fonctionnalités et la personnalisation de votre expérience.
+                      Ces cookies permettent d'améliorer les fonctionnalités et
+                      la personnalisation de votre expérience.
                     </p>
                   </div>
                   <input
@@ -116,7 +117,8 @@ export default function CookiesPage() {
                   <div>
                     <h3 className="font-bold">Cookies analytiques</h3>
                     <p className="text-sm text-gray-400">
-                      Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site.
+                      Ces cookies nous aident à comprendre comment les visiteurs
+                      interagissent avec notre site.
                     </p>
                   </div>
                   <input
@@ -132,7 +134,8 @@ export default function CookiesPage() {
                   <div>
                     <h3 className="font-bold">Cookies marketing</h3>
                     <p className="text-sm text-gray-400">
-                      Ces cookies sont utilisés pour suivre les visiteurs sur les sites Web afin d'afficher des publicités pertinentes.
+                      Ces cookies sont utilisés pour suivre les visiteurs sur
+                      les sites Web afin d'afficher des publicités pertinentes.
                     </p>
                   </div>
                   <input

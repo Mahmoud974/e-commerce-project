@@ -7,19 +7,17 @@ export default function LexChat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<
     { from: "user" | "bot"; text: string }[]
-  >([]); // Historique des messages
+  >([]);
   const [lexRuntime, setLexRuntime] = useState<any>(null);
-  const [open, setOpen] = useState(false); // Contrôle l'ouverture de la boîte
+  const [open, setOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Configuration AWS
     AWS.config.region = "eu-west-2";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: "eu-west-2:6b95819f-3969-4424-bc1e-8fa9e9b4ab15", // Remplace par ton ID
+      IdentityPoolId: "eu-west-2:6b95819f-3969-4424-bc1e-8fa9e9b4ab15",
     });
 
-    // Crée une fois le client Lex
     setLexRuntime(new AWS.LexRuntime());
   }, []);
 

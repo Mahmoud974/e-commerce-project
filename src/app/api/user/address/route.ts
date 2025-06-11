@@ -108,7 +108,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log("Données reçues (POST):", body);
 
-    // Vérification des données requises
     const requiredFields = [
       "name",
       "lastname",
@@ -127,7 +126,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Mise à jour ou ajout des coordonnées (update si existe, sinon erreur)
     const updatedUser = await prisma.user.update({
       where: { email: token.email },
       data: {
@@ -167,12 +165,10 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Ajoutez cette méthode pour gérer les requêtes OPTIONS (CORS)
 export async function OPTIONS() {
   return NextResponse.json({}, { status: 200 });
 }
 
-// Ajoutez cette méthode pour déboguer
 export async function GET(request: NextRequest) {
   try {
     const token = await getToken({

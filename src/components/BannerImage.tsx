@@ -1,5 +1,3 @@
-// components/Banner.js
-
 import Image from "next/image";
 
 const Banner = ({ title, description, imageSrc }) => {

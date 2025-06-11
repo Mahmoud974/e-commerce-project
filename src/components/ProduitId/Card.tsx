@@ -5,6 +5,8 @@ import { ShoppingCart, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import AlertMessage from "../AlertNoLike";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   item,
@@ -13,6 +15,8 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
   const [showId, setShowId] = useState(false);
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
 
   const images = item.images.slice(0, 3);
 
@@ -25,7 +29,6 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
     showAlert: likeShowAlert,
   } = useLikeStore();
 
-  // Cart
   const {
     handleCart: toggleCart,
     isInCart: isItemInCart,
@@ -57,6 +60,10 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
     setShowId(true);
     setTimeout(() => setShowId(false), 3000);
   };
+
+  // Convertir le prix selon la devise sélectionnée
+  const convertedPrice = convertPrice(item.price, currency || "EUR");
+  const currencySymbol = currency === "EUR" ? "€" : "£";
 
   return (
     <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
@@ -125,10 +132,10 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
       <div className="flex items-center justify-between gap-2 px-4 py-3 border-t border-gray-200">
         <div>
-          <p className="text-black text-2xl font-bold">{item.price}€</p>
+          <p className="text-black text-2xl font-bold">{convertedPrice}{currencySymbol}</p>
           <Link href="/eco-mobilier">
             <small className="text-black underline mt-6">
-              Dont {item.ecoMobilier} € d’éco-part
+              Dont {currency === "EUR" ? item.ecoMobilier : convertPrice(item.ecoMobilier, currency)} {currencySymbol} d'éco-part
             </small>
           </Link>
         </div>

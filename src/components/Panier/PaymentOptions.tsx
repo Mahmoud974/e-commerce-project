@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 export default function PaymentOptions({ goToPreviousStep }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -12,12 +13,9 @@ export default function PaymentOptions({ goToPreviousStep }) {
   });
 
   const paymentOptions = [
-    { id: 1, title: "Paiement en ligne sécurisé" },
-    { id: 2, title: "Payer en 3 fois avec Alma" },
-    { id: 3, title: "Payer en 4 fois avec Alma" },
-    { id: 4, title: "Payer en 10 fois avec Alma" },
-    { id: 5, title: "Payer en 12 fois avec Alma" },
-    { id: 6, title: "Payez en plusieurs fois avec Younited" },
+    { id: 1, title: "Carte bancaire (Visa / Mastercard)" },
+    { id: 2, title: "Apple Pay" },
+    { id: 3, title: "PayPal" },
   ];
 
   const handleSelectPayment = (id) => {
@@ -66,9 +64,9 @@ export default function PaymentOptions({ goToPreviousStep }) {
   };
 
   return (
-    <section className="relative bg-black text-white">
-      <div className="container mx-auto px-6">
-        <h1 className="text-3xl font-bold mb-6">Choisir le mode de paiement</h1>
+    <section className="relative text-white bg-black">
+      <div className="container px-6 mx-auto">
+        <h1 className="mb-6 text-3xl font-bold">Choisir le mode de paiement</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {paymentOptions.map((option) => (
@@ -81,10 +79,32 @@ export default function PaymentOptions({ goToPreviousStep }) {
               }`}
               onClick={() => handleSelectPayment(option.id)}
             >
-              <p className="text-lg font-semibold">{option.title}</p>
+              <div className="flex justify-between items-center">
+                <p className="text-lg font-semibold">{option.title}</p>
+
+                {option.id === 1 && (
+                  <div className="flex gap-2">
+                    <Image
+                      src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/visa.svg"
+                      className="p-1 bg-white"
+                      alt="Visa"
+                      width={40}
+                      height={25}
+                    />
+                    <Image
+                      src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                      className="p-1 bg-white"
+                      alt="Mastercard"
+                      width={40}
+                      height={25}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           ))}
 
+          {/* Afficher les champs de carte uniquement pour Visa/Mastercard */}
           {selectedPayment === 1 && (
             <div className="space-y-4">
               <div>
@@ -100,7 +120,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
                   name="cardNumber"
                   value={cardDetails.cardNumber}
                   onChange={handleCardChange}
-                  className="w-full p-3 mt-2 border border-gray-700 text-black"
+                  className="p-3 mt-2 w-full text-black border border-gray-700"
                   placeholder="1234 5678 9012 3456"
                   maxLength={16}
                   required
@@ -120,7 +140,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
                     name="expiryDate"
                     value={cardDetails.expiryDate}
                     onChange={handleCardChange}
-                    className="w-full p-3 mt-2 border border-gray-700 text-black"
+                    className="p-3 mt-2 w-full text-black border border-gray-700"
                     placeholder="MM/AA"
                     maxLength={5}
                     required
@@ -136,7 +156,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
                     name="cvc"
                     value={cardDetails.cvc}
                     onChange={handleCardChange}
-                    className="w-full p-3 mt-2 border border-gray-700 text-black"
+                    className="p-3 mt-2 w-full text-black border border-gray-700"
                     placeholder="CVC"
                     maxLength={3}
                     required
@@ -146,7 +166,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
             </div>
           )}
 
-          <label className="flex items-center space-x-3 mt-4">
+          <label className="flex items-center mt-4 space-x-3">
             <input
               type="checkbox"
               checked={termsAccepted}
@@ -155,7 +175,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
             />
             <span className="text-gray-300">
               J'ai lu les{" "}
-              <a href="#" className="underline text-blue-400">
+              <a href="#" className="text-blue-400 underline">
                 conditions générales de vente
               </a>{" "}
               et j'y adhère sans réserve.
@@ -166,14 +186,18 @@ export default function PaymentOptions({ goToPreviousStep }) {
 
           <div className="flex gap-3">
             <button
+              type="button"
               onClick={goToPreviousStep}
-              className="w-full mt-4 border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
+              className="p-4 mt-4 w-full font-bold text-white border border-white transition duration-300 hover:bg-gray-300"
             >
               Retour
             </button>
 
-            <button className="w-full mt-6 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300">
-              Confirmer le payment
+            <button
+              type="submit"
+              className="p-4 mt-6 w-full font-bold text-black bg-white transition duration-300 hover:bg-slate-100"
+            >
+              Confirmer le paiement
             </button>
           </div>
         </form>

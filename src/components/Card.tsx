@@ -32,7 +32,6 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Vérifier si item.images existe et limiter à maximum 3 images
   const images = item?.images?.slice?.(0, 3) || [];
 
   const handleCartClick = (e: React.MouseEvent) => {

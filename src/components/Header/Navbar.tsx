@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import SheetDisplay from "../SideBar/MenuGeneral";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -10,44 +9,41 @@ import Image from "next/image";
 import AlertElement from "../AlertElement";
 import { usePathname } from "next/navigation";
 import { useQueryState } from "nuqs";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 type Inputs = { search: string };
 
 export default function Navbar() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const pathname = usePathname();
   const [userName, setUserName] = useState("");
-
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const searchTerm = watch("search");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [searchQuery, setSearchQuery] = useQueryState("search", {
-    parse: (v) => decodeURIComponent(v),
-    serialize: (v) => encodeURIComponent(v),
+
+  const [currency, setCurrency] = useQueryState("currency", {
+    parse: (v) => (v === "GBP" ? "GBP" : "EUR"),
+    serialize: (v) => v,
   });
 
-  // Effet pour mettre à jour le nom d'utilisateur lorsque la session change
-  useEffect(() => {
-    if (session?.user?.name) {
-      setUserName(session.user.name);
-    }
-  }, [session]);
+  const toggleCurrency = () => {
+    setCurrency(currency === "EUR" ? "GBP" : "EUR");
+  };
 
   const fetchSuggestions = async () => {
-    if (searchTerm) {
-      try {
-        const response = await fetch(
-          `/api/search?q=${encodeURIComponent(searchTerm)}`
-        );
-        const data = await response.json();
-        setSuggestions(data);
-      } catch (error) {
-        console.error("Erreur lors de la recherche:", error);
-        setSuggestions([]);
-      }
-    } else {
+    if (!searchTerm) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      const response = await fetch(
+        `/api/search?q=${encodeURIComponent(searchTerm)}`
+      );
+      const data = await response.json();
+      setSuggestions(data);
+    } catch {
       setSuggestions([]);
     }
   };
@@ -56,18 +52,14 @@ export default function Navbar() {
     const delay = setTimeout(() => {
       fetchSuggestions();
     }, 300);
-
     return () => clearTimeout(delay);
   }, [searchTerm]);
 
   useEffect(() => {
-    const delay = setTimeout(() => {
-      if (searchTerm !== undefined) {
-        setSearchQuery(searchTerm);
-      }
-    }, 300);
-    return () => clearTimeout(delay);
-  }, [searchTerm]);
+    if (session?.user?.name) {
+      setUserName(session.user.name);
+    }
+  }, [session]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -92,7 +84,6 @@ export default function Navbar() {
 
   return (
     <nav className="relative z-50 w-full flex items-center justify-between py-4 text-white">
-      {/* GAUCHE */}
       <div className="flex items-center space-x-8">
         <Link href="/home">
           <Image
@@ -103,7 +94,6 @@ export default function Navbar() {
             className="w-auto"
           />
         </Link>
-
         <ul className="flex flex-col">
           {navItems.map((item) => (
             <li key={item.href}>
@@ -115,7 +105,6 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* MILIEU : barre de recherche */}
       {pathname === "/" && (
         <div className="relative z-40 w-1/3" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -172,8 +161,24 @@ export default function Navbar() {
             />
           </div>
         )}
+        <button
+          onClick={toggleCurrency}
+          className="bg-black text-white border border-white rounded px-3 py-1 focus:outline-none"
+        >
+          {currency === "EUR" ? "€ EUR" : "£ GBP"}
+        </button>
         <SheetDisplay />
       </div>
     </nav>
   );
 }
+
+// Exporter la fonction useQueryState pour la réutiliser dans d'autres composants
+export const useCurrency = () => {
+  const [currency, setCurrency] = useQueryState("currency", {
+    parse: (v) => (v === "GBP" ? "GBP" : "EUR"),
+    serialize: (v) => v,
+  });
+  
+  return { currency, setCurrency };
+};

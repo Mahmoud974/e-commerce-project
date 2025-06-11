@@ -14,7 +14,6 @@ export async function GET() {
     });
   }
 
-  // Utilisez Produit avec un P majuscule, pas produit
   const items = await prisma.produit.findMany({
     where: {},
   });

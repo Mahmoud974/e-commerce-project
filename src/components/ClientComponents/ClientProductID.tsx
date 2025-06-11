@@ -21,6 +21,8 @@ import { useCartStore, useLikeData, useLikeStore } from "@/store/store";
 import { useSession } from "next-auth/react";
 import { Button } from "../ui/button";
 import ProductCard from "../ProduitId/Card";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function ProductPageClient({
   data,
@@ -33,6 +35,8 @@ export default function ProductPageClient({
   const [quantity, setQuantity] = useState(1);
   const { data: session } = useSession();
   const { addItems } = useLikeData();
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
   const randomFive = useMemo(() => {
     return [...data].sort(() => Math.random() - 0.5).slice(0, 5);
   }, [data]);
@@ -56,18 +60,17 @@ export default function ProductPageClient({
   } = useCartStore();
 
   const idArticle = data.find((article: any) => {
-    // Vérifier si les IDs sont définis
     if (!article.id || !slug) return false;
 
-    // Convertir en chaînes de caractères pour une comparaison plus sûre
     const articleIdStr = String(article.id).trim();
     const slugStr = String(slug).trim();
 
-    // Comparer les chaînes
     return articleIdStr === slugStr;
   });
 
-  const priceHT = idArticle ? (idArticle.price / 1.2).toFixed(2) : "";
+  // Convertir le prix selon la devise sélectionnée
+  const convertedPrice = idArticle ? convertPrice(idArticle.price, currency || "EUR") : 0;
+  const priceHT = idArticle ? (convertedPrice / 1.2).toFixed(2) : "";
 
   const onLikeClick = () => {
     handleLike(idArticle, session, addItems);
@@ -183,7 +186,9 @@ export default function ProductPageClient({
               <div className="flex items-center mt-2">
                 <span>prix :</span>
                 <span className="text-3xl ml-2">
-                  {isHT ? `${priceHT}€ HT` : `${idArticle?.price}€ TTC`}
+                  {isHT 
+                    ? `${priceHT}${currency === "EUR" ? "€" : "£"} HT` 
+                    : `${convertedPrice}${currency === "EUR" ? "€" : "£"} TTC`}
                 </span>
                 <Switch
                   checked={isHT}

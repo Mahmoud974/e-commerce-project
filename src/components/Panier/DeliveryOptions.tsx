@@ -35,69 +35,63 @@ export default function DeliveryOption({
   const handleSelect = (id) => {
     const selected = deliveryOptions.find((opt) => opt.id === id);
     setSelectedOption(id);
-    console.log(selected.price);
-
     setDeliveryOption(selected);
-    alert(`Vous avez sélectionné l'option : ${selected.title}`);
+    alert(`Vous avez sélectionné : ${selected.title}`);
   };
 
   return (
-    <section className="relative bg-black text-white   ">
-      <div className="container mx-auto  ">
-        <h1 className="text-3xl font-bold mb-6 pb-5 text-center">
+    <section className="relative px-4 py-10 text-white bg-black">
+      <div className="mx-auto max-w-6xl">
+        <h1 className="mb-8 text-2xl font-bold text-center md:text-3xl">
           Choisir le mode de livraison
         </h1>
 
-        {/* Liste des options de livraison avec dimensions carrées */}
-        <div className="flex flex-wrap justify-center gap-8">
+        {/* Options */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {deliveryOptions.map((option) => (
             <div
               key={option.id}
-              className={`w-72 h-auto flex flex-col justify-between p-6 border cursor-pointer transition-all duration-300 
-                ${
-                  selectedOption === option.id
-                    ? "border-white bg-[#101010] scale-105"
-                    : "border-gray-700"
-                }`}
               onClick={() => handleSelect(option.id)}
+              className={`cursor-pointer p-6 rounded-md transition-all duration-300 border ${
+                selectedOption === option.id
+                  ? "bg-[#101010] border-white scale-[1.02]"
+                  : "border-gray-700 hover:border-white"
+              }`}
             >
-              <div>
-                <h2 className="text-xl font-bold mb-2">{option.title}</h2>
-                <p className="text-gray-300 text-sm mb-4">
-                  {option.description}
-                </p>
-              </div>
-              <p className="text font-semibold mb-4">{option.price}</p>
+              <h2 className="mb-2 text-lg font-semibold">{option.title}</h2>
+              <p className="mb-4 text-sm text-gray-400">{option.description}</p>
+              <p className="mb-4 font-bold">{option.price}</p>
               <button
-                className={`w-full p-4 font-bold  ${
+                className={`w-full py-2 text-sm font-bold rounded ${
                   selectedOption === option.id
-                    ? "bg-[#101010] text-white"
-                    : "bg-white text-black"
+                    ? "bg-[#101010] text-white border border-white"
+                    : "bg-white text-black hover:bg-gray-100"
                 }`}
               >
                 {selectedOption === option.id ? "Sélectionné" : "Sélectionner"}
               </button>
             </div>
           ))}
-          <div className="flex gap-3">
-            <button
-              onClick={goToPreviousStep}
-              className="w-full mt-4 border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
-            >
-              Retour
-            </button>
-
-            <button
-              onClick={goToNextStep}
-              className="w-full mt-6 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
-            >
-              Continuer
-            </button>
-          </div>
         </div>
 
-        {/* Message d'information */}
-        <p className="text-sm mt-8 text-gray-400 text-center w-7/12  mx-auto">
+        {/* Boutons navigation */}
+        <div className="flex flex-col gap-4 justify-center mt-10 md:flex-row">
+          <button
+            onClick={goToPreviousStep}
+            className="py-3 w-full font-bold text-white border border-white transition md:w-1/2 hover:bg-white hover:text-black"
+          >
+            Retour
+          </button>
+          <button
+            onClick={goToNextStep}
+            className="py-3 w-full font-bold text-black bg-white transition md:w-1/2 hover:bg-gray-200"
+          >
+            Continuer
+          </button>
+        </div>
+
+        {/* Message */}
+        <p className="mx-auto mt-10 max-w-2xl text-sm text-center text-gray-400">
           Pour assurer une livraison sur mesure, notre transporteur vous
           adressera un SMS. Profitez de cette occasion pour lui faire part de
           vos commentaires ou de toute autre précision que vous souhaiteriez

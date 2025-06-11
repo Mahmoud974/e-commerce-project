@@ -86,7 +86,6 @@ export const authOptions: NextAuthOptions = {
               },
             });
           } else {
-            // Créer un nouvel utilisateur
             await prisma.user.create({
               data: {
                 email: user.email!,

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-// Composant de débogage qui affiche les informations de session
 function SessionDebug() {
   const { data: session, status } = useSession();
 
@@ -119,13 +118,11 @@ export default function UserForm() {
       console.log("Information de session:", session);
       console.log("Status:", status);
 
-      // Vérifier si la session est active
       if (status !== "authenticated" || !session) {
         setMessage("❌ Test échoué: Vous n'êtes pas authentifié");
         return;
       }
 
-      // Tester le endpoint directement avec une requête minimale
       const testResponse = await fetch("/api/user/address", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -175,7 +172,6 @@ export default function UserForm() {
         Adresse de livraison
       </h2>
 
-      {/* Afficher les informations de débogage */}
       <SessionDebug />
 
       <p className="text-white mb-4">

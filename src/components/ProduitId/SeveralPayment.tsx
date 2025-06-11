@@ -27,24 +27,24 @@ export function SeveralPayment() {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           {/* Étape 1: Choisir le mode de paiement */}
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="payment-method" className="text-right text-black">
               Choisissez votre paiement
             </Label>
             <Input
               id="payment-method"
               defaultValue="Carte bancaire"
-              className="col-span-3 border-gray-300 text-black"
+              className="col-span-3 text-black border-gray-300"
               disabled
             />
           </div>
 
           {/* Étape 2: Choisir le nombre d'échéances */}
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="installments" className="text-right text-black">
               Nombre d'échéances
             </Label>
-            <div className="col-span-3 flex gap-4">
+            <div className="flex col-span-3 gap-4">
               <Button
                 variant="outline"
                 className="text-black bg-gray-200 hover:bg-gray-300"
@@ -73,19 +73,19 @@ export function SeveralPayment() {
           </div>
 
           {/* Étape 3: Affichage des montants */}
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="amount-today" className="text-right text-black">
               {`Aujourd'hui`}
             </Label>
             <div className="col-span-3 text-black">99,68 €</div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="amount-february" className="text-right text-black">
               2 février 2025
             </Label>
             <div className="col-span-3 text-black">99,66 €</div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="amount-march" className="text-right text-black">
               2 mars 2025
             </Label>
@@ -93,13 +93,13 @@ export function SeveralPayment() {
           </div>
 
           {/* Étape 4: Total */}
-          <div className="grid grid-cols-4 items-center gap-4 font-bold text-black">
+          <div className="grid grid-cols-4 gap-4 items-center font-bold text-black">
             <Label htmlFor="total" className="text-right">
               Total
             </Label>
             <div className="col-span-3">299,00 €</div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4 text-black">
+          <div className="grid grid-cols-4 gap-4 items-center text-black">
             <Label htmlFor="fees" className="text-right">
               Dont frais (TTC)
             </Label>
@@ -109,7 +109,7 @@ export function SeveralPayment() {
         <DialogFooter>
           <Button
             type="submit"
-            className="bg-blue-500 text-white hover:bg-blue-600"
+            className="text-white bg-blue-500 hover:bg-blue-600"
           >
             Valider le paiement
           </Button>

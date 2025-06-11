@@ -1,14 +1,11 @@
 import { Truck } from "lucide-react";
 
 function Table() {
-  // Obtenir la date actuelle
   const currentDate = new Date();
 
-  // Ajouter 3 semaines à la date actuelle
   const deliveryDate = new Date(currentDate);
   deliveryDate.setDate(currentDate.getDate() + 30);
 
-  // Formater les dates pour l'affichage
   const formattedCurrentDate = currentDate.toLocaleDateString("fr-FR");
   const formattedDeliveryDate = deliveryDate.toLocaleDateString("fr-FR");
 

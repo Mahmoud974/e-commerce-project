@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Header/Navbar";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -20,7 +20,7 @@ export default function Page() {
       return;
     }
     setError("");
-    // Place authentication logic here
+
     alert("Connexion admin envoyée !");
   };
 

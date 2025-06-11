@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import redis from "@/lib/redis"; // Assure-toi que ce fichier existe
+import redis from "@/lib/redis";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 

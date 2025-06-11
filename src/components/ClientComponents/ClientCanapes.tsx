@@ -48,7 +48,6 @@ export default function CanapesClient({ data }) {
 
     let result = [...data];
 
-    // Filtre par couleur
     if (colorQuery?.length) {
       result = result.filter((item) =>
         colorQuery

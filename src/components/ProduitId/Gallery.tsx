@@ -3,13 +3,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function ProductGallery({ data }) {
-  // Construire dynamiquement le tableau de médias
   const media = data && Array.isArray(data.images) ? data.images : [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Reset index quand les images changent
   useEffect(() => {
     if (data && data.images) {
       setCurrentIndex(0);
@@ -27,7 +25,6 @@ export default function ProductGallery({ data }) {
   };
   const closeModal = () => setIsModalOpen(false);
 
-  // Empêcher le scroll du body quand le modal est ouvert
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? "hidden" : "auto";
     return () => {
@@ -35,7 +32,6 @@ export default function ProductGallery({ data }) {
     };
   }, [isModalOpen]);
 
-  // Navigation clavier
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") closeModal();
@@ -48,7 +44,6 @@ export default function ProductGallery({ data }) {
 
   if (!media.length) return null;
 
-  // Si une seule image, afficher en grand format
   if (media.length === 1) {
     return (
       <div className="mb-12">
@@ -66,7 +61,6 @@ export default function ProductGallery({ data }) {
           />
         </div>
 
-        {/* Modal Fullscreen */}
         {isModalOpen && (
           <div
             className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
@@ -97,7 +91,6 @@ export default function ProductGallery({ data }) {
 
   return (
     <div>
-      {/* Desktop Grid */}
       <div className="hidden md:grid mb-12 grid-cols-2 gap-3 max-w-3xl">
         {media.map((src, idx) => (
           <div
@@ -117,7 +110,6 @@ export default function ProductGallery({ data }) {
         ))}
       </div>
 
-      {/* Mobile Carousel */}
       <div className="block md:hidden relative">
         <button
           onClick={handlePrev}
@@ -145,7 +137,6 @@ export default function ProductGallery({ data }) {
         </button>
       </div>
 
-      {/* Modal Fullscreen */}
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
