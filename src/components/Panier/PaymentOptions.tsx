@@ -132,7 +132,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
                     htmlFor="expiryDate"
                     className="block text-sm text-gray-300"
                   >
-                    Date d'expiration (MM/AA)
+                    Date ddd&#39;e#39;e#39;expiration (MM/AA)
                   </label>
                   <input
                     type="text"
@@ -174,11 +174,11 @@ export default function PaymentOptions({ goToPreviousStep }) {
               className="w-5 h-5 text-red-600"
             />
             <span className="text-gray-300">
-              J'ai lu les{" "}
+              JJJ&#39;a#39;a#39;ai lu les{" "}
               <a href="#" className="text-blue-400 underline">
                 conditions générales de vente
               </a>{" "}
-              et j'y adhère sans réserve.
+              et jjj&#39;y#39;y#39;y adhère sans réserve.
             </span>
           </label>
 

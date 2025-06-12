@@ -19,7 +19,7 @@ export default async function NettoyantsProduits() {
     }
 
     products = await response.json();
-    console.log("Données brutes de l'API (côté serveur):", products);
+    console.log("Données brutes de lll&#39;A#39;A#39;API (côté serveur):", products);
   } catch (err) {
     console.error("Erreur lors du chargement des produits:", err);
     error = err.message;
@@ -69,7 +69,7 @@ export default async function NettoyantsProduits() {
       description: product.description || "Aucune description disponible",
       price: formattedPrice,
       images: cleanedImages,
-      brand: product.brand || "Produit d'entretien",
+      brand: product.brand || "Produit ddd&#39;e#39;e#39;entretien",
       ecoMobilier: product.ecoMobilier || 0.25,
       quantity: product.quantity || 1,
       disponibilite: product.disponibilite || true,
@@ -79,7 +79,7 @@ export default async function NettoyantsProduits() {
   if (error) {
     return (
       <ProductLayout
-        title="Produits d'entretien pour canapés en cuir"
+        title="Produits ddd&#39;e#39;e#39;entretien pour canapés en cuir"
         description="Découvrez notre sélection de produits spécialement conçus pour nettoyer, entretenir et protéger vos canapés en cuir."
         breadcrumbs={[
           { label: "Accueil", href: "/home" },
@@ -95,11 +95,11 @@ export default async function NettoyantsProduits() {
 
   return (
     <ProductLayout
-      title="Produits d'entretien pour canapés"
+      title="Produits ddd&#39;e#39;e#39;entretien pour canapés"
       description="Découvrez notre sélection de produits spécialement conçus pour nettoyer, entretenir et protéger vos canapés."
       breadcrumbs={[
         { label: "Accueil", href: "/home" },
-        { label: "Produits d'entretien" },
+        { label: "Produits ddd&#39;e#39;e#39;entretien" },
       ]}
     >
       {/* Utilisation du composant client pour les fonctionnalités interactives */}

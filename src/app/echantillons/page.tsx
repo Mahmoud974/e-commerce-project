@@ -31,7 +31,7 @@ export default async function EchantillonsPage() {
   return (
     <ProductLayout
       title="Échantillons"
-      description="Découvrez notre sélection d'échantillons de tissus et de cuirs pour personnaliser votre mobilier."
+      description="Découvrez notre sélection d&#39;échantillons de tissus et de cuirs pour personnaliser votre mobilier."
       breadcrumbs={[
         { label: "Accueil", href: "/home" },
         { label: "Échantillons" },

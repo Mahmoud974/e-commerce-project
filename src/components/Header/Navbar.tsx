@@ -9,7 +9,6 @@ import Image from "next/image";
 import AlertElement from "../AlertElement";
 import { usePathname } from "next/navigation";
 import { useQueryState } from "nuqs";
-import { useCurrencyStore } from "@/store/currencyStore";
 
 type Inputs = { search: string };
 
@@ -78,12 +77,12 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "Canapés" },
-    { href: "/produits-nettoyant", label: "Produits d'entretien" },
+    { href: "/produits-nettoyant", label: "Produits ddd&#39;e#39;e#39;entretien" },
     { href: "/echantillons", label: "Échantillons" },
   ];
 
   return (
-    <nav className="relative z-50 w-full flex items-center justify-between py-4 text-white">
+    <nav className="flex relative z-50 justify-between items-center py-4 w-full text-white">
       <div className="flex items-center space-x-8">
         <Link href="/home">
           <Image
@@ -111,26 +110,27 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="Rechercher un produit…"
-              className="w-full py-2 px-4 border border-white bg-black text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+              autoComplete="off"
+              className="px-4 py-2 w-full text-white bg-black rounded-md border border-white focus:outline-none focus:ring-2 focus:ring-white"
               {...register("search", {
                 onChange: () => setShowSuggestions(true),
               })}
             />
           </form>
           {showSuggestions && suggestions.length > 0 && (
-            <ul className="absolute top-full mt-1 w-full bg-white text-black rounded-lg shadow-lg max-h-60 overflow-auto z-50">
+            <ul className="overflow-auto absolute top-full z-50 mt-1 w-full max-h-60 text-black bg-white rounded-lg shadow-lg">
               {suggestions.map((item) => (
                 <Link href={`/produit/${item.id}`} key={item.id}>
                   <li
-                    className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
                     onClick={() => setShowSuggestions(false)}
                   >
-                    <div className="w-12 h-12 relative flex-shrink-0">
+                    <div className="relative flex-shrink-0 w-12 h-12">
                       <Image
                         src={item.images[0]}
                         alt={item.title}
                         fill
-                        className="object-contain rounded w-auto"
+                        className="object-contain w-auto rounded"
                       />
                     </div>
                     <div className="ml-3">
@@ -155,15 +155,16 @@ export default function Navbar() {
             <Image
               src={session.user?.image ?? "/images/default.png"}
               alt="Profil"
-              width={32}
-              height={32}
-              className="rounded-full object-cover w-auto"
+              width={64}
+              height={64}
+              className="object-cover w-10 h-10 rounded-full"
+              unoptimized={true}
             />
           </div>
         )}
         <button
           onClick={toggleCurrency}
-          className="bg-black text-white border border-white rounded px-3 py-1 focus:outline-none"
+          className="px-3 py-1 text-white rounded border border-white focus:outline-none"
         >
           {currency === "EUR" ? "€ EUR" : "£ GBP"}
         </button>
@@ -173,12 +174,12 @@ export default function Navbar() {
   );
 }
 
-// Exporter la fonction useQueryState pour la réutiliser dans d'autres composants
+// Exporter la fonction useQueryState pour la réutiliser dans ddd&#39;a#39;a#39;autres composants
 export const useCurrency = () => {
   const [currency, setCurrency] = useQueryState("currency", {
     parse: (v) => (v === "GBP" ? "GBP" : "EUR"),
     serialize: (v) => v,
   });
-  
+
   return { currency, setCurrency };
 };

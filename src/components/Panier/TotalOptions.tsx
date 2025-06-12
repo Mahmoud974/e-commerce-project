@@ -158,7 +158,7 @@ export default function TotalOptions({
           <div>
             <p className="text-2xl font-bold">Livraison à domicile :</p>
             <p>
-              Sur rendez-vous, à l'étage, dans la pièce de votre choix (FR, BE,
+              Sur rendez-vous, à l&#39;étage, dans la pièce de votre choix (FR, BE,
               LU, MCO)
             </p>
           </div>
@@ -169,7 +169,7 @@ export default function TotalOptions({
           <RotateCcw className="w-14 h-14" />
           <div>
             <p className="font-semibold">Satisfait ou remboursé :</p>
-            <p>14 jours pour changer d'avis sur vos achats</p>
+            <p>14 jours pour changer ddd&#39;a#39;a#39;avis sur vos achats</p>
           </div>
         </div>
       </div>

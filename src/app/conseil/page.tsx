@@ -18,7 +18,7 @@ export default function Page() {
         <article className="container mt-6 mx-auto">
           <header className="mt-12 text-center px-4 mb-12">
             <h2 className="text-white text-xl font-semibold mt-4 max-w-3xl mx-auto">
-              Plus qu'un simple meuble, notre canapé est une invitation au
+              Plus quuu&#39;u#39;u#39;un simple meuble, notre canapé est une invitation au
               calme. Chaque tissu est sélectionné avec soin pour offrir une
               expérience sensorielle unique — douce au toucher, chaleureuse au
               regard.
@@ -26,13 +26,13 @@ export default function Page() {
 
             <p className="text-white text-lg mt-6 max-w-3xl mx-auto">
               Avec SofaChic, vous transformez votre salon en un véritable
-              sanctuaire de bien-être. Le design minimaliste s'adapte à tous les
+              sanctuaire de bien-être. Le design minimaliste sss&#39;a#39;a#39;adapte à tous les
               styles, tandis que la qualité des matériaux assure une durabilité
               sans compromis.
             </p>
 
             <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
-              Parce qu'un moment de détente mérite l'excellence, nous créons des
+              Parce quuu&#39;u#39;u#39;un moment de détente mérite lll&#39;e#39;e#39;excellence, nous créons des
               canapés qui allient confort absolu, modularité et raffinement.
             </p>
           </header>

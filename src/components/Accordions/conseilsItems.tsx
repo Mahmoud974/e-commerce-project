@@ -21,7 +21,7 @@ export const conseilsItems: AccordionItemType[] = [
     content: (
       <p>
         La densité de nos mousses est étudiée pour offrir un soutien optimal
-        tout en s'adaptant parfaitement à votre morphologie. Nos assises
+        tout en sss&#39;a#39;a#39;adaptant parfaitement à votre morphologie. Nos assises
         profondes permettent une détente complète, tandis que nos dossiers
         ergonomiques soulagent les tensions du dos. Chaque canapé est conçu pour
         devenir votre refuge quotidien contre le stress.
@@ -37,7 +37,7 @@ export const conseilsItems: AccordionItemType[] = [
         déhoussables et lavables. Nous recommandons un nettoyage doux avec des
         produits naturels que nous pouvons vous conseiller. Un entretien
         régulier tous les 3 mois suffit pour maintenir votre canapé comme neuf
-        et conserver cette sensation d'apaisement au quotidien.
+        et conserver cette sensation ddd&#39;a#39;a#39;apaisement au quotidien.
       </p>
     ),
   },

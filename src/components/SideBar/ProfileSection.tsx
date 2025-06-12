@@ -34,7 +34,7 @@ export function ProfileSection({ session, isProcessing }) {
     }
 
     if (activeTab === "register" && !formData.acceptTerms) {
-      setError("Vous devez accepter la politique d'utilisation.");
+      setError("Vous devez accepter la politique ddd&#39;u#39;u#39;utilisation.");
       return;
     }
 
@@ -52,7 +52,7 @@ export function ProfileSection({ session, isProcessing }) {
 
         const data = await res.json();
         if (!res.ok) {
-          setError(data.message || "Erreur à l'inscription.");
+          setError(data.message || "Erreur à lll&#39;i#39;i#39;inscription.");
           return;
         }
 
@@ -160,7 +160,7 @@ export function ProfileSection({ session, isProcessing }) {
                       checked={formData.acceptTerms}
                       onChange={handleChange}
                     />
-                    J'accepte la politique d'utilisation
+                    JJJ&#39;a#39;a#39;accepte la politique ddd&#39;u#39;u#39;utilisation
                   </label>
                 </>
               )}
@@ -169,7 +169,7 @@ export function ProfileSection({ session, isProcessing }) {
                 type="submit"
                 className="bg-white text-black py-2 rounded"
               >
-                {activeTab === "login" ? "Se connecter" : "S'inscrire"}
+                {activeTab === "login" ? "Se connecter" : "SSS&#39;i#39;i#39;inscrire"}
               </button>
             </form>
           )}

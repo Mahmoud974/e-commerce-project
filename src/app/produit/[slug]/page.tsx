@@ -38,7 +38,7 @@ export default async function Page({ params }: PageProps) {
     }
 
     if (!res || !res.ok) {
-      throw new Error(`Échec du chargement de l'article ${slug}`);
+      throw new Error(`Échec du chargement de lll&#39;a#39;a#39;article ${slug}`);
     }
 
     const data = await res.json();

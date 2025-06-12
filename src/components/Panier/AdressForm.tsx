@@ -53,8 +53,8 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
     if (status !== "authenticated" || !session?.user) {
       console.log("Status de la session:", status);
       console.log("Session actuelle:", session);
-      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
-      setError("Veuillez vous connecter pour modifier l'adresse");
+      setMessage("❌ Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
+      setError("Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
       return;
     }
 
@@ -76,7 +76,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
 
     try {
       console.log("Envoi de la requête avec la session:", session);
-      console.log("Status lors de l'envoi:", status);
+      console.log("Status lors de lll&#39;e#39;e#39;envoi:", status);
       console.log("Données envoyées:", addressData);
       const res = await fetch("/api/user/address", {
         method: "PUT",
@@ -96,7 +96,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
       if (res.status === 401) {
         setMessage("❌ Votre session a expiré. Veuillez vous reconnecter.");
         setError("Votre session a expiré. Veuillez vous reconnecter.");
-        console.error("Erreur d'authentification (401)");
+        console.error("Erreur ddd&#39;a#39;a#39;authentification (401)");
         return;
       }
 
@@ -125,7 +125,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
       } else {
         setMessage(`❌ ${data.message || "Erreur lors de la mise à jour"}`);
         setError(data.message || "Erreur lors de la mise à jour");
-        console.error("Détails de l'erreur:", data);
+        console.error("Détails de lll&#39;e#39;e#39;erreur:", data);
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
@@ -208,7 +208,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
               onClick={() => setShowForm(true)}
               className="w-full mb-4 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
             >
-              Modifier l'adresse de livraison
+              Modifier lll&#39;a#39;a#39;adresse de livraison
             </button>
             <div>
               <label className="flex items-center gap-2">
@@ -217,7 +217,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
                   checked={billingDifferent}
                   onChange={() => setBillingDifferent(!billingDifferent)}
                 />
-                L'adresse de facturation diffère de l'adresse de livraison
+                LLL&#39;a#39;a#39;adresse de facturation diffère de lll&#39;a#39;a#39;adresse de livraison
               </label>
             </div>
             {!hasCompleteAddress && (
@@ -350,7 +350,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
                 type="submit"
                 className="w-full bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
               >
-                Enregistrer l'adresse
+                Enregistrer lll&#39;a#39;a#39;adresse
               </button>
               <button
                 type="button"

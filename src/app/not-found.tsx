@@ -25,7 +25,7 @@ export default function NotFound() {
             />
 
             <figcaption className="sr-only">
-              Image illustrant l'erreur 404
+              Image illustrant lll&#39;e#39;e#39;erreur 404
             </figcaption>
           </figure>
 
@@ -37,7 +37,7 @@ export default function NotFound() {
             <Link href="/home" className="inline-block">
               <Button className="flex items-center gap-2 px-6 py-3 text-lg transition-all hover:scale-105">
                 <ArrowLeft className="w-5 h-5" aria-hidden="true" />
-                <span>Retour à l'accueil</span>
+                <span>Retour à lll&#39;a#39;a#39;accueil</span>
               </Button>
             </Link>
           </nav>

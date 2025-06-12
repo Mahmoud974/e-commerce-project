@@ -25,7 +25,7 @@ export const inspirationsItems: AccordionItemType[] = [
   },
   {
     value: "delai",
-    trigger: "Quels sont les délais de traitement d'une demande ?",
+    trigger: "Quels sont les délais de traitement ddd&#39;u#39;u#39;une demande ?",
     content: (
       <p>
         Les demandes sont généralement traitées sous 48h. Un conseiller vous

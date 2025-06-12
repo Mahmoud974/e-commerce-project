@@ -5,7 +5,7 @@ export default function EcoMobilierPage() {
   return (
     <PageLayoutBanner
       title="Éco‑mobilier"
-      description="L'éco‑participation finance la collecte, le tri et le recyclage des meubles usagés."
+      description="L&#39;éco‑participation finance la collecte, le tri et le recyclage des meubles usagés."
       bannerImage={"eco-mobilier.png"}
     >
       <main className="relative">
@@ -16,23 +16,23 @@ export default function EcoMobilierPage() {
               role="presentation"
             ></div>
             <h2 className="text-2xl font-bold text-white mb-6">
-              Notre engagement pour l'environnement
+              Notre engagement pour lll&#39;e#39;e#39;environnement
             </h2>
           </header>
 
           <section className="text-center px-4 mb-12">
             <p className="text-white text-lg mt-6 max-w-3xl mx-auto">
-              L'éco‑participation sert à financer la collecte, le tri et le
+              L&#39;éco‑participation sert à financer la collecte, le tri et le
               recyclage des meubles usagés.
             </p>
             <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
               Le montant est déterminé par un barème national établi par
-              Éco‑mobilier et s'applique à tous les types de meubles.
+              Éco‑mobilier et sss&#39;a#39;a#39;applique à tous les types de meubles.
             </p>
             <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
               Cette contribution est collectée par le point de vente lors de
               chaque achat, puis reversée à Éco‑mobilier, qui la gère pour
-              accomplir la mission confiée par l'État.
+              accomplir la mission confiée par l&#39;État.
             </p>
           </section>
 
@@ -42,7 +42,7 @@ export default function EcoMobilierPage() {
               className="inline-block px-6 py-2 bg-red-700 text-white font-medium rounded hover:bg-red-800 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="En savoir plus sur Éco-mobilier (s'ouvre dans une nouvelle fenêtre)"
+              aria-label="En savoir plus sur Éco-mobilier (sss&#39;o#39;o#39;ouvre dans une nouvelle fenêtre)"
             >
               En savoir plus
             </a>

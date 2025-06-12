@@ -1,9 +1,3 @@
 {
-  "extends": "next/core-web-vitals",
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "strict": true, // Vous pouvez garder cette option si vous voulez activer d'autres vérifications strictes
-    "allowJs": true, // Facultatif, si vous avez des fichiers JavaScript
-    "skipLibCheck": true // Facultatif, pour éviter les erreurs de type dans les fichiers de déclaration
-  }
+  "extends": "next/core-web-vitals"
 }

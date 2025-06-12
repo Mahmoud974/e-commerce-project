@@ -70,7 +70,7 @@ const PrivacyPolicy = () => {
         <p className="text-lg text-gray-600 ">
           Nous prenons des mesures de sécurité pour protéger vos informations
           personnelles contre toute divulgation non autorisée. Cependant, aucune
-          méthode de transmission sur Internet ou de stockage électronique n'est
+          méthode de transmission sur Internet ou de stockage électronique nnn&#39;e#39;e#39;est
           totalement sécurisée.
         </p>
       </section>
@@ -84,7 +84,7 @@ const PrivacyPolicy = () => {
         </h2>
         <p className="text-lg text-gray-600 ">
           Conformément à la législation sur la protection des données, vous avez
-          le droit d'accéder à vos données personnelles, de les rectifier ou de
+          le droit ddd&#39;a#39;a#39;accéder à vos données personnelles, de les rectifier ou de
           les supprimer. Vous pouvez également vous opposer à leur traitement
           dans certains cas.
         </p>
@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
           Cookies
         </h2>
         <p className="text-lg text-gray-600 ">
-          Nous utilisons des cookies pour améliorer l'expérience utilisateur sur
+          Nous utilisons des cookies pour améliorer lll&#39;e#39;e#39;expérience utilisateur sur
           notre site. Vous pouvez choisir de désactiver les cookies via les
           paramètres de votre navigateur.
         </p>
@@ -127,7 +127,7 @@ const PrivacyPolicy = () => {
         </h2>
         <p className="text-lg text-gray-600 ">
           Si vous avez des questions concernant cette politique de
-          confidentialité, n'hésitez pas à nous contacter à l'adresse suivante :{" "}
+          confidentialité, nnn&#39;h#39;h#39;hésitez pas à nous contacter à lll&#39;a#39;a#39;adresse suivante :{" "}
           <strong>contact@votresite.com</strong>.
         </p>
       </section>

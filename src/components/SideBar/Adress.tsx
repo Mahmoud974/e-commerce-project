@@ -73,7 +73,7 @@ export default function Address() {
     setMessage("");
 
     if (status !== "authenticated" || !session?.user) {
-      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
+      setMessage("❌ Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
       return;
     }
 
@@ -142,7 +142,7 @@ export default function Address() {
 
   const startEditing = () => {
     if (status !== "authenticated") {
-      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
+      setMessage("❌ Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
       return;
     }
     setIsEditing(true);
@@ -191,7 +191,7 @@ export default function Address() {
             onClick={startEditing}
             className="mt-4 px-4 py-2 bg-white text-black   hover:bg-blue-700"
           >
-            Modifier l'adresse
+            Modifier lll&#39;a#39;a#39;adresse
           </button>
           <p className="text-center mt-6 text-red-600 hover:underline cursor-pointer">
             Supprimer le compte

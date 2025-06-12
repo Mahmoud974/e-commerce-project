@@ -56,7 +56,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
   const isInCart = isItemInCart(item.id);
 
-  const handleProductClick = (e) => {
+  const handleProductClick = () => {
     setShowId(true);
     setTimeout(() => setShowId(false), 3000);
   };
@@ -66,17 +66,17 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   const currencySymbol = currency === "EUR" ? "€" : "£";
 
   return (
-    <div className="w-full max-w-xs mx-auto rounded-lg shadow-md bg-white border border-gray-200">
+    <div className="mx-auto w-full max-w-xs bg-white rounded-lg border border-gray-200 shadow-md">
       <Link
         href={`/produit/${item.id}`}
-        className="relative block w-full overflow-hidden rounded-t-lg bg-black"
+        className="block overflow-hidden relative w-full bg-black rounded-t-lg"
         onClick={handleProductClick}
       >
         <div className="relative w-full aspect-[3/3] group">
           <Image
             src={images[currentImage]}
             alt={`Photo du produit ${item.nom} - vue ${currentImage + 1}`}
-            className="rounded-t-lg object-contain object-center"
+            className="object-contain object-center rounded-t-lg"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
@@ -90,7 +90,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
                   prevImage();
                 }}
                 aria-label="Image précédente"
-                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/70 p-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                className="absolute left-2 top-1/2 p-1 rounded-full opacity-0 transition-opacity duration-200 -translate-y-1/2 bg-white/70 group-hover:opacity-100"
               >
                 <ChevronLeft className="w-5 h-5 text-black" />
               </button>
@@ -100,7 +100,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
                   nextImage();
                 }}
                 aria-label="Image suivante"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/70 p-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                className="absolute right-2 top-1/2 p-1 rounded-full opacity-0 transition-opacity duration-200 -translate-y-1/2 bg-white/70 group-hover:opacity-100"
               >
                 <ChevronRight className="w-5 h-5 text-black" />
               </button>
@@ -110,7 +110,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
       </Link>
 
       <div className="p-4 space-y-1">
-        <div className="flex flex-col text-black justify-between">
+        <div className="flex flex-col justify-between text-black">
           <div className="flex justify-between items-center">
             <p className="text-2xl font-semibold truncate">
               {item?.title || "Produit"}
@@ -120,7 +120,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
               item.title === "Matelassé Confort" ||
               item.title === "Graphique Moderne" ||
               item.title === "Lueur Bohème") && (
-              <span className="bg-amber-500 text-white text-xs font-semibold py-1 px-2 rounded">
+              <span className="px-2 py-1 text-xs font-semibold text-white bg-amber-500 rounded">
                 NEW
               </span>
             )}
@@ -130,12 +130,19 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-2 px-4 py-3 border-t border-gray-200">
+      <div className="flex gap-2 justify-between items-center px-4 py-3 border-t border-gray-200">
         <div>
-          <p className="text-black text-2xl font-bold">{convertedPrice}{currencySymbol}</p>
+          <p className="text-2xl font-bold text-black">
+            {convertedPrice}
+            {currencySymbol}
+          </p>
           <Link href="/eco-mobilier">
-            <small className="text-black underline mt-6">
-              Dont {currency === "EUR" ? item.ecoMobilier : convertPrice(item.ecoMobilier, currency)} {currencySymbol} d'éco-part
+            <small className="mt-6 text-black underline">
+              Dont{" "}
+              {currency === "EUR"
+                ? item.ecoMobilier
+                : convertPrice(item.ecoMobilier, currency)}{" "}
+              {currencySymbol} d&#39;éco-part
             </small>
           </Link>
         </div>

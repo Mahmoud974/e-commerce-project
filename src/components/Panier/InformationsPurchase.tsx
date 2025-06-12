@@ -60,7 +60,7 @@ export default function Baskets() {
   return (
     <section className="relative bg-black text-white    ">
       <div className="container mx-auto px-6">
-        {/* Présentation de l'adresse par défaut */}
+        {/* Présentation de lll&#39;a#39;a#39;adresse par défaut */}
         {!showForm && (
           <div className="max-w-6xl ">
             <h1 className="text-3xl text-white font-bold mb-6">Mon panier</h1>
@@ -70,7 +70,7 @@ export default function Baskets() {
           </div>
         )}
 
-        {/* Formulaire d'ajout d'adresse */}
+        {/* Formulaire ddd&#39;a#39;a#39;ajout ddd&#39;a#39;a#39;adresse */}
         {showForm && (
           <form onSubmit={handleSubmit} className="    space-y-6  ">
             <h2 className="text-2xl font-bold mb-4">
@@ -161,7 +161,7 @@ export default function Baskets() {
               required
             />
 
-            {/* Message d'erreur */}
+            {/* Message ddd&#39;e#39;e#39;erreur */}
             {error && <p className="text-red-500">{error}</p>}
 
             {/* Boutons */}
@@ -170,7 +170,7 @@ export default function Baskets() {
                 type="submit"
                 className="w-full  bg-white text-black   p-4  font-bold  hover:bg-slate-100 transition duration-300"
               >
-                Enregistrer l'adresse
+                Enregistrer lll&#39;a#39;a#39;adresse
               </button>
               <button
                 type="button"

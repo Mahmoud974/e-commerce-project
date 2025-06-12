@@ -18,8 +18,8 @@ export default function Page() {
               <div className="bg-red-700 w-1/3 h-3 my-8"></div>
             </header>
             <p>
-              {`Chez SofaChic, nous mettons un point d'honneur à utiliser des
-            matériaux robustes et durables. C'est pourquoi nous proposons une
+              {`Chez SofaChic, nous mettons un point ddd&#39;h#39;h#39;honneur à utiliser des
+            matériaux robustes et durables. CCC&#39;e#39;e#39;est pourquoi nous proposons une
             garantie de 10 ans pour les cadres de canapé, couvrant les défauts
             de fabrication et de structure.`}
             </p>
@@ -45,12 +45,12 @@ export default function Page() {
                 <p className="mt-4">
                   {` Le paiement par carte bancaire est totalement sécurisé grâce au
                 protocole 3D Secure. Votre banque sera uniquement impliquée dans
-                la transaction pour garantir sa sécurité, et nous n'enregistrons
+                la transaction pour garantir sa sécurité, et nous nnn&#39;e#39;e#39;enregistrons
                 aucune donnée bancaire.`}
                 </p>
                 <p className="mt-4">
-                  {` En cas d'utilisation frauduleuse de la carte, vous avez la
-                possibilité de demander l'annulation du paiement et le
+                  {` En cas ddd&#39;u#39;u#39;utilisation frauduleuse de la carte, vous avez la
+                possibilité de demander lll&#39;a#39;a#39;annulation du paiement et le
                 remboursement.`}
                 </p>
               </section>

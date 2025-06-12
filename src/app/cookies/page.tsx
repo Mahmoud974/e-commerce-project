@@ -100,7 +100,7 @@ export default function CookiesPage() {
                   <div>
                     <h3 className="font-bold">Cookies fonctionnels</h3>
                     <p className="text-sm text-gray-400">
-                      Ces cookies permettent d'améliorer les fonctionnalités et
+                      Ces cookies permettent ddd&#39;a#39;a#39;améliorer les fonctionnalités et
                       la personnalisation de votre expérience.
                     </p>
                   </div>
@@ -135,7 +135,7 @@ export default function CookiesPage() {
                     <h3 className="font-bold">Cookies marketing</h3>
                     <p className="text-sm text-gray-400">
                       Ces cookies sont utilisés pour suivre les visiteurs sur
-                      les sites Web afin d'afficher des publicités pertinentes.
+                      les sites Web afin ddd&#39;a#39;a#39;afficher des publicités pertinentes.
                     </p>
                   </div>
                   <input

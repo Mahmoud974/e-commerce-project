@@ -69,7 +69,9 @@ export default function ProductPageClient({
   });
 
   // Convertir le prix selon la devise sélectionnée
-  const convertedPrice = idArticle ? convertPrice(idArticle.price, currency || "EUR") : 0;
+  const convertedPrice = idArticle
+    ? convertPrice(idArticle.price, currency || "EUR")
+    : 0;
   const priceHT = idArticle ? (convertedPrice / 1.2).toFixed(2) : "";
 
   const onLikeClick = () => {
@@ -106,42 +108,42 @@ export default function ProductPageClient({
   };
 
   return (
-    <main className="container mx-auto mt-6 px-6">
+    <main className="container px-6 mx-auto mt-6">
       <Navbar />
 
       {!idArticle ? (
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-bold text-red-500 mb-4">
+        <div className="py-12 text-center">
+          <h2 className="mb-4 text-2xl font-bold text-red-500">
             Produit non trouvé
           </h2>
           <p className="mb-4">
-            Le produit avec l'identifiant "{slug}" n'a pas été trouvé dans notre
+            Le produit avec lll&#39;i#39;i#39;identifiant "{slug}" nnn&#39;a#39;a#39;a pas été trouvé dans notre
             catalogue.
           </p>
           <Link href="/">
-            <Button className="bg-red-700 text-white">
-              Retourner à la page d'accueil
+            <Button className="text-white bg-red-700">
+              Retourner à la page ddd&#39;a#39;a#39;accueil
             </Button>
           </Link>
         </div>
       ) : (
         <>
-          <section className="md:mx-0 flex flex-col md:flex-row mt-8">
+          <section className="flex flex-col mt-8 md:mx-0 md:flex-row">
             <div className="flex flex-col">
-              <div className="text-sm text-white flex items-center gap-2 mb-4">
+              <div className="flex gap-2 items-center mb-4 text-sm text-white">
                 <Link href="/home">
-                  <span className="text-gray-500 hover:underline cursor-pointer">
+                  <span className="text-gray-500 cursor-pointer hover:underline">
                     Accueil
                   </span>
                 </Link>
                 <ChevronRight className="w-4 h-4" />
                 <Link href="/">
-                  <span className="text-gray-500 hover:underline cursor-pointer">
+                  <span className="text-gray-500 cursor-pointer hover:underline">
                     Canapés
                   </span>
                 </Link>
                 <ChevronRight className="w-4 h-4" />
-                <span className="text-gray-500 font-medium">
+                <span className="font-medium text-gray-500">
                   {idArticle?.nom}
                 </span>
               </div>
@@ -149,14 +151,14 @@ export default function ProductPageClient({
               <Gallery data={idArticle} />
             </div>
 
-            <div className="md:ml-12 md:w-1/2 w-full space-y-3">
+            <div className="space-y-3 w-full md:ml-12 md:w-1/2">
               <div className="flex justify-between items-center">
                 <div>
                   <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
                   <small>Ref. {idArticle?.reference}</small>
                   <div className="flex gap-3">
                     <p>{idArticle?.color}</p>
-                    <p className="bg-yellow-200 text-black px-3">
+                    <p className="px-3 text-black bg-yellow-200">
                       {idArticle?.fabricType}
                     </p>
                   </div>
@@ -164,7 +166,7 @@ export default function ProductPageClient({
                 <div className="flex gap-2">
                   <button
                     onClick={onLikeClick}
-                    className="rounded-full p-2 bg-gray-300"
+                    className="p-2 bg-gray-300 rounded-full"
                   >
                     <Heart
                       className={
@@ -176,7 +178,7 @@ export default function ProductPageClient({
                   </button>
                   <button
                     onClick={handleShare}
-                    className="rounded-full p-2 bg-gray-300"
+                    className="p-2 bg-gray-300 rounded-full"
                   >
                     <Share2 className="text-gray-800" />
                   </button>
@@ -185,9 +187,9 @@ export default function ProductPageClient({
 
               <div className="flex items-center mt-2">
                 <span>prix :</span>
-                <span className="text-3xl ml-2">
-                  {isHT 
-                    ? `${priceHT}${currency === "EUR" ? "€" : "£"} HT` 
+                <span className="ml-2 text-3xl">
+                  {isHT
+                    ? `${priceHT}${currency === "EUR" ? "€" : "£"} HT`
                     : `${convertedPrice}${currency === "EUR" ? "€" : "£"} TTC`}
                 </span>
                 <Switch
@@ -197,7 +199,7 @@ export default function ProductPageClient({
                 />
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex gap-2 items-center">
                 {[...Array(4)].map((_, i) => (
                   <FaStar key={i} />
                 ))}
@@ -221,11 +223,11 @@ export default function ProductPageClient({
                   onChange={(e) =>
                     setQuantity(Math.max(1, parseInt(e.target.value)))
                   }
-                  className="border bg-black p-2 rounded-md w-24"
+                  className="p-2 w-24 bg-black rounded-md border"
                 />
                 <button
                   onClick={handleAddToCart}
-                  className="ml-4 bg-red-700 text-white px-4 py-2 rounded-md"
+                  className="px-4 py-2 ml-4 text-white bg-red-700 rounded-md"
                 >
                   <ShoppingCart className="inline mr-2" />
                   {isAlreadyInCart ? "Retirer du panier" : "Ajouter au panier"}
@@ -233,7 +235,7 @@ export default function ProductPageClient({
               </div>
 
               <div className="mt-6">
-                <ul className="list-disc pl-5">
+                <ul className="pl-5 list-disc">
                   {idArticle.id <= 55 &&
                     idArticle?.miniDescription.map((description, _) => (
                       <li key={_}>{description}</li>
@@ -260,14 +262,14 @@ export default function ProductPageClient({
               message={cartAlertMessage}
             />
           )}
-          <h2 className="font-bold text-3xl">À vous de choisir </h2>
-          <section className="grid grid-cols-1 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          <h2 className="text-3xl font-bold">À vous de choisir </h2>
+          <section className="grid grid-cols-1 gap-3 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {randomFive.map((item) => (
               <ProductCard key={item.id} item={item} addItems={addItems} />
             ))}
           </section>
           <Link href={idArticle.id <= 55 ? "/" : "/produits-nettoyant"}>
-            <Button className="flex justify-center mx-auto border px-20 my-12">
+            <Button className="flex justify-center px-20 mx-auto my-12 border">
               <p>
                 Découvrez tous les{" "}
                 {idArticle.id <= 55 ? "fauteuils" : "produits"}{" "}

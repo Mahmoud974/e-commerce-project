@@ -55,7 +55,7 @@ export default function HomeClient({ data }: { data: any[] }) {
         <Navbar />
       </div>
 
-      {/* Vidéo d'accueil */}
+      {/* Vidéo ddd&#39;a#39;a#39;accueil */}
       <div className="relative w-full h-[900px] mb-16 overflow-hidden">
         <video
           className="w-full h-full object-cover"
