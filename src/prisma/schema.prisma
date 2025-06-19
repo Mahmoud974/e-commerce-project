@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Produit {
+  id            Int      @id @default(autoincrement())
+  title         String
+  price         Float
+  description   String
+  discount      String?
+  disponibilite Boolean
+  quantity      Int
+  images        String[]
+  reference     String   @unique
+  delivery      String
+  brand         String
+  likes         Like[]
+  ean           BigInt   @db.BigInt
+  ecoMobilier   Int
+
+  @@map("produits")
+}
+
+model Echantillon {
+  id          Int    @id @default(autoincrement())
+  nom         String
+  type        String
+  price       Float  @default(0)
+  description String
+  care        String
+  images      String
+
+  @@map("echantillons")
+}
+
+model Canape {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  price           Float
+  largeur         String
+  profondeur      String
+  hauteur         String
+  disponibilite   Boolean
+  images          String[]
+  color           String   @default("default_color")
+  seat            Int      @default(1)
+  reference       String   @unique
+  quantity        Int
+  miniDescription String[]
+  fabricType      String
+  brand           String
+  ecoMobilier     Int
+  likes           Like[]
+  typeCanape      String   @default("standard")
+  ean             BigInt   @db.BigInt
+  poids           Int
+  garantie        Int
+
+  @@map("canapes")
+}
+
+model Account {
+  id                 Int       @id @default(autoincrement())
+  compoundId         String    @unique @map("compound_id")
+  userId             Int       @map("user_id")
+  providerType       String    @map("provider_type")
+  providerId         String    @map("provider_id")
+  providerAccountId  String    @map("provider_account_id")
+  refreshToken       String?   @map("refresh_token")
+  accessToken        String?   @map("access_token")
+  accessTokenExpires DateTime? @map("access_token_expires")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @default(now()) @map("updated_at")
+
+  @@index([providerAccountId], map: "providerAccountId")
+  @@index([providerId], map: "providerId")
+  @@index([userId], map: "userId")
+  @@map("accounts")
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  userId       Int      @map("user_id")
+  expires      DateTime
+  sessionToken String   @unique @map("session_token")
+  accessToken  String   @unique @map("access_token")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+
+  @@map("sessions")
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  name              String?
+  lastname          String?
+  email             String?   @unique
+  emailVerified     DateTime? @map("email_verified")
+  image             String?
+  password          String?
+  address           String?
+  postalCode        String?   @map("postal_code")
+  city              String?
+  country           String?
+  phone             String?
+  provider          String?
+  providerAccountId String?
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @default(now()) @map("updated_at")
+  likes             Like[]
+
+  @@map("users")
+}
+
+model VerificationRequest {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @map("updated_at")
+
+  @@map("verification_requests")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  canapeId  Int
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  canape    Canape   @relation(fields: [canapeId], references: [id])
+  Produit   Produit? @relation(fields: [produitId], references: [id])
+  produitId Int?
+
+  @@unique([userId, canapeId])
+  @@map("likes")
+}
