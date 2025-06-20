@@ -6,12 +6,29 @@ import { Trash } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export function FavoritesList({ removeItems }) {
+export function FavoritesList( ) {
   const [articles, setArticles] = useState([]);
   const [likes, setLikes] = useState([]);
   const { data: session } = useSession();
 
-  // Charger les articles
+  const removeItems = async (canapeId: any) => {
+    if (!session?.user?.id) return;
+  
+    const res = await fetch(`/api/favorites?userId=${session.user.id}&canapeId=${canapeId}`, {
+      method: "DELETE",
+    });
+  
+    console.log("Status de la suppression:", res.status);
+  
+    if (res.ok) {
+      setLikes((prev) => prev.filter((like) => like.canapeId !== canapeId));
+    } else {
+      const error = await res.json();
+      console.error("Erreur lors de la suppression du like", error);
+    }
+  };
+  
+  
   useEffect(() => {
     const fetchArticles = async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles`);
@@ -21,7 +38,7 @@ export function FavoritesList({ removeItems }) {
     fetchArticles();
   }, []);
 
-  // Charger les likes de l'utilisateur
+ 
   useEffect(() => {
     const fetchLikes = async () => {
       if (!session?.user?.id) return;

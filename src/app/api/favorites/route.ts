@@ -44,3 +44,33 @@ export const POST = async (req: NextRequest) => {
 
   return new Response(JSON.stringify(like), headersElement);
 };
+export const DELETE = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url);
+  const userId = parseInt(searchParams.get("userId") || "0", 10);
+  const canapeId = parseInt(searchParams.get("canapeId") || "0", 10);
+
+  if (!userId || !canapeId) {
+    return new Response(JSON.stringify({ error: "userId et canapeId requis" }), { status: 400 });
+  }
+
+  try {
+    await prisma.like.deleteMany({
+      where: {
+        userId,
+        canapeId,
+      },
+    });
+
+    return new Response(JSON.stringify({ message: "Like supprimé" }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("Erreur serveur :", error);
+    return new Response(JSON.stringify({ error: "Erreur serveur" }), { status: 500 });
+  }
+};
+
+
