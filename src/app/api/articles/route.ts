@@ -17,7 +17,7 @@ export async function GET() {
   }
 
   const items = await prisma.canape.findMany();
-  console.log(items);
+ 
   
 
   const jsonString = JSON.stringify(items, (_key, value) =>

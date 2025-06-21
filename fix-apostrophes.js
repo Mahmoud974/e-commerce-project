@@ -11,7 +11,7 @@ function replaceApostrophesInFile(filePath) {
 
   if (content !== fixedContent) {
     fs.writeFileSync(filePath, fixedContent, "utf-8");
-    console.log(`Corrigé : ${filePath}`);
+  
   }
 }
 

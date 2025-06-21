@@ -28,6 +28,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
     alertId: likeAlertId,
     showAlert: likeShowAlert,
   } = useLikeStore();
+  
 
   const {
     handleCart: toggleCart,
@@ -38,21 +39,46 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
     showAlert: cartShowAlert,
   } = useCartStore();
 
-  const onLikeClick = () => {
-    handleLike(item, session, addItems);
+  const onLikeClick = async () => {
+    if (!session?.user?.id) return;
+
+    const userId = Number(session.user.id);
+    const canapeId = item.id;
+    const liked = isLiked(canapeId);
+
+    try {
+      if (liked) {
+        const res = await fetch(`/api/favorites?userId=${userId}&canapeId=${canapeId}`, {
+          method: "DELETE",
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          console.error("Erreur suppression favoris :", data);
+          return;
+        }
+      } else {
+        const res = await fetch("/api/favorites", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, canapeId }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          console.error("Erreur ajout favoris :", data);
+          return;
+        }
+      }
+
+      handleLike(item, session, addItems);
+    } catch (error) {
+      console.error("Erreur lors du traitement du like :", error);
+    }
   };
 
-  const handleCart = () => {
-    toggleCart(item);
-  };
+  const handleCart = () => toggleCart(item);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const nextImage = () => setCurrentImage((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
 
   const isInCart = isItemInCart(item.id);
 
@@ -61,7 +87,6 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
     setTimeout(() => setShowId(false), 3000);
   };
 
-  // Convertir le prix selon la devise sélectionnée
   const convertedPrice = convertPrice(item.price, currency || "EUR");
   const currencySymbol = currency === "EUR" ? "€" : "£";
 
@@ -115,11 +140,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
             <p className="text-2xl font-semibold truncate">
               {item?.title || "Produit"}
             </p>
-            {(item.title === "Aube Dorée" ||
-              item.title === "Atelier Urbain" ||
-              item.title === "Matelassé Confort" ||
-              item.title === "Graphique Moderne" ||
-              item.title === "Lueur Bohème") && (
+            {["Aube Dorée", "Atelier Urbain", "Matelassé Confort", "Graphique Moderne", "Lueur Bohème"].includes(item.title) && (
               <span className="px-2 py-1 text-xs font-semibold text-white bg-amber-500 rounded">
                 NEW
               </span>
@@ -149,8 +170,8 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
 
         <div className="flex gap-3">
           <button
-            className={`flex items-center justify-center w-10 h-10 rounded-full text-amber-400 ${
-              isInCart ? "bg-amber-500" : "bg-gray-300"
+            className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 ${
+              isInCart ? "bg-amber-500" : "bg-gray-300 hover:bg-gray-400"
             }`}
             onClick={handleCart}
             aria-label={isInCart ? "Retirer du panier" : "Ajouter au panier"}
@@ -161,23 +182,20 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
               aria-hidden="true"
             />
           </button>
+
           <button
-            className={`flex items-center justify-center w-10 h-10 rounded-full ${
-              isLiked(item.id) ? "bg-red-600 text-red-700" : "bg-gray-300"
-            }`}
-            onClick={onLikeClick}
-            aria-label={
-              isLiked(item.id) ? "Retirer des favoris" : "Ajouter aux favoris"
-            }
-            aria-pressed={isLiked(item.id)}
-          >
-            <Heart
-              className={`w-6 h-6 ${
-                isLiked(item.id) ? "text-white" : "text-gray-800"
-              }`}
-              aria-hidden="true"
-            />
-          </button>
+  className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 ${
+    isLiked(item.id)
+      ? "bg-red-500 hover:bg-red-600 text-white"
+      : "bg-gray-300 hover:bg-gray-400 text-gray-700"
+  }`}
+  onClick={onLikeClick}
+  aria-label={isLiked(item.id) ? "Retirer des favoris" : "Ajouter aux favoris"}
+  aria-pressed={isLiked(item.id)}
+>
+  <Heart className="w-6 h-6" aria-hidden="true" />
+</button>
+
         </div>
       </div>
 

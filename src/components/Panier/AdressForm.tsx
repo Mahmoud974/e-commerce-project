@@ -208,7 +208,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
               onClick={() => setShowForm(true)}
               className="w-full mb-4 bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
             >
-              Modifier lll&#39;a#39;a#39;adresse de livraison
+              {`Modifier l'adresse de livraison`}
             </button>
             <div>
               <label className="flex items-center gap-2">

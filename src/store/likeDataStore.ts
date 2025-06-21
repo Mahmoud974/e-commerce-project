@@ -5,17 +5,11 @@ export const useLikeData = create<LikeDataState>((set) => ({
   selectedItems: [],
   addItems: (item: Item) => {
     set((state) => {
-      if (
-        state.selectedItems.some((existingItem) => existingItem.id === item.id)
-      ) {
+      if (state.selectedItems.some((existingItem) => existingItem.id === item.id)) {
         console.log(`L'item avec l'id ${item.id} est déjà dans la liste.`);
-        console.log(state);
         return state;
       }
       const newItems = [...state.selectedItems, item];
-      
-      console.log(newItems);
-      
       return { selectedItems: newItems };
     });
   },
@@ -26,5 +20,8 @@ export const useLikeData = create<LikeDataState>((set) => ({
   },
   clearItems: () => {
     set({ selectedItems: [] });
+  },
+  setItemsFromServer: (items: Item[]) => {
+    set({ selectedItems: items });
   },
 }));
