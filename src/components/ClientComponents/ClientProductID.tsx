@@ -17,7 +17,7 @@ import {
 import { FaStar } from "react-icons/fa";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
-import { useCartStore, useLikeData, useLikeStore } from "@/store/store";
+import { useCartStore, useLikeStore } from "@/store/store";
 import { useSession } from "next-auth/react";
 import { Button } from "../ui/button";
 import ProductCard from "../ProduitId/Card";
@@ -34,7 +34,6 @@ export default function ProductPageClient({
   const [isHT, setIsHT] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { data: session } = useSession();
-  const { addItems } = useLikeData();
   const { currency } = useCurrency();
   const { convertPrice } = useCurrencyStore();
   const randomFive = useMemo(() => {
@@ -75,7 +74,7 @@ export default function ProductPageClient({
   const priceHT = idArticle ? (convertedPrice / 1.2).toFixed(2) : "";
 
   const onLikeClick = () => {
-    handleLike(idArticle, session, addItems);
+    handleLike(idArticle, session);
   };
 
   const handleAddToCart = () => {
@@ -117,12 +116,12 @@ export default function ProductPageClient({
             Produit non trouvé
           </h2>
           <p className="mb-4">
-            Le produit avec lll&#39;i#39;i#39;identifiant "{slug}" nnn&#39;a#39;a#39;a pas été trouvé dans notre
+            Le produit avec l&apos;identifiant &quot;{slug}&quot; n&apos;a pas été trouvé dans notre
             catalogue.
           </p>
           <Link href="/">
             <Button className="text-white bg-red-700">
-              Retourner à la page ddd&#39;a#39;a#39;accueil
+              Retourner à la page d&apos;accueil
             </Button>
           </Link>
         </div>
@@ -237,7 +236,7 @@ export default function ProductPageClient({
               <div className="mt-6">
                 <ul className="pl-5 list-disc">
                   {idArticle.id <= 55 &&
-                    idArticle?.miniDescription.map((description, _) => (
+                    idArticle?.miniDescription.map((description: any, _: any) => (
                       <li key={_}>{description}</li>
                     ))}
                 </ul>
@@ -262,21 +261,21 @@ export default function ProductPageClient({
               message={cartAlertMessage}
             />
           )}
-          <h2 className="text-3xl font-bold">À vous de choisir </h2>
-          <section className="grid grid-cols-1 gap-3 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-            {randomFive.map((item) => (
-              <ProductCard key={item.id} item={item} addItems={addItems} />
-            ))}
+
+          <section className="mt-12">
+            <h2 className="text-3xl font-bold">À vous de choisir</h2>
+            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-40">
+              {randomFive.map((item) => {
+                return <ProductCard key={item.id} item={item} />;
+              })}
+            </section>
+            <Link href={idArticle.id <= 55 ? "/" : "/produits-nettoyant"}>
+              <Button className="flex mx-auto mt-6">
+                Découvrir tous les produits
+                <ArrowRight className="ml-2" />
+              </Button>
+            </Link>
           </section>
-          <Link href={idArticle.id <= 55 ? "/" : "/produits-nettoyant"}>
-            <Button className="flex justify-center px-20 mx-auto my-12 border">
-              <p>
-                Découvrez tous les{" "}
-                {idArticle.id <= 55 ? "fauteuils" : "produits"}{" "}
-              </p>
-              <ArrowRight />
-            </Button>
-          </Link>
         </>
       )}
     </main>

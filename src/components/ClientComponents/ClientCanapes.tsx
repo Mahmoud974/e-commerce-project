@@ -3,13 +3,12 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/ProduitId/Card";
 import Filter from "@/components/Header/Filter";
-import { useLikeData } from "@/store/store";
 import { useQueryState } from "nuqs";
-import LexChat from "../Chat/Chat";
+import LexChat from "../chat/Chat";
 import ProductLayout from "@/components/Layouts/ProductLayout";
+import { Item } from "@/app/types/canape";
 
-export default function CanapesClient({ data }) {
-  const { addItems } = useLikeData();
+export default function CanapesClient({ data }: { data: Item[] }) {
   const [filteredData, setFilteredData] = useState(data || []);
 
   const [page, setPage] = useQueryState("page", {
@@ -49,7 +48,7 @@ export default function CanapesClient({ data }) {
     let result = [...data];
 
     if (colorQuery?.length) {
-      result = result.filter((item) =>
+      result = result.filter((item: Item) =>
         colorQuery
           .map((c) => c.toLowerCase())
           .includes(item.color?.toLowerCase())
@@ -58,24 +57,24 @@ export default function CanapesClient({ data }) {
 
     if (seatQuery?.length) {
       const seats = seatQuery.map(Number);
-      result = result.filter((item) => seats.includes(item.seat));
+      result = result.filter((item: Item) => seats.includes(item.seat));
     }
 
     if (priceQuery?.length === 2) {
       const [min, max] = priceQuery;
-      result = result.filter((item) => item.price >= min && item.price <= max);
+      result = result.filter((item: Item) => item.price >= min && item.price <= max);
     }
 
     if (searchQuery) {
-      result = result.filter((item) =>
+      result = result.filter((item: Item) =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     if (sortQuery === "Croissant") {
-      result = [...result].sort((a, b) => a.price - b.price);
+      result = [...result].sort((a: Item, b: Item) => a.price - b.price);
     } else if (sortQuery === "Decroissant") {
-      result = [...result].sort((a, b) => b.price - a.price);
+      result = [...result].sort((a: Item, b: Item) => b.price - a.price);
     }
 
     setFilteredData(result);
@@ -90,8 +89,8 @@ export default function CanapesClient({ data }) {
     currentPage * itemsPerPage
   );
 
-  const colorProduct = [...new Set(data?.map((item) => item.color) || [])];
-  const seatProduct = [...new Set(data?.map((item) => item.seat) || [])];
+  const colorProduct = [...new Set(data?.map((item: Item) => item.color) || [])];
+  const seatProduct = [...new Set(data?.map((item: Item) => item.seat) || [])];
 
   return (
     <ProductLayout
@@ -113,11 +112,10 @@ export default function CanapesClient({ data }) {
 
               <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 mx-auto w-full">
                 {paginatedData.length > 0 ? (
-                  paginatedData.map((item: any) => (
+                  paginatedData.map((item: Item) => (
                     <ProductCard
                       key={item.id}
                       item={item}
-                      addItems={addItems}
                     />
                   ))
                 ) : (

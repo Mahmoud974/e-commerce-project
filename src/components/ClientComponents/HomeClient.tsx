@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import Navbar from "@/components/Header/Navbar";
 import ProductCard from "@/components/ProduitId/Card";
-import { useLikeData } from "@/store/store";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -12,9 +11,11 @@ import {
   AccordionGeneral,
   AccordionItemType,
 } from "@/components/Accordions/AccordionGeneral";
+import BannerImage from "../BannerImage";
+import { inspirations } from "../Accordions/inspirations";
 
 export default function HomeClient({ data }: { data: any[] }) {
-  const { addItems } = useLikeData();
+  const [visibleCount, setVisibleCount] = useState(8);
 
   const accordionItems: AccordionItemType[] = [
     {
@@ -33,7 +34,7 @@ export default function HomeClient({ data }: { data: any[] }) {
       content: (
         <p>
           Tous nos meubles sont garantis 5 ans contre les défauts de
-          fabrication. À partir de la date d’achat.
+          fabrication. À partir de la date d'achat.
         </p>
       ),
     },
@@ -48,6 +49,11 @@ export default function HomeClient({ data }: { data: any[] }) {
       ),
     },
   ];
+
+  const randomEight = useMemo(() => {
+    const shuffled = data.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 8);
+  }, [data]);
 
   return (
     <section className="flex flex-col min-h-screen">
@@ -85,11 +91,11 @@ export default function HomeClient({ data }: { data: any[] }) {
       <div className="container mx-auto mb-12">
         <h2 className="font-bold text-3xl">Plongez dans le confort moderne</h2>
 
-        <section className="grid grid-cols-1 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          {data.map((item: any) => (
-            <ProductCard key={item.id} item={item} addItems={addItems} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+          {randomEight.map((item: any) => (
+            <ProductCard key={item.id} item={item} />
           ))}
-        </section>
+        </div>
 
         <Link href="/">
           <Button className="flex justify-center mx-auto border px-20 mt-6">
@@ -102,7 +108,7 @@ export default function HomeClient({ data }: { data: any[] }) {
         <div className="mt-16">
           <div className="text-center mt-6">
             <p className="text-1xl">
-              Sublimez votre intérieur avec nos conseils d’experts
+              Sublimez votre intérieur avec nos conseils d'experts
             </p>
             <h3 className="text-2xl font-bold">
               Offrez-vous une ambiance chaleureuse et apaisante

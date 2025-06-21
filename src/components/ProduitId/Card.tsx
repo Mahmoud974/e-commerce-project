@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCartStore, useLikeStore } from "@/store/store";
 import { useSession } from "next-auth/react";
 import { ShoppingCart, Heart, ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,9 +8,8 @@ import AlertMessage from "../AlertNoLike";
 import { useCurrency } from "@/components/Header/Navbar";
 import { useCurrencyStore } from "@/store/currencyStore";
 
-const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
-  item,
-  addItems,
+const ProductCard: React.FC<{ item: any }> = ({
+  item
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
@@ -27,8 +26,14 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
     alertMessage: likeAlertMessage,
     alertId: likeAlertId,
     showAlert: likeShowAlert,
+    initLikes,
   } = useLikeStore();
-  
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      initLikes(Number(session.user.id));
+    }
+  }, [session, initLikes]);
 
   const {
     handleCart: toggleCart,
@@ -40,36 +45,41 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
   } = useCartStore();
 
   const onLikeClick = async () => {
-    if (!session?.user?.id) return;
-
+    if (!session?.user?.id) {
+      // Gérer le cas où l'utilisateur n'est pas connecté
+      return;
+    }
+  
     const userId = Number(session.user.id);
     const canapeId = item.id;
     const liked = isLiked(canapeId);
-
+  
     try {
       if (liked) {
+        // L'article est déjà liké, on envoie une requête DELETE
         const res = await fetch(`/api/favorites?userId=${userId}&canapeId=${canapeId}`, {
           method: "DELETE",
         });
-        const data = await res.json();
-        if (!res.ok) {
-          console.error("Erreur suppression favoris :", data);
-          return;
+  
+        if (res.ok) {
+          handleLike(item, session); 
+        } else {
+          console.error("Erreur lors de la suppression du favori");
         }
       } else {
-        const res = await fetch("/api/favorites", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        // L'article n'est pas liké, on envoie une requête POST
+        const res = await fetch('/api/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId, canapeId }),
         });
-        const data = await res.json();
-        if (!res.ok) {
-          console.error("Erreur ajout favoris :", data);
-          return;
+  
+        if (res.ok) {
+          handleLike(item, session);
+        } else {
+          console.error("Erreur lors de l'ajout du favori");
         }
       }
-
-      handleLike(item, session, addItems);
     } catch (error) {
       console.error("Erreur lors du traitement du like :", error);
     }
@@ -162,7 +172,7 @@ const ProductCard: React.FC<{ item: any; addItems: (item: any) => void }> = ({
               Dont{" "}
               {currency === "EUR"
                 ? item.ecoMobilier
-                : convertPrice(item.ecoMobilier, currency)}{" "}
+                : convertPrice(item.ecoMobilier, currency || "EUR")}{" "}
               {currencySymbol} d&#39;éco-part
             </small>
           </Link>

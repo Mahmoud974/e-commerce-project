@@ -1,11 +1,12 @@
 import { create } from "zustand";
+import { useLikeData } from "./likeDataStore";
 
 type LikeAlertType = "like" | "error" | null;
 
 interface LikeStore {
   likedItems: number[];
   isLiked: (id: number) => boolean;
-  handleLike: (item: any, session: any, addItems: (item: any) => void) => void;
+  handleLike: (item: any, session: any) => void;
   initLikes: (userId: number) => Promise<void>;
   alertType: LikeAlertType;
   alertMessage: string;
@@ -21,7 +22,7 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
   alertId: 0,
   showAlert: false,
 
-  handleLike: (item, session, addItems) => {
+  handleLike: (item, session) => {
     if (!session?.user) {
       set((state) => ({
         alertType: "error",
@@ -36,6 +37,13 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
     const updatedLikes = isLiked
       ? likedItems.filter((id) => id !== item.id)
       : [...likedItems, item.id];
+      
+    if (isLiked) {
+      useLikeData.getState().removeItems(item.id);
+    } else {
+      useLikeData.getState().addItems(item);
+    }
+
     set((state) => ({
       likedItems: updatedLikes,
       alertType: "like",
@@ -45,7 +53,6 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
       alertId: state.alertId + 1,
       showAlert: true,
     }));
-    addItems(item);
   },
   initLikes: async (userId) => {
     if (!userId) return;

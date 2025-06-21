@@ -20,12 +20,12 @@ export default async function NettoyantsProduits() {
 
     products = await response.json();
     console.log("Données brutes de lll&#39;A#39;A#39;API (côté serveur):", products);
-  } catch (err) {
+  } catch (err: any) {
     console.error("Erreur lors du chargement des produits:", err);
     error = err.message;
   }
 
-  const adaptedProducts = products.map((product) => {
+  const adaptedProducts = products.map((product:any) => {
     let finalPrice = product.price;
     if (product.discount && product.discount !== "null") {
       try {
@@ -42,7 +42,7 @@ export default async function NettoyantsProduits() {
 
     const formattedPrice = parseFloat(finalPrice.toFixed(2));
 
-    const cleanedImages = product.images?.map((img) =>
+    const cleanedImages = product.images?.map((img: string) =>
       img.replace(/["'`]/g, "").trim()
     ) || ["/placeholder-image.jpg"];
 
@@ -102,7 +102,7 @@ export default async function NettoyantsProduits() {
         { label: "Produits d' entretien" },
       ]}
     >
-      {/* Utilisation du composant client pour les fonctionnalités interactives */}
+  
       <ClientComponent products={adaptedProducts} />
     </ProductLayout>
   );
