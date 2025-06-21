@@ -49,16 +49,36 @@ export function FavoritesList( ) {
     fetchLikes();
   }, [session]);
 
-  // Filtrer les articles likés
+  
   const likedItems = articles.filter((article) =>
     likes.some((like) => like.canapeId === article.id)
   );
+  console.log(likedItems);
+  const removeAllLikes = async () => {
+    if (!session?.user?.id) return;
+  
+    const res = await fetch(`/api/favorites/deleteAll?userId=${session.user.id}`, {
+      method: "DELETE",
+    });
+  
+    if (res.ok) {
+      setLikes([]); // Vider localement
+    } else {
+      const error = await res.json();
+      console.error("Erreur lors de la suppression totale :", error);
+    }
+  };
+  
 
   if (likedItems.length === 0) {
     return <div className="flex justify-center">Aucun Like 💔</div>;
   }
 
   return (
+    <>
+   
+
+      <div className="max-h-[80vh] overflow-y-auto px-2">
     <ul className="space-y-4 mt-3">
       {likedItems.map((item) => (
         <li
@@ -90,5 +110,15 @@ export function FavoritesList( ) {
         </li>
       ))}
     </ul>
+    </div>
+    <div className="flex justify-end mb-4">
+  <button
+    onClick={removeAllLikes}
+    className="px-4 py-2 mx-auto mt-9 bg-red-600 text-white rounded hover:bg-red-700 transition"
+  >
+    Supprimer mes favoris
+  </button>
+</div>
+    </>
   );
 }

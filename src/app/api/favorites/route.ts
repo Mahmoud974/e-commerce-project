@@ -60,7 +60,6 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-
 export const DELETE = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const userId = parseInt(searchParams.get("userId") || "0", 10);
@@ -89,5 +88,4 @@ export const DELETE = async (req: NextRequest) => {
     return new Response(JSON.stringify({ error: "Erreur serveur" }), { status: 500 });
   }
 };
-
 

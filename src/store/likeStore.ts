@@ -3,9 +3,10 @@ import { create } from "zustand";
 type LikeAlertType = "like" | "error" | null;
 
 interface LikeStore {
-  likedItems: string[];
-  isLiked: (id: string) => boolean;
+  likedItems: number[];
+  isLiked: (id: number) => boolean;
   handleLike: (item: any, session: any, addItems: (item: any) => void) => void;
+  initLikes: (userId: number) => Promise<void>;
   alertType: LikeAlertType;
   alertMessage: string;
   alertId: number;
@@ -14,7 +15,7 @@ interface LikeStore {
 
 export const useLikeStore = create<LikeStore>((set, get) => ({
   likedItems: [],
-  isLiked: (id: string) => get().likedItems.includes(id),
+  isLiked: (id: number) => get().likedItems.includes(id),
   alertType: null,
   alertMessage: "",
   alertId: 0,
@@ -45,5 +46,18 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
       showAlert: true,
     }));
     addItems(item);
+  },
+  initLikes: async (userId) => {
+    if (!userId) return;
+    try {
+      const res = await fetch(`/api/favorites?userId=${userId}`);
+      if (res.ok) {
+        const likes = await res.json();
+        const likedIds = likes.map((like: any) => like.canapeId);
+        set({ likedItems: likedIds });
+      }
+    } catch (error) {
+      console.error("Failed to fetch likes", error);
+    }
   },
 }));
