@@ -49,7 +49,7 @@ export default function Page() {
                 aucune donnée bancaire.`}
                 </p>
                 <p className="mt-4">
-                  {` En cas ddd&#39;u#39;u#39;utilisation frauduleuse de la carte, vous avez la
+                  {` En cas d' utilisition frauduleuse de la carte, vous avez la
                 possibilité de demander lll&#39;a#39;a#39;annulation du paiement et le
                 remboursement.`}
                 </p>

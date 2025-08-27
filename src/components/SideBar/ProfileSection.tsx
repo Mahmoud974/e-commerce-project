@@ -34,7 +34,7 @@ export function ProfileSection({ session, isProcessing }) {
     }
 
     if (activeTab === "register" && !formData.acceptTerms) {
-      setError("Vous devez accepter la politique ddd&#39;u#39;u#39;utilisation.");
+      setError("Vous devez accepter la politique d' utilisition.");
       return;
     }
 
@@ -160,7 +160,7 @@ export function ProfileSection({ session, isProcessing }) {
                       checked={formData.acceptTerms}
                       onChange={handleChange}
                     />
-                    JJJ&#39;a#39;a#39;accepte la politique ddd&#39;u#39;u#39;utilisation
+                    JJJ&#39;a#39;a#39;accepte la politique d' utilisition
                   </label>
                 </>
               )}

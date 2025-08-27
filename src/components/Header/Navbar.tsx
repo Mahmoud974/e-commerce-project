@@ -152,14 +152,20 @@ export default function Navbar() {
             <span className="hidden lg:block">
               {userName || session.user?.name}
             </span>
-            <Image
-              src={session.user?.image ?? "/images/default.png"}
-              alt="Profil"
-              width={64}
-              height={64}
-              className="object-cover w-10 h-10 rounded-full"
-              unoptimized={true}
-            />
+            {session.user?.image ? (
+              <Image
+                src={session.user?.image ?? "/images/profil.png"}
+                alt="Profil"
+                width={64}
+                height={64}
+                className="object-cover w-10 h-10 rounded-full"
+                unoptimized={true}
+              />
+            ) : (
+              <div className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full text-white text-lg font-semibold">
+                {userName ? userName.charAt(0).toUpperCase() : "U"}
+              </div>
+            )}
           </div>
         )}
         <button

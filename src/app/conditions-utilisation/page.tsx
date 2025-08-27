@@ -4,13 +4,13 @@ import React from "react";
 const ConditionsPage = () => {
   return (
     <Layout
-      title="Conditions ddd&#39;U#39;U#39;Utilisation"
-      description="Conditions ddd&#39;u#39;u#39;utilisation de notre site de vente eCommerce."
+      title="Conditions d' utilisition"
+      description="Conditions d' utilisition de notre site de vente eCommerce."
     >
       <main className="container mx-auto px-4">
         <header className="mb-8">
           <h1 className="text-4xl font-semibold mb-6 text-white">
-            Conditions ddd&#39;U#39;U#39;Utilisation
+            Conditions d' utilisition
           </h1>
         </header>
 
@@ -18,7 +18,7 @@ const ConditionsPage = () => {
           <section className="mb-8" id="introduction">
             <h2 className="text-2xl font-medium text-white">Introduction</h2>
             <p className="text-lg text-gray-600">
-              Les présentes Conditions ddd&#39;U#39;U#39;Utilisation régissent lll&#39;u#39;u#39;utilisation de
+              Les présentes Conditions d' utilisition régissent lll&#39;u#39;u#39;utilisation de
               notre site de vente en ligne. En accédant à notre site et en
               lll&#39;u#39;u#39;utilisant, vous acceptez de respecter ces conditions. Si vous
               n&#39;êtes pas ddd&#39;a#39;a#39;accord avec ces conditions, veuillez ne pas utiliser
@@ -64,7 +64,7 @@ const ConditionsPage = () => {
 
           <section className="mb-8" id="comportement">
             <h2 className="text-2xl font-medium text-white">
-              Comportement de lll&#39;u#39;u#39;utilisateur
+           {`Comportement de l'utilisateur`}
             </h2>
             <p className="text-lg text-gray-600">
               En utilisant notre site, vous vous engagez à ne pas publier de
@@ -90,17 +90,17 @@ const ConditionsPage = () => {
               Notre site peut contenir des liens vers ddd&#39;a#39;a#39;autres sites web qui ne
               sont pas sous notre contrôle. Nous ne sommes pas responsables du
               contenu de ces sites externes et nous vous recommandons de lire
-              leurs politiques de confidentialité et conditions ddd&#39;u#39;u#39;utilisation.
+              leurs politiques de confidentialité et conditions d' utilisition.
             </p>
           </section>
 
           <section className="mb-8" id="modifications">
             <h2 className="text-2xl font-medium text-white">
-              Modifications des Conditions ddd&#39;U#39;U#39;Utilisation
+              Modifications des Conditions d' utilisition
             </h2>
             <p className="text-lg text-gray-600">
               Nous nous réservons le droit de modifier ces Conditions
-              ddd&#39;U#39;U#39;Utilisation à tout moment. Les modifications seront publiées sur
+              d' utilisition à tout moment. Les modifications seront publiées sur
               cette page et entreront en vigueur dès leur publication. Il est de
               votre responsabilité de consulter régulièrement cette page pour
               prendre connaissance des éventuelles modifications.
@@ -111,7 +111,7 @@ const ConditionsPage = () => {
             <h2 className="text-2xl font-medium text-white">Contact</h2>
             <p className="text-lg text-gray-600">
               Si vous avez des questions concernant ces Conditions
-              ddd&#39;U#39;U#39;Utilisation, veuillez nous contacter à lll&#39;a#39;a#39;adresse suivante :{" "}
+              d' utilisition, veuillez nous contacter à lll&#39;a#39;a#39;adresse suivante :{" "}
               <a
                 href="mailto:contact@votresite.com"
                 className="font-bold hover:underline"

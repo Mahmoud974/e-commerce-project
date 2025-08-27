@@ -189,11 +189,11 @@ export default function Address() {
           </p>
           <button
             onClick={startEditing}
-            className="mt-4 px-4 py-2 bg-white text-black   hover:bg-blue-700"
+            className="mt-4 px-4 py-2 w-auto mb-6  bg-white text-black   hover:bg-blue-700"
           >
             Modifier ses coordonnées
           </button>
-          <p className="text-center mt-6 text-red-600 hover:underline cursor-pointer">
+          <p className="text-center   text-red-600 hover:underline cursor-pointer">
             Supprimer le compte
           </p>
         </div>

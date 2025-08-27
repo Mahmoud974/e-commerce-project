@@ -8,8 +8,12 @@ import AlertMessage from "../AlertNoLike";
 import { useCurrency } from "@/components/Header/Navbar";
 import { useCurrencyStore } from "@/store/currencyStore";
 
-const ProductCard: React.FC<{ item: any }> = ({
-  item
+const ProductCard: React.FC<{
+  item: any;
+  className?: string;
+}> = ({
+  item,
+  className
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const { data: session } = useSession();
@@ -102,7 +106,7 @@ const ProductCard: React.FC<{ item: any }> = ({
   const currencySymbol = currency === "EUR" ? "€" : "£";
 
   return (
-    <div className="mx-auto flex-shrink-0 w-80 max-w-xs bg-white rounded-lg border border-gray-200 shadow-md">
+    <div className={`flex-shrink-0 bg-white rounded-lg border border-gray-200 shadow-md ${className}`}>
       <Link
         href={`/produit/${item.id}`}
         className="block overflow-hidden relative w-full bg-black rounded-t-lg"

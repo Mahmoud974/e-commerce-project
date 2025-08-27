@@ -16,7 +16,7 @@ export const Layout = ({ children, title, description }: LayoutProps) => {
           name="description"
           content={
             description ||
-            "Conditions ddd&#39;u#39;u#39;utilisation de notre site de vente eCommerce."
+            "Conditions d' utilisition de notre site de vente eCommerce."
           }
         />
         {title && <title>{title}</title>}

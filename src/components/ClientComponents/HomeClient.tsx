@@ -121,12 +121,12 @@ export default function HomeClient({ data }: { data: any[] }) {
 
         <div className="relative">
           <div
-            className="flex overflow-x-auto gap-6  hide-scrollbar"
+            className="flex overflow-x-auto gap-6   hide-scrollbar"
             ref={scrollRef}
             onScroll={handleScroll}
           >
             {randomEight.map((item: any) => (
-              <ProductCard key={item.id} item={item} />
+              <ProductCard key={item.id} item={item} className="w-1/4 min-w-[300px]" />
             ))}
           </div>
           {showLeftArrow && (

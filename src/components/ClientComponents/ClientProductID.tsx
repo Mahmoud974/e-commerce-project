@@ -148,49 +148,24 @@ export default function ProductPageClient({
 
             <div className="space-y-3 w-full md:ml-12 md:w-1/2">
               <div className="flex justify-between items-center">
-                <div>
-                 <div className="flex justify-around">
-                 <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
-                  <div className="flex gap-2">
-                <Link href={`/produit/${(idArticle?.id ?? 0) - 1}`}>
-                  <SquareChevronLeft className="cursor-pointer" />
-                </Link>
-                <Link href={`/produit/${(idArticle?.id ?? 0) + 1}`}>
-                  <SquareChevronRight className="cursor-pointer" />
-                </Link>
-              </div>
-                 </div>
-                  <small>Ref. {idArticle?.reference}</small>
-                  <div className="flex gap-3">
-                    <p>{idArticle?.color}</p>
-                    <p className="px-3 text-black bg-yellow-200">
-                      {idArticle?.fabricType}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={onLikeClick}
-                    className="p-2 bg-gray-300 rounded-full"
-                  >
-                    <Heart
-                      className={
-                        isLiked(idArticle?.id)
-                          ? "text-red-600"
-                          : "text-gray-800"
-                      }
-                    />
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="p-2 bg-gray-300 rounded-full"
-                  >
-                    <Share2 className="text-gray-800" />
-                  </button>
-                </div>
+              <div className="flex justify-between items-center w-full">
+  <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
+  <div className="flex gap-2">
+    <Link href={`/produit/${(idArticle?.id ?? 0) - 1}`}>
+      <SquareChevronLeft className="cursor-pointer" />
+    </Link>
+    <Link href={`/produit/${(idArticle?.id ?? 0) + 1}`}>
+      <SquareChevronRight className="cursor-pointer" />
+    </Link>
+  </div>
+
+
+</div>
+
               </div>
 
-              <div className="flex items-center mt-2">
+             <div className="flex justify-between">
+             <div className="flex items-center mt-2">
                 <span>prix :</span>
                 <span className="ml-2 text-3xl">
                   {isHT
@@ -203,6 +178,29 @@ export default function ProductPageClient({
                   className="mx-4 bg-red-600"
                 />
               </div>
+              <div className="flex gap-2">
+  <button
+    onClick={onLikeClick}
+    className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center"
+  >
+    <Heart
+      className={
+        isLiked(idArticle?.id)
+          ? "text-red-600"
+          : "text-gray-800"
+      }
+    />
+  </button>
+  
+  <button
+    onClick={handleShare}
+    className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center"
+  >
+    <Share2 className="text-gray-800" />
+  </button>
+</div>
+
+             </div>
 
               <div className="flex gap-2 items-center">
                 {[...Array(4)].map((_, i) => (

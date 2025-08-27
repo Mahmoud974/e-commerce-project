@@ -20,7 +20,7 @@ const links = {
       href: "/politique-confidentialite",
       label: "Politique de confidentialité",
     },
-    { href: "/conditions-utilisation", label: "Conditions ddd&#39;u#39;u#39;utilisation" },
+    { href: "/conditions-utilisation", label: "Conditions d'utilisation" },
   ],
 };
 

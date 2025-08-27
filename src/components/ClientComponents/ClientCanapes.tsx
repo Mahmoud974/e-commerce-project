@@ -94,7 +94,7 @@ export default function CanapesClient({ data }: { data: Item[] }) {
 
   return (
     <ProductLayout
-      title="Canapés"
+      title="Mobilier d’assise"
       description="Découvrez notre sélection de canapés confortables et élégants pour votre intérieur."
       breadcrumbs={[{ label: "Accueil", href: "/home" }, { label: "Canapés" }]}
     >

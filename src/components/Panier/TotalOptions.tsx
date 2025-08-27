@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ShieldCheck, Truck, RotateCcw } from "lucide-react";
-import Image from "next/image";
-
+import {   Truck, RotateCcw } from "lucide-react";
+import { FaCcApplePay, FaCcMastercard, FaCcPaypal, FaCcVisa } from "react-icons/fa";
+import { GoShieldCheck } from "react-icons/go";
 export default function TotalOptions({
   total,
   totalQuantity,
@@ -35,12 +35,12 @@ export default function TotalOptions({
           )
       : 0;
 
-  const remise = isCodeValid ? 10 : 0;
+  const remise = isCodeValid ? total * 0.20 : 0; // 20% discount
 
   const totalFinal = (total + livraison - remise).toFixed(2);
 
   const handleApplyCode = () => {
-    if (discountCode.trim().toUpperCase() === "PROMO10") {
+    if (discountCode.trim().toUpperCase() === "SAVE20") {
       setIsCodeValid(true);
       setErrorMessage("");
     } else {
@@ -51,19 +51,19 @@ export default function TotalOptions({
 
   const paymentLogos = [
     {
-      src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+      src: "https://www.svgrepo.com/show/349326/mastercard.svg",
       alt: "mastercard",
     },
     {
-      src: "https://www.aderivatives.com/lib/fontawesome-free-5.0.13/advanced-options/raw-svg/brands/apple-pay.svg",
+      src: "https://www.svgrepo.com/show/349272/apple-pay.svg",
       alt: "apple-pay",
     },
     {
-      src: "https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/visa.svg",
+      src: "https://www.svgrepo.com/show/349343/visa.svg",
       alt: "visa",
     },
     {
-      src: "https://static.cdnlogo.com/logos/p/41/paypal.svg",
+      src: "https://www.svgrepo.com/show/349339/paypal.svg",
       alt: "paypal",
     },
   ];
@@ -110,7 +110,7 @@ export default function TotalOptions({
           <label htmlFor="discountCode" className="mb-4 text-2xl font-bold">
             Code de réduction
           </label>
-          <div className="flex">
+          <div className="flex  ">
             <input
               type="text"
               id="discountCode"
@@ -128,48 +128,55 @@ export default function TotalOptions({
           </div>
           {errorMessage && <p className="text-red-600">{errorMessage}</p>}
           {isCodeValid && (
-            <p className="text-green-600">Code appliqué : -10€</p>
+            <p className="text-green-600">Code appliqué : -20%</p>
           )}
         </div>
 
         {/* Paiement sécurisé */}
-        <div className="flex gap-4 items-start p-8 text-black bg-white border shadow-sm">
-          <ShieldCheck className="mt-1 w-9 h-9" />
+        <div className="flex  justify-between items-start p-8 text-black bg-white border shadow-sm">
+        
           <div>
-            <p className="text-2xl font-bold">Paiement sécurisé :</p>
+            <p className="text-2xl font-bold w-auto">Paiement sécurisé:</p>
             <p>Paiement en plusieurs fois</p>
             <div className="flex flex-wrap gap-2 mt-2">
-              {paymentLogos.map((logo, index) => (
-                <Image
-                  key={index}
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={65}
-                  height={65}
-                  className="object-contain"
-                />
-              ))}
+              <ul className="flex gap-3">
+                <li>
+                <FaCcMastercard className="text-5xl"/>
+                </li>
+                <li>
+                <FaCcPaypal className="text-5xl"/>
+                </li>
+                <li>
+                <FaCcVisa className="text-5xl"/>
+                </li>
+                <li>
+                <FaCcApplePay className="text-5xl"/>
+                </li>
+                
+
+              </ul>
+              
             </div>
           </div>
         </div>
 
-        <div className="flex gap-4 items-start p-8 text-black bg-white border shadow-sm">
-          <Truck className="-mt-4 w-16 h-16" />
+        <div className="flex  items-start p-8 text-black bg-white border shadow-sm">
+           
           <div>
-            <p className="text-2xl font-bold">Livraison à domicile :</p>
+            <p className="text-2xl font-bold">Livraison à domicile:</p>
             <p>
-              Sur rendez-vous, à l&#39;étage, dans la pièce de votre choix (FR, BE,
-              LU, MCO)
+             {` Sur rendez-vous, à l'étage, dans la pièce de votre choix (FR, BE,
+              LU, MCO)`}
             </p>
           </div>
         </div>
 
         {/* Garantie */}
-        <div className="flex gap-4 items-start p-8 text-black bg-white border shadow-sm">
-          <RotateCcw className="w-14 h-14" />
+        <div className="flex  items-start p-8 text-black bg-white border shadow-sm">
+          
           <div>
-            <p className="font-semibold">Satisfait ou remboursé :</p>
-            <p>14 jours pour changer ddd&#39;a#39;a#39;avis sur vos achats</p>
+            <p className="text-2xl font-bold">Garantie:</p>
+            <p>{`14 jours pour changer d' avis sur vos achats`}</p>
           </div>
         </div>
       </div>
