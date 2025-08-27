@@ -103,9 +103,9 @@ export function FavoritesList( ) {
           </Link>
           <button
             onClick={() => removeItems(item.id)}
-            className="text-red-500 hover:text-red-700"
+            className="text-red-500 hover:text-red-700 "
           >
-            <Trash className="w-5 h-5" />
+            <Trash className="w-5 h-5 cursor-pointer" />
           </button>
         </li>
       ))}

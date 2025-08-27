@@ -174,11 +174,11 @@ export default function PaymentOptions({ goToPreviousStep }) {
               className="w-5 h-5 text-red-600"
             />
             <span className="text-gray-300">
-              JJJ&#39;a#39;a#39;ai lu les{" "}
+              {`J'ai lu les`}
               <a href="#" className="text-blue-400 underline">
                 conditions générales de vente
               </a>{" "}
-              et jjj&#39;y#39;y#39;y adhère sans réserve.
+           {`et j'y adhère sans réserve.`}
             </span>
           </label>
 
@@ -188,14 +188,14 @@ export default function PaymentOptions({ goToPreviousStep }) {
             <button
               type="button"
               onClick={goToPreviousStep}
-              className="p-4 mt-4 w-full font-bold text-white border border-white transition duration-300 hover:bg-gray-300"
+              className="p-4 mt-4 w-full font-bold text-white border cursor-pointer border-white transition duration-300 hover:bg-gray-300"
             >
               Retour
             </button>
 
             <button
               type="submit"
-              className="p-4 mt-6 w-full font-bold text-black bg-white transition duration-300 hover:bg-slate-100"
+              className="p-4 mt-4 w-full font-bold  cursor-pointer text-black border border-white bg-white transition duration-300 hover:bg-gray-300"
             >
               Confirmer le paiement
             </button>

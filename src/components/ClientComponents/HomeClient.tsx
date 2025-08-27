@@ -1,21 +1,25 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import Navbar from "@/components/Header/Navbar";
 import ProductCard from "@/components/ProduitId/Card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   AccordionGeneral,
   AccordionItemType,
 } from "@/components/Accordions/AccordionGeneral";
-import BannerImage from "../BannerImage";
-import { inspirations } from "../Accordions/inspirations";
+
+
 
 export default function HomeClient({ data }: { data: any[] }) {
-  const [visibleCount, setVisibleCount] = useState(8);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+ 
 
   const accordionItems: AccordionItemType[] = [
     {
@@ -33,8 +37,8 @@ export default function HomeClient({ data }: { data: any[] }) {
       trigger: "Quelle est la durée de la garantie ?",
       content: (
         <p>
-          Tous nos meubles sont garantis 5 ans contre les défauts de
-          fabrication. À partir de la date d'achat.
+    {`      Tous nos meubles sont garantis 5 ans contre les défauts de
+          fabrication. À partir de la date d'achat.`}
         </p>
       ),
     },
@@ -55,13 +59,27 @@ export default function HomeClient({ data }: { data: any[] }) {
     return shuffled.slice(0, 8);
   }, [data]);
 
+  const scroll = (scrollOffset: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += scrollOffset;
+    }
+  };
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth);
+    }
+  };
+
   return (
     <section className="flex flex-col min-h-screen">
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-50 w-full container px-4 flex justify-center">
         <Navbar />
       </div>
 
-      {/* Vidéo ddd&#39;a#39;a#39;accueil */}
+      
       <div className="relative w-full h-[900px] mb-16 overflow-hidden">
         <video
           className="w-full h-full object-cover"
@@ -77,24 +95,58 @@ export default function HomeClient({ data }: { data: any[] }) {
           />
           Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
-        <div className="absolute inset-0 bg-black/40 flex items-center justify-center flex-col">
-          <h1 className="text-white text-3xl md:text-5xl font-bold text-center mb-4">
-            Découvrez notre collection exclusive
-          </h1>
-          <button className="px-6 py-3 border text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">
-            En savoir +
-          </button>
-        </div>
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center flex-col text-center p-4">
+  <h1 className="text-white text-3xl md:text-5xl font-bold mb-4">
+    Découvrez notre collection exclusive
+  </h1>
+  <p className="text-white max-w-xl mb-6">
+    Des canapés design, confortables et personnalisables pour tous les intérieurs.
+  </p>
+  
+ 
+  
+  <button 
+    className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition"
+    onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
+  >
+    Voir la collection
+  </button>
+</div>
+
       </div>
 
       {/* Produits */}
       <div className="container mx-auto mb-12">
-        <h2 className="font-bold text-3xl">Plongez dans le confort moderne</h2>
+        <h2 className="font-bold text-3xl mb-8">Plongez dans le confort moderne</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-          {randomEight.map((item: any) => (
-            <ProductCard key={item.id} item={item} />
-          ))}
+        <div className="relative">
+          <div
+            className="flex overflow-x-auto gap-6  hide-scrollbar"
+            ref={scrollRef}
+            onScroll={handleScroll}
+          >
+            {randomEight.map((item: any) => (
+              <ProductCard key={item.id} item={item} />
+            ))}
+          </div>
+          {showLeftArrow && (
+            <button
+              onClick={() => scroll(-300)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-6 h-6 text-black" />
+            </button>
+          )}
+          {showRightArrow && (
+            <button
+              onClick={() => scroll(300)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-6 h-6 text-black" />
+            </button>
+          )}
         </div>
 
         <Link href="/">
@@ -108,72 +160,52 @@ export default function HomeClient({ data }: { data: any[] }) {
         <div className="mt-16">
           <div className="text-center mt-6">
             <p className="text-1xl">
-              Sublimez votre intérieur avec nos conseils d'experts
+              {`Sublimez votre intérieur avec nos conseils d'experts`}
             </p>
             <h3 className="text-2xl font-bold">
               Offrez-vous une ambiance chaleureuse et apaisante
             </h3>
           </div>
 
-          <div className="flex   mt-7 gap-6 flex-wrap justify-center">
-            <Link href="/inspiration">
-              <div className="w-full sm:w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/article-1.jpg`}
-                  alt="Intérieur personnalisé"
-                  width={720}
-                  height={520}
-                  unoptimized
-                  className="
-                    w-full h-full object-cover
-                    transform transition-transform duration-500 ease-in-out
-                    group-hover:scale-105
-                    group-hover:-rotate-2
-                  "
-                />
-                <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
-                  <h3 className="text-xl font-semibold mb-2">
-                    Inspiration de chez-vous
-                  </h3>
-                  <p className="text-sm mb-4">
-                    Créez un espace sur-mesure avec nos experts déco.
-                  </p>
-                  <button className="flex items-center text-sm font-medium hover:underline">
-                    Découvrir <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </Link>
+          <div className="flex mt-7 justify-between gap-6">
+  {[
+    {
+      href: "/inspiration",
+      image: "article-1.jpg",
+      title: "Inspiration de chez-vous",
+      text: "Créez un espace sur-mesure avec nos experts déco.",
+      button: "Découvrir"
+    },
+    {
+      href: "/conseil",
+      image: "article-2.png",
+      title: "Un havre de paix chez vous",
+      text: "Confort, esthétisme et sérénité au quotidien.",
+      button: "Explorer"
+    }
+  ].map((item, index) => (
+    <Link key={index} href={item.href} className="w-1/2">
+      <div className="h-[520px] relative overflow-hidden group rounded-xl shadow-lg flex flex-col">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/${item.image}`}
+          alt={item.title}
+          width={720}
+          height={520}
+          unoptimized
+          className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-rotate-2"
+        />
+        <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
+          <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+          <p className="text-sm mb-4">{item.text}</p>
+          <button className="flex items-center text-sm font-medium hover:underline">
+            {item.button} <ArrowRight className="ml-2 w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
 
-            <Link href="/conseil">
-              <div className="w-full sm:w-[720px] h-[520px] relative overflow-hidden group rounded-xl shadow-lg">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/article-2.png`}
-                  alt="Espace détente"
-                  width={720}
-                  height={520}
-                  unoptimized
-                  className="
-                    w-full h-full object-cover
-                    transform transition-transform duration-500 ease-in-out
-                    group-hover:scale-105
-                    group-hover:-rotate-2
-                  "
-                />
-                <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
-                  <h3 className="text-xl font-semibold mb-2">
-                    Un havre de paix chez vous
-                  </h3>
-                  <p className="text-sm mb-4">
-                    Confort, esthétisme et sérénité au quotidien.
-                  </p>
-                  <button className="flex items-center text-sm font-medium hover:underline">
-                    Explorer <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </Link>
-          </div>
         </div>
 
         {/* Accordion */}

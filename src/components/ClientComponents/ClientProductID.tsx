@@ -51,7 +51,6 @@ export default function ProductPageClient({
   const {
     handleCart,
     isInCart,
-    updateCartQuantity,
     alertType: cartAlertType,
     alertMessage: cartAlertMessage,
     alertId: cartAlertId,
@@ -80,11 +79,7 @@ export default function ProductPageClient({
   const handleAddToCart = () => {
     if (!idArticle) return;
 
-    if (isInCart(idArticle.id)) {
-      updateCartQuantity(idArticle.id, quantity);
-    } else {
-      handleCart(idArticle, quantity);
-    }
+    handleCart(idArticle, quantity);
   };
 
   const isAlreadyInCart = idArticle ? isInCart(idArticle.id) : false;
@@ -121,7 +116,7 @@ export default function ProductPageClient({
           </p>
           <Link href="/">
             <Button className="text-white bg-red-700">
-              Retourner à la page d&apos;accueil
+             {` Retourner à la page d' accueil`}
             </Button>
           </Link>
         </div>
@@ -146,6 +141,7 @@ export default function ProductPageClient({
                   {idArticle?.nom}
                 </span>
               </div>
+              
 
               <Gallery data={idArticle} />
             </div>
@@ -153,7 +149,17 @@ export default function ProductPageClient({
             <div className="space-y-3 w-full md:ml-12 md:w-1/2">
               <div className="flex justify-between items-center">
                 <div>
-                  <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
+                 <div className="flex justify-around">
+                 <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
+                  <div className="flex gap-2">
+                <Link href={`/produit/${(idArticle?.id ?? 0) - 1}`}>
+                  <SquareChevronLeft className="cursor-pointer" />
+                </Link>
+                <Link href={`/produit/${(idArticle?.id ?? 0) + 1}`}>
+                  <SquareChevronRight className="cursor-pointer" />
+                </Link>
+              </div>
+                 </div>
                   <small>Ref. {idArticle?.reference}</small>
                   <div className="flex gap-3">
                     <p>{idArticle?.color}</p>
@@ -194,7 +200,7 @@ export default function ProductPageClient({
                 <Switch
                   checked={isHT}
                   onCheckedChange={setIsHT}
-                  className="mx-4"
+                  className="mx-4 bg-red-600"
                 />
               </div>
 
@@ -206,14 +212,7 @@ export default function ProductPageClient({
                 <small className="ml-2">4,3/5 + de 1000 ventes</small>
               </div>
 
-              <div className="flex gap-2">
-                <Link href={`/produit/${(idArticle?.id ?? 0) - 1}`}>
-                  <SquareChevronLeft className="cursor-pointer" />
-                </Link>
-                <Link href={`/produit/${(idArticle?.id ?? 0) + 1}`}>
-                  <SquareChevronRight className="cursor-pointer" />
-                </Link>
-              </div>
+             
 
               <div className="mt-4">
                 <input
@@ -262,9 +261,9 @@ export default function ProductPageClient({
             />
           )}
 
-          <section className="mt-12">
+          <section className="mb-12 ">
             <h2 className="text-3xl font-bold">À vous de choisir</h2>
-            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-40">
+            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-6">
               {randomFive.map((item) => {
                 return <ProductCard key={item.id} item={item} />;
               })}

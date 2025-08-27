@@ -16,7 +16,7 @@ interface CartState {
   clearCart: () => Promise<void>;
   updateQuantity: (itemId: number, quantity: number) => Promise<void>;
   isInCart: (id: number) => boolean;
-  handleCart: (item: Item) => Promise<void>;
+  handleCart: (item: Item, quantity?: number) => Promise<void>;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -60,12 +60,12 @@ export const useCartStore = create<CartState>((set, get) => ({
     return get().items.some((item) => item.id === id);
   },
 
-  handleCart: async (item) => {
+  handleCart: async (item, quantity = 1) => {
     const isInCart = get().isInCart(item.id);
     if (isInCart) {
       await get().removeItem(item.id);
     } else {
-      await get().addItem({ ...item, quantity: 1 });
+      await get().addItem({ ...item, quantity });
     }
     set((state) => ({
       alertType: "cart",

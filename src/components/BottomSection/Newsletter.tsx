@@ -59,7 +59,7 @@ export default function Newsletter() {
               type="submit"
               className="w-auto sm:w-auto bg-white text-red-700 font-bold py-3 px-12 rounded-lg whitespace-nowrap"
             >
-              Je mmm&#39;i#39;i#39;inscris
+              {`Je m' inscris`}
             </button>
           </form>
         )}

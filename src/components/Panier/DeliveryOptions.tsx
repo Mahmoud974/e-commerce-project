@@ -52,7 +52,7 @@ export default function DeliveryOption({
             <div
               key={option.id}
               onClick={() => handleSelect(option.id)}
-              className={`cursor-pointer p-6 rounded-md transition-all duration-300 border ${
+              className={`cursor-pointer p-6 rounded-md transition-all duration-300 border flex flex-col ${ 
                 selectedOption === option.id
                   ? "bg-[#101010] border-white scale-[1.02]"
                   : "border-gray-700 hover:border-white"
@@ -62,7 +62,7 @@ export default function DeliveryOption({
               <p className="mb-4 text-sm text-gray-400">{option.description}</p>
               <p className="mb-4 font-bold">{option.price}</p>
               <button
-                className={`w-full py-2 text-sm font-bold rounded ${
+                className={`w-full py-2 text-sm font-bold rounded mt-auto ${ 
                   selectedOption === option.id
                     ? "bg-[#101010] text-white border border-white"
                     : "bg-white text-black hover:bg-gray-100"

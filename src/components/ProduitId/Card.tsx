@@ -56,7 +56,7 @@ const ProductCard: React.FC<{ item: any }> = ({
   
     try {
       if (liked) {
-        // L'article est déjà liké, on envoie une requête DELETE
+      
         const res = await fetch(`/api/favorites?userId=${userId}&canapeId=${canapeId}`, {
           method: "DELETE",
         });
@@ -64,10 +64,11 @@ const ProductCard: React.FC<{ item: any }> = ({
         if (res.ok) {
           handleLike(item, session); 
         } else {
-          console.error("Erreur lors de la suppression du favori");
+          const error = await res.json();
+          console.error("Erreur lors de l'ajout du favori:", error);
         }
       } else {
-        // L'article n'est pas liké, on envoie une requête POST
+       
         const res = await fetch('/api/favorites', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -101,7 +102,7 @@ const ProductCard: React.FC<{ item: any }> = ({
   const currencySymbol = currency === "EUR" ? "€" : "£";
 
   return (
-    <div className="mx-auto w-full max-w-xs bg-white rounded-lg border border-gray-200 shadow-md">
+    <div className="mx-auto flex-shrink-0 w-80 max-w-xs bg-white rounded-lg border border-gray-200 shadow-md">
       <Link
         href={`/produit/${item.id}`}
         className="block overflow-hidden relative w-full bg-black rounded-t-lg"
@@ -161,7 +162,7 @@ const ProductCard: React.FC<{ item: any }> = ({
         </div>
       </div>
 
-      <div className="flex gap-2 justify-between items-center px-4 py-3 border-t border-gray-200">
+      <div className="flex gap-2 justify-between items-start px-4 py-3 border-t border-gray-200">
         <div>
           <p className="text-2xl font-bold text-black">
             {convertedPrice}

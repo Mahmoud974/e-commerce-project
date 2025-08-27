@@ -217,7 +217,8 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
                   checked={billingDifferent}
                   onChange={() => setBillingDifferent(!billingDifferent)}
                 />
-                LLL&#39;a#39;a#39;adresse de facturation diffère de lll&#39;a#39;a#39;adresse de livraison
+               {`L'adresse de facturation diffère de l'adresse de livraison
+`}
               </label>
             </div>
             {!hasCompleteAddress && (
@@ -228,7 +229,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
             <div className="flex gap-3">
               <button
                 onClick={goToPreviousStep}
-                className="w-full mt-4 border border-white text-white p-4 font-bold hover:bg-gray-300 transition duration-300"
+                className="w-full mt-4 border border-white text-white p-4 cursor-pointer font-bold hover:bg-white hover:text-black transition duration-300"
               >
                 Retour
               </button>
@@ -237,7 +238,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
                 onClick={
                   hasCompleteAddress ? goToNextStep : () => setShowForm(true)
                 }
-                className={`w-full mt-6 ${
+                className={`w-full mt-4 border border-white cursor-pointer   p-4 font-bold hover:bg-black hover:text-white transition duration-300 ${
                   hasCompleteAddress
                     ? "bg-white text-black hover:bg-slate-100"
                     : "bg-gray-500 text-white cursor-not-allowed"

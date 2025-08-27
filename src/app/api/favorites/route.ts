@@ -26,15 +26,24 @@ export const GET = async (req: NextRequest) => {
 };
 
 export const POST = async (req: NextRequest) => {
-  const body = await req.json();
-  const userId = Number(body.userId);
-  const canapeId = Number(body.canapeId);
-
-  if (!userId || !canapeId) {
-    return new Response(JSON.stringify({ error: "userId et canapeId requis" }), { status: 400 });
-  }
-
   try {
+    const body = await req.json();
+    const userId = Number(body.userId);
+    const canapeId = Number(body.canapeId);
+
+    if (!userId || !canapeId) {
+      return new Response(JSON.stringify({ error: "userId et canapeId requis" }), { status: 400 });
+    }
+
+    // Vérifie si le canapé existe vraiment
+    const canapeExists = await prisma.canape.findUnique({
+      where: { id: canapeId },
+    });
+
+    if (!canapeExists) {
+      return new Response(JSON.stringify({ error: "Canapé introuvable" }), { status: 404 });
+    }
+
     const existing = await prisma.like.findFirst({
       where: { userId, canapeId },
     });
@@ -55,10 +64,12 @@ export const POST = async (req: NextRequest) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("Erreur lors de la création :", error);
+    console.error("Erreur serveur POST /favorites :", error);
     return new Response(JSON.stringify({ error: "Erreur serveur" }), { status: 500 });
   }
 };
+
+
 
 export const DELETE = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);

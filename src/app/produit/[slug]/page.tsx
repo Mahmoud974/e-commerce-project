@@ -44,7 +44,7 @@ export default async function Page({ params }: PageProps) {
     const data = await res.json();
 
     const articleExists = data.some(
-      (article) => Number(article.id) === Number(slug)
+      (article:any) => Number(article.id) === Number(slug)
     );
 
     if (!articleExists) {
