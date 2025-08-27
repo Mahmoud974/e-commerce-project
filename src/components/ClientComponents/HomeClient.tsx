@@ -149,7 +149,7 @@ export default function HomeClient({ data }: { data: any[] }) {
           )}
         </div>
 
-        <Link href="/">
+        <Link href="/canapes">
           <Button className="flex justify-center mx-auto border px-20 mt-6">
             <p>Découvrez tous les fauteuils</p>
             <ArrowRight />

@@ -76,7 +76,7 @@ export default function Navbar() {
   const onSubmit: SubmitHandler<Inputs> = () => {};
 
   const navItems = [
-    { href: "/", label: "Canapés" },
+    { href: "/canapes", label: "Canapés" },
     { href: "/produits-nettoyant", label: "Produits d' entretien" },
     { href: "/echantillons", label: "Échantillons" },
   ];
@@ -84,7 +84,7 @@ export default function Navbar() {
   return (
     <nav className="flex relative z-50 justify-between items-center py-4 w-full text-white">
       <div className="flex items-center space-x-8">
-        <Link href="/home">
+        <Link href="/">
           <Image
             src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/logo.png`}
             alt="Logo"
