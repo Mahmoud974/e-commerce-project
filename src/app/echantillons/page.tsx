@@ -38,6 +38,7 @@ export default async function EchantillonsPage() {
       ]}
     >
       <EchantillonClient initialEchantillons={echantillons} />
+  
     </ProductLayout>
   );
 }

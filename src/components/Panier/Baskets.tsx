@@ -13,7 +13,7 @@ export default function Baskets({
   setTotalQuantity,
   totalQuantity,
 }) {
-  const { items, removeItem, updateQuantity } = useCartStore();
+  const { items, removeItem, updateQuantity, clearCart } = useCartStore();
 
   const router = useRouter();
 
@@ -39,10 +39,23 @@ export default function Baskets({
 
   return (
     <section className="relative bg-black text-white">
-      <div className="container mx-auto px-6">
-        <h1 className="text-3xl font-bold mb-6">
+      <div className="container mx-auto  ">
+       <div className="flex justify-between">
+       <h1 className="text-3xl font-bold mb-6">
           Mon panier ({totalQuantity} article{totalQuantity > 1 ? "s" : ""})
         </h1>
+        {items.length > 0 && (
+                <button
+                  onClick={async () => {
+                    await clearCart();
+                    router.push("/");
+                  }}
+                  className="w-18 px-8 bg-red-700 text-white  font-bold hover:bg-red-800 transition duration-300"
+                >
+                  Tout Effacer 
+                </button>
+              )}
+       </div>
 
         <div className="max-w-6xl">
           <ul className="space-y-4">
@@ -93,7 +106,7 @@ export default function Baskets({
           </ul>
 
           <div className="mt-10 space-y-6">
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/"
                 className="w-full text-center border border-white text-white p-4 font-bold hover:bg-gray-300 hover:text-black transition duration-300"
@@ -106,6 +119,7 @@ export default function Baskets({
               >
                 Valider le panier
               </button>
+             
             </div>
           </div>
         </div>

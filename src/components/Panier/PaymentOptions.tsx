@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PaymentOptions({ goToPreviousStep }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -173,13 +174,15 @@ export default function PaymentOptions({ goToPreviousStep }) {
               onChange={handleTermsChange}
               className="w-5 h-5 text-red-600"
             />
+            <Link href="/conditions-generales-de-vente">
             <span className="text-gray-300">
-              {`J'ai lu les`}
+              {`J'ai lu les `}
               <a href="#" className="text-blue-400 underline">
                 conditions générales de vente
               </a>{" "}
            {`et j'y adhère sans réserve.`}
             </span>
+            </Link>
           </label>
 
           {error && <p className="text-red-500">{error}</p>}

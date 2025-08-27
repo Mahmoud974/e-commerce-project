@@ -5,38 +5,49 @@ export default function DeliveryOption({
   goToNextStep,
   goToPreviousStep,
   setDeliveryOption,
+}: {
+  goToNextStep: () => void;
+  goToPreviousStep: () => void;
+  setDeliveryOption: (option: {
+    id: number;
+    title: string;
+    description: string;
+    price: string;
+  }) => void;
 }) {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   const deliveryOptions = [
     {
       id: 1,
       title: "Livraison devant chez vous sur rendez-vous",
       description:
-        "Livraison à domicile avec dépôt du colis au pied du camion sur RDV. En France (hors Corse et îles), Belgique et au Luxembourg.",
+        "Livraison à domicile au pied du camion sur RDV. Disponible en France (hors Corse et îles), Belgique et Luxembourg.",
       price: "99,00 € ",
     },
     {
       id: 2,
       title: "Livraison chez vous dans la pièce de votre choix sur rendez-vous",
       description:
-        "Livraison à domicile sur RDV dans la pièce de votre choix. En France (hors Corse et îles), Belgique et au Luxembourg.",
+        "Livraison à domicile sur RDV directement dans la pièce de votre choix. Disponible en France (hors Corse et îles), Belgique et Luxembourg.",
       price: "129,00 € ",
     },
     {
       id: 3,
       title: "Retrait chez Best Mobilier - 59554 Raillencourt-Sainte-Olle",
       description:
-        "Retirez votre produit gratuitement et sur rendez-vous dans notre dépôt situé près de Cambrai dans le Nord. Retrait sur rendez-vous uniquement, les lundis et vendredis de 9h à 11h30 et les mardis, mercredis et jeudi de 9h à 11h30 et de 14h à 15h.",
+        "Retirez votre produit gratuitement sur RDV dans notre dépôt près de Cambrai. Retraits les lundis et vendredis de 9h à 11h30, mardis, mercredis et jeudis de 9h à 11h30 et de 14h à 15h.",
       price: "Gratuit",
     },
   ];
 
-  const handleSelect = (id) => {
+  const handleSelect = (id: number) => {
     const selected = deliveryOptions.find((opt) => opt.id === id);
-    setSelectedOption(id);
-    setDeliveryOption(selected);
-    alert(`Vous avez sélectionné : ${selected.title}`);
+    if (selected) {
+      setSelectedOption(id);
+      setDeliveryOption(selected);
+      alert(`Vous avez sélectionné : ${selected.title}`);
+    }
   };
 
   return (
@@ -52,14 +63,14 @@ export default function DeliveryOption({
             <div
               key={option.id}
               onClick={() => handleSelect(option.id)}
-              className={`cursor-pointer p-6 rounded-md transition-all duration-300 border flex flex-col ${ 
+              className={`cursor-pointer p-6 rounded-md transition-all duration-300 border flex flex-col min-h-[280px] ${ 
                 selectedOption === option.id
                   ? "bg-[#101010] border-white scale-[1.02]"
                   : "border-gray-700 hover:border-white"
               }`}
             >
               <h2 className="mb-2 text-lg font-semibold">{option.title}</h2>
-              <p className="mb-4 text-sm text-gray-400">{option.description}</p>
+              <p className="mb-4 text-sm text-gray-400 flex-grow">{option.description}</p>
               <p className="mb-4 font-bold">{option.price}</p>
               <button
                 className={`w-full py-2 text-sm font-bold rounded mt-auto ${ 

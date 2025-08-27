@@ -16,7 +16,7 @@ export default function NavItem({ description }: { description: any }) {
 
   return (
     <div className="text-white">
-      <ul className="flex gap-3">
+      <ul className="flex flex-wrap gap-3">
         {sections.map(({ key, label }) => (
           <li key={key}>
             <Button

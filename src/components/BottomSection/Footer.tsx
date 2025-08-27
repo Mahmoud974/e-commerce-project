@@ -1,4 +1,4 @@
-import { FaTiktok, FaInstagram, FaFacebookSquare } from "react-icons/fa";
+import { FaTiktok, FaInstagram, FaFacebookSquare, FaCcApplePay, FaCcMastercard, FaCcPaypal } from "react-icons/fa";
 import { FaCcVisa, FaPaypal } from "react-icons/fa"; // Icônes de paiement
 import Link from "next/link";
 import { HandCoins } from "lucide-react";
@@ -89,18 +89,22 @@ const Footer = () => {
                     Moyens de paiement
                   </h5>
                   <div className="flex space-x-8 text-gray-400" role="list">
-                    {paymentMethods.map((method, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center space-x-2"
-                        role="listitem"
-                      >
-                        {method.icon && (
-                          <span aria-hidden="true">{method.icon}</span>
-                        )}
-                        <span>{method.label}</span>
-                      </div>
-                    ))}
+                  <ul className="flex gap-3 text-white">
+                <li>
+                <FaCcMastercard className="text-5xl"/>
+                </li>
+                <li>
+                <FaCcPaypal className="text-5xl"/>
+                </li>
+                <li>
+                <FaCcVisa className="text-5xl"/>
+                </li>
+                <li>
+                <FaCcApplePay className="text-5xl"/>
+                </li>
+                
+
+              </ul>
                   </div>
                 </div>
               )}

@@ -83,7 +83,7 @@ export default function ValidationContent() {
       description="Livraison rapide & retours gratuits – Achetez en toute confiance !"
       bannerImage="checkOrder.jpg"
     >
-      <section className="relative">
+      <section className="relative ">
         <div className="container mt-6 mx-auto">
           <div className="mt-12">
             <ul className="flex flex-wrap justify-center items-center space-x-8 sm:space-x-12">
@@ -127,7 +127,7 @@ export default function ValidationContent() {
             <span className="text-gray-500 font-medium">Mon panier</span>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center my-12">
+          <div className="flex flex-col sm:flex-row justify-between my-12">
             <div className="text-center sm:text-left w-full sm:w-2/3 lg:w-2/2">
               {activeStep === 1 && (
                 <Baskets
@@ -147,7 +147,7 @@ export default function ValidationContent() {
                 <DeliveryOptions
                   goToPreviousStep={() => setActiveStep(2)}
                   goToNextStep={() => handleNextStep(3)}
-                  setDeliveryOption={setDeliveryOption} // ✅ Ceci manquait
+                  setDeliveryOption={setDeliveryOption}  
                 />
               )}
 

@@ -154,7 +154,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
 
   return (
     <section className="relative bg-black text-white">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto  ">
         {!showForm ? (
           <div className="max-w-6xl">
             <h1 className="text-3xl text-white font-bold mb-6">

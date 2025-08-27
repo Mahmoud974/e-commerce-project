@@ -7,8 +7,8 @@ export default function GuaranteePage() {
   return (
     <PageLayoutBanner
       title="CONDITIONS de la garanties"
-      description="Profitez de notre garantie exceptionnelle pour une tranquillité ddd&#39;e#39;e#39;esprit totale : des meubles conçus pour durer, avec un support qui vous accompagne à chaque étape."
-      bannerImage={"guarantie.jpg"}
+      description="Profitez de notre garantie exceptionnelle pour une tranquillité d' esprit totale : des meubles conçus pour durer, avec un support qui vous accompagne à chaque étape."
+      bannerImage={"guarantie.png"}
     >
       <main className="relative">
         <article className="container mx-auto">
