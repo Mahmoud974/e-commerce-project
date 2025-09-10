@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des Pizzas</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: white;
+      padding: 2rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 1rem;
+    }
+    img {
+      width: 120px;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nos Pizzas</h1>
+  <ul id="pizzas"></ul>
+
+  <script>
+    const API_URL = "https://3ibrmfp3ec.execute-api.eu-west-3.amazonaws.com/dev/resource";
+
+    fetch(API_URL)
+      .then(response => {
+        if (!response.ok) throw new Error("Réponse HTTP invalide");
+        return response.json();
+      })
+      .then(result => {
+        // ✅ On parse le body stringifié pour obtenir le vrai tableau
+        const parsed = JSON.parse(result.body);
+        const pizzas = parsed.data;
+
+        const list = document.getElementById("pizzas");
+
+        if (parsed.success && Array.isArray(pizzas)) {
+          pizzas.forEach(pizza => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <strong>${pizza.nom}</strong><br>
+              <img src="${pizza.image}" alt="${pizza.nom}" />
+              <em>${pizza.description}</em><br>
+              <strong>Prix :</strong> ${pizza.prix.join(" € / ")} €<br>
+              <strong>Pâtes :</strong> ${pizza.pates.join(", ")}<br>
+              <strong>Végétarienne :</strong> ${pizza.vegetarien ? "Oui" : "Non"}
+            `;
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = "<li>Aucune pizza trouvée</li>";
+        }
+      })
+      .catch(err => {
+        console.error("Erreur API:", err);
+        document.getElementById("pizzas").innerHTML = "<li>Erreur lors du chargement des données</li>";
+      });
+  </script>
+</body>
+</html>

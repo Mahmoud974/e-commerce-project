@@ -1,0 +1,25 @@
+id,image,nom,description,prix,pates,vegetarien
+1,/images/pizzas/reine.jpg,Reine,"Sauce tomate, mozzarella, jambon, champignons de Paris.","[15.49,17.49,19.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+2,/images/pizzas/forestiere.jpg,Forestière,"Crème fraîche légère française, mozzarella, lardons fumés, oignons.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+3,/images/pizzas/indienne.jpg,Indienne,"Sauce tomate, mozzarella, oignons, poulet rôti.","[15.99,17.99,19.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+4,/images/pizzas/oceana.jpg,Océana,"Sauce tomate, mozzarella, oignons, thon, olives Kalamata bio.","[15.99,17.99,19.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+5,/images/pizzas/peppina.jpg,Peppina,"Sauce tomate, mozzarella, champignons de Paris, oignons, duo de poivrons.","[15.99,17.99,19.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",oui
+6,/images/pizzas/vegan.jpg,Vegan,"Sauce tomate, champignons de Paris, oignons, duo de poivrons.","[15.49,17.49,19.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",oui
+7,/images/pizzas/authentique_raclette.jpg,Authentique Raclette,"Crème fraîche légère française, mozzarella, bacon, pommes de terre, raclette.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+8,/images/pizzas/savoyarde.jpg,Savoyarde,"Crème fraîche légère française, mozzarella, lardons fumés, pommes de terre, reblochon.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+9,/images/pizzas/4fromages.jpg,4 Fromages,"Sauce tomate, mozzarella, chèvre, fromage râpé (Gouda & Emmental), bleu.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",oui
+10,/images/pizzas/chevre_miel.jpg,Chèvre-Miel,"Crème fraîche légère française, mozzarella, chèvre, miel français.","[15.99,17.99,19.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",oui
+11,/images/pizzas/bacon_chevre_miel.jpg,Bacon Chèvre Miel,"Crème fraîche légère française, mozzarella, bacon, chèvre, miel français.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+12,/images/pizzas/speciale_bolo.jpg,Spéciale Bolo,"Sauce tomate, mozzarella, haché au boeuf goût flammé, origan.","[13.49,15.49,17.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+13,/images/pizzas/margherita.jpg,Margherita,"Sauce tomate, mozzarella.","[12.99,14.99,16.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",oui
+14,/images/pizzas/originale_pepperoni.jpg,Originale Pepperoni,"Sauce tomate, mozzarella, pepperoni.","[13.49,15.49,17.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+15,/images/pizzas/classique_jambon.jpg,Classique Jambon,"Sauce tomate, mozzarella, jambon.","[13.49,15.49,17.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+16,/images/pizzas/croque_monsieur.jpg,Croque-Monsieur,"Crème fraîche légère française, mozzarella, jambon, fromage râpé.","[15.49,17.49,19.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+17,/images/pizzas/campagnarde.jpg,Campagnarde,"Crème fraîche légère française, mozzarella, poulet rôti, jambon.","[22.99,24.99,26.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+18,/images/pizzas/chickenita_pepperoni.jpg,Chickenita Pepperoni,"Sauce tomate, mozzarella, poulet rôti, pepperoni, tomates, fromage râpé.","[15.99,17.99,19.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+19,/images/pizzas/bacon_groovy.jpg,Bacon Groovy,"Sauce tomate, mozzarella, bacon, oignons.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+20,/images/pizzas/tasty_kebab.jpg,Tasty Kebab,"Crème fraîche légère française, mozzarella, viande kebab, tomates.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+21,/images/pizzas/pepperoni_party.jpg,Pepperoni Party,"Sauce tomate, mozzarella, double pepperoni, supplément mozzarella.","[15.99,17.99,19.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+22,/images/pizzas/cannibale.jpg,Cannibale,"Sauce barbecue, mozzarella, poulet rôti, merguez, haché au boeuf goût flammé.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+23,/images/pizzas/bacon_bbq_burger.jpg,Bacon BBQ Burger,"Sauce barbecue, mozzarella, double haché au boeuf goût flammé, bacon, cheddar fondu, oignons.","[16.99,18.99,20.99]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non
+24,/images/pizzas/chicken_bbq.jpg,Chicken BBQ,"Sauce barbecue, mozzarella, poulet rôti, duo de poivrons, oignons.","[15.49,17.49,19.49]","[\"Classique\",\"Cheesy\",\"Pan\",\"Pâte fine\"]",non

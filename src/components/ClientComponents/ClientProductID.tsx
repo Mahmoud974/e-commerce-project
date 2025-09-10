@@ -267,7 +267,7 @@ export default function ProductPageClient({
               })}
             </section>
             <Link href={idArticle.id <= 55 ? "/" : "/produits-nettoyant"}>
-              <Button className="flex mx-auto mt-6">
+              <Button className="flex mx-auto border border-white mt-6">
                 Découvrir tous les produits
                 <ArrowRight className="ml-2" />
               </Button>

@@ -1,0 +1,652 @@
+{
+  "royal-food-prod": [
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "1"
+          },
+          "image": {
+            "S": "/images/pizzas/reine.jpg"
+          },
+          "nom": {
+            "S": "Reine"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, jambon, champignons de Paris."
+          },
+          "prix": {
+            "S": "[15.49, 17.49, 19.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "2"
+          },
+          "image": {
+            "S": "/images/pizzas/forestiere.jpg"
+          },
+          "nom": {
+            "S": "Forestière"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, lardons fumés, oignons."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "3"
+          },
+          "image": {
+            "S": "/images/pizzas/indienne.jpg"
+          },
+          "nom": {
+            "S": "Indienne"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, oignons, poulet rôti."
+          },
+          "prix": {
+            "S": "[15.99, 17.99, 19.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "4"
+          },
+          "image": {
+            "S": "/images/pizzas/oceana.jpg"
+          },
+          "nom": {
+            "S": "Océana"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, oignons, thon, olives Kalamata bio."
+          },
+          "prix": {
+            "S": "[15.99, 17.99, 19.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "5"
+          },
+          "image": {
+            "S": "/images/pizzas/peppina.jpg"
+          },
+          "nom": {
+            "S": "Peppina"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, champignons de Paris, oignons, duo de poivrons."
+          },
+          "prix": {
+            "S": "[15.99, 17.99, 19.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "True"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "6"
+          },
+          "image": {
+            "S": "/images/pizzas/vegan.jpg"
+          },
+          "nom": {
+            "S": "Vegan"
+          },
+          "description": {
+            "S": "Sauce tomate, champignons de Paris, oignons, duo de poivrons."
+          },
+          "prix": {
+            "S": "[15.49, 17.49, 19.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "True"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "7"
+          },
+          "image": {
+            "S": "/images/pizzas/authentique_raclette.jpg"
+          },
+          "nom": {
+            "S": "Authentique Raclette"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, bacon, pommes de terre, raclette."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "8"
+          },
+          "image": {
+            "S": "/images/pizzas/savoyarde.jpg"
+          },
+          "nom": {
+            "S": "Savoyarde"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, lardons fumés, pommes de terre, reblochon."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "9"
+          },
+          "image": {
+            "S": "/images/pizzas/4fromages.jpg"
+          },
+          "nom": {
+            "S": "4 Fromages"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, chèvre, fromage râpé (Gouda & Emmental), bleu."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "True"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "10"
+          },
+          "image": {
+            "S": "/images/pizzas/chevre_miel.jpg"
+          },
+          "nom": {
+            "S": "Chèvre-Miel"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, chèvre, miel français."
+          },
+          "prix": {
+            "S": "[15.99, 17.99, 19.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "True"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "11"
+          },
+          "image": {
+            "S": "/images/pizzas/bacon_chevre_miel.jpg"
+          },
+          "nom": {
+            "S": "Bacon Chèvre Miel"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, bacon, chèvre, miel français."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "12"
+          },
+          "image": {
+            "S": "/images/pizzas/speciale_bolo.jpg"
+          },
+          "nom": {
+            "S": "Spéciale Bolo"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, haché au boeuf goût flammé, origan."
+          },
+          "prix": {
+            "S": "[13.49, 15.49, 17.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "13"
+          },
+          "image": {
+            "S": "/images/pizzas/margherita.jpg"
+          },
+          "nom": {
+            "S": "Margherita"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella."
+          },
+          "prix": {
+            "S": "[12.99, 14.99, 16.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "True"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "14"
+          },
+          "image": {
+            "S": "/images/pizzas/originale_pepperoni.jpg"
+          },
+          "nom": {
+            "S": "Originale Pepperoni"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, pepperoni."
+          },
+          "prix": {
+            "S": "[13.49, 15.49, 17.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "15"
+          },
+          "image": {
+            "S": "/images/pizzas/classique_jambon.jpg"
+          },
+          "nom": {
+            "S": "Classique Jambon"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, jambon."
+          },
+          "prix": {
+            "S": "[13.49, 15.49, 17.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "16"
+          },
+          "image": {
+            "S": "/images/pizzas/croque_monsieur.jpg"
+          },
+          "nom": {
+            "S": "Croque-Monsieur"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, jambon, fromage râpé."
+          },
+          "prix": {
+            "S": "[15.49, 17.49, 19.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "17"
+          },
+          "image": {
+            "S": "/images/pizzas/campagnarde.jpg"
+          },
+          "nom": {
+            "S": "Campagnarde"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, poulet rôti, jambon."
+          },
+          "prix": {
+            "S": "[22.99, 24.99, 26.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "18"
+          },
+          "image": {
+            "S": "/images/pizzas/chickenita_pepperoni.jpg"
+          },
+          "nom": {
+            "S": "Chickenita Pepperoni"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, poulet rôti, pepperoni, tomates, fromage râpé."
+          },
+          "prix": {
+            "S": "[15.99, 17.99, 19.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "19"
+          },
+          "image": {
+            "S": "/images/pizzas/bacon_groovy.jpg"
+          },
+          "nom": {
+            "S": "Bacon Groovy"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, bacon, oignons."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "20"
+          },
+          "image": {
+            "S": "/images/pizzas/tasty_kebab.jpg"
+          },
+          "nom": {
+            "S": "Tasty Kebab"
+          },
+          "description": {
+            "S": "Crème fraîche légère française, mozzarella, viande kebab, tomates."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "21"
+          },
+          "image": {
+            "S": "/images/pizzas/pepperoni_party.jpg"
+          },
+          "nom": {
+            "S": "Pepperoni Party"
+          },
+          "description": {
+            "S": "Sauce tomate, mozzarella, double pepperoni, supplément mozzarella."
+          },
+          "prix": {
+            "S": "[15.99, 17.99, 19.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "22"
+          },
+          "image": {
+            "S": "/images/pizzas/cannibale.jpg"
+          },
+          "nom": {
+            "S": "Cannibale"
+          },
+          "description": {
+            "S": "Sauce barbecue, mozzarella, poulet rôti, merguez, haché au boeuf goût flammé."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "23"
+          },
+          "image": {
+            "S": "/images/pizzas/bacon_bbq_burger.jpg"
+          },
+          "nom": {
+            "S": "Bacon BBQ Burger"
+          },
+          "description": {
+            "S": "Sauce barbecue, mozzarella, double haché au boeuf goût flammé, bacon, cheddar fondu, oignons."
+          },
+          "prix": {
+            "S": "[16.99, 18.99, 20.99]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "N": "24"
+          },
+          "image": {
+            "S": "/images/pizzas/chicken_bbq.jpg"
+          },
+          "nom": {
+            "S": "Chicken BBQ"
+          },
+          "description": {
+            "S": "Sauce barbecue, mozzarella, poulet rôti, duo de poivrons, oignons."
+          },
+          "prix": {
+            "S": "[15.49, 17.49, 19.49]"
+          },
+          "pates": {
+            "S": "[\"Classique\", \"Cheesy\", \"Pan\", \"Pâte fine\"]"
+          },
+          "vegetarien": {
+            "N": "False"
+          }
+        }
+      }
+    }
+  ]
+}
