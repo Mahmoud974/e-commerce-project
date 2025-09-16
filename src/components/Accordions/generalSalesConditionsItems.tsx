@@ -119,3 +119,5 @@ export const generalSalesConditionsItems: AccordionItemType[] = [
 
 
 
+
+

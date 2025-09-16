@@ -6,12 +6,16 @@ import { Trash } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
+type Like = { canapeId?: number; produitId?: number };
+type Item = { id: number; title: string; images?: string[]; price?: number };
+
 export function FavoritesList( ) {
-  const [articles, setArticles] = useState([]);
-  const [likes, setLikes] = useState([]);
+  const [articles, setArticles] = useState<Item[]>([]);
+  const [produits, setProduits] = useState<Item[]>([]);
+  const [likes, setLikes] = useState<Like[]>([]);
   const { data: session } = useSession();
 
-  const removeItems = async (canapeId: any) => {
+  const removeItems = async (canapeId: number) => {
     if (!session?.user?.id) return;
   
     const res = await fetch(`/api/favorites?userId=${session.user.id}&canapeId=${canapeId}`, {
@@ -35,7 +39,13 @@ export function FavoritesList( ) {
       const data = await res.json();
       setArticles(data);
     };
+    const fetchProduits = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produits-entretien`);
+      const data = await res.json();
+      setProduits(data);
+    };
     fetchArticles();
+    fetchProduits();
   }, []);
 
  
@@ -50,9 +60,17 @@ export function FavoritesList( ) {
   }, [session]);
 
   
-  const likedItems = articles.filter((article) =>
-    likes.some((like) => like.canapeId === article.id)
-  );
+  const likedItems = likes
+    .map((like: Like) => {
+      const id = like.canapeId ?? like.produitId;
+      if (id == null) return null;
+      return (
+        articles.find((a) => a.id === id) ||
+        produits.find((p) => p.id === id) ||
+        null
+      );
+    })
+    .filter(Boolean);
   console.log(likedItems);
   const removeAllLikes = async () => {
     if (!session?.user?.id) return;
@@ -62,7 +80,7 @@ export function FavoritesList( ) {
     });
   
     if (res.ok) {
-      setLikes([]); // Vider localement
+      setLikes([]);  
     } else {
       const error = await res.json();
       console.error("Erreur lors de la suppression totale :", error);
@@ -80,15 +98,17 @@ export function FavoritesList( ) {
 
       <div className="max-h-[80vh] overflow-y-auto px-2">
     <ul className="space-y-4 mt-3">
-      {likedItems.map((item) => (
+      {likedItems.map((item) => {
+        const safeItem = item as Item;
+        return (
         <li
-          key={item.id}
+          key={safeItem.id}
           className="flex items-center justify-between border-b border-gray-600 pb-5 hover:bg-gray-800 hover:scale-105 transition-transform duration-200 rounded-lg p-2"
         >
-          <Link href={`/produit/${item.id}`}>
+          <Link href={`/produit/${safeItem.id}`}>
             <div className="flex items-center">
               <Image
-                src={item.images?.[0] ?? "/placeholder-image.jpg"}
+                src={safeItem.images?.[0] ?? "/placeholder-image.jpg"}
                 alt="product image"
                 className="object-contain p-1 w-16 h-16"
                 width={64}
@@ -96,19 +116,20 @@ export function FavoritesList( ) {
                 priority
               />
               <div className="ml-3">
-                <div className="text-lg font-bold">{item.title}</div>
-                <div className="text-gray-400">{item.price}€</div>
+                <div className="text-lg font-bold">{safeItem.title}</div>
+                <div className="text-gray-400">{safeItem.price}€</div>
               </div>
             </div>
           </Link>
           <button
-            onClick={() => removeItems(item.id)}
+            onClick={() => removeItems(safeItem.id)}
             className="text-red-500 hover:text-red-700 "
           >
             <Trash className="w-5 h-5 cursor-pointer" />
           </button>
         </li>
-      ))}
+        );
+      })}
     </ul>
     </div>
     <div className="flex justify-end mb-4">

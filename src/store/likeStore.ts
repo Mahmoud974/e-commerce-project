@@ -33,6 +33,9 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
       return;
     }
     const likedItems = get().likedItems;
+    
+    
+    
     const isLiked = likedItems.includes(item.id);
     const updatedLikes = isLiked
       ? likedItems.filter((id) => id !== item.id)
@@ -60,7 +63,9 @@ export const useLikeStore = create<LikeStore>((set, get) => ({
       const res = await fetch(`/api/favorites?userId=${userId}`);
       if (res.ok) {
         const likes = await res.json();
-        const likedIds = likes.map((like: any) => like.canapeId);
+        const likedIds = likes
+          .map((like: any) => like.canapeId ?? like.produitId)
+          .filter((id: any) => typeof id === "number" && !Number.isNaN(id));
         set({ likedItems: likedIds });
       }
     } catch (error) {

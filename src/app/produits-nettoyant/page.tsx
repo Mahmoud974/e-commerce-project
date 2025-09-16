@@ -19,7 +19,7 @@ export default async function NettoyantsProduits() {
     }
 
     products = await response.json();
-    console.log("Données brutes de lll&#39;A#39;A#39;API (côté serveur):", products);
+    console.log("Données brutes de ", products);
   } catch (err: any) {
     console.error("Erreur lors du chargement des produits:", err);
     error = err.message;
@@ -39,6 +39,8 @@ export default async function NettoyantsProduits() {
         console.error("Erreur lors du calcul du prix réduit:", e);
       }
     }
+    
+    
 
     const formattedPrice = parseFloat(finalPrice.toFixed(2));
 
@@ -64,7 +66,7 @@ export default async function NettoyantsProduits() {
     }
 
     return {
-      id: product.id,
+      id: Number(product.id),
       title: descriptiveTitle,
       description: product.description || "Aucune description disponible",
       price: formattedPrice,

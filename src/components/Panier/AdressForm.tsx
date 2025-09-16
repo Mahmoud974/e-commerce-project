@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-export default function AddressForm({ goToNextStep, goToPreviousStep }) {
+export default function AddressForm({ goToNextStep, goToPreviousStep }:any) {
   const { data: session, status } = useSession();
   const [showForm, setShowForm] = useState(false);
   const [billingDifferent, setBillingDifferent] = useState(false);
@@ -22,20 +22,54 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    console.log("Status de la session:", status);
-    console.log("Session actuelle:", session);
-
-    if (status === "authenticated" && session?.user) {
-      setAddressData({
-        name: session.user.name || "",
-        lastname: session.user.lastname || "",
-        address: session.user.address || "",
-        postalCode: session.user.postalCode || "",
-        city: session.user.city || "",
-        country: session.user.country || "France",
-        phone: session.user.phone || "",
-      });
-    }
+    const loadFromDb = async () => {
+      if (status !== "authenticated") return;
+      try {
+        const res = await fetch("/api/user/address", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.user) {
+            setAddressData({
+              name: data.user.name || "",
+              lastname: data.user.lastname || "",
+              address: data.user.address || "",
+              postalCode: data.user.postalCode || "",
+              city: data.user.city || "",
+              country: data.user.country || "France",
+              phone: data.user.phone || "",
+            });
+            setUpdatedUserData(data.user);
+            return;
+          }
+        }
+        // fallback session si l'API ne renvoie rien
+        if (session?.user) {
+          setAddressData({
+            name: session.user.name || "",
+            lastname: session.user.lastname || "",
+            address: session.user.address || "",
+            postalCode: session.user.postalCode || "",
+            city: session.user.city || "",
+            country: session.user.country || "France",
+            phone: session.user.phone || "",
+          });
+        }
+      } catch (e) {
+        console.error("Erreur chargement adresse DB", e);
+        if (session?.user) {
+          setAddressData({
+            name: session.user.name || "",
+            lastname: session.user.lastname || "",
+            address: session.user.address || "",
+            postalCode: session.user.postalCode || "",
+            city: session.user.city || "",
+            country: session.user.country || "France",
+            phone: session.user.phone || "",
+          });
+        }
+      }
+    };
+    loadFromDb();
   }, [session, status]);
 
   const handleChange = (e) => {
@@ -118,6 +152,18 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }) {
         setShowForm(false);
 
         setUpdatedUserData(data.user);
+       
+        if (data?.user) {
+          setAddressData({
+            name: data.user.name || "",
+            lastname: data.user.lastname || "",
+            address: data.user.address || "",
+            postalCode: data.user.postalCode || "",
+            city: data.user.city || "",
+            country: data.user.country || "France",
+            phone: data.user.phone || "",
+          });
+        }
 
         if (typeof goToNextStep === "function") {
           goToNextStep();

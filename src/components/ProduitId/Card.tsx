@@ -50,18 +50,24 @@ const ProductCard: React.FC<{
 
   const onLikeClick = async () => {
     if (!session?.user?.id) {
-      // Gérer le cas où l'utilisateur n'est pas connecté
+      
       return;
     }
   
     const userId = Number(session.user.id);
-    const canapeId = item.id;
-    const liked = isLiked(canapeId);
+    //TODO: Il y a pas de de type pour produit nettoyant
+    const isCanape = typeof item?.typeCanape === "string" || Array.isArray(item?.miniDescription);
+    const targetId = item.id
+    const liked = isLiked(targetId);
+    
+    console.log(userId + " " + targetId);
+    console.log(item?.id);
+    
   
     try {
       if (liked) {
-      
-        const res = await fetch(`/api/favorites?userId=${userId}&canapeId=${canapeId}`, {
+
+        const res = await fetch(`/api/favorites?userId=${userId}&id=${targetId}`, {
           method: "DELETE",
         });
   
@@ -69,20 +75,30 @@ const ProductCard: React.FC<{
           handleLike(item, session); 
         } else {
           const error = await res.json();
-          console.error("Erreur lors de l'ajout du favori:", error);
+          console.error("Erreur lors de la suppression du favori:", error);
         }
       } else {
        
         const res = await fetch('/api/favorites', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId, canapeId }),
+          body: JSON.stringify(
+            isCanape
+              ? { userId, canapeId: targetId }
+              : { userId, produitId: targetId }
+          ),
         });
+        console.log(isCanape);
+        
   
         if (res.ok) {
           handleLike(item, session);
         } else {
-          console.error("Erreur lors de l'ajout du favori");
+          const payload = await res.json().catch(() => ({}));
+          console.error("Erreur lors de l'ajout du favori", {
+            status: res.status,
+            payload,
+          });
         }
       }
     } catch (error) {

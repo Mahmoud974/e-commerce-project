@@ -3,6 +3,7 @@ import Image from "next/image";
 
 const baseImageUrl = process.env.NEXT_PUBLIC_BANNER_IMAGE || "";
 const EntretienPage = () => {
+  
   return (
     <PageLayoutBanner
       title="Entretien du produit"

@@ -31,10 +31,22 @@ export default function Address() {
 
         if (res.ok) {
           const data = await res.json();
-          if (data.tokenExists && data.tokenEmail) {
+          if (data?.user) {
+            setFormData({
+              name: data.user.name || "",
+              lastname: data.user.lastname || "",
+              address: data.user.address || "",
+              postalCode: data.user.postalCode || "",
+              city: data.user.city || "",
+              country: data.user.country || "France",
+              phone: data.user.phone || "",
+            });
+            setUpdatedUserData(data.user);
+          } else {
+            // Fallback to session if API returns no user
             setFormData({
               name: session.user.name || "",
-              lastname: session.user.lastname || "",
+              lastname: (session.user as any).lastname || "",
               address: session.user.address || "",
               postalCode: session.user.postalCode || "",
               city: session.user.city || "",

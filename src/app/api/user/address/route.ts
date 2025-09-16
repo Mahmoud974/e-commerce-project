@@ -176,15 +176,41 @@ export async function GET(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
-    return NextResponse.json({
-      message: "Route API fonctionnelle",
-      tokenExists: !!token,
-      tokenEmail: token?.email || null,
+    if (!token || !token.email) {
+      return NextResponse.json(
+        { message: "Veuillez vous connecter" },
+        { status: 401 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: token.email },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        lastname: true,
+        address: true,
+        postalCode: true,
+        city: true,
+        country: true,
+        phone: true,
+        updatedAt: true,
+      },
     });
+
+    if (!user) {
+      return NextResponse.json(
+        { message: "Utilisateur non trouvé" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ user });
   } catch (error) {
     return NextResponse.json(
       {
-        message: "Erreur lors du test de la route",
+        message: "Erreur lors de la récupération de l'utilisateur",
         error: error instanceof Error ? error.message : "Erreur inconnue",
       },
       { status: 500 }

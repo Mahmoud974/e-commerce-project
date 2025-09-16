@@ -65,15 +65,48 @@ export default function ProductPageClient({
 
     return articleIdStr === slugStr;
   });
-
-  // Convertir le prix selon la devise sélectionnée
+  console.log(idArticle);
+  
+ 
   const convertedPrice = idArticle
     ? convertPrice(idArticle.price, currency || "EUR")
     : 0;
   const priceHT = idArticle ? (convertedPrice / 1.2).toFixed(2) : "";
 
-  const onLikeClick = () => {
-    handleLike(idArticle, session);
+  const onLikeClick = async () => {
+    if (!session?.user?.id || !idArticle?.id) return;
+
+    const userId = Number(session.user.id);
+    const isCanape = typeof idArticle?.typeCanape === "string" || Array.isArray(idArticle?.miniDescription);
+    const targetId = idArticle.id;
+    const liked = isLiked(targetId);
+
+    try {
+      if (liked) {
+        const res = await fetch(`/api/favorites?userId=${userId}&id=${targetId}` , { method: "DELETE" });
+        if (res.ok) {
+          handleLike(idArticle, session);
+        }
+      } else {
+        const res = await fetch("/api/favorites", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(
+            isCanape ? { userId, canapeId: targetId } : { userId, produitId: targetId }
+          ),
+        });
+        if (res.ok) {
+          handleLike(idArticle, session);
+        } else {
+          const payload = await res.json().catch(() => ({} as any));
+          console.log(payload);
+          
+          console.error("Erreur lors de l'ajout du favori (detail)", { status: res.status, payload });
+        }
+      }
+    } catch (error) {
+      console.error("Erreur lors du traitement du like (detail):", error);
+    }
   };
 
   const handleAddToCart = () => {
