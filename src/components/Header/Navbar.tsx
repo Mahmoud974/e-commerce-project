@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import SheetDisplay from "../SideBar/MenuGeneral";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
@@ -31,7 +31,7 @@ export default function Navbar() {
     setCurrency(currency === "EUR" ? "GBP" : "EUR");
   };
 
-  const fetchSuggestions = async () => {
+  const fetchSuggestions = useCallback(async () => {
     if (!searchTerm) {
       setSuggestions([]);
       return;
@@ -45,14 +45,14 @@ export default function Navbar() {
     } catch {
       setSuggestions([]);
     }
-  };
+  }, [searchTerm]);
 
   useEffect(() => {
     const delay = setTimeout(() => {
       fetchSuggestions();
     }, 300);
     return () => clearTimeout(delay);
-  }, [searchTerm]);
+  }, [fetchSuggestions]);
 
   useEffect(() => {
     if (session?.user?.name) {
@@ -93,25 +93,35 @@ export default function Navbar() {
             className="w-auto"
           />
         </Link>
-        <ul className="flex flex-col">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <Link href={item.href} className="hover:underline">
-                {item.label}
-              </Link>
-            </li>
-          ))}
+        <ul className="flex flex-col space-y-2">
+          {navItems.map((item) => {
+            const isActive = pathname.startsWith(item.href);
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`px-3 py-1.5    transition-colors duration-200 ${
+                    isActive
+                      ? "bg-red-600 text-black font-bold shadow-[0_0_0_1px_rgba(220,38,38,0.2)]"
+                      : "border-transparent text-white hover:text-red-500 hover:border-red-500 hover:bg-red-500/10"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
-      {pathname === "/" && (
+      {(pathname === "/" || pathname.startsWith("/canapes")) && (
         <div className="relative z-40 w-1/3" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
               placeholder="Rechercher un produit…"
               autoComplete="off"
-              className="px-4 py-2 w-full text-white bg-black rounded-md border border-white focus:outline-none focus:ring-2 focus:ring-white"
+              className="px-4 py-2 w-full text-white bg-transparent placeholder-white rounded-md border border-white focus:outline-none focus:ring-2 focus:ring-white focus:bg-transparent"
               {...register("search", {
                 onChange: () => setShowSuggestions(true),
               })}
@@ -180,7 +190,7 @@ export default function Navbar() {
   );
 }
 
-// Exporter la fonction useQueryState pour la réutiliser dans ddd&#39;a#39;a#39;autres composants
+
 export const useCurrency = () => {
   const [currency, setCurrency] = useQueryState("currency", {
     parse: (v) => (v === "GBP" ? "GBP" : "EUR"),
