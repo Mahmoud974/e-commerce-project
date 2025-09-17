@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 import {   Truck, RotateCcw } from "lucide-react";
 import { FaCcApplePay, FaCcMastercard, FaCcPaypal, FaCcVisa } from "react-icons/fa";
 import { GoShieldCheck } from "react-icons/go";
@@ -25,6 +27,8 @@ export default function TotalOptions({
   const [discountCode, setDiscountCode] = useState("");
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
 
   const livraison =
     deliveryOption && typeof deliveryOption.price === "string"
@@ -35,9 +39,9 @@ export default function TotalOptions({
           )
       : 0;
 
-  const remise = isCodeValid ? total * 0.20 : 0; // 20% discount
-
-  const totalFinal = (total + livraison - remise).toFixed(2);
+  const convertedTotal = convertPrice(total, currency || "EUR");
+  const remise = isCodeValid ? convertedTotal * 0.20 : 0; // 20% discount
+  const totalFinal = (convertedTotal + livraison - remise).toFixed(2);
 
   const handleApplyCode = () => {
     if (discountCode.trim().toUpperCase() === "SAVE20") {
@@ -79,7 +83,7 @@ export default function TotalOptions({
               Produit{totalQuantity > 1 ? "s" : ""}{" "}
               <span className="font-bold">({totalQuantity})</span>
             </p>
-            <p className="font-bold">{total.toFixed(2)}€</p>
+            <p className="font-bold">{convertedTotal.toFixed(2)}{(currency || "EUR") === "EUR" ? "€" : "£"}</p>
           </li>
           <li className="flex justify-between mt-4">
             <p>Livraison</p>
@@ -99,7 +103,7 @@ export default function TotalOptions({
               <p>Prix total</p>
               <small className="text-gray-600">(Taxes 396,53€)</small>
             </div>
-            <p className="font-bold">{totalFinal}€</p>
+            <p className="font-bold">{totalFinal}{(currency || "EUR") === "EUR" ? "€" : "£"}</p>
           </li>
         </ul>
       </div>

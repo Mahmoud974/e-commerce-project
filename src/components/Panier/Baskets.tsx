@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function Baskets({
   goToNextStep,
@@ -14,14 +16,17 @@ export default function Baskets({
   totalQuantity,
 }) {
   const { items, removeItem, updateQuantity, clearCart } = useCartStore();
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
 
   const router = useRouter();
 
   useEffect(() => {
-    const newTotal = items.reduce(
-      (acc, item) => acc + item.price * (item.quantity || 1),
-      0
-    );
+    const newTotal = items.reduce((acc, item) => {
+      const base = typeof item.price === "number" ? item.price : 0;
+      const converted = convertPrice(base, currency || "EUR");
+      return acc + converted * (item.quantity || 1);
+    }, 0);
     setTotal(newTotal);
 
     const quantitySum = items.reduce(
@@ -29,7 +34,7 @@ export default function Baskets({
       0
     );
     setTotalQuantity(quantitySum);
-  }, [items]);
+  }, [items, currency, convertPrice]);
 
   useEffect(() => {
     if (items.length === 0) {
@@ -81,7 +86,16 @@ export default function Baskets({
                   />
                   <div className="ml-3">
                     <div className="text-lg font-bold">{item.title}</div>
-                    <div className="text-gray-400">{item.price}€</div>
+                    <div className="text-gray-400">
+                      {typeof item.price === "number" && item.price > 0 ? (
+                        <>
+                          {convertPrice(item.price, currency || "EUR")}
+                          {(currency || "EUR") === "EUR" ? "€" : "£"}
+                        </>
+                      ) : (
+                        "-"
+                      )}
+                    </div>
                   </div>
                 </Link>
                 <div className="flex items-center space-x-2">

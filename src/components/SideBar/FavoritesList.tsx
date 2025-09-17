@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Trash } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 type Like = { canapeId?: number; produitId?: number };
 type Item = { id: number; title: string; images?: string[]; price?: number };
@@ -14,6 +16,8 @@ export function FavoritesList( ) {
   const [produits, setProduits] = useState<Item[]>([]);
   const [likes, setLikes] = useState<Like[]>([]);
   const { data: session } = useSession();
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
 
   const removeItems = async (canapeId: number) => {
     if (!session?.user?.id) return;
@@ -117,7 +121,16 @@ export function FavoritesList( ) {
               />
               <div className="ml-3">
                 <div className="text-lg font-bold">{safeItem.title}</div>
-                <div className="text-gray-400">{safeItem.price}€</div>
+                <div className="text-gray-400">
+                  {typeof safeItem.price === "number" && safeItem.price > 0 ? (
+                    <>
+                      {convertPrice(safeItem.price, currency || "EUR")}
+                      {(currency || "EUR") === "EUR" ? "€" : "£"}
+                    </>
+                  ) : (
+                    "-"
+                  )}
+                </div>
               </div>
             </div>
           </Link>

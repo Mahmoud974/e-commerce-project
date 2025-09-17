@@ -4,6 +4,8 @@ import { Trash, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export function CartList({
   items,
@@ -14,6 +16,8 @@ export function CartList({
   const [total, setTotal] = useState(0);
   const [cartItems, setCartItems] = useState(items);
   const [isMounted, setIsMounted] = useState(false);
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
 
   useEffect(() => {
     setIsMounted(true);
@@ -24,12 +28,13 @@ export function CartList({
   }, [items]);
 
   useEffect(() => {
-    const newTotal = cartItems.reduce(
-      (acc, item) => acc + item.price * (item.quantity || 1),
-      0
-    );
+    const newTotal = cartItems.reduce((acc, item) => {
+      const base = typeof item.price === "number" ? item.price : 0;
+      const converted = convertPrice(base, currency || "EUR");
+      return acc + converted * (item.quantity || 1);
+    }, 0);
     setTotal(newTotal);
-  }, [cartItems]);
+  }, [cartItems, currency, convertPrice]);
 
   if (cartItems.length === 0) {
     return (
@@ -92,8 +97,11 @@ export function CartList({
                         : item.name || item.title || "Échantillon"}
                     </Link>
                     <div className="text-gray-400">
-                      {item.price > 0 ? (
-                        `${item.price}€`
+                      {typeof item.price === "number" && item.price > 0 ? (
+                        <>
+                          {convertPrice(item.price, currency || "EUR")}
+                          {(currency || "EUR") === "EUR" ? "€" : "£"}
+                        </>
                       ) : (
                         <p className="text-green-800 font-bold">Gratuit</p>
                       )}
@@ -131,7 +139,7 @@ export function CartList({
       <div className="flex justify-between pt-3 items-center sticky bottom-0 bg-black mt-2 border-t border-gray-700 py-3">
         <div className="flex flex-col">
           <p>Total:</p>
-          <p className="text-xl text-center font-bold">{total.toFixed(2)}€</p>
+          <p className="text-xl text-center font-bold">{total.toFixed(2)}{(currency || "EUR") === "EUR" ? "€" : "£"}</p>
         </div>
         <Link href="/panier/validation">
           <Button variant="destructive" className="bg-red-700">

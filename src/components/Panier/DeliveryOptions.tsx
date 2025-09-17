@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import { useCurrency } from "@/components/Header/Navbar";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function DeliveryOption({
   goToNextStep,
@@ -16,6 +18,8 @@ export default function DeliveryOption({
   }) => void;
 }) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const { currency } = useCurrency();
+  const { convertPrice } = useCurrencyStore();
 
   const deliveryOptions = [
     {
@@ -23,21 +27,21 @@ export default function DeliveryOption({
       title: "Livraison devant chez vous sur rendez-vous",
       description:
         "Livraison à domicile au pied du camion sur RDV. Disponible en France (hors Corse et îles), Belgique et Luxembourg.",
-      price: "99,00 € ",
+      priceEur: 99.0,
     },
     {
       id: 2,
       title: "Livraison chez vous dans la pièce de votre choix sur rendez-vous",
       description:
         "Livraison à domicile sur RDV directement dans la pièce de votre choix. Disponible en France (hors Corse et îles), Belgique et Luxembourg.",
-      price: "129,00 € ",
+      priceEur: 129.0,
     },
     {
       id: 3,
       title: "Retrait chez Best Mobilier - 59554 Raillencourt-Sainte-Olle",
       description:
         "Retirez votre produit gratuitement sur RDV dans notre dépôt près de Cambrai. Retraits les lundis et vendredis de 9h à 11h30, mardis, mercredis et jeudis de 9h à 11h30 et de 14h à 15h.",
-      price: "Gratuit",
+      priceEur: 0,
     },
   ];
 
@@ -45,7 +49,17 @@ export default function DeliveryOption({
     const selected = deliveryOptions.find((opt) => opt.id === id);
     if (selected) {
       setSelectedOption(id);
-      setDeliveryOption(selected);
+      const converted = convertPrice(selected.priceEur, currency || "EUR");
+      const priceString =
+        converted === 0
+          ? "Gratuit"
+          : `${converted.toFixed(2)}${(currency || "EUR") === "EUR" ? "€" : "£"}`;
+      setDeliveryOption({
+        id: selected.id,
+        title: selected.title,
+        description: selected.description,
+        price: priceString,
+      });
       alert(`Vous avez sélectionné : ${selected.title}`);
     }
   };
@@ -71,7 +85,13 @@ export default function DeliveryOption({
             >
               <h2 className="mb-2 text-lg font-semibold">{option.title}</h2>
               <p className="mb-4 text-sm text-gray-400 flex-grow">{option.description}</p>
-              <p className="mb-4 font-bold">{option.price}</p>
+              <p className="mb-4 font-bold">
+                {option.priceEur === 0
+                  ? "Gratuit"
+                  : `${convertPrice(option.priceEur, currency || "EUR").toFixed(2)}${
+                      (currency || "EUR") === "EUR" ? "€" : "£"
+                    }`}
+              </p>
               <button
                 className={`w-full py-2 text-sm font-bold rounded mt-auto ${ 
                   selectedOption === option.id
