@@ -19,17 +19,19 @@ export function FavoritesList( ) {
   const { currency } = useCurrency();
   const { convertPrice } = useCurrencyStore();
 
-  const removeItems = async (canapeId: number) => {
+  const removeItems = async (targetId: number) => {
     if (!session?.user?.id) return;
   
-    const res = await fetch(`/api/favorites?userId=${session.user.id}&canapeId=${canapeId}`, {
+    const res = await fetch(`/api/favorites?userId=${session.user.id}&id=${targetId}`, {
       method: "DELETE",
     });
   
     console.log("Status de la suppression:", res.status);
   
     if (res.ok) {
-      setLikes((prev) => prev.filter((like) => like.canapeId !== canapeId));
+      setLikes((prev) =>
+        prev.filter((like) => (like.canapeId ?? like.produitId) !== targetId ? true : false)
+      );
     } else {
       const error = await res.json();
       console.error("Erreur lors de la suppression du like", error);
