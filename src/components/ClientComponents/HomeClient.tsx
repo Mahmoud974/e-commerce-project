@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState, useRef } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Header/Navbar";
 import ProductCard from "@/components/ProduitId/Card";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ export default function HomeClient({ data }: { data: any[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const [randomEight, setRandomEight] = useState<any[]>(data.slice(0, 8));
  
 
   const accordionItems: AccordionItemType[] = [
@@ -54,9 +55,10 @@ export default function HomeClient({ data }: { data: any[] }) {
     },
   ];
 
-  const randomEight = useMemo(() => {
-    const shuffled = data.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 8);
+  // Do the randomization on the client after mount to avoid SSR/CSR mismatch
+  useEffect(() => {
+    const shuffled = [...data].sort(() => 0.5 - Math.random());
+    setRandomEight(shuffled.slice(0, 8));
   }, [data]);
 
   const scroll = (scrollOffset: number) => {
@@ -117,7 +119,7 @@ export default function HomeClient({ data }: { data: any[] }) {
 
       {/* Produits */}
       <div className="container mx-auto mb-12">
-        <h2 className="font-bold text-3xl mb-8">Plongez dans le confort moderne</h2>
+        <h2 className="font-bold text-3xl mb-8">Plongez dans le moderne</h2>
 
         <div className="relative">
           <div

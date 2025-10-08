@@ -27,7 +27,46 @@ export async function GET(request: Request) {
       take: 5,
     });
 
-    return NextResponse.json(canapes);
+    const produits = await prisma.produit.findMany({
+      where: {
+        OR: [
+          { title: { contains: query, mode: "insensitive" } },
+          { description: { contains: query, mode: "insensitive" } },
+          { brand: { contains: query, mode: "insensitive" } },
+          { reference: { contains: query, mode: "insensitive" } },
+        ],
+      },
+      select: {
+        id: true,
+        title: true,
+        images: true,
+      },
+      take: 5,
+    });
+
+    const echantillons = await prisma.echantillon.findMany({
+      where: {
+        OR: [
+          { nom: { contains: query, mode: "insensitive" } },
+          { type: { contains: query, mode: "insensitive" } },
+          { description: { contains: query, mode: "insensitive" } },
+        ],
+      },
+      select: {
+        id: true,
+        nom: true,
+        images: true,
+      },
+      take: 5,
+    });
+
+    const normalized = [
+      ...canapes.map((c) => ({ id: c.id, title: c.title, color: c.color, images: c.images })),
+      ...produits.map((p) => ({ id: p.id, title: p.title, color: null as any, images: p.images })),
+      ...echantillons.map((e) => ({ id: e.id, title: e.nom, color: null as any, images: e.images ? [e.images] : [] })),
+    ];
+
+    return NextResponse.json(normalized);
   } catch (error) {
     console.error("Erreur de recherche:", error);
     return NextResponse.json(

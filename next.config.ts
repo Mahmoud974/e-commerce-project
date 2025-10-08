@@ -6,6 +6,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "pejotrvfcsqfdakpnqil.supabase.co",
       "platform-lookaside.fbsbx.com",
+      "*",
     ],
   },
 };

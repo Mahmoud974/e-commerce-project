@@ -114,8 +114,11 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {(pathname === "/" || pathname.startsWith("/canapes")) && (
-        <div className="relative z-40 w-1/3" ref={containerRef}>
+      {(pathname === "/" ||
+        pathname.startsWith("/canapes") ||
+        pathname.startsWith("/produits-nettoyant") ||
+        pathname.startsWith("/echantillons")) && (
+        <div className="relative z-40 w-full max-w-xl" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
@@ -137,9 +140,10 @@ export default function Navbar() {
                   >
                     <div className="relative flex-shrink-0 w-12 h-12">
                       <Image
-                        src={item.images[0]}
-                        alt={item.title}
+                        src={item?.images?.[0] || "/images/default.png"}
+                        alt={item?.title || "Produit"}
                         fill
+                        unoptimized
                         className="object-contain w-auto rounded"
                       />
                     </div>
