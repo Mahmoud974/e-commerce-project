@@ -12,6 +12,7 @@ import {
   AccordionGeneral,
   AccordionItemType,
 } from "@/components/Accordions/AccordionGeneral";
+import { accordionItems } from "@/db/dataFAQ";
 
 
 
@@ -22,40 +23,8 @@ export default function HomeClient({ data }: { data: any[] }) {
   const [randomEight, setRandomEight] = useState<any[]>(data.slice(0, 8));
  
 
-  const accordionItems: AccordionItemType[] = [
-    {
-      value: "contact",
-      trigger: "Comment contacter le service client ?",
-      content: (
-        <p>
-          Vous pouvez nous joindre par e-mail ou via le formulaire de contact.
-          Notre équipe est dispo du lundi au samedi, de 9h à 18h.
-        </p>
-      ),
-    },
-    {
-      value: "garantie",
-      trigger: "Quelle est la durée de la garantie ?",
-      content: (
-        <p>
-    {`      Tous nos meubles sont garantis 5 ans contre les défauts de
-          fabrication. À partir de la date d'achat.`}
-        </p>
-      ),
-    },
-    {
-      value: "retour",
-      trigger: "Comment effectuer un retour ou un échange ?",
-      content: (
-        <p>
-          Vous avez 14 jours après réception pour nous retourner un article.
-          Allez dans votre espace client pour générer une étiquette retour.
-        </p>
-      ),
-    },
-  ];
+   
 
-  // Do the randomization on the client after mount to avoid SSR/CSR mismatch
   useEffect(() => {
     const shuffled = [...data].sort(() => 0.5 - Math.random());
     setRandomEight(shuffled.slice(0, 8));
@@ -106,20 +75,19 @@ export default function HomeClient({ data }: { data: any[] }) {
   </p>
   
  
-  
+  <Link href="/canapes">
   <button 
-    className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition"
-    onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
-  >
+    className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition">
     Voir la collection
   </button>
+  </Link>
 </div>
 
       </div>
 
       {/* Produits */}
       <div className="container mx-auto mb-12">
-        <h2 className="font-bold text-3xl mb-8">Plongez dans le moderne</h2>
+        <h2 className="font-bold text-3xl mb-8">Plongez dans le confort moderne</h2>
 
         <div className="relative">
           <div

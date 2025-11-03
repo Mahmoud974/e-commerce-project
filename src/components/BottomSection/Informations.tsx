@@ -15,12 +15,12 @@ const infos = [
   {
     img: `${`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/delivery.svg`}`,
     title: "Livraison à domicile",
-    desc: "Sur rendez-vous, à l&#39;étage",
+    desc: "Sur rendez-vous, à l' étage",
   },
   {
     img: `${`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/badge.svg`}`,
     title: "Satisfait ou remboursé",
-    desc: "14 jours pour changer ddd&#39;a#39;a#39;avis",
+    desc: "14 jours pour changer d' avis",
   },
 ];
 

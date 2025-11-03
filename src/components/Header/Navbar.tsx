@@ -116,7 +116,7 @@ export default function Navbar() {
 
       {(pathname === "/" ||
         pathname.startsWith("/canapes") ||
-        pathname.startsWith("/produits-nettoyant") ||
+        pathname.startsWith("/produits-entretien") ||
         pathname.startsWith("/echantillons")) && (
         <div className="relative z-40 w-full max-w-xl" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
