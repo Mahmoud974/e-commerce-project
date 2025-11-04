@@ -52,7 +52,7 @@ export function ProfileSection({ session, isProcessing }) {
 
         const data = await res.json();
         if (!res.ok) {
-          setError(data.message || "Erreur à lll&#39;i#39;i#39;inscription.");
+          setError(data.message || "Erreur à l'inscription.");
           return;
         }
 
@@ -160,7 +160,7 @@ export function ProfileSection({ session, isProcessing }) {
                       checked={formData.acceptTerms}
                       onChange={handleChange}
                     />
-                    JJJ&#39;a#39;a#39;accepte la politique d' utilisition
+                    {`'`}accepte la politique d{`'`} utilisition
                   </label>
                 </>
               )}
@@ -169,7 +169,7 @@ export function ProfileSection({ session, isProcessing }) {
                 type="submit"
                 className="bg-white text-black py-2 rounded"
               >
-                {activeTab === "login" ? "Se connecter" : "SSS&#39;i#39;i#39;inscrire"}
+                {activeTab === "login" ? "Se connecter" : "S'inscrire"}
               </button>
             </form>
           )}

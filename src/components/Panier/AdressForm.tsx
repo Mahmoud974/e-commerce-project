@@ -87,8 +87,8 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }:any) {
     if (status !== "authenticated" || !session?.user) {
       console.log("Status de la session:", status);
       console.log("Session actuelle:", session);
-      setMessage("❌ Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
-      setError("Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
+      setMessage("❌ Veuillez vous connecter pour modifier l'dresse");
+      setError("Veuillez vous connecter pour modifier l'adresse");
       return;
     }
 
@@ -110,7 +110,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }:any) {
 
     try {
       console.log("Envoi de la requête avec la session:", session);
-      console.log("Status lors de lll&#39;e#39;e#39;envoi:", status);
+      console.log("Status lors de l'envoi:", status);
       console.log("Données envoyées:", addressData);
       const res = await fetch("/api/user/address", {
         method: "PUT",
@@ -130,7 +130,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }:any) {
       if (res.status === 401) {
         setMessage("❌ Votre session a expiré. Veuillez vous reconnecter.");
         setError("Votre session a expiré. Veuillez vous reconnecter.");
-        console.error("Erreur ddd&#39;a#39;a#39;authentification (401)");
+        console.error("Erreur d'authentification (401)");
         return;
       }
 
@@ -171,7 +171,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }:any) {
       } else {
         setMessage(`❌ ${data.message || "Erreur lors de la mise à jour"}`);
         setError(data.message || "Erreur lors de la mise à jour");
-        console.error("Détails de lll&#39;e#39;e#39;erreur:", data);
+        console.error("Détails de l'erreur:", data);
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
@@ -397,7 +397,7 @@ export default function AddressForm({ goToNextStep, goToPreviousStep }:any) {
                 type="submit"
                 className="w-full bg-white text-black p-4 font-bold hover:bg-slate-100 transition duration-300"
               >
-                Enregistrer lll&#39;a#39;a#39;adresse
+                Enregistrer l{`'`}adresse
               </button>
               <button
                 type="button"

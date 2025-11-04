@@ -99,8 +99,8 @@ export default function UserForm() {
       if (res.ok) {
         setMessage("✅ Adresse enregistrée avec succès !");
       } else {
-        setMessage(`❌ ${data.message || "Erreur lors de lll&#39;e#39;e#39;enregistrement"}`);
-        console.error("Détails de lll&#39;e#39;e#39;erreur:", data);
+        setMessage(`❌ ${data.message || "Erreur lors de l'enregistrement"}`);
+        console.error("Détails de l'erreur:", data);
       }
     } catch (error) {
       console.error("Erreur complète lors de la requête:", error);
@@ -119,7 +119,7 @@ export default function UserForm() {
       console.log("Status:", status);
 
       if (status !== "authenticated" || !session) {
-        setMessage("❌ Test échoué: Vous n&#39;êtes pas authentifié");
+        setMessage("❌ Test échoué: Vous n'êtes pas authentifié");
         return;
       }
 
@@ -142,7 +142,7 @@ export default function UserForm() {
       console.log("Réponse du test:", testData);
 
       if (testResponse.ok) {
-        setMessage("✅ Test réussi! LLL&#39;A#39;A#39;API est accessible et fonctionne.");
+        setMessage("✅ Test réussi! L' API est accessible et fonctionne.");
       } else {
         setMessage(`❌ Test échoué: ${testData.message || "Erreur inconnue"}`);
       }

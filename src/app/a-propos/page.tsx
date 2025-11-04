@@ -22,12 +22,12 @@ export default function Page() {
               Depuis plus de 70 ans, nous collaborons avec les meilleurs
               designers du monde pour créer des meubles réputés pour leur
               modularité, leur fonctionnalité et leur qualité sans compromis.
-              Grâce à la créativité et à lll&#39;a#39;a#39;artisanat danois, nous rehaussons les
+              Grâce à la créativité et à l{`'`}artisanat danois, nous rehaussons les
               espaces avec un design iconique qui apporte joie et inspiration.
             </p>
 
             <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
-              Nous nous efforçons ddd&#39;a#39;a#39;améliorer la vie de chacun avec le design
+              Nous nous efforçons d{`'`}améliorer la vie de chacun avec le design
               danois, et cette mission inspire notre devise :{" "}
               <span className="font-semibold italic">Live Ekstraordinær</span>
             </p>
@@ -35,7 +35,7 @@ export default function Page() {
             <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
               Les produits BoConcept incarnent les valeurs essentielles du
               design danois : un artisanat soigné, une simplicité élégante, une
-              fonctionnalité optimale et lll&#39;u#39;u#39;utilisation de matériaux de haute
+              fonctionnalité optimale et l{`'`}utilisation de matériaux de haute
               qualité, qui sont au cœur de notre héritage.
             </p>
           </section>

@@ -31,7 +31,7 @@ export default function Page() {
             </p>
 
             <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
-              Nous nous efforçons ddd&#39;a#39;a#39;améliorer la vie de chacun avec le design
+              Nous nous efforçons d{`'`}améliorer la vie de chacun avec le design
               danois, et cette mission inspire notre devise :{" "}
               <span className="font-semibold italic">Live Ekstraordinær</span>
             </p>

@@ -133,7 +133,7 @@ const Card: React.FC<CardProps> = ({
           <p className="text-black text-2xl font-bold">{item.price}€</p>
           <Link href="/eco-mobilier">
             <small className="text-black underline mt-6">
-              Dont {item.ecoMobilier || 1} € d&#39;éco-part
+              Dont {item.ecoMobilier || 1} € d{`'`}éco-part
             </small>
           </Link>
         </div>

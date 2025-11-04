@@ -133,7 +133,7 @@ export default function PaymentOptions({ goToPreviousStep }) {
                     htmlFor="expiryDate"
                     className="block text-sm text-gray-300"
                   >
-                    Date ddd&#39;e#39;e#39;expiration (MM/AA)
+                    Date d{`'`}expiration (MM/AA)
                   </label>
                   <input
                     type="text"

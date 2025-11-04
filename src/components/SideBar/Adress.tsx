@@ -85,7 +85,7 @@ export default function Address() {
     setMessage("");
 
     if (status !== "authenticated" || !session?.user) {
-      setMessage("❌ Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
+      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
       return;
     }
 
@@ -154,7 +154,7 @@ export default function Address() {
 
   const startEditing = () => {
     if (status !== "authenticated") {
-      setMessage("❌ Veuillez vous connecter pour modifier lll&#39;a#39;a#39;adresse");
+      setMessage("❌ Veuillez vous connecter pour modifier l'adresse");
       return;
     }
     setIsEditing(true);

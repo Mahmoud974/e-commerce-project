@@ -24,7 +24,7 @@ export default function NotFound() {
             />
 
             <figcaption className="sr-only">
-              Image illustrant lll&#39;e#39;e#39;erreur 404
+              Image illustrant l{`'`}erreur 404
             </figcaption>
           </figure>
 

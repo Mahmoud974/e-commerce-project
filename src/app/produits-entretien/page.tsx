@@ -12,7 +12,7 @@ const EntretienPage = () => {
     >
       <div className="mt-12 text-center px-4 mb-12">
         <p className="text-white text-lg mt-6 max-w-3xl mx-auto">
-          Pour garantir une longévité optimale et maintenir lll&#39;a#39;a#39;apparence
+          Pour garantir une longévité optimale et maintenir l{`'`}apparence
           impeccable de vos meubles, un entretien régulier est essentiel. Que ce
           soit le bois, le tissu ou le cuir, chaque matériau demande des soins
           spécifiques pour résister aux défis du quotidien tout en conservant
@@ -20,11 +20,11 @@ const EntretienPage = () => {
         </p>
         <p className="text-white text-lg mt-4 max-w-3xl mx-auto">
           Découvrez nos recommandations adaptées pour chaque type de produit et
-          offrez à vos meubles lll&#39;a#39;a#39;attention quuu&#39;i#39;i#39;ils méritent.
+          offrez à vos meubles l{`'`}attention qu{`'`}ils méritent.
         </p>
       </div>
 
-      {/* Section entretien */}
+ 
       <div>
         <div
           className="bg-red-700 w-1/3 h-3 mb-8 mx-auto"
@@ -34,7 +34,7 @@ const EntretienPage = () => {
           className="font-bold text-3xl text-center mb-8 lg:px-0 px-12"
           id="entretien-materiaux"
         >
-          Conseils ddd&#39;e#39;e#39;entretien par type de matériau
+          Conseils d{`'`}entretien par type de matériau
         </h2>
         <ul
           className="flex lg:px-0 px-12 flex-col sm:flex-row mt-8 gap-12 items-center justify-center sm:space-x-8"
@@ -112,7 +112,7 @@ const EntretienPage = () => {
             les rayures sur vos sols, optez pour des housses adaptées pour vos
             canapés et appliquez des traitements spécifiques, comme des
             solutions anti-humidité pour les meubles en bois dans les zones à
-            fort taux ddd&#39;h#39;h#39;humidité. Ces petites attentions feront toute la
+            fort taux d{`'`}humidité. Ces petites attentions feront toute la
             différence sur le long terme.
           </p>
         </div>
@@ -121,7 +121,7 @@ const EntretienPage = () => {
             src={baseImageUrl + "cleanTextile.webp"}
             width={500}
             height={500}
-            alt="Protection des meubles : conseils pour éviter lll&#39;u#39;u#39;usure"
+            alt="Protection des meubles : conseils pour éviter l'usure"
             className="object-cover w-full h-full"
           />
         </div>

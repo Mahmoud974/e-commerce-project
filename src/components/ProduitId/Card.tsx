@@ -55,7 +55,7 @@ const ProductCard: React.FC<{
     }
   
     const userId = Number(session.user.id);
-    //TODO: Il y a pas de de type pour produit nettoyant
+    
     const isCanape = typeof item?.typeCanape === "string" || Array.isArray(item?.miniDescription);
     const targetId = item.id
     const liked = isLiked(targetId);
@@ -122,7 +122,7 @@ const ProductCard: React.FC<{
   const currencySymbol = currency === "EUR" ? "€" : "£";
 
   return (
-    <div className={`flex-shrink-0 bg-white rounded-lg border border-gray-200 shadow-md ${className}`}>
+    <div className={`flex-shrink-0  bg-[#191b1c]  rounded-lg border border-[#191b1c] shadow-md ${className}`}>
       <Link
         href={`/produit/${item.id}`}
         className="block overflow-hidden relative w-full bg-black rounded-t-lg"
@@ -168,7 +168,7 @@ const ProductCard: React.FC<{
       <div className="p-4 space-y-1">
         <div className="flex flex-col justify-between text-black">
           <div className="flex justify-between items-center">
-            <p className="text-2xl font-semibold truncate">
+            <p className="text-2xl font-semibold truncate text-white">
               {item?.title || "Produit"}
             </p>
             {["Aube Dorée", "Atelier Urbain", "Matelassé Confort", "Graphique Moderne", "Lueur Bohème"].includes(item.title) && (
@@ -177,24 +177,24 @@ const ProductCard: React.FC<{
               </span>
             )}
           </div>
-          <small>{item.brand}</small>
-          <p>{item.description.slice(0, 70)}...</p>
+          <small className="text-white">{item.brand}</small>
+          <p className="text-white">{item.description.slice(0, 70)}...</p>
         </div>
       </div>
 
-      <div className="flex gap-2 justify-between items-start px-4 py-3 border-t border-gray-200">
+      <div className="flex gap-2 justify-between items-start px-4 py-3 border-t  border-[#101213]">
         <div>
-          <p className="text-2xl font-bold text-black">
+          <p className="text-2xl font-bold text-white">
             {convertedPrice}
             {currencySymbol}
           </p>
           <Link href="/eco-mobilier">
-            <small className="mt-6 text-black underline">
+            <small className="mt-6   underline">
               Dont{" "}
               {currency === "EUR"
                 ? item.ecoMobilier
                 : convertPrice(item.ecoMobilier, currency || "EUR")}{" "}
-              {currencySymbol} d&#39;éco-part
+              {currencySymbol} d{`'`}éco-part
             </small>
           </Link>
         </div>

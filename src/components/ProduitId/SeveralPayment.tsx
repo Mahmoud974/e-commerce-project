@@ -38,11 +38,10 @@ export function SeveralPayment() {
               disabled
             />
           </div>
-
-          {/* Étape 2: Choisir le nombre d&#39;échéances */}
+ 
           <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="installments" className="text-right text-black">
-              Nombre d&#39;échéances
+              Nombre d{`'`}échéances
             </Label>
             <div className="flex col-span-3 gap-4">
               <Button
@@ -75,7 +74,7 @@ export function SeveralPayment() {
           {/* Étape 3: Affichage des montants */}
           <div className="grid grid-cols-4 gap-4 items-center">
             <Label htmlFor="amount-today" className="text-right text-black">
-              {`Aujourddd&#39;h#39;h#39;hui`}
+              {`Aujourd'hui`}
             </Label>
             <div className="col-span-3 text-black">99,68 €</div>
           </div>

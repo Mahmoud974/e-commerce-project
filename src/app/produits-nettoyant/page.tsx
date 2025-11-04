@@ -71,7 +71,7 @@ export default async function NettoyantsProduits() {
       description: product.description || "Aucune description disponible",
       price: formattedPrice,
       images: cleanedImages,
-      brand: product.brand || "Produit ddd&#39;e#39;e#39;entretien",
+      brand: product.brand || "Produit d'entretien",
       ecoMobilier: product.ecoMobilier || 0.25,
       quantity: product.quantity || 1,
       disponibilite: product.disponibilite || true,

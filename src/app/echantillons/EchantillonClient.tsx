@@ -45,7 +45,7 @@ export default function EchantillonClient({ initialEchantillons }) {
           item.description || `Échantillon ${item.type || ""} gratuit`,
         color: item.color || "",
       };
-      console.log(`Ajout de l&#39;échantillon: ${itemWithZeroPrice.name}`);
+      console.log(`Ajout de l'échantillon: ${itemWithZeroPrice.name}`);
 
       addItem(itemWithZeroPrice);
     }
