@@ -124,7 +124,7 @@ export default function CanapesClient({ data }: { data: Item[] }) {
                   </p>
                 )}
               </section>
-
+{/* Total de canapé */}
               {totalPages > 1 && (
                 <div className="flex justify-center mt-6 sm:mt-8 gap-1 sm:gap-2 flex-wrap">
                   {Array.from({ length: totalPages }, (_, i) => (
