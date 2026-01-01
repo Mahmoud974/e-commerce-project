@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/ProduitId/Card";
 import Filter from "@/components/Header/Filter";
 import { useQueryState } from "nuqs";
-import LexChat from "../chat/Chat";
+ 
 import ProductLayout from "@/components/Layouts/ProductLayout";
 import { Item } from "@/app/types/canape";
 
@@ -108,7 +108,7 @@ export default function CanapesClient({ data }: { data: Item[] }) {
                 colorProduct={colorProduct}
                 seatProduct={seatProduct}
               />
-              <LexChat />
+        
 
               <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 mx-auto w-full">
                 {paginatedData.length > 0 ? (
