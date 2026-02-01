@@ -120,7 +120,7 @@ export default function CanapesClient({ data }: { data: Item[] }) {
                   ))
                 ) : (
                   <p className="text-white text-center col-span-full">
-                    Aucun article disponible.
+                    Aucun produit disponible.
                   </p>
                 )}
               </section>
