@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import QueryProvider from "@/app/hook/__provider";
 import SessionWrapper from "./SessionWrapper";
@@ -7,6 +8,7 @@ import HelpSection from "@/components/BottomSection/HelpSection";
 import Newsletter from "@/components/BottomSection/Newsletter";
 import Footer from "@/components/BottomSection/Footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 export const metadata: Metadata = {
   title: "SOFA CHIC | Découvrez Notre Collection Exclusive de Canapés",
   description: "Des canapés design, confortables et personnalisables pour tous les intérieurs. Plongez dans le confort moderne.",
@@ -28,7 +30,9 @@ export default function RootLayout({
       <html lang="en">
         <body className={` antialiased`}>
           <QueryProvider>
-            <NuqsAdapter>{children}</NuqsAdapter>
+            <Suspense fallback={<div className="min-h-screen" />}>
+              <NuqsAdapter>{children}</NuqsAdapter>
+            </Suspense>
           </QueryProvider>
           <Informations />
           <Newsletter />
