@@ -1,4 +1,5 @@
 import ProductPageClient from "../../../components/ClientComponents/ClientProductID";
+import { getArticles, getProduitsEntretien } from "@/lib/data";
 
 interface PageProps {
   params: { slug: string };
@@ -6,42 +7,23 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const slug = params.slug;
-  console.log(slug);
-  let res;
   try {
     const slugNumber = Number(slug);
+    let data: Awaited<ReturnType<typeof getArticles>> | Awaited<ReturnType<typeof getProduitsEntretien>>;
 
     if (slugNumber > 67 && slugNumber < 86) {
-      res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/produits-entretien/`,
-        {
-          cache: "no-cache",
-        }
-      );
+      data = await getProduitsEntretien();
     } else if (slugNumber > 1 && slugNumber < 55) {
-      res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/`, {
-        cache: "no-cache",
-      });
+      data = await getArticles();
     } else {
-      res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/`, {
-        cache: "no-cache",
-      });
-
-      if (!res.ok) {
-        res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/produits-entretien/`,
-          {
-            cache: "no-cache",
-          }
-        );
+      data = await getArticles();
+      const articleExists = data.some(
+        (a: { id: number }) => Number(a.id) === Number(slug)
+      );
+      if (!articleExists) {
+        data = await getProduitsEntretien();
       }
     }
-
-    if (!res || !res.ok) {
-      throw new Error(`Échec du chargement de l'article ${slug}`);
-    }
-
-    const data = await res.json();
 
     const articleExists = data.some(
       (article:any) => Number(article.id) === Number(slug)

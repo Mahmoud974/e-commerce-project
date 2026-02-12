@@ -1,32 +1,10 @@
 import React from "react";
 import ProductLayout from "@/components/Layouts/ProductLayout";
 import EchantillonClient from "./EchantillonClient";
-
-async function getEchantillons() {
-  try {
-    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/echantillons`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error("Erreur lors de la récupération des échantillons");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error("Erreur lors de la récupération des échantillons:", error);
-
-    return;
-  }
-}
+import { getEchantillons } from "@/lib/data";
 
 export default async function EchantillonsPage() {
-  const echantillons = await getEchantillons();
-  console.log(echantillons);
+  const echantillons = await getEchantillons() ?? [];
 
   return (
     <ProductLayout

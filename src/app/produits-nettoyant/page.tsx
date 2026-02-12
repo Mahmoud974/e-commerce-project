@@ -1,28 +1,17 @@
 import React from "react";
 import ProductLayout from "@/components/Layouts/ProductLayout";
 import ClientComponent from "../../components/ClientComponents/ClientProduitEntretien";
+import { getProduitsEntretien } from "@/lib/data";
 
 export default async function NettoyantsProduits() {
-  let products = [];
-  let error = null;
+  let products: Awaited<ReturnType<typeof getProduitsEntretien>> = [];
+  let error: string | null = null;
 
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + "/api/produits-entretien",
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
-    }
-
-    products = await response.json();
-    console.log("Données brutes de ", products);
-  } catch (err: any) {
+    products = await getProduitsEntretien();
+  } catch (err: unknown) {
     console.error("Erreur lors du chargement des produits:", err);
-    error = err.message;
+    error = err instanceof Error ? err.message : "Erreur inconnue";
   }
 
   const adaptedProducts = products.map((product:any) => {
