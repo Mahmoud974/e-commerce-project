@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback, Suspense } from "react";
 import SheetDisplay from "../SideBar/MenuGeneral";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
@@ -12,7 +12,7 @@ import { useQueryState } from "nuqs";
 
 type Inputs = { search: string };
 
-export default function Navbar() {
+function NavbarContent() {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [userName, setUserName] = useState("");
@@ -203,3 +203,17 @@ export const useCurrency = () => {
 
   return { currency, setCurrency };
 };
+
+function NavbarFallback() {
+  return (
+    <nav className="flex relative z-50 justify-between items-center py-4 w-full text-white min-h-[4rem]" />
+  );
+}
+
+export default function Navbar() {
+  return (
+    <Suspense fallback={<NavbarFallback />}>
+      <NavbarContent />
+    </Suspense>
+  );
+}
