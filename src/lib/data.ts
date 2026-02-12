@@ -8,6 +8,7 @@ const stringify = (value: unknown) =>
   );
 
 export async function getArticles() {
+  if (!process.env.DATABASE_URL) return [];
   const cacheKey = "canapes:all";
   const cached = await redis.get(cacheKey);
   if (cached) return JSON.parse(cached);
@@ -18,6 +19,7 @@ export async function getArticles() {
 }
 
 export async function getProduitsEntretien() {
+  if (!process.env.DATABASE_URL) return [];
   const cacheKey = "produits-entretien:all";
   const cached = await redis.get(cacheKey);
   if (cached) return JSON.parse(cached);
@@ -28,6 +30,7 @@ export async function getProduitsEntretien() {
 }
 
 export async function getEchantillons() {
+  if (!process.env.DATABASE_URL) return [...materials];
   const cacheKey = "echantillons:all";
   const cached = await redis.get(cacheKey);
   if (cached) return JSON.parse(cached);
