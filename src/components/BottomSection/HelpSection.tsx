@@ -7,27 +7,27 @@ export default function HelpSection() {
   const helpItems = [
     {
       title: "Nous contacter",
-      image: "/images/logo-mockup.png",
+      image: "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/help/call.jpg",
       link: "/contactez-nous",
     },
     {
       title: "Délai de livraison",
-      image: "/images/delivery1.png",
+      image: "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/help/fourgon.jpg",
       link: "/infos-livraison",
     },
     {
-      title: "Entretien des meubles",
-      image: "/images/cleanSofa2.jpg",
+      title: "Entretien",
+      image: "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/help/entretien.jpg",
       link: "/produits-entretien",
     },
     {
-      title: "Instructions d'assemblage",
-      image: "/images/instruction.jpg",
+      title: "Instructions",
+      image: "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/help/instructions.jpg",
       link: "/instructions-assemblage",
     },
     {
       title: "Garantie",
-      image: "/images/guarantie.jpg",
+      image: "https://pejotrvfcsqfdakpnqil.supabase.co/storage/v1/object/public/help/garantie.jpg",
       link: "/conditions-garantie",
     },
   ];
