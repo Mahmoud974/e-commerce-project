@@ -21,7 +21,7 @@ const redis = process.env.REDIS_URL
       enableOfflineQueue: false,
     });
 
-// Ignorer les erreurs de connexion pendant le build
+ 
 redis.on('error', (err) => {
   if (process.env.NODE_ENV !== 'production') {
     console.warn('Redis connection error:', err.message);
