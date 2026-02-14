@@ -1,32 +1,15 @@
-import Redis from "ioredis";
+import { Redis } from "@upstash/redis";
 
-// Éviter Redis pendant le build
-const isBuilding = process.env.NEXT_PHASE === 'phase-production-build';
-
-const redis = isBuilding 
-  ? null 
-  : process.env.REDIS_URL
-    ? new Redis(process.env.REDIS_URL, {
-        lazyConnect: true,
-        maxRetriesPerRequest: 1,
-        enableOfflineQueue: false,
-        retryStrategy: () => null,
-      })
-    : new Redis({
-        host: process.env.REDIS_HOST || "localhost",
-        port: parseInt(process.env.REDIS_PORT || "6379"),
-        lazyConnect: true,
-        maxRetriesPerRequest: 1,
-        enableOfflineQueue: false,
-        retryStrategy: () => null,
-      });
-
-if (redis) {
-  redis.on('error', (err) => {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('Redis connection error:', err.message);
-    }
-  });
+// Vérification des variables d'environnement
+if (!process.env.UPSTASH_REDIS_REST_URL) {
+  throw new Error("UPSTASH_REDIS_REST_URL is not defined");
 }
 
-export default redis;
+if (!process.env.UPSTASH_REDIS_REST_TOKEN) {
+  throw new Error("UPSTASH_REDIS_REST_TOKEN is not defined");
+}
+
+export const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});

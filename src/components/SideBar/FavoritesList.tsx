@@ -10,8 +10,16 @@ import { useCurrencyStore } from "@/store/currencyStore";
 
 type Like = { canapeId?: number; produitId?: number };
 type Item = { id: number; title: string; images?: string[]; price?: number };
+type FavoritesListProps = {
+  isFavorite: any;  
+  selectedItems: any[];
+  removeItems: (id: string | number) => void;
+};
+export function FavoritesList({
+  isFavorite,
+  selectedItems,
 
-export function FavoritesList( ) {
+}: FavoritesListProps ) {
   const [articles, setArticles] = useState<Item[]>([]);
   const [produits, setProduits] = useState<Item[]>([]);
   const [likes, setLikes] = useState<Like[]>([]);

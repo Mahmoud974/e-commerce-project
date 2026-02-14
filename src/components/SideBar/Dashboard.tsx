@@ -1,7 +1,11 @@
-import Image from "next/image";
-import { Trash } from "lucide-react";
-
-export function Dashboard() {
+type DashboardProps = {
+  selectedItems: any[];
+  removeItems: (id: string | number) => void;
+};
+export function Dashboard({
+  selectedItems,
+  removeItems,
+}: DashboardProps) {
   return (
     <div className="p-2   text-white  space-y-6">
       {/* Section Mes commandes */}

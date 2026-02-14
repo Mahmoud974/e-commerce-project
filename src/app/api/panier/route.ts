@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import redis from "@/lib/redis";
+import { redis } from "@/lib/redis";
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 
@@ -11,7 +12,7 @@ const getUserId = async () => {
 export async function GET() {
   const userId = await getUserId();
   const data = await redis.get(`panier:${userId}`);
-  return NextResponse.json(JSON.parse(data || "[]"));
+  return NextResponse.json(JSON.parse(data as string || "[]"));
 }
 
 export async function POST(req: Request) {
