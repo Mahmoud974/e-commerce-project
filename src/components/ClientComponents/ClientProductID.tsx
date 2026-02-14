@@ -144,7 +144,7 @@ export default function ProductPageClient({
             Produit non trouvé
           </h2>
           <p className="mb-4">
-           {` Le produit avec l' identifiant &quot;{slug}&quot; n' a pas été trouvé dans notre
+           {` Le produit avec l' identifiant n' a pas été trouvé dans notre
             catalogue.`}
           </p>
           <Link href="/">

@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { signIn, signOut } from "next-auth/react";
-import { DoorOpen } from "lucide-react";
+import { DoorOpen, Eye, EyeOff } from "lucide-react";
 import { Button } from "../ui/button";
 import Address from "./Adress";
 
-export function ProfileSection({ session, isProcessing }) {
+export function ProfileSection({ session, isProcessing }: { session: any, isProcessing: boolean }) {
   const [activeTab, setActiveTab] = useState("login");
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,7 +17,7 @@ export function ProfileSection({ session, isProcessing }) {
   });
   const [error, setError] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -24,7 +25,7 @@ export function ProfileSection({ session, isProcessing }) {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -34,7 +35,7 @@ export function ProfileSection({ session, isProcessing }) {
     }
 
     if (activeTab === "register" && !formData.acceptTerms) {
-      setError("Vous devez accepter la politique d' utilisition.");
+      setError("Vous devez accepter la politique d' utilisation.");
       return;
     }
 
@@ -138,15 +139,31 @@ export function ProfileSection({ session, isProcessing }) {
                 required
               />
 
-              <input
-                type="password"
-                name="password"
-                placeholder="Mot de passe"
-                value={formData.password}
-                onChange={handleChange}
-                className="p-2 bg-black border"
-                required
-              />
+              {/* ✅ Champ mot de passe avec œil */}
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Mot de passe"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="p-2 bg-black border w-full pr-10"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+                >
+                  {showPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
+              </div>
+
               {activeTab === "register" && (
                 <>
                   <label className="text-xs text-gray-400">
@@ -160,7 +177,7 @@ export function ProfileSection({ session, isProcessing }) {
                       checked={formData.acceptTerms}
                       onChange={handleChange}
                     />
-                    {`'`}accepte la politique d{`'`} utilisition
+                    j {`'`} accepte la politique d{`'`} utilisation
                   </label>
                 </>
               )}
@@ -174,7 +191,7 @@ export function ProfileSection({ session, isProcessing }) {
             </form>
           )}
 
-          <Button onClick={() => signIn("google")} className="mt-3 bg-red-600">
+          {/* <Button onClick={() => signIn("google")} className="mt-3 bg-red-600">
             {isProcessing ? "Chargement..." : "Se connecter avec Google"}
           </Button>
           <Button
@@ -182,7 +199,7 @@ export function ProfileSection({ session, isProcessing }) {
             className="mt-3 bg-blue-600"
           >
             {isProcessing ? "Chargement..." : "Se connecter avec Facebook"}
-          </Button>
+          </Button> */}
         </>
       ) : (
         <>

@@ -4,13 +4,13 @@ import React from "react";
 const ConditionsPage = () => {
   return (
     <Layout
-      title="Conditions d' utilisition"
-      description="Conditions d' utilisition de notre site de vente eCommerce."
+      title="Conditions d' utilisation"
+      description="Conditions d' utilisation de notre site de vente eCommerce."
     >
       <main className="w-full max-w-screen-xl mx-auto px-6">
         <header className="mb-8">
           <h1 className="text-4xl font-semibold mb-6 text-white">
-            Conditions d{`'`}utilisition
+            Conditions d{`'`}utilisation
           </h1>
         </header>
 
@@ -18,7 +18,7 @@ const ConditionsPage = () => {
           <section className="mb-8" id="introduction">
             <h2 className="text-2xl font-medium text-white">Introduction</h2>
             <p className="text-lg text-gray-600">
-              Les présentes Conditions d{`'`} utilisition régissent l{`'`}utilisation de
+              Les présentes Conditions d{`'`} utilisation régissent l{`'`}utilisation de
               notre site de vente en ligne. En accédant à notre site et en
               l{`'`}utilisant, vous acceptez de respecter ces conditions. Si vous
               n{`'`}êtes pas d{`'`}accord avec ces conditions, veuillez ne pas utiliser
@@ -90,17 +90,17 @@ const ConditionsPage = () => {
               Notre site peut contenir des liens vers d{`'`}autres sites web qui ne
               sont pas sous notre contrôle. Nous ne sommes pas responsables du
               contenu de ces sites externes et nous vous recommandons de lire
-              leurs politiques de confidentialité et conditions d{`'`} utilisition.
+              leurs politiques de confidentialité et conditions d{`'`} utilisation.
             </p>
           </section>
 
           <section className="mb-8" id="modifications">
             <h2 className="text-2xl font-medium text-white">
-              Modifications des Conditions d{`'`} utilisition
+              Modifications des Conditions d{`'`} utilisation
             </h2>
             <p className="text-lg text-gray-600">
               Nous nous réservons le droit de modifier ces Conditions
-              d{`'`} utilisition à tout moment. Les modifications seront publiées sur
+              d{`'`} utilisation à tout moment. Les modifications seront publiées sur
               cette page et entreront en vigueur dès leur publication. Il est de
               votre responsabilité de consulter régulièrement cette page pour
               prendre connaissance des éventuelles modifications.
@@ -111,7 +111,7 @@ const ConditionsPage = () => {
             <h2 className="text-2xl font-medium text-white">Contact</h2>
             <p className="text-lg text-gray-600">
               Si vous avez des questions concernant ces Conditions
-              d{`'`} utilisition, veuillez nous contacter à l{`'`}adresse suivante :{" "}
+              d{`'`} utilisation, veuillez nous contacter à l{`'`}adresse suivante :{" "}
               <a
                 href="mailto:contact@votresite.com"
                 className="font-bold hover:underline"
