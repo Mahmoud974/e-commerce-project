@@ -26,7 +26,7 @@ export async function GET(
     return NextResponse.json({ article }, { status: 200 });
   }
 
-  // 🔎 1️⃣ Vérifie cache
+ 
   try {
     const cached = await redis.get<string>(cacheKey);
     if (cached) {
@@ -36,7 +36,7 @@ export async function GET(
     console.warn("Redis GET failed");
   }
 
-  // 📦 2️⃣ Sinon DB
+ 
   const article = await prisma.canape.findFirst({
     where: { nom: articleName },
   });
