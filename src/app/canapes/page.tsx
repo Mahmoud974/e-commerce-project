@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { Suspense } from "react";
 import CanapesClient from "@/components/ClientComponents/ClientCanapes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";

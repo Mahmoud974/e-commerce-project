@@ -9,32 +9,86 @@ const stringify = (value: unknown) =>
 
 export async function getArticles() {
   if (!process.env.DATABASE_URL) return [];
+  
+  // Si Redis n'est pas disponible (pendant le build), utiliser directement la DB
+  if (!redis) {
+    const items = await prisma.canape.findMany();
+    return JSON.parse(stringify(items));
+  }
+
   const cacheKey = "canapes:all";
-  const cached = await redis.get(cacheKey);
-  if (cached) return JSON.parse(cached);
+  
+  try {
+    const cached = await redis.get(cacheKey);
+    if (cached) return JSON.parse(cached);
+  } catch (error) {
+    console.warn('Redis get failed, using DB directly');
+  }
+
   const items = await prisma.canape.findMany();
   const jsonString = stringify(items);
-  await redis.set(cacheKey, jsonString, "EX", 60);
+  
+  try {
+    await redis.set(cacheKey, jsonString, "EX", 60);
+  } catch (error) {
+    console.warn('Redis set failed');
+  }
+  
   return JSON.parse(jsonString);
 }
 
 export async function getProduitsEntretien() {
   if (!process.env.DATABASE_URL) return [];
+  
+  if (!redis) {
+    const items = await prisma.produit.findMany({ where: {} });
+    return JSON.parse(stringify(items));
+  }
+
   const cacheKey = "produits-entretien:all";
-  const cached = await redis.get(cacheKey);
-  if (cached) return JSON.parse(cached);
+  
+  try {
+    const cached = await redis.get(cacheKey);
+    if (cached) return JSON.parse(cached);
+  } catch (error) {
+    console.warn('Redis get failed, using DB directly');
+  }
+
   const items = await prisma.produit.findMany({ where: {} });
   const jsonString = stringify(items);
-  await redis.set(cacheKey, jsonString, "EX", 3);
+  
+  try {
+    await redis.set(cacheKey, jsonString, "EX", 3);
+  } catch (error) {
+    console.warn('Redis set failed');
+  }
+  
   return JSON.parse(jsonString);
 }
 
 export async function getEchantillons() {
   if (!process.env.DATABASE_URL) return [...materials];
+  
+  if (!redis) {
+    return [...materials];
+  }
+
   const cacheKey = "echantillons:all";
-  const cached = await redis.get(cacheKey);
-  if (cached) return JSON.parse(cached);
+  
+  try {
+    const cached = await redis.get(cacheKey);
+    if (cached) return JSON.parse(cached);
+  } catch (error) {
+    console.warn('Redis get failed, using materials directly');
+  }
+
   const jsonString = stringify(materials);
-  await redis.set(cacheKey, jsonString, "EX", 60);
+  
+  try {
+    await redis.set(cacheKey, jsonString, "EX", 60);
+  } catch (error) {
+    console.warn('Redis set failed');
+  }
+  
   return JSON.parse(jsonString);
 }
