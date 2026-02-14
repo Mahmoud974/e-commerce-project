@@ -1,20 +1,13 @@
 "use client";
-import React, { useMemo, useState } from "react";
+
+import React, { useState } from "react";
 import Navbar from "@/components/Header/Navbar";
 import Gallery from "@/components/ProduitId/Gallery";
 import AlertMessage from "@/components/AlertNoLike";
 import NavItem from "@/components/ProduitId/NavItem";
 import {
-  ArrowRight,
-  ChevronRight,
-  Heart,
-  Share2,
   ShoppingCart,
-  SquareChevronLeft,
-  SquareChevronRight,
-  Star,
 } from "lucide-react";
-import { FaStar } from "react-icons/fa";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { useCartStore, useLikeStore } from "@/store/store";
@@ -25,289 +18,97 @@ import { useCurrency } from "@/components/Header/Navbar";
 import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function ProductPageClient({
-  data,
-  slug,
+  product,
+  relatedProducts,
 }: {
-  data: any[];
-  slug: string;
+  product: any;
+  relatedProducts: any[];
 }) {
   const [isHT, setIsHT] = useState(false);
   const [quantity, setQuantity] = useState(1);
+
   const { data: session } = useSession();
   const { currency } = useCurrency();
   const { convertPrice } = useCurrencyStore();
-  const randomFive = useMemo(() => {
-    return [...data].sort(() => Math.random() - 0.5).slice(0, 5);
-  }, [data]);
-  const {
-    isLiked,
-    handleLike,
-    alertType: likeAlertType,
-    alertMessage: likeAlertMessage,
-    alertId: likeAlertId,
-    showAlert: likeShowAlert,
-  } = useLikeStore();
 
   const {
     handleCart,
     isInCart,
-    alertType: cartAlertType,
-    alertMessage: cartAlertMessage,
-    alertId: cartAlertId,
-    showAlert: cartShowAlert,
   } = useCartStore();
 
-  const idArticle = data.find((article: any) => {
-    if (!article.id || !slug) return false;
-
-    const articleIdStr = String(article.id).trim();
-    const slugStr = String(slug).trim();
-
-    return articleIdStr === slugStr;
-  });
-  console.log(idArticle);
-  
- 
-  const convertedPrice = idArticle
-    ? convertPrice(idArticle.price, currency || "EUR")
-    : 0;
-  const priceHT = idArticle ? (convertedPrice / 1.2).toFixed(2) : "";
-
-  const onLikeClick = async () => {
-    if (!session?.user?.id || !idArticle?.id) return;
-
-    const userId = Number(session.user.id);
-    const isCanape = typeof idArticle?.typeCanape === "string" || Array.isArray(idArticle?.miniDescription);
-    const targetId = idArticle.id;
-    const liked = isLiked(targetId);
-
-    try {
-      if (liked) {
-        const res = await fetch(`/api/favorites?userId=${userId}&id=${targetId}` , { method: "DELETE" });
-        if (res.ok) {
-          handleLike(idArticle, session);
-        }
-      } else {
-        const res = await fetch("/api/favorites", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(
-            isCanape ? { userId, canapeId: targetId } : { userId, produitId: targetId }
-          ),
-        });
-        if (res.ok) {
-          handleLike(idArticle, session);
-        } else {
-          const payload = await res.json().catch(() => ({} as any));
-          console.log(payload);
-          
-          console.error("Erreur lors de l'ajout du favori (detail)", { status: res.status, payload });
-        }
-      }
-    } catch (error) {
-      console.error("Erreur lors du traitement du like (detail):", error);
-    }
-  };
+  const convertedPrice = convertPrice(product.price, currency || "EUR");
+  const priceHT = (convertedPrice / 1.2).toFixed(2);
 
   const handleAddToCart = () => {
-    if (!idArticle) return;
-
-    handleCart(idArticle, quantity);
+    handleCart(product, quantity);
   };
 
-  const isAlreadyInCart = idArticle ? isInCart(idArticle.id) : false;
-
-  const handleShare = () => {
-    const url = window.location.href;
-    const text = `Découvrez ce produit incroyable: ${idArticle?.nom}`;
-    const shareData = { title: idArticle?.nom, text, url };
-
-    if (navigator.share) {
-      navigator
-        .share(shareData)
-        .catch((err) => console.error("Erreur partage :", err));
-    } else {
-      const shareURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-        text
-      )} ${encodeURIComponent(url)}`;
-      window.open(shareURL, "_blank");
-    }
-  };
+  const isAlreadyInCart = isInCart(product.id);
 
   return (
     <main className="container px-6 mx-auto mt-6">
       <Navbar />
 
-      {!idArticle ? (
-        <div className="py-12 text-center">
-          <h2 className="mb-4 text-2xl font-bold text-red-500">
-            Produit non trouvé
-          </h2>
-          <p className="mb-4">
-           {` Le produit avec l' identifiant n' a pas été trouvé dans notre
-            catalogue.`}
-          </p>
-          <Link href="/">
-            <Button className="text-white bg-red-700">
-             {` Retourner à la page d' accueil`}
-            </Button>
-          </Link>
+      <section className="flex flex-col mt-8 md:flex-row">
+        <Gallery data={product} />
+
+        <div className="space-y-3 w-full md:ml-12 md:w-1/2">
+          <h1 className="text-4xl font-bold">{product.title}</h1>
+
+          <div className="flex items-center mt-2">
+            <span>Prix :</span>
+            <span className="ml-2 text-3xl">
+              {isHT
+                ? `${priceHT}${currency === "EUR" ? "€" : "£"} HT`
+                : `${convertedPrice}${currency === "EUR" ? "€" : "£"} TTC`}
+            </span>
+            <Switch
+              checked={isHT}
+              onCheckedChange={setIsHT}
+              className="mx-4 bg-red-600"
+            />
+          </div>
+
+          <div className="mt-4">
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) =>
+                setQuantity(Math.max(1, parseInt(e.target.value)))
+              }
+              className="p-2 w-24 bg-black rounded-md border"
+            />
+            <button
+              onClick={handleAddToCart}
+              className="px-4 py-2 ml-4 text-white bg-red-700 rounded-md"
+            >
+              <ShoppingCart className="inline mr-2" />
+              {isAlreadyInCart
+                ? "Retirer du panier"
+                : "Ajouter au panier"}
+            </button>
+          </div>
+
+          <ul className="pl-5 list-disc mt-6">
+            {product.miniDescription?.map(
+              (description: string, index: number) => (
+                <li key={index}>{description}</li>
+              )
+            )}
+          </ul>
+
+          <NavItem description={product} />
         </div>
-      ) : (
-        <>
-          <section className="flex flex-col mt-8 md:mx-0 md:flex-row">
-            <div className="flex flex-col">
-              <div className="flex gap-2 items-center mb-4 text-sm text-white">
-                <Link href="/home">
-                  <span className="text-gray-500 cursor-pointer hover:underline">
-                    Accueil
-                  </span>
-                </Link>
-                <ChevronRight className="w-4 h-4" />
-                <Link href="/">
-                  <span className="text-gray-500 cursor-pointer hover:underline">
-                    Canapés
-                  </span>
-                </Link>
-                <ChevronRight className="w-4 h-4" />
-                <span className="font-medium text-gray-500">
-                  {idArticle?.nom}
-                </span>
-              </div>
-              
+      </section>
 
-              <Gallery data={idArticle} />
-            </div>
-
-            <div className="space-y-3 w-full md:ml-12 md:w-1/2">
-              <div className="flex justify-between items-center">
-              <div className="flex justify-between items-center w-full">
-  <h1 className="text-4xl font-bold">{idArticle?.title}</h1>
-  <div className="flex gap-2">
-    <Link href={`/produit/${(idArticle?.id ?? 0) - 1}`}>
-      <SquareChevronLeft className="cursor-pointer" />
-    </Link>
-    <Link href={`/produit/${(idArticle?.id ?? 0) + 1}`}>
-      <SquareChevronRight className="cursor-pointer" />
-    </Link>
-  </div>
-
-
-</div>
-
-              </div>
-
-             <div className="flex justify-between">
-             <div className="flex items-center mt-2">
-                <span>prix :</span>
-                <span className="ml-2 text-3xl">
-                  {isHT
-                    ? `${priceHT}${currency === "EUR" ? "€" : "£"} HT`
-                    : `${convertedPrice}${currency === "EUR" ? "€" : "£"} TTC`}
-                </span>
-                <Switch
-                  checked={isHT}
-                  onCheckedChange={setIsHT}
-                  className="mx-4 bg-red-600"
-                />
-              </div>
-              <div className="flex gap-2">
-  <button
-    onClick={onLikeClick}
-    className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center"
-  >
-    <Heart
-      className={
-        isLiked(idArticle?.id)
-          ? "text-red-600"
-          : "text-gray-800"
-      }
-    />
-  </button>
-  
-  <button
-    onClick={handleShare}
-    className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center"
-  >
-    <Share2 className="text-gray-800" />
-  </button>
-</div>
-
-             </div>
-
-              <div className="flex gap-2 items-center">
-                {[...Array(4)].map((_, i) => (
-                  <FaStar key={i} />
-                ))}
-                <Star className="w-4" />
-                <small className="ml-2">4,3/5 + de 1000 ventes</small>
-              </div>
-
-             
-
-              <div className="mt-4">
-                <input
-                  type="number"
-                  value={quantity}
-                  onChange={(e) =>
-                    setQuantity(Math.max(1, parseInt(e.target.value)))
-                  }
-                  className="p-2 w-24 bg-black rounded-md border"
-                />
-                <button
-                  onClick={handleAddToCart}
-                  className="px-4 py-2 ml-4 text-white bg-red-700 rounded-md"
-                >
-                  <ShoppingCart className="inline mr-2" />
-                  {isAlreadyInCart ? "Retirer du panier" : "Ajouter au panier"}
-                </button>
-              </div>
-
-              <div className="mt-6">
-                <ul className="pl-5 list-disc">
-                  {idArticle.id <= 55 &&
-                    idArticle?.miniDescription.map((description: any, _: any) => (
-                      <li key={_}>{description}</li>
-                    ))}
-                </ul>
-              </div>
-
-              <NavItem description={idArticle} />
-            </div>
-          </section>
-
-          {/* Alertes */}
-          {likeShowAlert && likeAlertType && (
-            <AlertMessage
-              key={`like-${likeAlertId}`}
-              type={likeAlertType}
-              message={likeAlertMessage}
-            />
-          )}
-          {cartShowAlert && cartAlertType && (
-            <AlertMessage
-              key={`cart-${cartAlertId}`}
-              type={cartAlertType}
-              message={cartAlertMessage}
-            />
-          )}
-
-          <section className="mb-12 ">
-            <h2 className="text-3xl font-bold">À vous de choisir</h2>
-            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-6">
-              {randomFive.map((item) => {
-                return <ProductCard key={item.id} item={item} />;
-              })}
-            </section>
-            <Link href={idArticle.id <= 55 ? "/" : "/produits-nettoyant"}>
-              <Button className="flex mx-auto border border-white mt-6">
-                Découvrir tous les produits
-                <ArrowRight className="ml-2" />
-              </Button>
-            </Link>
-          </section>
-        </>
-      )}
+      <section className="mb-12 mt-12">
+        <h2 className="text-3xl font-bold">À vous de choisir</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-6">
+          {relatedProducts.map((item) => (
+            <ProductCard key={item.id} item={item} />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

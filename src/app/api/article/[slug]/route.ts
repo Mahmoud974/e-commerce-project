@@ -6,14 +6,22 @@ export async function GET(
   _req: Request,
   { params }: { params: { slug: string } }
 ) {
-  const { slug } = params;
-  const articleName = slug.replace(/-/g, " ");
-  const cacheKey = `canape:${slug}`;
+  const id = Number(params.slug);
 
- 
+  // 🔎 Vérification de sécurité
+  if (isNaN(id)) {
+    return NextResponse.json(
+      { message: "ID invalide" },
+      { status: 400 }
+    );
+  }
+
+  const cacheKey = `canape:${id}`;
+
+  // 1️⃣ Si Redis désactivé
   if (!redis) {
-    const article = await prisma.canape.findFirst({
-      where: { nom: articleName },
+    const article = await prisma.canape.findUnique({
+      where: { id },
     });
 
     if (!article) {
@@ -26,7 +34,7 @@ export async function GET(
     return NextResponse.json({ article }, { status: 200 });
   }
 
- 
+  // 2️⃣ Vérifie le cache
   try {
     const cached = await redis.get<string>(cacheKey);
     if (cached) {
@@ -36,9 +44,9 @@ export async function GET(
     console.warn("Redis GET failed");
   }
 
- 
-  const article = await prisma.canape.findFirst({
-    where: { nom: articleName },
+  // 3️⃣ Recherche en base
+  const article = await prisma.canape.findUnique({
+    where: { id },
   });
 
   if (!article) {
@@ -50,10 +58,10 @@ export async function GET(
 
   const responseData = { article };
 
-  // 💾 3️⃣ Stocke en cache (Upstash syntaxe correcte)
+  // 4️⃣ Stocke en cache
   try {
     await redis.set(cacheKey, JSON.stringify(responseData), {
-      ex: 300, // expire en 5 minutes
+      ex: 300,
     });
   } catch {
     console.warn("Redis SET failed");

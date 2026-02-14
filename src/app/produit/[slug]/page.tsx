@@ -1,41 +1,57 @@
-import ProductPageClient from "../../../components/ClientComponents/ClientProductID";
+import ProductPageClient from "@/components/ClientComponents/ClientProductID";
 import { getArticles, getProduitsEntretien } from "@/lib/data";
+import { notFound } from "next/navigation";
 
 interface PageProps {
-  params: { slug: string };
+  params: {
+    slug?: string;
+  };
 }
 
-export default async function Page({ params }: PageProps) {
-  const slug = params.slug;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;  
+
+ 
+  if (!slug) {
+    console.error("Slug manquant");
+    notFound();
+  }
+
+  const slugNumber = Number(slug);
+
+  if (isNaN(slugNumber)) {
+    console.error("Slug invalide:", slug);
+    notFound();
+  }
+
   try {
-    const slugNumber = Number(slug);
-    let data: Awaited<ReturnType<typeof getArticles>> | Awaited<ReturnType<typeof getProduitsEntretien>>;
+    const articles = await getArticles();
+    const produitsEntretien = await getProduitsEntretien();
 
-    if (slugNumber > 67 && slugNumber < 86) {
-      data = await getProduitsEntretien();
-    } else if (slugNumber > 1 && slugNumber < 55) {
-      data = await getArticles();
-    } else {
-      data = await getArticles();
-      const articleExists = data.some(
-        (a: { id: number }) => Number(a.id) === Number(slug)
-      );
-      if (!articleExists) {
-        data = await getProduitsEntretien();
-      }
-    }
+    const allProducts = [...articles, ...produitsEntretien];
 
-    const articleExists = data.some(
-      (article:any) => Number(article.id) === Number(slug)
+    const product = allProducts.find(
+      (item) => Number(item.id) === slugNumber
     );
 
-    if (!articleExists) {
-      console.error(`Article avec ID ${slug} non trouvé dans les données`);
+    if (!product) {
+      console.error(`Produit avec ID ${slug} introuvable`);
+      notFound();
     }
 
-    return <ProductPageClient data={data} slug={slug} />;
+    return (
+      <ProductPageClient
+        product={product}
+        relatedProducts={allProducts.slice(0, 5)}
+      />
+    );
+
   } catch (error) {
-    console.error("Erreur lors du chargement de la page produit:", error);
-    return <div>Erreur lors du chargement du produit</div>;
+    console.error("Erreur serveur:", error);
+    notFound();
   }
 }
