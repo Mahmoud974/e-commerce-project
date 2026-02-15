@@ -9,10 +9,19 @@ const getUserId = async () => {
   return session?.user?.email || "user1";
 };
 
+type PanierItem = { id: string; title?: string; price?: number; quantity?: number; images?: string[] };
+
+/** Redis peut renvoyer une string JSON ou un objet déjà désérialisé */
+function parsePanier(raw: unknown): PanierItem[] {
+  if (Array.isArray(raw)) return raw as PanierItem[];
+  if (typeof raw === "string") return raw ? (JSON.parse(raw) as PanierItem[]) : [];
+  return [];
+}
+
 export async function GET() {
   const userId = await getUserId();
   const data = await redis.get(`panier:${userId}`);
-  return NextResponse.json(JSON.parse(data as string || "[]"));
+  return NextResponse.json(parsePanier(data));
 }
 
 export async function POST(req: Request) {
@@ -21,7 +30,7 @@ export async function POST(req: Request) {
   const { id, title, price, quantity, images } = body;
 
   const panierKey = `panier:${userId}`;
-  const data = JSON.parse((await redis.get(panierKey)) || "[]");
+  const data = parsePanier(await redis.get(panierKey));
 
   const index = data.findIndex((item: any) => item.id === id);
   if (index > -1) {
@@ -39,7 +48,7 @@ export async function DELETE(req: Request) {
   const { id } = await req.json();
 
   const panierKey = `panier:${userId}`;
-  const data = JSON.parse((await redis.get(panierKey)) || "[]");
+  const data = parsePanier(await redis.get(panierKey));
   const newData = data.filter((item: any) => item.id !== id);
 
   await redis.set(panierKey, JSON.stringify(newData));

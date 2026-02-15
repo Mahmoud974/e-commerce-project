@@ -49,12 +49,12 @@ export function FavoritesList({
   
   useEffect(() => {
     const fetchArticles = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles`);
+      const res = await fetch("/api/articles");
       const data = await res.json();
       setArticles(data);
     };
     const fetchProduits = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produits-entretien`);
+      const res = await fetch("/api/produits-entretien");
       const data = await res.json();
       setProduits(data);
     };
