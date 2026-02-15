@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="public/images/hero-sofachic.png" width="800" alt="SofaChic Hero image" />
-
 # 🛋️ SOFACHIC  
 ### **Le confort rencontre l’élégance.**
 
