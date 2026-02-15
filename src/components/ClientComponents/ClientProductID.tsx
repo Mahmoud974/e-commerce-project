@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Header/Navbar";
 import Gallery from "@/components/ProduitId/Gallery";
 import AlertMessage from "@/components/AlertNoLike";
 import NavItem from "@/components/ProduitId/NavItem";
-import {
-  ShoppingCart,
-} from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { useCartStore, useLikeStore } from "@/store/store";
@@ -36,6 +34,22 @@ export default function ProductPageClient({
     isInCart,
   } = useCartStore();
 
+  const {
+    isLiked,
+    handleLike,
+    initLikes,
+    alertType: likeAlertType,
+    alertMessage: likeAlertMessage,
+    alertId: likeAlertId,
+    showAlert: likeShowAlert,
+  } = useLikeStore();
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      initLikes(Number(session.user.id));
+    }
+  }, [session, initLikes]);
+
   const convertedPrice = convertPrice(product.price, currency || "EUR");
   const priceHT = (convertedPrice / 1.2).toFixed(2);
 
@@ -45,6 +59,39 @@ export default function ProductPageClient({
 
   const isAlreadyInCart = isInCart(product.id);
 
+  const isCanape =
+    typeof product?.typeCanape === "string" ||
+    Array.isArray(product?.miniDescription);
+  const productId = product.id;
+  const liked = isLiked(productId);
+
+  const onLikeClick = async () => {
+    if (!session?.user?.id) return;
+    const userId = Number(session.user.id);
+    try {
+      if (liked) {
+        const res = await fetch(
+          `/api/favorites?userId=${userId}&id=${productId}`,
+          { method: "DELETE" }
+        );
+        if (res.ok) handleLike(product, session);
+      } else {
+        const res = await fetch("/api/favorites", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(
+            isCanape
+              ? { userId, canapeId: productId }
+              : { userId, produitId: productId }
+          ),
+        });
+        if (res.ok) handleLike(product, session);
+      }
+    } catch (error) {
+      console.error("Erreur favori:", error);
+    }
+  };
+
   return (
     <main className="container px-6 mx-auto mt-6">
       <Navbar />
@@ -53,7 +100,34 @@ export default function ProductPageClient({
         <Gallery data={product} />
 
         <div className="space-y-3 w-full md:ml-12 md:w-1/2">
-          <h1 className="text-4xl font-bold">{product.title}</h1>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h1 className="text-4xl font-bold flex-1 min-w-0">{product.title}</h1>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <button
+                onClick={handleAddToCart}
+                className={`flex items-center justify-center w-12 h-12 rounded-full transition-colors ${
+                  isAlreadyInCart
+                    ? "bg-amber-500 text-white hover:bg-amber-600"
+                    : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                }`}
+                aria-label={isAlreadyInCart ? "Retirer du panier" : "Ajouter au panier"}
+              >
+                <ShoppingCart className="w-6 h-6" />
+              </button>
+              <button
+                onClick={onLikeClick}
+                className={`flex items-center justify-center w-12 h-12 rounded-full transition-colors ${
+                  liked
+                    ? "bg-red-500 text-white hover:bg-red-600"
+                    : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                }`}
+                aria-pressed={liked}
+                aria-label={liked ? "Retirer des favoris" : "Ajouter aux favoris"}
+              >
+                <Heart className={`w-6 h-6 ${liked ? "fill-current" : ""}`} />
+              </button>
+            </div>
+          </div>
 
           <div className="flex items-center mt-2">
             <span>Prix :</span>
@@ -69,25 +143,23 @@ export default function ProductPageClient({
             />
           </div>
 
-          <div className="mt-4">
+          <div className="flex items-center gap-3 mt-4">
             <input
               type="number"
               value={quantity}
               onChange={(e) =>
-                setQuantity(Math.max(1, parseInt(e.target.value)))
+                setQuantity(Math.max(1, parseInt(e.target.value) || 1))
               }
               className="p-2 w-24 bg-black rounded-md border"
             />
-            <button
-              onClick={handleAddToCart}
-              className="px-4 py-2 ml-4 text-white bg-red-700 rounded-md"
-            >
-              <ShoppingCart className="inline mr-2" />
-              {isAlreadyInCart
-                ? "Retirer du panier"
-                : "Ajouter au panier"}
-            </button>
           </div>
+          {likeShowAlert && likeAlertType && (
+            <AlertMessage
+              key={`like-${likeAlertId}`}
+              type={likeAlertType}
+              message={likeAlertMessage}
+            />
+          )}
 
           <ul className="pl-5 list-disc mt-6">
             {product.miniDescription?.map(

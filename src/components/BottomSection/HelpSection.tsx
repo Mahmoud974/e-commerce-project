@@ -43,9 +43,9 @@ export default function HelpSection() {
           <Link
             key={index}
             href={item.link}
-            className="group overflow-hidden rounded-xl cursor-pointer flex flex-col items-center text-center px-5 lg:px-0"
+            className="group overflow-hidden  cursor-pointer flex flex-col items-center text-center px-5 lg:px-0"
           >
-            <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg shadow-md">
+            <div className="relative w-full h-48 mb-4 overflow-hidden   shadow-md">
               <Image
                 src={item.image}
                 alt={item.title}

@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PageLayoutBanner from "@/components/Layouts/PageLayoutBanner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
+import { CheckCircle, XCircle, X } from "lucide-react";
 
 const contactSchema = z.object({
   firstName: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
@@ -22,7 +23,11 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
+type Toast = { type: "success" | "error"; message: string } | null;
+
 export default function ContactPage() {
+  const [toast, setToast] = useState<Toast>(null);
+
   const {
     register,
     handleSubmit,
@@ -42,6 +47,12 @@ export default function ContactPage() {
     },
   });
 
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 5000);
+    return () => clearTimeout(t);
+  }, [toast]);
+
   const submitMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -49,11 +60,17 @@ export default function ContactPage() {
       return data;
     },
     onSuccess: () => {
-      alert("Votre message a été envoyé avec succès!");
       reset();
+      setToast({
+        type: "success",
+        message: "Votre message a été envoyé avec succès !",
+      });
     },
     onError: () => {
-      alert("Une erreur est survenue. Veuillez réessayer plus tard.");
+      setToast({
+        type: "error",
+        message: "Une erreur est survenue. Veuillez réessayer plus tard.",
+      });
     },
   });
 
@@ -67,6 +84,32 @@ export default function ContactPage() {
       description="Nous nous réjouissons de vous rencontrer bientôt."
       bannerImage={"service-img.png"}
     >
+      {toast && (
+        <div
+          role="alert"
+          className={`fixed top-20 left-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-xl border min-w-[280px] max-w-[90vw] -translate-x-1/2 animate-in fade-in slide-in-from-top-4 duration-300 ${
+            toast.type === "success"
+              ? "bg-black border-green-500 text-white"
+              : "bg-black border-red-500 text-white"
+          }`}
+        >
+          {toast.type === "success" ? (
+            <CheckCircle className="w-6 h-6 flex-shrink-0 text-green-500" />
+          ) : (
+            <XCircle className="w-6 h-6 flex-shrink-0 text-red-500" />
+          )}
+          <p className="flex-1 text-sm font-medium">{toast.message}</p>
+          <button
+            type="button"
+            onClick={() => setToast(null)}
+            className="p-1 rounded hover:bg-white/10 transition-colors"
+            aria-label="Fermer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+
       <main className="relative">
         <article className="container mt-6 mx-auto">
           <header>
@@ -74,29 +117,26 @@ export default function ContactPage() {
               className="bg-red-700 w-1/3 h-3 my-8 mx-auto"
               role="presentation"
             ></div>
-            <h2 className="text-2xl font-bold text-center mb-8">
-              Contactez-nous
-            </h2>
+          
           </header>
 
           <section className="mb-12">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full max-w-3xl mx-auto p-6 bg-black shadow-lg"
+              className="w-full max-w-3xl min-w-0 mx-auto p-6 bg-black shadow-lg overflow-hidden space-y-5"
               aria-labelledby="contact-form"
             >
-              <fieldset className="mb-4 flex flex-col sm:flex-row sm:space-x-4">
+              <fieldset className="flex flex-col sm:flex-row sm:gap-4">
                 <legend className="sr-only">Informations personnelles</legend>
-
-                <div className="w-full mb-4 sm:mb-0">
-                  <label htmlFor="firstName" className="block font-bold mb-2">
+                <div className="flex-1 min-w-0">
+                  <label htmlFor="firstName" className="block font-bold mb-2 text-white">
                     Prénom
                   </label>
                   <input
                     type="text"
                     id="firstName"
                     {...register("firstName")}
-                    className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                    className="w-full min-w-0 px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                     aria-invalid={errors.firstName ? "true" : "false"}
                   />
                   {errors.firstName && (
@@ -106,15 +146,15 @@ export default function ContactPage() {
                   )}
                 </div>
 
-                <div className="w-full">
-                  <label htmlFor="lastName" className="block font-bold mb-2">
+                <div className="flex-1 min-w-0">
+                  <label htmlFor="lastName" className="block font-bold mb-2 text-white">
                     Nom
                   </label>
                   <input
                     type="text"
                     id="lastName"
                     {...register("lastName")}
-                    className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                    className="w-full min-w-0 px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                     aria-invalid={errors.lastName ? "true" : "false"}
                   />
                   {errors.lastName && (
@@ -125,18 +165,17 @@ export default function ContactPage() {
                 </div>
               </fieldset>
 
-              <fieldset className="mb-4 flex flex-col sm:flex-row sm:space-x-4">
+              <fieldset className="flex flex-col sm:flex-row sm:gap-4">
                 <legend className="sr-only">Coordonnées</legend>
-
-                <div className="w-full sm:w-1/2 mb-4 sm:mb-0">
-                  <label htmlFor="email" className="block font-bold mb-2">
+                <div className="flex-1 min-w-0">
+                  <label htmlFor="email" className="block font-bold mb-2 text-white">
                     Adresse e-mail
                   </label>
                   <input
                     type="email"
                     id="email"
                     {...register("email")}
-                    className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                    className="w-full min-w-0 px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                     aria-invalid={errors.email ? "true" : "false"}
                   />
                   {errors.email && (
@@ -146,15 +185,15 @@ export default function ContactPage() {
                   )}
                 </div>
 
-                <div className="w-full sm:w-1/2">
-                  <label htmlFor="phone" className="block font-bold mb-2">
+                <div className="flex-1 min-w-0">
+                  <label htmlFor="phone" className="block font-bold mb-2 text-white">
                     Numéro de téléphone
                   </label>
                   <input
                     type="tel"
                     id="phone"
                     {...register("phone")}
-                    className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                    className="w-full min-w-0 px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                     aria-invalid={errors.phone ? "true" : "false"}
                   />
                   {errors.phone && (
@@ -165,18 +204,17 @@ export default function ContactPage() {
                 </div>
               </fieldset>
 
-              <fieldset className="mb-4 flex flex-col sm:flex-row sm:space-x-4">
+              <fieldset className="flex flex-col sm:flex-row sm:gap-4">
                 <legend className="sr-only">Localisation</legend>
-
-                <div className="w-full sm:w-1/2 mb-4 sm:mb-0">
-                  <label htmlFor="postalCode" className="block font-bold mb-2">
+                <div className="flex-1 min-w-0">
+                  <label htmlFor="postalCode" className="block font-bold mb-2 text-white">
                     Code postal
                   </label>
                   <input
                     type="text"
                     id="postalCode"
                     {...register("postalCode")}
-                    className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                    className="w-full min-w-0 px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                     aria-invalid={errors.postalCode ? "true" : "false"}
                   />
                   {errors.postalCode && (
@@ -186,15 +224,15 @@ export default function ContactPage() {
                   )}
                 </div>
 
-                <div className="w-full sm:w-1/2">
-                  <label htmlFor="city" className="block font-bold mb-2">
+                <div className="flex-1 min-w-0">
+                  <label htmlFor="city" className="block font-bold mb-2 text-white">
                     Ville
                   </label>
                   <input
                     type="text"
                     id="city"
                     {...register("city")}
-                    className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                    className="w-full min-w-0 px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                     aria-invalid={errors.city ? "true" : "false"}
                   />
                   {errors.city && (
@@ -205,17 +243,17 @@ export default function ContactPage() {
                 </div>
               </fieldset>
 
-              <div className="mb-4">
-                <label htmlFor="comments" className="block font-bold mb-2">
+              <div className="min-w-0">
+                <label htmlFor="comments" className="block font-bold mb-2 text-white">
                   Commentaire
                 </label>
                 <textarea
                   id="comments"
                   {...register("comments")}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 bg-black focus:outline-none focus:ring focus:ring-red-300"
+                  className="w-full min-w-0 max-w-full box-border px-3 py-2 border border-white bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white resize-y"
                   aria-invalid={errors.comments ? "true" : "false"}
-                ></textarea>
+                />
                 {errors.comments && (
                   <p className="text-red-500 text-sm mt-1" role="alert">
                     {errors.comments.message}
@@ -223,14 +261,14 @@ export default function ContactPage() {
                 )}
               </div>
 
-              <div className="mb-4 flex items-center">
+              <div className="flex items-center gap-2 pt-1">
                 <input
                   type="checkbox"
                   id="newsletter"
                   {...register("newsletter")}
-                  className="mr-2"
+                  className="w-4 h-4 border-2 border-white bg-black rounded-sm accent-red-600 focus:ring-white"
                 />
-                <label htmlFor="newsletter" className="font-bold">
+                <label htmlFor="newsletter" className="font-bold text-white cursor-pointer">
                   Recevez les dernières actualités
                 </label>
               </div>
@@ -238,7 +276,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full text-black py-2 px-4 font-bold bg-white hover:bg-red-700 hover:text-white focus:outline-none focus:ring focus:ring-red-300 transition-colors duration-300"
+                className="w-full text-black py-3 px-4 font-bold bg-white border border-white hover:bg-red-700 hover:text-white hover:border-red-700 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-300"
               >
                 {isSubmitting ? "Envoi en cours..." : "Envoyer"}
               </button>

@@ -7,7 +7,7 @@ export default function Newsletter() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,7 +39,7 @@ export default function Newsletter() {
         </p>
 
         {showConfirmation ? (
-          <div className="flex items-center gap-3   text-green-600 py-4 px-6 rounded-lg font-bold text-lg">
+          <div className="flex items-center gap-3 text-green-600 py-4 px-6 font-bold text-lg">
             <CheckCircle className="w-6 h-6" />
             Inscription confirmée ! Merci
           </div>
@@ -53,11 +53,11 @@ export default function Newsletter() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border-2 p-3 border-white placeholder-white bg-transparent text-white"
+              className="w-full   border-2 p-3 border-white placeholder-white bg-transparent text-white"
             />
             <button
               type="submit"
-              className="w-auto sm:w-auto bg-white text-red-700 font-bold py-3 px-12 rounded-lg whitespace-nowrap"
+              className="w-auto sm:w-auto bg-white text-red-700 font-bold py-3 px-12   whitespace-nowrap"
             >
               {`Je m' inscris`}
             </button>
