@@ -23,6 +23,7 @@ function NavbarContent() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [currency, setCurrency] = useQueryState("currency", {
+    defaultValue: "EUR",
     parse: (v) => (v === "GBP" ? "GBP" : "EUR"),
     serialize: (v) => v,
   });
@@ -197,6 +198,7 @@ function NavbarContent() {
 
 export const useCurrency = () => {
   const [currency, setCurrency] = useQueryState("currency", {
+    defaultValue: "EUR",
     parse: (v) => (v === "GBP" ? "GBP" : "EUR"),
     serialize: (v) => v,
   });

@@ -33,4 +33,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
+**Variables d'environnement à configurer sur Vercel** (Project → Settings → Environment Variables) :
+
+- `UPSTASH_REDIS_REST_URL` – URL de votre base Upstash Redis
+- `UPSTASH_REDIS_REST_TOKEN` – Token Upstash Redis
+- `NEXTAUTH_URL` – URL de l’app en prod (ex. `https://sofachic-app.vercel.app`)
+- `NEXTAUTH_SECRET` – Secret pour NextAuth
+
+Sans `UPSTASH_*`, l’API panier renverra une erreur 500. Redéployez après avoir ajouté les variables.
+
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
