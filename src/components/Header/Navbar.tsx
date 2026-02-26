@@ -83,7 +83,7 @@ function NavbarContent() {
   ];
 
   return (
-    <nav className="relative z-50 w-full bg-black text-white px-4 py-3 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <nav className="relative z-50 w-full   text-white px-4 py-3 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
       {/* LEFT SECTION */}
       <div className="flex flex-col gap-4 w-full lg:w-auto">
