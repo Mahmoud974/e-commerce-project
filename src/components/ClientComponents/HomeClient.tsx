@@ -51,7 +51,8 @@ export default function HomeClient({ data }: { data: any[] }) {
       </div>
 
       
-      <div className="relative w-full h-[900px] mb-16 overflow-hidden">
+      {/* Hero video — hauteur réduite sur mobile/tablette */}
+      <div className="relative w-full h-[500px] lg:h-[900px] mb-10 lg:mb-16 overflow-hidden">
         <video
           className="w-full h-full object-cover"
           autoPlay
@@ -67,36 +68,39 @@ export default function HomeClient({ data }: { data: any[] }) {
           Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center flex-col text-center p-4">
-  <h1 className="text-white text-3xl md:text-5xl font-bold mb-4">
-    Découvrez notre collection exclusive
-  </h1>
-  <p className="text-white max-w-xl mb-6">
-    Des canapés design, confortables et personnalisables pour tous les intérieurs.
-  </p>
-  
- 
-  <Link href="/canapes">
-  <button 
-    className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition">
-    Voir la collection
-  </button>
-  </Link>
-</div>
-
+          <h1 className="text-white text-2xl sm:text-3xl lg:text-5xl font-bold mb-4">
+            Découvrez notre collection exclusive
+          </h1>
+          <p className="text-white text-sm sm:text-base max-w-xl mb-6">
+            Des canapés design, confortables et personnalisables pour tous les intérieurs.
+          </p>
+          <Link href="/canapes">
+            <button 
+              className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition text-sm sm:text-base">
+              Voir la collection
+            </button>
+          </Link>
+        </div>
       </div>
 
       {/* Produits */}
-      <div className="container mx-auto mb-12">
-        <h2 className="font-bold text-3xl mb-8">Plongez dans le confort moderne</h2>
+      <div className="container mx-auto px-4 mb-12">
+        <h2 className="font-bold text-2xl lg:text-3xl mb-6 lg:mb-8">
+          Plongez dans le confort moderne
+        </h2>
 
         <div className="relative">
           <div
-            className="flex overflow-x-auto gap-6   hide-scrollbar"
+            className="flex overflow-x-auto gap-4 lg:gap-6 hide-scrollbar"
             ref={scrollRef}
             onScroll={handleScroll}
           >
             {randomEight.map((item: any) => (
-              <ProductCard key={item.id} item={item} className="w-1/4 min-w-[300px]" />
+              <ProductCard
+                key={item.id}
+                item={item}
+                className="min-w-[260px] sm:min-w-[280px] lg:min-w-[300px] w-[80vw] sm:w-[45vw] lg:w-1/4"
+              />
             ))}
           </div>
           {showLeftArrow && (
@@ -120,68 +124,68 @@ export default function HomeClient({ data }: { data: any[] }) {
         </div>
 
         <Link href="/canapes">
-          <Button className="flex justify-center mx-auto border px-20 mt-6">
+          <Button className="flex justify-center mx-auto border px-8 sm:px-20 mt-6 w-full sm:w-auto">
             <p>Découvrez tous les fauteuils</p>
             <ArrowRight />
           </Button>
         </Link>
 
         {/* Inspiration */}
-        <div className="mt-16">
+        <div className="mt-12 lg:mt-16">
           <div className="text-center mt-6">
-            <p className="text-1xl">
+            <p className="text-sm sm:text-base">
               {`Sublimez votre intérieur avec nos conseils d'experts`}
             </p>
-            <h3 className="text-2xl font-bold">
+            <h3 className="text-xl lg:text-2xl font-bold mt-1">
               Offrez-vous une ambiance chaleureuse et apaisante
             </h3>
           </div>
 
-          <div className="flex mt-7 justify-between gap-6">
-  {[
-    {
-      href: "/inspiration",
-      image: "article-1.jpg",
-      title: "Inspiration de chez-vous",
-      text: "Créez un espace sur-mesure avec nos experts déco.",
-      button: "Découvrir"
-    },
-    {
-      href: "/conseil",
-      image: "article-2.png",
-      title: "Un havre de paix chez vous",
-      text: "Confort, esthétisme et sérénité au quotidien.",
-      button: "Explorer"
-    }
-  ].map((item, index) => (
-    <Link key={index} href={item.href} className="w-1/2">
-      <div className="h-[520px] relative overflow-hidden group rounded-xl shadow-lg flex flex-col">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/${item.image}`}
-          alt={item.title}
-          width={720}
-          height={520}
-          unoptimized
-          className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-rotate-2"
-        />
-        <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-5">
-          <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-          <p className="text-sm mb-4">{item.text}</p>
-          <button className="flex items-center text-sm font-medium hover:underline">
-            {item.button} <ArrowRight className="ml-2 w-4 h-4" />
-          </button>
-        </div>
-      </div>
-    </Link>
-  ))}
-</div>
-
+          {/* Grille inspiration : colonne sur mobile, côte à côte sur lg+ */}
+          <div className="flex flex-col lg:flex-row mt-7 gap-6">
+            {[
+              {
+                href: "/inspiration",
+                image: "article-1.jpg",
+                title: "Inspiration de chez-vous",
+                text: "Créez un espace sur-mesure avec nos experts déco.",
+                button: "Découvrir"
+              },
+              {
+                href: "/conseil",
+                image: "article-2.png",
+                title: "Un havre de paix chez vous",
+                text: "Confort, esthétisme et sérénité au quotidien.",
+                button: "Explorer"
+              }
+            ].map((item, index) => (
+              <Link key={index} href={item.href} className="w-full lg:w-1/2">
+                <div className="h-[300px] sm:h-[420px] lg:h-[520px] relative overflow-hidden group rounded-xl shadow-lg flex flex-col">
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/${item.image}`}
+                    alt={item.title}
+                    width={720}
+                    height={520}
+                    unoptimized
+                    className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-rotate-2"
+                  />
+                  <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-4 lg:p-5">
+                    <h3 className="text-lg lg:text-xl font-semibold mb-1 lg:mb-2">{item.title}</h3>
+                    <p className="text-xs sm:text-sm mb-3 lg:mb-4">{item.text}</p>
+                    <button className="flex items-center text-xs sm:text-sm font-medium hover:underline">
+                      {item.button} <ArrowRight className="ml-2 w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* Accordion */}
-        <div className="space-y-4 w-2/3 mx-auto mt-12 text-center">
-          <h2 className="text-2xl font-bold">Service client & Garantie</h2>
-          <p className="text-gray-600">
+        <div className="space-y-4 w-full lg:w-2/3 mx-auto mt-12 text-center">
+          <h2 className="text-xl lg:text-2xl font-bold">Service client & Garantie</h2>
+          <p className="text-gray-600 text-sm sm:text-base">
             Notre équipe est là pour vous aider avec les commandes, les retours,
             les garanties et les conseils déco.
           </p>

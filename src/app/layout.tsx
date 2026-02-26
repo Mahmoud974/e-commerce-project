@@ -8,7 +8,7 @@ import HelpSection from "@/components/BottomSection/HelpSection";
 import Newsletter from "@/components/BottomSection/Newsletter";
 import Footer from "@/components/BottomSection/Footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-
+import { Poppins } from "next/font/google";
 export const metadata: Metadata = {
   title: "SOFA CHIC | Découvrez Notre Collection Exclusive de Canapés",
   description: "Des canapés design, confortables et personnalisables pour tous les intérieurs. Plongez dans le confort moderne.",
@@ -20,6 +20,15 @@ export const metadata: Metadata = {
   },
 };
 
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700","800","900"],
+  variable: "--font-poppins",
+});
+
+ 
+
 export default function RootLayout({
   children,
 }: {
@@ -28,7 +37,7 @@ export default function RootLayout({
   return (
     <SessionWrapper>
       <html lang="en">
-        <body className={` antialiased`}>
+      <body className={`${poppins.className} antialiased`}>
           <QueryProvider>
             <Suspense fallback={<div className="min-h-screen" />}>
               <NuqsAdapter>{children}</NuqsAdapter>

@@ -83,28 +83,32 @@ function NavbarContent() {
   ];
 
   return (
-    <nav className="flex relative z-50 justify-between items-center py-4 w-full text-white">
-      <div className="flex items-center space-x-8">
+    <nav className="relative z-50 w-full bg-black text-white px-4 py-3 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+      {/* LEFT SECTION */}
+      <div className="flex flex-col gap-4 w-full lg:w-auto">
+
         <Link href="/">
           <Image
             src={`${process.env.NEXT_PUBLIC_BANNER_IMAGE}/logo.png`}
             alt="Logo"
             width={180}
             height={180}
-            className="w-auto"
+            className="w-32 h-auto"
           />
         </Link>
-        <ul className="flex flex-col space-y-2">
+
+        <ul className="flex gap-3 overflow-x-auto scrollbar-hide lg:overflow-visible">
           {navItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`px-3 py-1.5    transition-colors duration-200 ${
+                  className={`px-4 py-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-red-600 text-black font-bold shadow-[0_0_0_1px_rgba(220,38,38,0.2)]"
-                      : "border-transparent text-white hover:text-red-500 hover:border-red-500 hover:bg-red-500/10"
+                      ? "bg-red-600 text-black font-bold shadow-md"
+                      : "text-white hover:text-red-500 hover:bg-red-500/10"
                   }`}
                 >
                   {item.label}
@@ -115,28 +119,30 @@ function NavbarContent() {
         </ul>
       </div>
 
+      {/* SEARCH */}
       {(pathname === "/" ||
         pathname.startsWith("/canapes") ||
         pathname.startsWith("/produits-entretien") ||
         pathname.startsWith("/echantillons")) && (
-        <div className="relative z-40 w-full max-w-xl" ref={containerRef}>
+        <div className="relative z-40 w-full lg:max-w-xl" ref={containerRef}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
               placeholder="Rechercher un produit…"
               autoComplete="off"
-              className="px-4 py-2 w-full text-white bg-transparent placeholder-white rounded-md border border-white focus:outline-none focus:ring-2 focus:ring-white focus:bg-transparent"
+              className="w-full px-4 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
               {...register("search", {
                 onChange: () => setShowSuggestions(true),
               })}
             />
           </form>
+
           {showSuggestions && suggestions.length > 0 && (
-            <ul className="overflow-auto absolute top-full z-50 mt-1 w-full max-h-60 text-black bg-white rounded-lg shadow-lg">
+            <ul className="absolute top-full mt-2 w-full max-h-72 overflow-auto bg-white rounded-xl shadow-2xl z-50">
               {suggestions.map((item) => (
                 <Link href={`/produit/${item.id}`} key={item.id}>
                   <li
-                    className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                    className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => setShowSuggestions(false)}
                   >
                     <div className="relative flex-shrink-0 w-12 h-12">
@@ -145,12 +151,14 @@ function NavbarContent() {
                         alt={item?.title || "Produit"}
                         fill
                         unoptimized
-                        className="object-contain w-auto rounded"
+                        className="object-contain rounded"
                       />
                     </div>
-                    <div className="ml-3">
+                    <div>
                       <p className="font-semibold truncate">{item.title}</p>
-                      <p className="text-sm truncate">{item.color}</p>
+                      <p className="text-sm text-gray-500 truncate">
+                        {item.color}
+                      </p>
                     </div>
                   </li>
                 </Link>
@@ -160,11 +168,13 @@ function NavbarContent() {
         </div>
       )}
 
-      <div className="flex items-center space-x-4">
+      {/* RIGHT SECTION */}
+      <div className="flex items-center justify-between lg:justify-end gap-4 w-full lg:w-auto">
         <AlertElement />
+
         {session && (
-          <div className="flex items-center space-x-2">
-            <span className="hidden lg:block">
+          <div className="flex items-center gap-2">
+            <span className="hidden md:block text-sm font-medium">
               {userName || session.user?.name}
             </span>
             {session.user?.image ? (
@@ -174,7 +184,7 @@ function NavbarContent() {
                 width={64}
                 height={64}
                 className="object-cover w-10 h-10 rounded-full"
-                unoptimized={true}
+                unoptimized
               />
             ) : (
               <div className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full text-white text-lg font-semibold">
@@ -183,18 +193,19 @@ function NavbarContent() {
             )}
           </div>
         )}
+
         <button
           onClick={toggleCurrency}
-          className="px-3 py-1 text-white rounded border border-white focus:outline-none"
+          className="px-4 py-2 rounded-lg border border-white/30 text-sm font-medium hover:bg-white/10 transition-all"
         >
           {currency === "EUR" ? "€ EUR" : "£ GBP"}
         </button>
+
         <SheetDisplay />
       </div>
     </nav>
   );
 }
-
 
 export const useCurrency = () => {
   const [currency, setCurrency] = useQueryState("currency", {
@@ -208,7 +219,7 @@ export const useCurrency = () => {
 
 function NavbarFallback() {
   return (
-    <nav className="flex relative z-50 justify-between items-center py-4 w-full text-white min-h-[4rem]" />
+    <nav className="relative z-50 w-full bg-black text-white px-4 py-3 min-h-[4rem]" />
   );
 }
 

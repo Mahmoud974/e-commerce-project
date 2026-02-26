@@ -4,18 +4,18 @@
 @tailwind utilities;
 
 body {
-  font-family: "Poppins", serif;
+  font-family: "Poppins", sans-serif;
   color: white;
   background-color: black;
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;   
+  scrollbar-width: none;   
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, Opera*/
+  display: none;   
 }
 
 /* Pour le container avec le scroll */
@@ -30,14 +30,14 @@ body {
 }
 
 .scrollbar-black::-webkit-scrollbar-track {
-  background: #222; /* Couleur du fond de la track */
+  background: #222;  
 }
 
 .slider-track {
-  background-color: #fff2; /* visible sur fond noir */
+  background-color: #fff2; 
 }
 .slider-thumb {
-  background-color: #fff; /* bouton visible */
+  background-color: #fff;  
 }
 @layer base {
   :root {
@@ -120,7 +120,7 @@ body {
   }
 }
 
-/* Ajoutons une animation d'apparition pour l'alerte */
+ 
 @keyframes slideInFromTop {
   0% {
     transform: translateY(-100%);
